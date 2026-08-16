@@ -5,7 +5,7 @@ from __future__ import annotations
 import asyncio
 import logging
 import threading
-from typing import Any, Callable, Dict, Generator, Iterator, List
+from typing import Any, Callable, Dict, Generator, Iterator
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from fastapi.responses import StreamingResponse
@@ -399,8 +399,6 @@ def coach_autonomous_study(
         subject=payload.subject,
         current_knowledge=payload.current_knowledge,
         learning_goal=payload.learning_goal,
-        available_minutes=payload.available_minutes,
-        exam_target=payload.exam_target,
         preferred_style=payload.preferred_style,
         prerequisite_confidence=payload.prerequisite_confidence,
         class_level=profile_learning_context(db, user_id).get("class_level", ""),

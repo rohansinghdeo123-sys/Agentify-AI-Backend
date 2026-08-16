@@ -1,5 +1,5 @@
 from datetime import date, datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -328,12 +328,27 @@ class AutonomousStudyRequest(BaseModel):
     current_topic: Optional[str] = None
     current_chapter: Optional[str] = None
     subject: str = "Chemistry"
-    current_knowledge: str = "some_idea"
-    learning_goal: str = "understanding"
-    available_minutes: Optional[int] = None
-    exam_target: str = "school_exam"
-    preferred_style: str = "examples_first"
+    current_knowledge: Literal["new", "some_idea", "know_basics"] = "some_idea"
+    learning_goal: Literal["deep_understanding", "exam", "fast_track"] = "deep_understanding"
+    preferred_style: Literal["examples_first", "short_explanations", "conceptual_detail"] = "examples_first"
     prerequisite_confidence: str = "medium"
+
+    model_config = {"extra": "ignore"}
+
+    @field_validator("current_knowledge", "preferred_style", mode="before")
+    @classmethod
+    def normalize_planning_choice(cls, value: Any) -> Any:
+        if isinstance(value, str):
+            return value.strip().lower().replace(" ", "_")
+        return value
+
+    @field_validator("learning_goal", mode="before")
+    @classmethod
+    def normalize_learning_goal(cls, value: Any) -> Any:
+        if not isinstance(value, str):
+            return value
+        normalized = value.strip().lower().replace(" ", "_")
+        return "fast_track" if normalized == "quick_revision" else normalized
 
 
 class AutonomousStudyResponse(BaseModel):

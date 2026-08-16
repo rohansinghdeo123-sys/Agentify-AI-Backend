@@ -221,6 +221,7 @@ def run_structured_agent(
     count: int = 5,
     topic: Optional[str] = None,
     class_level: str = "",
+    content_scope: Optional[Dict[str, Any]] = None,
 ) -> Tuple[Optional[Dict[str, Any]], Any]:
     request = _LegacyRequest(
         question=question,
@@ -233,6 +234,7 @@ def run_structured_agent(
         count=count,
         topic=topic,
         class_level=class_level,
+        content_scope=content_scope,
     )
 
     result = route_to_agent(request)
@@ -434,6 +436,7 @@ def generate_structured_mcqs(
     required_not_found_response: Optional[str] = None,
     include_source: bool = False,
     class_level: str = "",
+    content_scope: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     safe_count = max(1, min(int(count or 5), 10))
     safe_topic = (topic or section_id or "unknown").strip()
@@ -446,6 +449,7 @@ def generate_structured_mcqs(
         question=safe_topic,
         max_paragraphs=8,
         max_chars=4000,
+        scope=content_scope,
     )
     source_label = f"{safe_section_id}"
 
@@ -471,6 +475,7 @@ def generate_structured_mcqs(
             count=safe_count,
             topic=safe_topic,
             class_level=class_level,
+            content_scope=content_scope,
         )
         attempt_questions = normalize_mcq_questions(payload, safe_count)
         if len(attempt_questions) < safe_count:
@@ -622,6 +627,7 @@ def generate_structured_probable_questions(
     required_not_found_response: Optional[str] = None,
     include_source: bool = False,
     class_level: str = "",
+    content_scope: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     safe_topic = (topic or section_id or "unknown").strip()
     safe_section_id = normalize_section_id(section_id or safe_topic)
@@ -633,6 +639,7 @@ def generate_structured_probable_questions(
         question=safe_topic,
         max_paragraphs=8,
         max_chars=4000,
+        scope=content_scope,
     )
 
     if search_result.get("error") or not str(search_result.get("context") or "").strip():
@@ -656,6 +663,7 @@ def generate_structured_probable_questions(
         required_not_found_response=not_found,
         topic=safe_topic,
         class_level=class_level,
+        content_scope=content_scope,
     )
 
     questions = normalize_probable_questions(payload)

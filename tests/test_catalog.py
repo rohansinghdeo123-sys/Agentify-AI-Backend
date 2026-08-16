@@ -85,7 +85,10 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(catalog["source"], "published")
         physics = next(group for group in catalog["subjects"] if group["subject"] == "Physics")
         waves = next(item for item in physics["chapters"] if item["slug"] == SLUG)
-        self.assertEqual(waves["topics"], [{"id": "wave_motion", "label": "Wave Motion"}])
+        self.assertEqual(
+            waves["topics"],
+            [{"id": "wave_motion", "label": "Wave Motion", "concept_ids": ["wave_motion"]}],
+        )
 
     def test_chapter_without_concepts_falls_back_to_slug_topic(self):
         self.db.add(

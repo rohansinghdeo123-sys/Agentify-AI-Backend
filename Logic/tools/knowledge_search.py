@@ -202,6 +202,7 @@ def search_knowledge_base(
             question=question,
             scope=scope,
             max_chars=max_chars,
+            limit=max_paragraphs,
         )
         if str(approved_result.get("context") or "").strip():
             return approved_result

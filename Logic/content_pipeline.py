@@ -28,6 +28,7 @@ from models import (
     ContentIngestionJob,
     ContentPage,
 )
+from services.topic_grouping import build_learning_units
 
 try:
     from pypdf import PdfReader
@@ -82,6 +83,10 @@ class ContentConceptPayload(BaseModel):
     blooms_taxonomy: str = ""
     typical_exam_weightage: str = ""
     importance_level: str = ""
+    # When several old micro-concepts are consolidated, their stable IDs stay
+    # here as aliases.  This is persisted inside ContentConcept.raw_json (no DB
+    # schema change) so legacy bookmarks and saved plans remain resolvable.
+    source_concept_ids: List[str] = Field(default_factory=list)
 
     @field_validator("concept_id")
     @classmethod
@@ -159,7 +164,7 @@ class ContentConceptPayload(BaseModel):
         data["title"] = title[:220]
 
         for key in ("key_points", "examples", "properties", "applications",
-                    "prerequisites", "learning_objectives"):
+                    "prerequisites", "learning_objectives", "source_concept_ids"):
             if data.get(key) is None:
                 continue
             items = data[key] if isinstance(data[key], list) else [data[key]]
@@ -769,6 +774,208 @@ def _page_batches(pages: Sequence[ContentPage], max_chars: int) -> List[List[Con
     return batches
 
 
+def _unique_values(values: Iterable[Any]) -> List[Any]:
+    """Stable de-duplication for both strings and structured formula/mistake data."""
+    result: List[Any] = []
+    seen: set[str] = set()
+    for value in values:
+        try:
+            marker = json.dumps(value, sort_keys=True, ensure_ascii=False)
+        except (TypeError, ValueError):
+            marker = str(value)
+        if not marker or marker in seen:
+            continue
+        seen.add(marker)
+        result.append(value)
+    return result
+
+
+def _ranked_text(values: Iterable[Any], ranks: Dict[str, int], default: str = "") -> str:
+    cleaned = [str(value or "").strip() for value in values if str(value or "").strip()]
+    if not cleaned:
+        return default
+    return max(
+        cleaned,
+        key=lambda value: (
+            ranks.get(value.lower(), 0),
+            len(value),
+        ),
+    )
+
+
+def consolidate_concept_payloads(
+    payload: Sequence[Dict[str, Any]] | Sequence[ContentConceptPayload],
+    *,
+    chapter_key: str,
+    page_count: int = 0,
+) -> List[Dict[str, Any]]:
+    """Merge micro-concepts into complete learning units without dropping content.
+
+    Group selection is content-aware and syllabus ordered (see
+    services.topic_grouping).  This function performs the actual material
+    merge: every source page, explanation, formula, example, objective and
+    mistake from the original concepts is retained in the resulting units.
+    """
+    concepts: List[ContentConceptPayload] = []
+    rejected_payloads: List[Dict[str, Any]] = []
+    seen_ids: set[str] = set()
+    seen_payloads: set[str] = set()
+    for item in payload:
+        try:
+            concept = item if isinstance(item, ContentConceptPayload) else ContentConceptPayload.model_validate(item)
+        except ValidationError:
+            # Keep malformed objects in the import payload so validation can
+            # report and block them; do not silently erase source material just
+            # because other concepts in the chapter were valid.
+            if isinstance(item, dict):
+                rejected_payloads.append(dict(item))
+            continue
+
+        serialized = json.dumps(concept.model_dump(), sort_keys=True, ensure_ascii=False)
+        if serialized in seen_payloads:
+            # An exact replay contains no additional source material.
+            continue
+        seen_payloads.add(serialized)
+
+        if concept.concept_id in seen_ids:
+            # Concept generation runs in independent page batches, so two
+            # different syllabus ideas can legitimately receive the same
+            # model-generated ID. Preserve both and keep the original ID as a
+            # legacy alias instead of silently discarding the later batch.
+            original_id = concept.concept_id
+            digest = sha256(serialized.encode("utf-8")).hexdigest()[:10]
+            suffix = f"_{digest}"
+            disambiguated_id = f"{original_id[:140 - len(suffix)]}{suffix}"
+            collision_index = 2
+            while disambiguated_id in seen_ids:
+                numbered_suffix = f"_{digest}_{collision_index}"
+                disambiguated_id = (
+                    f"{original_id[:140 - len(numbered_suffix)]}{numbered_suffix}"
+                )
+                collision_index += 1
+            concept = concept.model_copy(
+                update={
+                    "concept_id": disambiguated_id,
+                    "source_concept_ids": _unique_values(
+                        [original_id, *concept.source_concept_ids]
+                    ),
+                }
+            )
+        seen_ids.add(concept.concept_id)
+        concepts.append(concept)
+
+    if not concepts:
+        return [dict(item) for item in payload if isinstance(item, dict)]
+
+    units = build_learning_units(
+        concepts,
+        chapter_key=chapter_key,
+        page_count=page_count,
+    )
+    merged: List[Dict[str, Any]] = []
+    bloom_rank = {
+        "remember": 1,
+        "understand": 2,
+        "apply": 3,
+        "analyze": 4,
+        "analyse": 4,
+        "evaluate": 5,
+        "create": 6,
+    }
+    weight_rank = {"none": 0, "low": 1, "medium": 2, "moderate": 2, "high": 3}
+    importance_rank = {
+        "none": 0,
+        "low": 1,
+        "supplementary": 1,
+        "medium": 2,
+        "moderate": 2,
+        "important": 3,
+        "high": 3,
+        "core": 4,
+        "essential": 4,
+    }
+
+    for unit in units:
+        members: List[ContentConceptPayload] = list(unit["concepts"])
+        if len(members) == 1:
+            raw = members[0].model_dump()
+            raw["source_concept_ids"] = _unique_values(
+                [members[0].concept_id, *members[0].source_concept_ids]
+            )
+            merged.append(raw)
+            continue
+
+        original_ids = _unique_values(
+            source_id
+            for member in members
+            for source_id in [member.concept_id, *member.source_concept_ids]
+            if normalize_key(source_id)
+        )
+        explanations: List[str] = []
+        for member in members:
+            detail = "\n\n".join(
+                part.strip()
+                for part in (member.definition, member.core_explanation)
+                if part and part.strip()
+            )
+            if detail:
+                explanations.append(f"{member.title}: {detail}")
+
+        merged.append(
+            {
+                "concept_id": unit["id"],
+                "title": unit["label"],
+                "definition": next(
+                    (member.definition.strip() for member in members if member.definition.strip()),
+                    "",
+                ),
+                "core_explanation": "\n\n".join(_unique_values(explanations)),
+                "key_points": _unique_values(
+                    point for member in members for point in member.key_points
+                ),
+                "examples": _unique_values(
+                    example for member in members for example in member.examples
+                ),
+                "formulas": _unique_values(
+                    formula for member in members for formula in member.formulas
+                ),
+                "properties": _unique_values(
+                    prop for member in members for prop in member.properties
+                ),
+                "applications": _unique_values(
+                    application for member in members for application in member.applications
+                ),
+                "common_mistakes": _unique_values(
+                    mistake for member in members for mistake in member.common_mistakes
+                ),
+                "prerequisites": _unique_values(
+                    prerequisite for member in members for prerequisite in member.prerequisites
+                ),
+                "related_concepts": _unique_values(
+                    related for member in members for related in member.related_concepts
+                ),
+                "learning_objectives": _unique_values(
+                    objective for member in members for objective in member.learning_objectives
+                ),
+                "source_pages": sorted(
+                    {page for member in members for page in member.source_pages}
+                ),
+                "difficulty_level": max(member.difficulty_level for member in members),
+                "blooms_taxonomy": _ranked_text(
+                    (member.blooms_taxonomy for member in members), bloom_rank
+                ),
+                "typical_exam_weightage": _ranked_text(
+                    (member.typical_exam_weightage for member in members), weight_rank
+                ),
+                "importance_level": _ranked_text(
+                    (member.importance_level for member in members), importance_rank
+                ),
+                "source_concept_ids": original_ids,
+            }
+        )
+    return [*merged, *rejected_payloads]
+
+
 def generate_concepts_for_chapter(
     db: Session,
     chapter_id: int,
@@ -800,9 +1007,18 @@ def generate_concepts_for_chapter(
                 "content": (
                     "You convert NCERT textbook pages into strict structured concept JSON. "
                     "Use ONLY the supplied page text. Do not add outside facts. "
+                    "Create a small set of meaningful learning units, not one item per heading or subheading. "
+                    "Merge a definition with its explanation, properties, formulas, examples, applications, "
+                    "and special cases whenever they teach the same underlying idea. Do not create standalone "
+                    "items for tiny definitions, individual examples, single formulas, practice prompts, or summaries. "
+                    "Preserve every essential syllabus concept by placing it inside the most relevant broader unit. "
+                    "Simple page batches should usually need 1-2 units; dense batches may need 3 or occasionally 4. "
+                    "Choose subject- and chapter-specific titles that describe the actual material; never force a "
+                    "generic template or fixed topic names. "
                     "Return ONLY a JSON array. Each item must include: concept_id, title, "
-                    "definition, core_explanation, key_points, examples, formulas, "
-                    "common_mistakes, learning_objectives, source_pages, difficulty_level, "
+                    "definition, core_explanation, key_points, examples, formulas, properties, "
+                    "applications, common_mistakes, prerequisites, related_concepts, "
+                    "learning_objectives, source_pages, difficulty_level, "
                     "blooms_taxonomy, typical_exam_weightage, importance_level. "
                     "difficulty_level must be an integer from 1 (easiest) to 5 (hardest). "
                     "source_pages must be a JSON array of integer page numbers (e.g. [4, 5]), "
@@ -854,7 +1070,12 @@ def generate_concepts_for_chapter(
         raise ValueError(
             f"Concept generation failed: all {failed_batches} batch(es) returned unparseable JSON."
         )
-    return import_concepts_for_chapter(db, chapter.id, generated, replace=replace)
+    compacted = consolidate_concept_payloads(
+        generated,
+        chapter_key=chapter.slug or chapter.chapter_name or str(chapter.id),
+        page_count=len([page for page in pages if (page.text or "").strip()]),
+    )
+    return import_concepts_for_chapter(db, chapter.id, compacted, replace=replace)
 
 
 def _next_version(value: str) -> str:
@@ -1088,7 +1309,9 @@ def search_approved_content(
     they share no keywords with, while exact-term matches keep their edge.
     Without embeddings the behavior is identical to the old lexical search.
     """
-    terms = content_terms(f"{section_id} {question}")
+    terms = content_terms(
+        f"{section_id} {(scope or {}).get('topic') or ''} {question}"
+    )
     if not terms:
         terms = content_terms(section_id)
     if not terms:
@@ -1116,6 +1339,25 @@ def search_approved_content(
         chapter_by_id = {chapter.id: chapter for chapter in chapters}
 
         candidates: Dict[Tuple[str, int], Dict[str, Any]] = {}
+        raw_concept_ids = (scope or {}).get("concept_ids") or []
+        if not isinstance(raw_concept_ids, (list, tuple, set)):
+            raw_concept_ids = [raw_concept_ids]
+        requested_concept_ids = [
+            normalize_key(value)
+            for value in raw_concept_ids
+            if normalize_key(value)
+        ]
+        member_rank = {
+            concept_id: index
+            for index, concept_id in enumerate(requested_concept_ids)
+        }
+        effective_limit = max(int(limit or 0), len(member_rank), 1)
+        allowed_source_pages = {
+            page
+            for concept in concept_rows
+            if normalize_key(concept.concept_id) in member_rank
+            for page in coerce_page_numbers(concept.source_pages)
+        }
         requested_topic_keys = {
             normalize_key(value)
             for value in (
@@ -1126,6 +1368,8 @@ def search_approved_content(
             if normalize_key(value)
         }
         for concept in concept_rows:
+            if member_rank and normalize_key(concept.concept_id) not in member_rank:
+                continue
             text = "\n".join(
                 [
                     concept.title or "",
@@ -1137,15 +1381,19 @@ def search_approved_content(
                 ]
             )
             lexical = _score_text(text, terms)
+            normalized_concept_id = normalize_key(concept.concept_id)
             exact_topic_match = bool(
-                requested_topic_keys.intersection(
+                normalized_concept_id in member_rank
+                or requested_topic_keys.intersection(
                     {normalize_key(concept.concept_id), normalize_key(concept.title)}
                 )
             )
             if lexical or exact_topic_match:
                 candidates[("concept", concept.id)] = {
                     # A catalog ID/title match is authoritative and must rank
-                    # ahead of merely similar text from the same chapter.
+                    # ahead of merely similar text from the same chapter. All
+                    # scoped members receive the same exact-match boost so the
+                    # student's question, not member order, decides their rank.
                     "lexical": lexical + 3 + (1000 if exact_topic_match else 0),
                     "semantic": 0.0,
                     "exact_topic_match": exact_topic_match,
@@ -1159,6 +1407,19 @@ def search_approved_content(
                     },
                 }
         for chunk in chunk_rows:
+            if member_rank and allowed_source_pages:
+                try:
+                    page_start = int(chunk.page_start or chunk.page_end or 0)
+                    page_end = int(chunk.page_end or chunk.page_start or 0)
+                except (TypeError, ValueError):
+                    page_start = page_end = 0
+                if page_start > page_end:
+                    page_start, page_end = page_end, page_start
+                if not page_start or not any(
+                    page_start <= page <= page_end
+                    for page in allowed_source_pages
+                ):
+                    continue
             chunk_terms = set(chunk.lexical_terms or [])
             lexical = len(chunk_terms.intersection(terms)) * 2 + _score_text(chunk.text or "", terms)
             semantic = 0.0
@@ -1213,7 +1474,7 @@ def search_approved_content(
         used_pages: List[int] = []
         used_sections: List[str] = []
         total_chars = 0
-        for key in ordered_keys[: limit * 2]:
+        for key in ordered_keys[: effective_limit * 2]:
             candidate = candidates[key]
             payload = candidate["payload"]
             chapter = payload["chapter"]
@@ -1240,7 +1501,7 @@ def search_approved_content(
             used_pages.extend(int(page) for page in payload["pages"] if page)
             used_sections.append(str(payload["section_id"]))
             total_chars += len(block)
-            if len(blocks) >= limit:
+            if len(blocks) >= effective_limit:
                 break
 
         if not blocks:

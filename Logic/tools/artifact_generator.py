@@ -170,12 +170,17 @@ def _extract_formulas(context: str) -> List[str]:
     return formulas[:5]
 
 
-def _markdown_to_concept(section_id: str, topic: Optional[str]) -> Optional[Dict[str, Any]]:
+def _markdown_to_concept(
+    section_id: str,
+    topic: Optional[str],
+    content_scope: Optional[Dict[str, Any]] = None,
+) -> Optional[Dict[str, Any]]:
     result = search_knowledge_base(
         section_id=section_id,
         question=topic or section_id.replace("_", " "),
         max_paragraphs=10,
         max_chars=9000,
+        scope=content_scope,
     )
     context = _as_text(result.get("context"))
     if not context or result.get("error"):
@@ -516,14 +521,15 @@ def generate_study_artifacts(
     topic: Optional[str] = None,
     subject: Optional[str] = None,
     chapter: Optional[str] = None,
+    content_scope: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     normalized_id = re.sub(r"[^a-z0-9]+", "_", (section_id or "").strip().lower()).strip("_")
     if not normalized_id:
         raise ValueError("section_id is required.")
 
     concept = _find_exact_concept(normalized_id, topic)
-    if not concept and normalized_id in SECTION_FILE_MAP:
-        concept = _markdown_to_concept(normalized_id, topic)
+    if not concept and (normalized_id in SECTION_FILE_MAP or content_scope):
+        concept = _markdown_to_concept(normalized_id, topic, content_scope)
     if not concept:
         raise LookupError(ARTIFACT_DATA_NOT_AVAILABLE)
 

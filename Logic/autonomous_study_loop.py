@@ -85,26 +85,29 @@ def _select_target_topic(
 
 def _normalize_mission_profile(
     current_knowledge: str = "some_idea",
-    learning_goal: str = "understanding",
-    available_minutes: Optional[int] = None,
-    exam_target: str = "school_exam",
+    learning_goal: str = "deep_understanding",
     preferred_style: str = "examples_first",
     prerequisite_confidence: str = "medium",
     class_level: str = "",
 ) -> Dict[str, Any]:
-    minutes = None
-    if available_minutes is not None:
-        try:
-            minutes = max(10, min(240, int(available_minutes)))
-        except (TypeError, ValueError):
-            minutes = None
+    knowledge = (current_knowledge or "some_idea").strip().lower()
+    if knowledge not in {"new", "some_idea", "know_basics"}:
+        knowledge = "some_idea"
+
+    goal = (learning_goal or "deep_understanding").strip().lower()
+    if goal == "quick_revision":
+        goal = "fast_track"
+    elif goal not in {"deep_understanding", "exam", "fast_track"}:
+        goal = "deep_understanding"
+
+    style = (preferred_style or "examples_first").strip().lower()
+    if style not in {"examples_first", "short_explanations", "conceptual_detail"}:
+        style = "examples_first"
 
     return {
-        "current_knowledge": (current_knowledge or "some_idea").strip().lower(),
-        "learning_goal": (learning_goal or "understanding").strip().lower(),
-        "available_minutes": minutes,
-        "exam_target": (exam_target or "school_exam").strip().lower(),
-        "preferred_style": (preferred_style or "examples_first").strip().lower(),
+        "current_knowledge": knowledge,
+        "learning_goal": goal,
+        "preferred_style": style,
         "prerequisite_confidence": (prerequisite_confidence or "medium").strip().lower(),
         "class_level": (class_level or "").strip(),
     }
@@ -116,16 +119,14 @@ def _topic_label(topic: str) -> str:
 
 def _needs_prerequisite_block(profile: Dict[str, Any], mastery_band: str) -> bool:
     return (
-        profile["current_knowledge"] in {"new", "weak_basics", "zero", "beginner"}
+        profile["current_knowledge"] == "new"
         or profile["prerequisite_confidence"] in {"low", "weak", "not_confident"}
         or mastery_band in {"baseline", "critical"}
     )
 
 
 def _is_fast_track(profile: Dict[str, Any]) -> bool:
-    goal = profile["learning_goal"]
-    minutes = profile.get("available_minutes")
-    return goal in {"quick_revision", "exam", "fast_track"} or bool(minutes and minutes <= 45)
+    return profile["learning_goal"] == "fast_track"
 
 
 def _build_mission_plan(target: Dict[str, Any], analytics: Dict[str, Any], profile: Dict[str, Any]) -> Dict[str, Any]:
@@ -207,9 +208,6 @@ def _build_high_priority_concepts(topic: str, profile: Dict[str, Any]) -> List[s
 
 
 def _estimate_mission_budget(profile: Dict[str, Any], mastery_band: str) -> int:
-    if profile.get("available_minutes"):
-        return int(profile["available_minutes"])
-
     if _is_fast_track(profile):
         base = 35
     elif profile["learning_goal"] in {"deep_understanding", "conceptual"}:
@@ -690,8 +688,6 @@ def _build_mission_contract(
             "streak": int(summary.get("streak") or 0),
             "current_knowledge": profile["current_knowledge"],
             "learning_goal": profile["learning_goal"],
-            "available_minutes": profile.get("available_minutes"),
-            "exam_target": profile["exam_target"],
             "preferred_style": profile["preferred_style"],
             "prerequisite_confidence": profile["prerequisite_confidence"],
         },
@@ -720,9 +716,7 @@ def run_autonomous_study_loop(
     current_chapter: Optional[str] = None,
     subject: str = "Chemistry",
     current_knowledge: str = "some_idea",
-    learning_goal: str = "understanding",
-    available_minutes: Optional[int] = None,
-    exam_target: str = "school_exam",
+    learning_goal: str = "deep_understanding",
     preferred_style: str = "examples_first",
     prerequisite_confidence: str = "medium",
     class_level: str = "",
@@ -747,8 +741,6 @@ def run_autonomous_study_loop(
     profile = _normalize_mission_profile(
         current_knowledge=current_knowledge,
         learning_goal=learning_goal,
-        available_minutes=available_minutes,
-        exam_target=exam_target,
         preferred_style=preferred_style,
         prerequisite_confidence=prerequisite_confidence,
         class_level=class_level,
@@ -830,7 +822,7 @@ def run_autonomous_study_loop(
         },
         "metadata": {
             "agent": "adaptive_tutor",
-            "mission_model": "profiled_time_optimized_roadmap",
+            "mission_model": "profiled_adaptive_roadmap",
             "personalization": "roadmap_updates_after_student_answer",
             "profile": profile,
         },
@@ -876,7 +868,7 @@ def run_autonomous_study_loop(
         "priority": contract["priority"],
         "mastery_band": contract["mastery_band"],
         "estimated_minutes": contract["estimated_minutes"],
-        "mission_goal": f"Complete {_topic_label(target['topic'])} with the fastest useful route for {profile['exam_target'].replace('_', ' ')}.",
+        "mission_goal": f"Complete {_topic_label(target['topic'])} through a focused, achievable learning route.",
         "prerequisite_check": prerequisite_check,
         "high_priority_concepts": high_priority_concepts,
         "fast_revision_strategy": fast_revision_strategy,

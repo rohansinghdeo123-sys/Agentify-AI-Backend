@@ -2,19 +2,21 @@
 
 This is the single source of truth for what students can select in Study
 Lab, Exam Mode, and Missions. Chapters come from admin-approved/published
-content (ContentChapter + ContentConcept); until the database has published
-content, the built-in starter catalog keeps every learning surface working
-with the same chapters the app launched with.
+content (ContentChapter + ContentConcept). Fine-grained source concepts are
+grouped into complete learning units before they reach selectors. Until the
+database has published content, the built-in starter catalog keeps every
+learning surface working with the same chapters the app launched with.
 """
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Sequence
 
 from sqlalchemy.orm import Session
 
 from Logic.content_pipeline import APPROVED_STATUSES, normalize_key
 from models import ContentChapter, ContentConcept
+from services.topic_grouping import build_learning_units
 
 # Mirrors the catalog the frontend shipped with, so removing the hard-coded
 # frontend lists never leaves a student with empty selectors.
@@ -67,6 +69,48 @@ def _builtin_catalog() -> Dict[str, Any]:
     }
 
 
+def _concept_alias_ids(concept: ContentConcept) -> List[str]:
+    raw = concept.raw_json if isinstance(concept.raw_json, dict) else {}
+    candidates = [concept.concept_id, *(raw.get("source_concept_ids") or [])]
+    aliases: List[str] = []
+    seen: set[str] = set()
+    for candidate in candidates:
+        normalized = normalize_key(candidate)
+        if normalized and normalized not in seen:
+            seen.add(normalized)
+            aliases.append(normalized)
+    return aliases
+
+
+def _learning_units_for_chapter(
+    chapter: ContentChapter,
+    concepts: Sequence[ContentConcept],
+) -> List[Dict[str, Any]]:
+    units = build_learning_units(
+        concepts,
+        chapter_key=chapter.slug or chapter.chapter_name or str(chapter.id),
+        page_count=int(chapter.extracted_page_count or chapter.page_count or 0),
+    )
+    result: List[Dict[str, Any]] = []
+    for unit in units:
+        member_aliases: List[str] = []
+        seen: set[str] = set()
+        for concept in unit["concepts"]:
+            for alias in _concept_alias_ids(concept):
+                if alias not in seen:
+                    seen.add(alias)
+                    member_aliases.append(alias)
+        result.append(
+            {
+                "id": unit["id"],
+                "label": unit["label"],
+                "concept_ids": member_aliases,
+                "concepts": unit["concepts"],
+            }
+        )
+    return result
+
+
 def build_catalog(db: Session) -> Dict[str, Any]:
     """Published catalog grouped by (subject, class_level); builtin fallback."""
     chapters = (
@@ -81,7 +125,7 @@ def build_catalog(db: Session) -> Dict[str, Any]:
     concept_rows = (
         db.query(ContentConcept)
         .filter(ContentConcept.chapter_id.in_([chapter.id for chapter in chapters]))
-        .order_by(ContentConcept.chapter_id, ContentConcept.concept_id)
+        .order_by(ContentConcept.chapter_id, ContentConcept.id)
         .all()
     )
     concepts_by_chapter: Dict[int, List[ContentConcept]] = {}
@@ -96,9 +140,19 @@ def build_catalog(db: Session) -> Dict[str, Any]:
             {"subject": key[0], "class_level": key[1], "chapters": []},
         )
         topics = [
-            {"id": concept.concept_id, "label": concept.title or concept.concept_id}
-            for concept in concepts_by_chapter.get(chapter.id, [])
-            if concept.concept_id
+            {
+                "id": unit["id"],
+                "label": unit["label"],
+                "concept_ids": unit["concept_ids"],
+            }
+            for unit in _learning_units_for_chapter(
+                chapter,
+                [
+                    concept
+                    for concept in concepts_by_chapter.get(chapter.id, [])
+                    if concept.concept_id
+                ],
+            )
         ]
         if not topics:
             # A chapter without generated concepts is still searchable by its
@@ -150,6 +204,29 @@ def _chapter_matches_catalog_scope(
     return True
 
 
+def _resolved_catalog_topic(
+    chapter: ContentChapter,
+    *,
+    section_id: str,
+    topic: str,
+    concept_ids: Sequence[str],
+    subject: Optional[str],
+    chapter_ref: Optional[str],
+    class_level: Optional[str],
+) -> Dict[str, Any]:
+    return {
+        "section_id": section_id,
+        "topic": topic,
+        "concept_ids": list(concept_ids),
+        "subject": chapter.subject or subject or "",
+        "chapter": chapter.chapter_name or chapter_ref or "",
+        "chapter_slug": chapter.slug or "",
+        "class_level": chapter.class_level or class_level or "",
+        "content_version": chapter.version or "",
+        "catalog_source": "published",
+    }
+
+
 def resolve_catalog_topic(
     db: Session,
     section_id: str,
@@ -158,14 +235,13 @@ def resolve_catalog_topic(
     chapter: Optional[str] = None,
     topic: Optional[str] = None,
     class_level: Optional[str] = None,
-) -> Optional[Dict[str, str]]:
-    """Resolve a published catalog topic by its stable ID or display title.
+) -> Optional[Dict[str, Any]]:
+    """Resolve current units and legacy micro-topic aliases safely.
 
-    Frontends normally send ``concept_id`` as ``section_id``, but bookmarked
-    links and older clients may send the human title instead. Resolution is
-    constrained by the learner/catalog scope before choosing a concept, which
-    prevents an identically named topic in another subject or chapter from
-    being selected.
+    Current catalog IDs may represent multiple source concepts. The returned
+    ``concept_ids`` keep retrieval grounded across the whole unit. Old IDs and
+    titles still resolve directly, including IDs consolidated during a later
+    content regeneration.
     """
     requested_keys = {
         normalize_key(value)
@@ -180,11 +256,6 @@ def resolve_catalog_topic(
         .filter(ContentChapter.status.in_(APPROVED_STATUSES))
         .all()
     )
-    # Subject/chapter are explicit request scope. The profile class is only a
-    # preference: accounts created before class onboarding commonly contain
-    # ``Other`` (or a stale class), while the selected published chapter is
-    # still unambiguous. The matched chapter remains the authority for the
-    # resolved class/version returned below.
     chapters = [
         candidate
         for candidate in chapters
@@ -212,45 +283,98 @@ def resolve_catalog_topic(
     concepts = (
         db.query(ContentConcept)
         .filter(ContentConcept.chapter_id.in_(chapter_by_id))
+        .order_by(ContentConcept.chapter_id, ContentConcept.id)
         .all()
     )
-    matches = [
+    requested_section = normalize_key(section_id)
+    concepts_by_chapter: Dict[int, List[ContentConcept]] = {}
+    for concept in concepts:
+        concepts_by_chapter.setdefault(concept.chapter_id, []).append(concept)
+
+    # A stable learning-unit ID is more specific than its generated label,
+    # which can intentionally reuse the title of a representative member.
+    # Resolve the ID before considering legacy concept-title matches.
+    id_unit_matches: List[tuple[ContentChapter, Dict[str, Any]]] = []
+    for candidate in chapters:
+        for unit in _learning_units_for_chapter(candidate, concepts_by_chapter.get(candidate.id, [])):
+            if normalize_key(unit["id"]) == requested_section:
+                id_unit_matches.append((candidate, unit))
+    if len({candidate.id for candidate, _ in id_unit_matches}) == 1:
+        matched_chapter, unit = id_unit_matches[0]
+        return _resolved_catalog_topic(
+            matched_chapter,
+            section_id=unit["id"],
+            topic=unit["label"],
+            concept_ids=[
+                concept.concept_id
+                for concept in unit["concepts"]
+                if concept.concept_id
+            ],
+            subject=subject,
+            chapter_ref=chapter,
+            class_level=class_level,
+        )
+
+    direct_matches = [
         concept
         for concept in concepts
         if requested_keys.intersection(
-            {normalize_key(concept.concept_id), normalize_key(concept.title)}
+            {
+                normalize_key(concept.concept_id),
+                normalize_key(concept.title),
+                *_concept_alias_ids(concept),
+            }
         )
     ]
-    if not matches:
-        return None
+    if direct_matches:
+        stable_id_matches = [
+            concept
+            for concept in direct_matches
+            if normalize_key(concept.concept_id) == requested_section
+        ]
+        alias_matches = [
+            concept
+            for concept in direct_matches
+            if requested_section in _concept_alias_ids(concept)
+        ]
+        preferred_matches = stable_id_matches or alias_matches or direct_matches
+        if len({concept.chapter_id for concept in preferred_matches}) > 1:
+            return None
+        preferred_matches.sort(key=lambda concept: concept.id)
+        concept = preferred_matches[0]
+        matched_chapter = chapter_by_id[concept.chapter_id]
+        return _resolved_catalog_topic(
+            matched_chapter,
+            section_id=concept.concept_id,
+            topic=concept.title or concept.concept_id,
+            concept_ids=[concept.concept_id],
+            subject=subject,
+            chapter_ref=chapter,
+            class_level=class_level,
+        )
 
-    # Prefer the stable ID over a title match when both are possible. Never
-    # silently choose between chapters: older clients can omit scope and the
-    # same concept ID/title can legitimately exist in more than one chapter.
-    requested_section = normalize_key(section_id)
-    stable_id_matches = [
-        concept
-        for concept in matches
-        if normalize_key(concept.concept_id) == requested_section
-    ]
-    preferred_matches = stable_id_matches or matches
-    if len({concept.chapter_id for concept in preferred_matches}) > 1:
+    unit_matches: List[tuple[ContentChapter, Dict[str, Any]]] = []
+    for candidate in chapters:
+        for unit in _learning_units_for_chapter(candidate, concepts_by_chapter.get(candidate.id, [])):
+            if requested_keys.intersection(
+                {normalize_key(unit["id"]), normalize_key(unit["label"])}
+            ):
+                unit_matches.append((candidate, unit))
+
+    if len({candidate.id for candidate, _ in unit_matches}) != 1:
         return None
-    preferred_matches.sort(
-        key=lambda concept: (
-            normalize_key(concept.concept_id) != requested_section,
-            concept.id,
-        )
+    matched_chapter, unit = unit_matches[0]
+    current_ids = [
+        concept.concept_id
+        for concept in unit["concepts"]
+        if concept.concept_id
+    ]
+    return _resolved_catalog_topic(
+        matched_chapter,
+        section_id=unit["id"],
+        topic=unit["label"],
+        concept_ids=current_ids,
+        subject=subject,
+        chapter_ref=chapter,
+        class_level=class_level,
     )
-    concept = preferred_matches[0]
-    matched_chapter = chapter_by_id[concept.chapter_id]
-    return {
-        "section_id": concept.concept_id,
-        "topic": concept.title or concept.concept_id,
-        "subject": matched_chapter.subject or subject or "",
-        "chapter": matched_chapter.chapter_name or chapter or "",
-        "chapter_slug": matched_chapter.slug or "",
-        "class_level": matched_chapter.class_level or class_level or "",
-        "content_version": matched_chapter.version or "",
-        "catalog_source": "published",
-    }

@@ -111,10 +111,37 @@ def generate_mcqs(
     user_id = require_owned_study_session(request.session_id, current_user)
     enforce_user_quota(user_id, "exam")
     learner_profile = profile_learning_context(db, user_id)
-    section_id = normalize_topic(request.section_id or request.topic)
+    learner_class = learner_profile.get("class_level", "")
+    requested_section = normalize_topic(request.section_id or request.topic)
+    resolved_topic = (
+        resolve_catalog_topic(
+            db,
+            requested_section,
+            subject=request.subject,
+            chapter=request.chapter,
+            topic=request.topic,
+            class_level=learner_class,
+        )
+        if request.subject or request.chapter or requested_section.startswith("unit_")
+        else None
+    )
+    section_id = (
+        resolved_topic["section_id"]
+        if resolved_topic
+        else requested_section
+    )
+    content_scope = {
+        "section_id": section_id,
+        "subject": request.subject or "",
+        "chapter": request.chapter or "",
+        "topic": request.topic,
+        "class_level": learner_class,
+    }
+    if resolved_topic:
+        content_scope.update(resolved_topic)
 
     return generate_structured_mcqs(
-        topic=request.topic,
+        topic=str(content_scope.get("topic") or request.topic),
         section_id=section_id,
         session_id=request.session_id,
         difficulty=request.difficulty,
@@ -122,7 +149,8 @@ def generate_mcqs(
         strict_grounding=request.strict_grounding or request.retrieval_required,
         required_not_found_response=request.required_not_found_response,
         include_source=request.include_source,
-        class_level=learner_profile.get("class_level", ""),
+        class_level=str(content_scope.get("class_level") or learner_class),
+        content_scope=content_scope,
     )
 
 
@@ -135,17 +163,45 @@ def generate_probable_questions(
     user_id = require_owned_study_session(request.session_id, current_user)
     enforce_user_quota(user_id, "exam")
     learner_profile = profile_learning_context(db, user_id)
-    section_id = normalize_topic(request.section_id or request.topic)
+    learner_class = learner_profile.get("class_level", "")
+    requested_section = normalize_topic(request.section_id or request.topic)
+    resolved_topic = (
+        resolve_catalog_topic(
+            db,
+            requested_section,
+            subject=request.subject,
+            chapter=request.chapter,
+            topic=request.topic,
+            class_level=learner_class,
+        )
+        if request.subject or request.chapter or requested_section.startswith("unit_")
+        else None
+    )
+    section_id = (
+        resolved_topic["section_id"]
+        if resolved_topic
+        else requested_section
+    )
+    content_scope = {
+        "section_id": section_id,
+        "subject": request.subject or "",
+        "chapter": request.chapter or "",
+        "topic": request.topic,
+        "class_level": learner_class,
+    }
+    if resolved_topic:
+        content_scope.update(resolved_topic)
 
     return generate_structured_probable_questions(
-        topic=request.topic,
+        topic=str(content_scope.get("topic") or request.topic),
         section_id=section_id,
         session_id=request.session_id,
         difficulty=request.difficulty,
         strict_grounding=request.strict_grounding or request.retrieval_required,
         required_not_found_response=request.required_not_found_response,
         include_source=request.include_source,
-        class_level=learner_profile.get("class_level", ""),
+        class_level=str(content_scope.get("class_level") or learner_class),
+        content_scope=content_scope,
     )
 
 
@@ -158,20 +214,40 @@ def generate_artifacts(
     user_id = require_authenticated_user_id(current_user)
     enforce_user_quota(user_id, "artifact")
     learner_profile = profile_learning_context(db, user_id)
-    section_id = re.sub(
+    requested_section_id = re.sub(
         r"[^a-z0-9]+",
         "_",
         (request.section_id or request.topic or "").strip().lower(),
     ).strip("_")
+    learner_class = learner_profile.get("class_level", "")
+    resolved_topic = resolve_catalog_topic(
+        db,
+        requested_section_id,
+        subject=request.subject,
+        chapter=request.chapter,
+        topic=request.topic,
+        class_level=learner_class,
+    )
+    section_id = str((resolved_topic or {}).get("section_id") or requested_section_id)
+    content_scope = {
+        "section_id": section_id,
+        "subject": request.subject or "",
+        "chapter": request.chapter or "",
+        "topic": request.topic or request.section_id,
+        "class_level": learner_class,
+    }
+    if resolved_topic:
+        content_scope.update(resolved_topic)
     try:
         result = generate_study_artifacts(
             section_id=section_id,
-            topic=request.topic,
-            subject=request.subject,
-            chapter=request.chapter,
+            topic=str(content_scope.get("topic") or request.topic or ""),
+            subject=str(content_scope.get("subject") or request.subject or ""),
+            chapter=str(content_scope.get("chapter") or request.chapter or ""),
+            content_scope=content_scope,
         )
         if isinstance(result, dict):
-            result["class_level"] = learner_profile.get("class_level", "")
+            result["class_level"] = str(content_scope.get("class_level") or learner_class)
         return result
     except ValueError as exc:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
