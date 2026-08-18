@@ -12,6 +12,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional, Sequence
 
+from sqlalchemy import func, or_
 from sqlalchemy.orm import Session
 
 from Logic.content_pipeline import APPROVED_STATUSES, normalize_key
@@ -109,6 +110,158 @@ def _learning_units_for_chapter(
             }
         )
     return result
+
+
+def _builtin_chapter_units(
+    *,
+    chapter_ref: str,
+    subject: Optional[str],
+    class_level: Optional[str],
+) -> Optional[Dict[str, Any]]:
+    """Resolve one built-in chapter without relaxing an explicit scope."""
+    if subject and normalize_key(subject) != normalize_key(BUILTIN_SUBJECT):
+        return None
+    if class_level and _normalized_class_level(class_level) != _normalized_class_level(
+        BUILTIN_CLASS_LEVEL
+    ):
+        return None
+
+    requested = normalize_key(chapter_ref)
+    matches = [
+        chapter
+        for chapter in BUILTIN_CHAPTERS
+        if requested in {normalize_key(chapter["slug"]), normalize_key(chapter["name"])}
+    ]
+    if len(matches) != 1:
+        return None
+
+    chapter = matches[0]
+    concepts = [
+        {
+            "concept_id": topic["id"],
+            "title": topic["label"],
+            "source_pages": [],
+        }
+        for topic in chapter["topics"]
+    ]
+    grouped = build_learning_units(concepts, chapter_key=chapter["slug"])
+    units = [
+        {
+            "id": unit["id"],
+            "label": unit["label"],
+            "concept_ids": list(unit["concept_ids"]),
+        }
+        for unit in grouped
+    ]
+    if not units:
+        units = [{"id": chapter["slug"], "label": chapter["name"], "concept_ids": []}]
+    return {
+        "chapter_slug": chapter["slug"],
+        "chapter_label": chapter["name"],
+        "subject": BUILTIN_SUBJECT,
+        "class_level": BUILTIN_CLASS_LEVEL,
+        "source": "builtin",
+        "units": units,
+    }
+
+
+def resolve_catalog_chapter_units(
+    db: Session,
+    *,
+    chapter_ref: str,
+    subject: Optional[str] = None,
+    class_level: Optional[str] = None,
+) -> Optional[Dict[str, Any]]:
+    """Resolve only the requested published chapter and its grouped units.
+
+    Planning calls this targeted resolver instead of assembling the complete
+    catalog on every plan request. Explicit subject and class values are hard
+    boundaries: a similarly named chapter from another syllabus is never used.
+    """
+    requested = normalize_key(chapter_ref)
+    if not requested:
+        return None
+
+    raw_ref = str(chapter_ref or "").strip().lower()
+    spaced_ref = requested.replace("_", " ")
+    query = db.query(ContentChapter).filter(
+        ContentChapter.status.in_(APPROVED_STATUSES)
+    )
+    if str(subject or "").strip():
+        query = query.filter(func.lower(ContentChapter.subject) == str(subject).strip().lower())
+    if str(class_level or "").strip():
+        requested_class = _normalized_class_level(class_level)
+        class_values = {
+            str(class_level).strip().lower(),
+            requested_class.replace("_", " "),
+            f"class {requested_class.replace('_', ' ')}",
+        }
+        query = query.filter(
+            func.lower(ContentChapter.class_level).in_(tuple(sorted(class_values)))
+        )
+
+    candidates = (
+        query.filter(
+            or_(
+                func.lower(ContentChapter.slug).in_(tuple(sorted({raw_ref, requested}))),
+                func.lower(ContentChapter.chapter_name).in_(
+                    tuple(sorted({raw_ref, spaced_ref}))
+                ),
+            )
+        )
+        .limit(3)
+        .all()
+    )
+    matches = [
+        chapter
+        for chapter in candidates
+        if requested
+        in {
+            normalize_key(chapter.slug),
+            normalize_key(chapter.chapter_name),
+        }
+    ]
+    if len(matches) > 1:
+        return None
+    if len(matches) == 1:
+        chapter = matches[0]
+        concepts = (
+            db.query(ContentConcept)
+            .filter(ContentConcept.chapter_id == chapter.id)
+            .order_by(ContentConcept.id)
+            .all()
+        )
+        units = [
+            {
+                "id": unit["id"],
+                "label": unit["label"],
+                "concept_ids": unit["concept_ids"],
+            }
+            for unit in _learning_units_for_chapter(
+                chapter,
+                [concept for concept in concepts if concept.concept_id],
+            )
+        ]
+        chapter_slug = chapter.slug or requested
+        chapter_label = chapter.chapter_name or chapter_slug
+        if not units:
+            units = [{"id": chapter_slug, "label": chapter_label, "concept_ids": []}]
+        return {
+            "chapter_slug": chapter_slug,
+            "chapter_label": chapter_label,
+            "subject": chapter.subject or subject or "",
+            "class_level": chapter.class_level or class_level or "",
+            "source": "published",
+            "units": units,
+        }
+
+    # The starter catalog remains available, but it obeys the same explicit
+    # subject/class boundary and exact chapter match.
+    return _builtin_chapter_units(
+        chapter_ref=chapter_ref,
+        subject=subject,
+        class_level=class_level,
+    )
 
 
 def build_catalog(db: Session) -> Dict[str, Any]:

@@ -37,7 +37,10 @@ from Logic.agents.coach_agent import (
     run_daily_learning_cycle,
 )
 from Logic.analytics_engine import get_user_analytics
-from Logic.autonomous_study_loop import run_autonomous_study_loop
+from Logic.autonomous_study_loop import (
+    PlanningChapterNotFoundError,
+    run_autonomous_study_loop,
+)
 from models import AICoachDailySignal, AICoachMemory
 from schemas import (
     AutonomousStudyRequest,
@@ -390,17 +393,26 @@ def coach_autonomous_study(
 ):
     require_same_user_or_admin(user_id, current_user)
     enforce_user_quota(user_id, "coach")
+    selected_class_level = payload.class_level or profile_learning_context(
+        db,
+        user_id,
+    ).get("class_level", "") or ""
 
-    mission = run_autonomous_study_loop(
-        db=db,
-        user_id=user_id,
-        current_topic=payload.current_topic,
-        current_chapter=payload.current_chapter,
-        subject=payload.subject,
-        current_knowledge=payload.current_knowledge,
-        learning_goal=payload.learning_goal,
-        preferred_style=payload.preferred_style,
-        prerequisite_confidence=payload.prerequisite_confidence,
-        class_level=profile_learning_context(db, user_id).get("class_level", ""),
-    )
+    try:
+        mission = run_autonomous_study_loop(
+            db=db,
+            user_id=user_id,
+            current_chapter=payload.current_chapter,
+            subject=payload.subject,
+            current_knowledge=payload.current_knowledge,
+            learning_goal=payload.learning_goal,
+            preferred_style=payload.preferred_style,
+            prerequisite_confidence=payload.prerequisite_confidence,
+            class_level=selected_class_level,
+        )
+    except PlanningChapterNotFoundError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail=str(exc),
+        ) from exc
     return AutonomousStudyResponse(**mission)

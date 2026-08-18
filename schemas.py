@@ -325,9 +325,9 @@ class CoachDashboardResponse(BaseModel):
 
 
 class AutonomousStudyRequest(BaseModel):
-    current_topic: Optional[str] = None
-    current_chapter: Optional[str] = None
+    current_chapter: str = Field(min_length=1, max_length=240)
     subject: str = "Chemistry"
+    class_level: str = Field(default="", max_length=64)
     current_knowledge: Literal["new", "some_idea", "know_basics"] = "some_idea"
     learning_goal: Literal["deep_understanding", "exam", "fast_track"] = "deep_understanding"
     preferred_style: Literal["examples_first", "short_explanations", "conceptual_detail"] = "examples_first"
@@ -341,6 +341,19 @@ class AutonomousStudyRequest(BaseModel):
         if isinstance(value, str):
             return value.strip().lower().replace(" ", "_")
         return value
+
+    @field_validator("current_chapter")
+    @classmethod
+    def normalize_planning_chapter(cls, value: str) -> str:
+        normalized = " ".join(value.split())
+        if not normalized:
+            raise ValueError("Select a chapter before generating a plan")
+        return normalized
+
+    @field_validator("class_level")
+    @classmethod
+    def normalize_planning_class_level(cls, value: str) -> str:
+        return " ".join(value.split())
 
     @field_validator("learning_goal", mode="before")
     @classmethod
@@ -356,6 +369,10 @@ class AutonomousStudyResponse(BaseModel):
     status: str
     subject: str
     chapter: str = ""
+    plan_scope: str = "chapter"
+    learning_unit_count: int = 0
+    # Retained as a response alias for older saved clients. Chapter Planning
+    # now places the chapter label here; requests no longer accept a topic.
     target_topic: str
     target_source: str
     mission_type: str = "study"
