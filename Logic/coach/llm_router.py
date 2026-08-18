@@ -29,6 +29,13 @@ PROVIDER_ALIASES = {
     "openai": "openai",
 }
 
+# Groq periodically retires model ids. Keep old deployment variables usable
+# by routing known retired ids to the current non-agentic production model.
+RETIRED_GROQ_MODELS = {
+    "meta-llama/llama-4-scout-17b-16e-instruct": "openai/gpt-oss-120b",
+    "llama-3.3-70b-versatile": "openai/gpt-oss-120b",
+}
+
 
 @dataclass(frozen=True)
 class ModelRoute:
@@ -150,7 +157,8 @@ class LLMRouter:
 
     def _provider_fallback_model(self, provider: str) -> str:
         if provider == "groq":
-            return coach_settings.fallback_model
+            model = os.getenv("GROQ_FALLBACK_MODEL", coach_settings.fallback_model)
+            return self._normalize_groq_model(model, role="fallback")
         return (
             os.getenv(f"{provider.upper()}_FALLBACK_MODEL")
             or os.getenv(f"{provider.upper()}_MODEL")
@@ -325,16 +333,30 @@ class LLMRouter:
     # =====================================================
     # Routing and budgets
     # =====================================================
+    @staticmethod
+    def _normalize_groq_model(model: str, *, role: str) -> str:
+        normalized = str(model or "").strip()
+        if normalized not in RETIRED_GROQ_MODELS:
+            return normalized
+        # The retired Scout id was also the old image route. Mapping image
+        # input to a text-only model would be unsafe and misleading; fail fast
+        # so attachment handling can return its honest material warning.
+        if role == "vision":
+            return ""
+        return RETIRED_GROQ_MODELS[normalized]
+
     def model_for(self, role: str, complexity: str = "balanced") -> str:
         if role == "vision":
-            return coach_settings.vision_model
-        if role == "profiler" or complexity == "fast":
-            return coach_settings.fast_model
-        if role == "reviewer":
-            return coach_settings.review_model
-        if complexity == "deep":
-            return coach_settings.deep_model
-        return coach_settings.tutor_model
+            model = coach_settings.vision_model
+        elif role == "profiler" or complexity == "fast":
+            model = coach_settings.fast_model
+        elif role == "reviewer":
+            model = coach_settings.review_model
+        elif complexity == "deep":
+            model = coach_settings.deep_model
+        else:
+            model = coach_settings.tutor_model
+        return self._normalize_groq_model(model, role=role)
 
     def _estimate_route_cost(self, provider: str, model: str, input_tokens: int, output_tokens: int) -> float:
         return estimate_model_cost_usd(

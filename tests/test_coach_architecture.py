@@ -54,7 +54,7 @@ from Logic.coach.turn_engine import (
     resolve_hybrid_query,
     semantic_event,
 )
-from Logic.agents.coach_agent import coach_agent_stream
+from Logic.agents.coach_agent import _safe_tutor_fallback, coach_agent_stream
 from Logic.analytics_engine import get_user_analytics
 from Logic.agent_event_bus import AgentEvent
 from main import (
@@ -606,6 +606,8 @@ class CoachArchitectureTests(unittest.TestCase):
         events = [event.get("event") for event in parsed if event]
         self.assertIn("turn.error", events)
         self.assertIn("answer.completed", events)
+        completed = next(event for event in parsed if event.get("event") == "answer.completed")
+        self.assertTrue(str(completed.get("answer") or "").strip())
         self.assertEqual(frames[-1], "data: [DONE]\n\n")
 
     def test_persisted_coach_interactions_serialize_as_conversation(self):
@@ -988,11 +990,12 @@ class CoachArchitectureTests(unittest.TestCase):
         db.close()
 
     def test_router_uses_fallback_and_records_route(self):
-        router = LLMRouter()
-        router._groq = FakeClient()
-        router.begin_turn("turn_router")
-        answer = router.complete("tutor", [{"role": "user", "content": "Explain matter"}])
-        records = router.records()
+        with patch.dict("os.environ", {"GROQ_FALLBACK_MODEL": "test/fallback"}, clear=False):
+            router = LLMRouter()
+            router._groq = FakeClient()
+            router.begin_turn("turn_router")
+            answer = router.complete("tutor", [{"role": "user", "content": "Explain matter"}])
+            records = router.records()
         self.assertEqual(answer, "Recovered tutor response")
         self.assertEqual(len(records), 2)
         self.assertEqual(records[0]["status"], "error")
@@ -1097,6 +1100,31 @@ class CoachArchitectureTests(unittest.TestCase):
         self.assertEqual(records[1]["mode"], "stream")
         self.assertEqual(records[1]["status"], "success")
         self.assertGreater(records[1]["estimated_output_tokens"], 0)
+
+    def test_retired_groq_models_resolve_to_a_live_fallback(self):
+        router = LLMRouter()
+        retired = "meta-llama/llama-4-scout-17b-16e-instruct"
+        deployed_settings = SimpleNamespace(fast_model=retired, vision_model=retired)
+        with patch("Logic.coach.llm_router.coach_settings", deployed_settings):
+            self.assertEqual(router.model_for("profiler", "fast"), "openai/gpt-oss-120b")
+            self.assertEqual(router.model_for("vision", "fast"), "")
+
+    def test_empty_model_answer_has_grounded_or_honest_fallback(self):
+        grounded = _safe_tutor_fallback(
+            question="What is matter?",
+            retrieved_material={"context": "Matter has mass and occupies space."},
+            strict_grounding=True,
+        )
+        open_tutor = _safe_tutor_fallback(
+            question="Explain an unavailable concept",
+            retrieved_material=None,
+            strict_grounding=False,
+        )
+
+        self.assertIn("Verified material", grounded)
+        self.assertIn("Matter has mass", grounded)
+        self.assertTrue(open_tutor.strip())
+        self.assertIn("please try again", open_tutor.lower())
 
     def test_router_prefers_lowest_cost_when_configured(self):
         cheap = StaticCompletions("Cheap route selected")

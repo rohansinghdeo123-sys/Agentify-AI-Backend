@@ -8,7 +8,6 @@ PERSONAL AI COACH AGENT – Hybrid autonomous architecture
 """
 
 import logging
-import time
 import uuid
 import base64
 import json
@@ -103,6 +102,36 @@ def _material_not_found(adaptive_context: Optional[Dict[str, Any]] = None) -> st
     learning_context = _as_dict((adaptive_context or {}).get("learning_context"))
     policy_text = str(learning_context.get("required_not_found_response") or "").strip()
     return policy_text or MATERIAL_NOT_FOUND_MESSAGE
+
+
+def _safe_tutor_fallback(
+    *,
+    question: str,
+    retrieved_material: Optional[Dict[str, Any]],
+    strict_grounding: bool,
+    adaptive_context: Optional[Dict[str, Any]] = None,
+) -> str:
+    """Return useful verified context, or an honest retry message, never silence."""
+    if strict_grounding:
+        context = str((retrieved_material or {}).get("context") or "").strip()
+        if not context:
+            return _material_not_found(adaptive_context)
+
+        compact = re.sub(r"\s+", " ", context).strip()
+        excerpt = compact[:1200].rsplit(" ", 1)[0] if len(compact) > 1200 else compact
+        return (
+            "I found the selected study material, but the tutor could not finish the full explanation right now.\n\n"
+            f"Verified material:\n{excerpt}\n\n"
+            "Please try again for a step-by-step explanation."
+        )
+
+    local_answer = _build_complete_answer_from_kg(question)
+    if local_answer:
+        return local_answer
+    return (
+        "I could not generate the full explanation right now. Your question is saved—"
+        "please try again in a moment, or ask one smaller part of the concept."
+    )
 
 
 def _merge_attachment_material(
@@ -2599,11 +2628,19 @@ def _coach_agent_stream_impl(request, db=None, turn_state: Optional[Dict[str, An
             logger.error("[COACH DRAFT] LLM error: %s", exc)
             agent_state.apply_error(stage="tutor_draft", error=exc)
             trace.record_fallback("tutor_model_failed", error=str(exc)[:240])
-            if not draft.strip():
-                live_streamed = False
-                draft = _material_not_found(adaptive_context) if strict_grounding else (
-                    recommendation if intent == "planning" else "I'm having trouble explaining that right now."
+        if not draft.strip():
+            live_streamed = False
+            draft = (
+                recommendation
+                if intent == "planning"
+                else _safe_tutor_fallback(
+                    question=question,
+                    retrieved_material=retrieved_material,
+                    strict_grounding=strict_grounding,
+                    adaptive_context=adaptive_context,
                 )
+            )
+            trace.record_fallback("empty_tutor_response_repaired", strict_grounding=strict_grounding)
         if draft_finish_reason == "length" and draft.strip():
             # The draft hit max_tokens mid-answer; finish it instead of
             # delivering a sentence that stops without warning.

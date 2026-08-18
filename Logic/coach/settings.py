@@ -8,15 +8,17 @@ import os
 class CoachSettings:
     provider: str = os.getenv("COACH_LLM_PROVIDER", "groq")
     provider_order: str = os.getenv("COACH_PROVIDER_ORDER", os.getenv("COACH_LLM_PROVIDER", "groq"))
-    fast_model: str = os.getenv("GROQ_FAST_MODEL", "meta-llama/llama-4-scout-17b-16e-instruct")
+    fast_model: str = os.getenv("GROQ_FAST_MODEL", "openai/gpt-oss-120b")
     tutor_model: str = os.getenv("GROQ_TUTOR_MODEL", "openai/gpt-oss-120b")
     # Deep tier: numerical, exam, and strict-grounding turns. Point this (or
     # OPENROUTER_DEEP_MODEL / OPENAI_DEEP_MODEL with provider order) at a
     # frontier model to upgrade reasoning-heavy turns without touching code.
     deep_model: str = os.getenv("GROQ_DEEP_MODEL", os.getenv("GROQ_TUTOR_MODEL", "openai/gpt-oss-120b"))
-    review_model: str = os.getenv("GROQ_REVIEW_MODEL", "llama-3.3-70b-versatile")
-    vision_model: str = os.getenv("GROQ_VISION_MODEL", "meta-llama/llama-4-scout-17b-16e-instruct")
-    fallback_model: str = os.getenv("GROQ_FALLBACK_MODEL", "meta-llama/llama-4-scout-17b-16e-instruct")
+    review_model: str = os.getenv("GROQ_REVIEW_MODEL", "openai/gpt-oss-120b")
+    # Groq currently has no supported image-input chat model. Leave this
+    # unconfigured unless a supported vision route is supplied explicitly.
+    vision_model: str = os.getenv("GROQ_VISION_MODEL", "")
+    fallback_model: str = os.getenv("GROQ_FALLBACK_MODEL", "openai/gpt-oss-120b")
     route_preference: str = os.getenv("COACH_ROUTE_PREFERENCE", "balanced")
     budget_routing: bool = os.getenv("COACH_BUDGET_ROUTING", "true").lower() == "true"
     turn_budget_usd: float = float(os.getenv("COACH_TURN_BUDGET_USD", "0"))
