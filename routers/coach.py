@@ -393,10 +393,6 @@ def coach_autonomous_study(
 ):
     require_same_user_or_admin(user_id, current_user)
     enforce_user_quota(user_id, "coach")
-    selected_class_level = payload.class_level or profile_learning_context(
-        db,
-        user_id,
-    ).get("class_level", "") or ""
 
     try:
         mission = run_autonomous_study_loop(
@@ -408,7 +404,7 @@ def coach_autonomous_study(
             learning_goal=payload.learning_goal,
             preferred_style=payload.preferred_style,
             prerequisite_confidence=payload.prerequisite_confidence,
-            class_level=selected_class_level,
+            class_level=payload.class_level,
         )
     except PlanningChapterNotFoundError as exc:
         raise HTTPException(

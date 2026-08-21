@@ -112,6 +112,179 @@ def _learning_units_for_chapter(
     return result
 
 
+def _planning_value(concept: Any, field: str, default: Any = None) -> Any:
+    if isinstance(concept, dict):
+        return concept.get(field, default)
+    return getattr(concept, field, default)
+
+
+def _planning_focus_signals(concepts: Sequence[Any]) -> Dict[str, Any]:
+    """Return bounded, source-derived signals for Planning prioritisation.
+
+    The brief generator must never infer syllabus facts from unit names alone.
+    These values are taken only from approved concept metadata and deliberately
+    exclude teaching prose so a fast Planning request stays small.
+    """
+    importance_rank = {
+        "": 0,
+        "none": 0,
+        "low": 1,
+        "supplementary": 1,
+        "medium": 2,
+        "moderate": 2,
+        "important": 3,
+        "high": 3,
+        "core": 4,
+        "essential": 4,
+    }
+    weightage_rank = {
+        "": 0,
+        "none": 0,
+        "low": 1,
+        "medium": 2,
+        "moderate": 2,
+        "high": 3,
+    }
+
+    def ranked(value: Any, ranks: Dict[str, int]) -> int:
+        normalized = str(value or "").strip().lower()
+        if normalized in ranks:
+            return ranks[normalized]
+        for label, score in sorted(ranks.items(), key=lambda pair: -pair[1]):
+            if label and label in normalized:
+                return score
+        return 0
+
+    difficulties: List[int] = []
+    for concept in concepts:
+        try:
+            difficulties.append(
+                max(1, min(5, int(_planning_value(concept, "difficulty_level", 1) or 1)))
+            )
+        except (TypeError, ValueError):
+            difficulties.append(1)
+
+    return {
+        "concept_count": len(concepts),
+        "importance_score": max(
+            (
+                ranked(_planning_value(concept, "importance_level", ""), importance_rank)
+                for concept in concepts
+            ),
+            default=0,
+        ),
+        "exam_weightage_score": max(
+            (
+                ranked(
+                    _planning_value(concept, "typical_exam_weightage", ""),
+                    weightage_rank,
+                )
+                for concept in concepts
+            ),
+            default=0,
+        ),
+        "average_difficulty": round(sum(difficulties) / len(difficulties), 2)
+        if difficulties
+        else 1.0,
+    }
+
+
+def _planning_concept_aliases(concept: Any) -> List[str]:
+    raw = _planning_value(concept, "raw_json", {})
+    raw = raw if isinstance(raw, dict) else {}
+    candidates = [
+        _planning_value(concept, "concept_id", ""),
+        *(raw.get("source_concept_ids") or []),
+    ]
+    return list(
+        dict.fromkeys(
+            normalized
+            for candidate in candidates
+            if (normalized := normalize_key(candidate))
+        )
+    )
+
+
+def _planning_subtopic_candidates(
+    concepts: Sequence[Any],
+    fallback: str,
+) -> List[Dict[str, Any]]:
+    """Carry every approved title and its source signals into Planning.
+
+    Only four representatives are rendered, but retaining this private,
+    grounded candidate set lets learner weakness or strong syllabus metadata
+    select a later concept instead of accidentally hiding the reason for a
+    Deep-focus label.
+    """
+    candidates: List[Dict[str, Any]] = []
+    by_title: Dict[str, Dict[str, Any]] = {}
+    for concept in concepts:
+        title = " ".join(str(_planning_value(concept, "title", "") or "").split())
+        if not title:
+            continue
+        signals = _planning_focus_signals([concept])
+        existing = by_title.get(title)
+        if existing is None:
+            existing = {
+                "title": title,
+                "concept_ids": _planning_concept_aliases(concept),
+                "focus_signals": signals,
+                "source_order": len(candidates),
+            }
+            by_title[title] = existing
+            candidates.append(existing)
+            continue
+
+        existing["concept_ids"] = list(
+            dict.fromkeys(
+                [*existing["concept_ids"], *_planning_concept_aliases(concept)]
+            )
+        )
+        previous = existing["focus_signals"]
+        previous["concept_count"] = int(previous.get("concept_count") or 0) + 1
+        for field in ("importance_score", "exam_weightage_score", "average_difficulty"):
+            previous[field] = max(
+                float(previous.get(field) or 0),
+                float(signals.get(field) or 0),
+            )
+
+    if candidates:
+        return candidates
+    return [
+        {
+            "title": fallback,
+            "concept_ids": [],
+            "focus_signals": _planning_focus_signals([]),
+            "source_order": 0,
+        }
+    ]
+
+
+def _planning_candidate_score(candidate: Dict[str, Any]) -> float:
+    signals = candidate.get("focus_signals") or {}
+    return (
+        float(signals.get("importance_score") or 0) * 1.6
+        + float(signals.get("exam_weightage_score") or 0) * 1.2
+        + float(signals.get("average_difficulty") or 1) * 0.45
+    )
+
+
+def _planning_subtopics(concepts: Sequence[Any], fallback: str) -> List[str]:
+    """Expose at most four exact, priority-aware approved titles."""
+    candidates = _planning_subtopic_candidates(concepts, fallback)
+    selected = sorted(
+        sorted(
+            candidates,
+            key=lambda candidate: (
+                -_planning_candidate_score(candidate),
+                int(candidate["source_order"]),
+            ),
+        )[:4],
+        key=lambda candidate: int(candidate["source_order"]),
+    )
+    return [str(candidate["title"]) for candidate in selected]
+
+
 def _builtin_chapter_units(
     *,
     chapter_ref: str,
@@ -150,11 +323,29 @@ def _builtin_chapter_units(
             "id": unit["id"],
             "label": unit["label"],
             "concept_ids": list(unit["concept_ids"]),
+            "subtopics": _planning_subtopics(unit["concepts"], unit["label"]),
+            "subtopic_candidates": _planning_subtopic_candidates(
+                unit["concepts"],
+                unit["label"],
+            ),
+            "focus_signals": _planning_focus_signals(unit["concepts"]),
         }
         for unit in grouped
     ]
     if not units:
-        units = [{"id": chapter["slug"], "label": chapter["name"], "concept_ids": []}]
+        units = [
+            {
+                "id": chapter["slug"],
+                "label": chapter["name"],
+                "concept_ids": [],
+                "subtopics": [chapter["name"]],
+                "subtopic_candidates": _planning_subtopic_candidates(
+                    [],
+                    chapter["name"],
+                ),
+                "focus_signals": _planning_focus_signals([]),
+            }
+        ]
     return {
         "chapter_slug": chapter["slug"],
         "chapter_label": chapter["name"],
@@ -236,6 +427,12 @@ def resolve_catalog_chapter_units(
                 "id": unit["id"],
                 "label": unit["label"],
                 "concept_ids": unit["concept_ids"],
+                "subtopics": _planning_subtopics(unit["concepts"], unit["label"]),
+                "subtopic_candidates": _planning_subtopic_candidates(
+                    unit["concepts"],
+                    unit["label"],
+                ),
+                "focus_signals": _planning_focus_signals(unit["concepts"]),
             }
             for unit in _learning_units_for_chapter(
                 chapter,
@@ -245,7 +442,19 @@ def resolve_catalog_chapter_units(
         chapter_slug = chapter.slug or requested
         chapter_label = chapter.chapter_name or chapter_slug
         if not units:
-            units = [{"id": chapter_slug, "label": chapter_label, "concept_ids": []}]
+            units = [
+                {
+                    "id": chapter_slug,
+                    "label": chapter_label,
+                    "concept_ids": [],
+                    "subtopics": [chapter_label],
+                    "subtopic_candidates": _planning_subtopic_candidates(
+                        [],
+                        chapter_label,
+                    ),
+                    "focus_signals": _planning_focus_signals([]),
+                }
+            ]
         return {
             "chapter_slug": chapter_slug,
             "chapter_label": chapter_label,

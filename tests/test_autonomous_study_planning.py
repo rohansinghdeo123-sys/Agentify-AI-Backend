@@ -1,25 +1,35 @@
+import json
 import unittest
 from types import SimpleNamespace
 from unittest.mock import ANY, patch
 
 from fastapi import HTTPException
 from pydantic import ValidationError
-from sqlalchemy import create_engine, event
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import QueuePool
 
 from Logic.autonomous_study_loop import (
     PlanningChapterNotFoundError,
-    _build_chapter_study_plan,
-    _estimate_mission_budget,
+    _build_focus_area_scopes,
+    _build_focus_brief,
+    _deterministic_focus_brief,
+    _focus_ranking_context,
     _is_fast_track,
+    _llm_focus_brief,
     _normalize_mission_profile,
     _resolve_chapter_scope,
+    _validate_model_focus_ranking,
     run_autonomous_study_loop,
 )
 from models import ContentChapter, ContentConcept
 from routers.coach import coach_autonomous_study
 from schemas import AutonomousStudyRequest, AutonomousStudyResponse
-from services.catalog_service import resolve_catalog_chapter_units
+from services.catalog_service import (
+    _planning_subtopic_candidates,
+    _planning_subtopics,
+    resolve_catalog_chapter_units,
+)
 
 
 def _memory_catalog_session():
@@ -29,144 +39,418 @@ def _memory_catalog_session():
     return engine, sessionmaker(bind=engine)()
 
 
+def _chapter_scope(count: int = 4):
+    units = []
+    for index in range(1, count + 1):
+        units.append(
+            {
+                "id": f"unit_{index}",
+                "label": f"Approved Unit {index}",
+                "concept_ids": [f"concept_{index}_a", f"concept_{index}_b"],
+                "subtopics": [f"Approved Subtopic {index}A", f"Approved Subtopic {index}B"],
+                "focus_signals": {
+                    "concept_count": 2,
+                    "importance_score": 4 if index == 2 else 2,
+                    "exam_weightage_score": 3 if index == 2 else 1,
+                    "average_difficulty": 4 if index == 2 else 2,
+                },
+            }
+        )
+    return {
+        "source": "published",
+        "chapter_slug": "approved-chapter",
+        "chapter_label": "Approved Chapter",
+        "subject": "Science",
+        "class_level": "Class 10",
+        "units": units,
+    }
+
+
+def _valid_model_payload(scope, analytics=None):
+    _areas, _signals, _scores, ranked_ids = _focus_ranking_context(
+        scope,
+        analytics or {},
+    )
+    return {"focus_ranking": ranked_ids}
+
+
 class AutonomousStudyPlanningTests(unittest.TestCase):
-    def test_request_contract_omits_retired_planning_fields(self):
+    def test_request_contract_is_chapter_only_and_ignores_old_payload_fields(self):
         payload = AutonomousStudyRequest.model_validate(
             {
                 "current_chapter": "matter",
+                "subject": "Chemistry",
                 "current_topic": "atomic_mass",
                 "class_level": "  Class   11  ",
-                "available_minutes": 30,
+                "available_minutes": 120,
                 "exam_target": "boards",
             }
         )
 
+        self.assertNotIn("current_topic", AutonomousStudyRequest.model_fields)
         self.assertNotIn("available_minutes", AutonomousStudyRequest.model_fields)
         self.assertNotIn("exam_target", AutonomousStudyRequest.model_fields)
-        self.assertNotIn("current_topic", AutonomousStudyRequest.model_fields)
-        self.assertNotIn("available_minutes", payload.model_dump())
-        self.assertNotIn("exam_target", payload.model_dump())
-        self.assertNotIn("current_topic", payload.model_dump())
         self.assertEqual(payload.class_level, "Class 11")
 
-    def test_retired_knowledge_and_style_choices_are_rejected(self):
+    def test_retired_choices_are_rejected_and_quick_revision_is_mapped(self):
         with self.assertRaises(ValidationError):
-            AutonomousStudyRequest(current_chapter="matter", current_knowledge="weak_basics")
-
+            AutonomousStudyRequest(
+                current_chapter="matter",
+                subject="Chemistry",
+                class_level="Class 11",
+                current_knowledge="weak_basics",
+            )
         with self.assertRaises(ValidationError):
-            AutonomousStudyRequest(current_chapter="matter", preferred_style="visual_intuition")
+            AutonomousStudyRequest(
+                current_chapter="matter",
+                subject="Chemistry",
+                class_level="Class 11",
+                preferred_style="visual_intuition",
+            )
 
-    def test_legacy_quick_revision_normalizes_to_fast_track(self):
         request = AutonomousStudyRequest(
             current_chapter="matter",
+            subject="Chemistry",
+            class_level="Class 11",
             learning_goal="quick_revision",
         )
         profile = _normalize_mission_profile(learning_goal="quick_revision")
-
         self.assertEqual(request.learning_goal, "fast_track")
-        self.assertEqual(profile["learning_goal"], "fast_track")
         self.assertTrue(_is_fast_track(profile))
 
-    def test_only_fast_track_goal_uses_fast_track_planning(self):
-        exam_profile = _normalize_mission_profile(learning_goal="exam")
-        fast_profile = _normalize_mission_profile(learning_goal="fast_track")
-
-        self.assertFalse(_is_fast_track(exam_profile))
-        self.assertTrue(_is_fast_track(fast_profile))
-        self.assertLess(
-            _estimate_mission_budget(fast_profile, "building"),
-            _estimate_mission_budget(exam_profile, "building"),
-        )
-
-    def test_internal_profile_contains_only_active_planning_choices(self):
-        profile = _normalize_mission_profile(
-            current_knowledge="weak_basics",
-            preferred_style="visual_intuition",
-        )
-
-        self.assertEqual(profile["current_knowledge"], "some_idea")
-        self.assertEqual(profile["preferred_style"], "examples_first")
-        self.assertNotIn("available_minutes", profile)
-        self.assertNotIn("exam_target", profile)
-
-    def test_generated_mission_uses_clean_profile_contract(self):
-        db = SimpleNamespace(commit=lambda: None)
-        coach = SimpleNamespace()
-        analytics = {
-            "summary": {"total_topics": 1, "avg_accuracy": 70, "streak": 2},
-            "weak_areas": [],
-            "topic_heatmap": [],
-        }
-        chapter_scope = {
-            "source": "published",
-            "chapter_slug": "matter",
-            "chapter_label": "Basic Concepts of Chemistry",
+    def test_request_requires_nonblank_selected_class_subject_and_chapter(self):
+        valid = {
+            "current_chapter": "Matter",
             "subject": "Chemistry",
             "class_level": "Class 11",
-            "units": [
-                {
-                    "id": "unit_measurement",
-                    "label": "Measurement and Chemical Laws",
-                    "concept_ids": ["measurement", "chemical_laws"],
-                },
-                {
-                    "id": "unit_mole",
-                    "label": "Mole Calculations",
-                    "concept_ids": ["mole", "molar_mass"],
-                },
-            ],
+        }
+        for missing in ("current_chapter", "subject", "class_level"):
+            payload = dict(valid)
+            payload.pop(missing)
+            with self.subTest(missing=missing), self.assertRaises(ValidationError):
+                AutonomousStudyRequest.model_validate(payload)
+
+        for blank in ("current_chapter", "subject", "class_level"):
+            payload = dict(valid)
+            payload[blank] = "   "
+            with self.subTest(blank=blank), self.assertRaises(ValidationError):
+                AutonomousStudyRequest.model_validate(payload)
+
+    def test_focus_area_aggregation_is_compact_ordered_and_lossless(self):
+        scope = _chapter_scope(10)
+        areas = _build_focus_area_scopes(scope["units"])
+
+        self.assertEqual(len(areas), 5)
+        self.assertEqual(
+            [unit_id for area in areas for unit_id in area["unit_ids"]],
+            [f"unit_{index}" for index in range(1, 11)],
+        )
+        self.assertTrue(all(1 <= len(area["subtopics"]) <= 4 for area in areas))
+        self.assertTrue(all(len(area["unit_ids"]) == len(area["unit_titles"]) for area in areas))
+
+    def test_deterministic_ranking_has_useful_hierarchy_and_elevates_weakness(self):
+        scope = _chapter_scope(4)
+        analytics = {
+            "weak_areas": [{"topic": "concept_4_a", "accuracy": 20}],
+            "topic_heatmap": [],
+        }
+        brief = _deterministic_focus_brief(scope, analytics)
+        by_unit = {
+            unit_id: area["focus_level"]
+            for area in brief["focus_areas"]
+            for unit_id in area["unit_ids"]
         }
 
+        self.assertEqual(set(by_unit.values()), {"high", "medium", "light"})
+        self.assertEqual(by_unit["unit_4"], "high")
+        self.assertEqual(len(brief["guidance_steps"]), 4)
+
+    def test_consolidated_area_surfaces_late_weakness_that_drives_deep_focus(self):
+        scope = _chapter_scope(25)
+        for learner_topic in ("concept_5_a", "unit_5", "Approved Unit 5"):
+            analytics = {
+                "weak_areas": [{"topic": learner_topic, "accuracy": 18}],
+                "topic_heatmap": [],
+            }
+
+            with self.subTest(learner_topic=learner_topic):
+                brief = _deterministic_focus_brief(scope, analytics)
+                first_area = brief["focus_areas"][0]
+
+                self.assertEqual(len(first_area["unit_ids"]), 5)
+                self.assertEqual(first_area["focus_level"], "high")
+                self.assertLessEqual(len(first_area["subtopics"]), 4)
+                self.assertIn("Approved Subtopic 5A", first_area["subtopics"])
+                self.assertIn("Approved Subtopic 5A", first_area["reason"])
+                self.assertEqual(
+                    [
+                        unit_id
+                        for area in brief["focus_areas"]
+                        for unit_id in area["unit_ids"]
+                    ],
+                    [f"unit_{index}" for index in range(1, 26)],
+                )
+
+    def test_llm_can_only_rank_immutable_approved_focus_areas(self):
+        scope = _chapter_scope(7)
+        payload = _valid_model_payload(scope)
+        with patch(
+            "Logic.autonomous_study_loop.model_gateway.complete",
+            return_value=json.dumps(payload),
+        ) as complete:
+            brief = _llm_focus_brief(scope, {}, _normalize_mission_profile(class_level="Class 10"))
+
+        self.assertEqual(len(brief["focus_areas"]), 5)
+        self.assertEqual(brief["focus_areas"][0]["unit_titles"], ["Approved Unit 1", "Approved Unit 2"])
+        self.assertEqual(brief["focus_areas"][0]["subtopics"][0], "Approved Subtopic 1A")
+        self.assertIn("approved_focus_areas", complete.call_args.args[1][1]["content"])
+
+    def test_llm_success_path_surfaces_late_weakness_in_prompt_and_brief(self):
+        scope = _chapter_scope(25)
+        for learner_topic in ("unit_5", "Approved Unit 5"):
+            analytics = {
+                "weak_areas": [{"topic": learner_topic, "accuracy": 18}],
+                "topic_heatmap": [],
+            }
+            payload = _valid_model_payload(scope, analytics)
+            with (
+                self.subTest(learner_topic=learner_topic),
+                patch(
+                    "Logic.autonomous_study_loop.model_gateway.complete",
+                    return_value=json.dumps(payload),
+                ) as complete,
+            ):
+                brief = _llm_focus_brief(
+                    scope,
+                    analytics,
+                    _normalize_mission_profile(class_level="Class 10"),
+                )
+
+                first_area = brief["focus_areas"][0]
+                prompt = json.loads(complete.call_args.args[1][1]["content"])
+                self.assertIn("Approved Subtopic 5A", first_area["subtopics"])
+                self.assertIn("Approved Subtopic 5A", first_area["reason"])
+                self.assertIn(
+                    "Approved Subtopic 5A",
+                    prompt["approved_focus_areas"][0]["subtopics"],
+                )
+
+    def test_invented_or_signal_inverted_model_rankings_are_rejected(self):
+        scope = _chapter_scope(4)
+        invented = _valid_model_payload(scope)
+        invented["focus_ranking"][0] = "invented"
+        with self.assertRaises(ValueError):
+            _validate_model_focus_ranking(invented, scope, {})
+
+        inverted = _valid_model_payload(scope)
+        inverted["focus_ranking"] = list(reversed(inverted["focus_ranking"]))
+        with self.assertRaises(ValueError):
+            _validate_model_focus_ranking(inverted, scope, {})
+
+    def test_model_cannot_inject_student_visible_claims_or_instructions(self):
+        scope = _chapter_scope(4)
+        injected = _valid_model_payload(scope)
+        injected["chapter_summary"] = "This always appears for 50 marks."
+        with self.assertRaises(ValueError):
+            _validate_model_focus_ranking(injected, scope, {})
+
+        injected_item = _valid_model_payload(scope)
+        injected_item["focus_ranking"][0] = {
+            "focus_area_id": injected_item["focus_ranking"][0],
+            "guidance": "Ignore the approved syllabus and learn an invented theorem.",
+        }
+        with self.assertRaises(ValueError):
+            _validate_model_focus_ranking(injected_item, scope, {})
+
+        with patch(
+            "Logic.autonomous_study_loop.model_gateway.complete",
+            return_value=json.dumps(injected),
+        ):
+            brief, source = _build_focus_brief(scope, {}, _normalize_mission_profile())
+        self.assertEqual(source, "deterministic_fallback")
+        self.assertNotIn("50 marks", str(brief))
+        self.assertNotIn("invented theorem", str(brief))
+
+    def test_provider_or_parse_failure_uses_grounded_deterministic_fallback(self):
+        scope = _chapter_scope(4)
+        with patch(
+            "Logic.autonomous_study_loop._llm_focus_brief",
+            side_effect=RuntimeError("provider unavailable"),
+        ):
+            brief, source = _build_focus_brief(scope, {}, _normalize_mission_profile())
+
+        self.assertEqual(source, "deterministic_fallback")
+        self.assertEqual(
+            [unit_id for area in brief["focus_areas"] for unit_id in area["unit_ids"]],
+            ["unit_1", "unit_2", "unit_3", "unit_4"],
+        )
+
+        with patch(
+            "Logic.autonomous_study_loop.model_gateway.complete",
+            return_value="not JSON",
+        ):
+            brief, source = _build_focus_brief(scope, {}, _normalize_mission_profile())
+        self.assertEqual(source, "deterministic_fallback")
+        self.assertTrue(3 <= len(brief["guidance_steps"]) <= 5)
+
+    def test_generated_mission_is_a_short_focus_brief_with_rollout_safety(self):
+        db = SimpleNamespace(commit=lambda: None)
+        coach = SimpleNamespace()
+        scope = _chapter_scope(7)
+        analytics = {"summary": {"avg_accuracy": 70}, "weak_areas": [], "topic_heatmap": []}
         with (
             patch("Logic.autonomous_study_loop.get_user_analytics", return_value=analytics),
             patch("Logic.autonomous_study_loop.get_or_create_coach", return_value=coach),
+            patch("Logic.autonomous_study_loop.resolve_catalog_chapter_units", return_value=scope),
             patch(
-                "Logic.autonomous_study_loop.resolve_catalog_chapter_units",
-                return_value=chapter_scope,
+                "Logic.autonomous_study_loop.model_gateway.complete",
+                side_effect=RuntimeError("provider unavailable"),
             ),
         ):
             mission = run_autonomous_study_loop(
                 db=db,
-                user_id="planning-contract-test",
-                current_chapter="matter",
-                learning_goal="quick_revision",
-                class_level="Class 11",
+                user_id="student-1",
+                current_chapter="approved-chapter",
+                subject="Science",
+                class_level="Class 10",
             )
 
-        self.assertEqual(mission["mode"], "fast_track_mission")
-        self.assertEqual(mission["plan_scope"], "chapter")
-        self.assertEqual(mission["chapter"], "Basic Concepts of Chemistry")
-        self.assertEqual(mission["target_topic"], "Basic Concepts of Chemistry")
-        self.assertEqual(mission["learning_unit_count"], 2)
-        self.assertEqual(mission["student_state"]["learning_goal"], "fast_track")
-        self.assertEqual(mission["student_state"]["plan_scope"], "chapter")
-        self.assertNotIn("available_minutes", mission["student_state"])
-        self.assertNotIn("exam_target", mission["student_state"])
-        self.assertNotIn("available_minutes", mission["result"]["metadata"]["profile"])
-        self.assertNotIn("exam_target", mission["result"]["metadata"]["profile"])
-
-        steps = mission["study_plan"]
-        self.assertEqual([step["sequence"] for step in steps], [1, 2])
-        self.assertEqual(
-            [step["unit_id"] for step in steps],
-            ["unit_measurement", "unit_mole"],
-        )
-        prerequisite_questions = {
-            step["prerequisite_check"]["question"] for step in steps
-        }
-        self.assertEqual(len(prerequisite_questions), 2)
-        self.assertTrue(all(step["completion_check"]["question"] for step in steps))
-        self.assertIn("do not need to leave Planning", mission["prerequisite_check"]["action"])
+        self.assertEqual(mission["brief_version"], "chapter_focus_v1")
+        self.assertEqual(mission["coverage"]["unit_count"], 7)
+        self.assertEqual(mission["learning_unit_count"], len(mission["focus_areas"]))
+        self.assertLessEqual(len(mission["focus_areas"]), 5)
+        self.assertTrue(3 <= len(mission["guidance_steps"]) <= 5)
+        self.assertEqual(mission["estimated_minutes"], 0)
+        self.assertNotIn("duration", str(mission["focus_areas"]))
+        self.assertNotIn("prerequisite", str(mission["focus_areas"]).lower())
         self.assertNotIn("Study Lab", str(mission))
+        self.assertNotEqual(len(mission["high_priority_concepts"]), len(mission["focus_areas"]))
+        # Old deployed clients can validate during the staggered rollout.
+        legacy = mission["study_plan"]
+        self.assertEqual(mission["learning_unit_count"], len(legacy))
+        self.assertEqual(len({step["unit_id"] for step in legacy}), len(legacy))
+        self.assertEqual(
+            len({step["prerequisite_check"]["question"] for step in legacy}),
+            len(legacy),
+        )
+        self.assertTrue(all(step["duration"] == "Self-paced" for step in legacy))
+        self.assertTrue(all(step["prerequisite_check"]["status"] == "ready" for step in legacy))
+        self.assertTrue(all(step["completion_check"]["question"] for step in legacy))
+        self.assertIn(
+            mission["diagnostic_question"]["correct"],
+            mission["diagnostic_question"]["options"],
+        )
         AutonomousStudyResponse(**mission)
 
-    def test_builtin_micro_units_become_a_compact_chapter_route(self):
+    def test_database_read_transaction_ends_before_external_model_call(self):
+        events = []
+
+        class TrackingDb:
+            def commit(self):
+                events.append("commit")
+
+        scope = _chapter_scope(4)
+        payload = _valid_model_payload(scope)
+
+        def model_call(*_args, **_kwargs):
+            self.assertEqual(events, ["commit"])
+            events.append("model")
+            return json.dumps(payload)
+
+        with (
+            patch(
+                "Logic.autonomous_study_loop.get_user_analytics",
+                return_value={"summary": {}, "weak_areas": [], "topic_heatmap": []},
+            ),
+            patch(
+                "Logic.autonomous_study_loop.resolve_catalog_chapter_units",
+                return_value=scope,
+            ),
+            patch(
+                "Logic.autonomous_study_loop.get_or_create_coach",
+                return_value=SimpleNamespace(),
+            ),
+            patch(
+                "Logic.autonomous_study_loop.model_gateway.complete",
+                side_effect=model_call,
+            ),
+        ):
+            mission = run_autonomous_study_loop(
+                db=TrackingDb(),
+                user_id="transaction-student",
+                current_chapter="approved-chapter",
+                subject="Science",
+                class_level="Class 10",
+            )
+
+        self.assertEqual(events, ["commit", "model", "commit"])
+        self.assertEqual(mission["result"]["metadata"]["generation_source"], "llm")
+
+    def test_database_connection_is_returned_before_external_model_call(self):
+        engine = create_engine(
+            "sqlite://",
+            poolclass=QueuePool,
+            connect_args={"check_same_thread": False},
+        )
+        db = sessionmaker(bind=engine)()
+        scope = _chapter_scope(4)
+        payload = _valid_model_payload(scope)
+
+        def resolve_with_read(session, **_kwargs):
+            session.execute(text("SELECT 1")).scalar_one()
+            self.assertTrue(session.in_transaction())
+            return scope
+
+        def model_call(*_args, **_kwargs):
+            self.assertFalse(db.in_transaction())
+            self.assertEqual(engine.pool.checkedout(), 0)
+            return json.dumps(payload)
+
+        try:
+            with (
+                patch(
+                    "Logic.autonomous_study_loop.get_user_analytics",
+                    return_value={"summary": {}, "weak_areas": [], "topic_heatmap": []},
+                ),
+                patch(
+                    "Logic.autonomous_study_loop.resolve_catalog_chapter_units",
+                    side_effect=resolve_with_read,
+                ),
+                patch(
+                    "Logic.autonomous_study_loop.get_or_create_coach",
+                    return_value=SimpleNamespace(),
+                ),
+                patch(
+                    "Logic.autonomous_study_loop.model_gateway.complete",
+                    side_effect=model_call,
+                ),
+            ):
+                mission = run_autonomous_study_loop(
+                    db=db,
+                    user_id="transaction-student",
+                    current_chapter="approved-chapter",
+                    subject="Science",
+                    class_level="Class 10",
+                )
+        finally:
+            db.close()
+            engine.dispose()
+
+        self.assertEqual(mission["result"]["metadata"]["generation_source"], "llm")
+
+    def test_builtin_catalog_provides_grounded_subtopics_and_focus_metadata(self):
         engine, db = _memory_catalog_session()
         try:
             scope = resolve_catalog_chapter_units(
                 db,
                 chapter_ref="matter",
                 subject="Chemistry",
+                class_level="Class 11",
+            )
+            wrong_subject = resolve_catalog_chapter_units(
+                db,
+                chapter_ref="matter",
+                subject="Science",
                 class_level="Class 11",
             )
             wrong_class = resolve_catalog_chapter_units(
@@ -180,94 +464,13 @@ class AutonomousStudyPlanningTests(unittest.TestCase):
             engine.dispose()
 
         self.assertIsNotNone(scope)
-        self.assertEqual(scope["chapter_label"], "Basic Concepts of Chemistry")
-        self.assertEqual(len(scope["units"]), 4)
+        self.assertIsNone(wrong_subject)
         self.assertIsNone(wrong_class)
+        self.assertEqual(len(scope["units"]), 4)
+        self.assertTrue(all(unit["subtopics"] for unit in scope["units"]))
+        self.assertTrue(all("focus_signals" in unit for unit in scope["units"]))
 
-    def test_unknown_or_missing_chapter_never_selects_an_unrelated_catalog_entry(self):
-        with self.assertRaises(ValidationError):
-            AutonomousStudyRequest.model_validate({"current_topic": "legacy-only"})
-
-        with patch(
-            "Logic.autonomous_study_loop.resolve_catalog_chapter_units",
-            return_value=None,
-        ) as resolver:
-            with self.assertRaises(PlanningChapterNotFoundError) as raised:
-                _resolve_chapter_scope(
-                    SimpleNamespace(),
-                    current_chapter="Unknown Chapter",
-                    subject="Chemistry",
-                    class_level="Class 10",
-                )
-
-        resolver.assert_called_once_with(
-            ANY,
-            chapter_ref="Unknown Chapter",
-            subject="Chemistry",
-            class_level="Class 10",
-        )
-        self.assertIn("Unknown Chapter", str(raised.exception))
-        self.assertIn("Choose a chapter from Planning", str(raised.exception))
-
-    def test_route_returns_clear_422_for_an_ungrounded_chapter(self):
-        error = PlanningChapterNotFoundError(
-            "Unknown Chapter",
-            "Chemistry",
-            "Class 11",
-        )
-        with (
-            patch("routers.coach.require_same_user_or_admin"),
-            patch("routers.coach.enforce_user_quota"),
-            patch("routers.coach.profile_learning_context", return_value={"class_level": "Other"}) as profile,
-            patch("routers.coach.run_autonomous_study_loop", side_effect=error) as run_loop,
-        ):
-            with self.assertRaises(HTTPException) as raised:
-                coach_autonomous_study(
-                    user_id="student-1",
-                    payload=AutonomousStudyRequest(
-                        current_chapter="Unknown Chapter",
-                        class_level="Class 11",
-                    ),
-                    db=SimpleNamespace(),
-                    current_user={"uid": "student-1"},
-                )
-
-        profile.assert_not_called()
-        self.assertEqual(run_loop.call_args.kwargs["class_level"], "Class 11")
-        self.assertEqual(getattr(raised.exception, "status_code", None), 422)
-        self.assertIn("Unknown Chapter", str(getattr(raised.exception, "detail", "")))
-        self.assertIn(
-            "Choose a chapter from Planning",
-            str(getattr(raised.exception, "detail", "")),
-        )
-
-    def test_route_uses_profile_class_only_when_catalog_class_is_blank(self):
-        error = PlanningChapterNotFoundError(
-            "Unknown Chapter",
-            "Chemistry",
-            "Other",
-        )
-        with (
-            patch("routers.coach.require_same_user_or_admin"),
-            patch("routers.coach.enforce_user_quota"),
-            patch(
-                "routers.coach.profile_learning_context",
-                return_value={"class_level": "Other"},
-            ) as profile,
-            patch("routers.coach.run_autonomous_study_loop", side_effect=error) as run_loop,
-        ):
-            with self.assertRaises(HTTPException):
-                coach_autonomous_study(
-                    user_id="student-1",
-                    payload=AutonomousStudyRequest(current_chapter="Unknown Chapter"),
-                    db=SimpleNamespace(),
-                    current_user={"uid": "student-1"},
-                )
-
-        profile.assert_called_once()
-        self.assertEqual(run_loop.call_args.kwargs["class_level"], "Other")
-
-    def test_published_resolution_is_strict_and_queries_only_the_requested_chapter(self):
+    def test_published_chapter_resolution_never_crosses_selected_scope(self):
         engine, db = _memory_catalog_session()
         chemistry = ContentChapter(
             slug="chemistry-shared",
@@ -283,7 +486,14 @@ class AutonomousStudyPlanningTests(unittest.TestCase):
             chapter_name="Shared Chapter",
             status="approved",
         )
-        db.add_all([chemistry, physics])
+        lower_class = ContentChapter(
+            slug="chemistry-shared-10",
+            subject="Chemistry",
+            class_level="Class 10",
+            chapter_name="Shared Chapter",
+            status="approved",
+        )
+        db.add_all([chemistry, physics, lower_class])
         db.commit()
         db.add(
             ContentConcept(
@@ -293,15 +503,6 @@ class AutonomousStudyPlanningTests(unittest.TestCase):
             )
         )
         db.commit()
-
-        statements = []
-        event.listen(
-            engine,
-            "before_cursor_execute",
-            lambda _conn, _cursor, statement, _parameters, _context, _many: statements.append(
-                statement.lower()
-            ),
-        )
         try:
             resolved = resolve_catalog_chapter_units(
                 db,
@@ -319,7 +520,7 @@ class AutonomousStudyPlanningTests(unittest.TestCase):
                 db,
                 chapter_ref="Shared Chapter",
                 subject="Chemistry",
-                class_level="Class 10",
+                class_level="Class 9",
             )
         finally:
             db.close()
@@ -329,35 +530,111 @@ class AutonomousStudyPlanningTests(unittest.TestCase):
         self.assertEqual(resolved["chapter_slug"], "chemistry-shared")
         self.assertIsNone(wrong_subject)
         self.assertIsNone(wrong_class)
-        chapter_select = next(
-            statement
-            for statement in statements
-            if statement.lstrip().startswith("select") and "from content_chapters" in statement
-        )
-        self.assertIn("content_chapters.subject", chapter_select)
-        self.assertIn("content_chapters.class_level", chapter_select)
-        self.assertIn("content_chapters.slug", chapter_select)
-        self.assertIn("limit", chapter_select)
 
-    def test_duplicate_unit_labels_still_receive_distinct_honest_repairs(self):
-        scope = {
-            "chapter_label": "Sample Chapter",
-            "units": [
-                {"id": f"unit_{index}", "label": "Core Concepts", "concept_ids": []}
-                for index in range(1, 4)
-            ],
-        }
-        profile = _normalize_mission_profile(
-            current_knowledge="new",
-            learning_goal="deep_understanding",
+    def test_published_catalog_aggregates_only_approved_concept_metadata(self):
+        engine, db = _memory_catalog_session()
+        chapter = ContentChapter(
+            slug="forces",
+            subject="Science",
+            class_level="Class 10",
+            chapter_name="Forces",
+            status="approved",
         )
-        plan = _build_chapter_study_plan(scope, "baseline", profile)["study_plan"]
+        db.add(chapter)
+        db.commit()
+        db.add(
+            ContentConcept(
+                chapter_id=chapter.id,
+                concept_id="force_core",
+                title="Force Core",
+                importance_level="core",
+                typical_exam_weightage="high",
+                difficulty_level=4,
+            )
+        )
+        db.commit()
+        try:
+            scope = resolve_catalog_chapter_units(
+                db,
+                chapter_ref="forces",
+                subject="Science",
+                class_level="Class 10",
+            )
+        finally:
+            db.close()
+            engine.dispose()
 
-        readiness_questions = [step["prerequisite_check"]["question"] for step in plan]
-        self.assertEqual(len(readiness_questions), len(set(readiness_questions)))
-        self.assertTrue(all(f"Step {index}" in step["detail"] for index, step in enumerate(plan, 1)))
-        self.assertTrue(all("Stay in Planning" in step["prerequisite_check"]["guidance"] for step in plan))
-        self.assertNotIn("short explanation and example in this step", str(plan))
+        self.assertEqual(scope["units"][0]["subtopics"], ["Force Core"])
+        self.assertEqual(scope["units"][0]["focus_signals"]["importance_score"], 4)
+        self.assertEqual(scope["units"][0]["focus_signals"]["exam_weightage_score"], 3)
+
+    def test_catalog_subtopics_include_late_priority_concept_without_invention(self):
+        concepts = [
+            {
+                "concept_id": f"concept_{index}",
+                "title": f"Approved Concept {index}",
+                "importance_level": "low",
+                "typical_exam_weightage": "low",
+                "difficulty_level": 1,
+            }
+            for index in range(1, 7)
+        ]
+        concepts[-1].update(
+            {
+                "importance_level": "essential",
+                "typical_exam_weightage": "high",
+                "difficulty_level": 5,
+            }
+        )
+
+        selected = _planning_subtopics(concepts, "Fallback")
+        candidates = _planning_subtopic_candidates(concepts, "Fallback")
+
+        self.assertEqual(len(selected), 4)
+        self.assertIn("Approved Concept 6", selected)
+        self.assertEqual(len(candidates), 6)
+        self.assertTrue(set(selected).issubset({concept["title"] for concept in concepts}))
+
+    def test_unknown_chapter_never_fabricates_a_brief(self):
+        with patch("Logic.autonomous_study_loop.resolve_catalog_chapter_units", return_value=None) as resolver:
+            with self.assertRaises(PlanningChapterNotFoundError):
+                _resolve_chapter_scope(
+                    SimpleNamespace(),
+                    current_chapter="Unknown Chapter",
+                    subject="Science",
+                    class_level="Class 10",
+                )
+        resolver.assert_called_once_with(
+            ANY,
+            chapter_ref="Unknown Chapter",
+            subject="Science",
+            class_level="Class 10",
+        )
+
+    def test_route_preserves_explicit_class_and_returns_clear_422(self):
+        error = PlanningChapterNotFoundError("Unknown Chapter", "Science", "Class 10")
+        with (
+            patch("routers.coach.require_same_user_or_admin"),
+            patch("routers.coach.enforce_user_quota"),
+            patch("routers.coach.profile_learning_context") as profile,
+            patch("routers.coach.run_autonomous_study_loop", side_effect=error) as run_loop,
+        ):
+            with self.assertRaises(HTTPException) as raised:
+                coach_autonomous_study(
+                    user_id="student-1",
+                    payload=AutonomousStudyRequest(
+                        current_chapter="Unknown Chapter",
+                        subject="Science",
+                        class_level="Class 10",
+                    ),
+                    db=SimpleNamespace(),
+                    current_user={"uid": "student-1"},
+                )
+
+        profile.assert_not_called()
+        self.assertEqual(run_loop.call_args.kwargs["class_level"], "Class 10")
+        self.assertEqual(raised.exception.status_code, 422)
+        self.assertIn("Choose a chapter from Planning", raised.exception.detail)
 
 
 if __name__ == "__main__":

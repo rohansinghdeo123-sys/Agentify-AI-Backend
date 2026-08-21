@@ -1,22 +1,32 @@
-"""Chapter-wise Planning mission generation.
+"""Fast, chapter-grounded Planning briefs for school students.
 
-Planning deliberately operates at chapter scope. Fine-grained content
-concepts remain useful to the learning system, but students receive one calm,
-ordered roadmap made from the chapter's compact published learning units.
+Planning is a decision aid, not another place to study. A request resolves one
+approved chapter, asks the configured model to rank only its published learning
+units, validates the complete response, and falls back to a deterministic
+metadata/analytics ranking whenever the model is unavailable or unsafe.
 """
 
 from __future__ import annotations
 
+import json
+import logging
+import math
 import re
 import time
 import uuid
 from datetime import datetime, timezone
+from hashlib import sha1
 from typing import Any, Dict, List, Sequence
 
 from Logic.agent_event_bus import event_bus
-from Logic.analytics_engine import get_user_analytics
 from Logic.agents.coach_agent import get_or_create_coach
+from Logic.analytics_engine import get_user_analytics
+from Logic.coach.model_gateway import model_gateway
 from services.catalog_service import resolve_catalog_chapter_units
+
+
+logger = logging.getLogger("ai_educator.planning")
+RANK_SCORE_TOLERANCE = 0.75
 
 
 class PlanningChapterNotFoundError(ValueError):
@@ -33,15 +43,6 @@ class PlanningChapterNotFoundError(ValueError):
 
 def _normalize_key(value: Any) -> str:
     return re.sub(r"[^a-z0-9]+", "_", str(value or "").strip().lower()).strip("_")
-
-
-def _display_label(value: Any, fallback: str = "Selected chapter") -> str:
-    label = str(value or "").strip()
-    if not label:
-        return fallback
-    if "_" in label or "-" in label:
-        return label.replace("_", " ").replace("-", " ").title()
-    return label
 
 
 def _normalize_mission_profile(
@@ -82,14 +83,6 @@ def _is_fast_track(profile: Dict[str, Any]) -> bool:
     return profile["learning_goal"] == "fast_track"
 
 
-def _needs_prerequisite_block(profile: Dict[str, Any], mastery_band: str) -> bool:
-    return (
-        profile["current_knowledge"] == "new"
-        or profile["prerequisite_confidence"] == "low"
-        or mastery_band in {"baseline", "critical"}
-    )
-
-
 def _resolve_chapter_scope(
     db,
     *,
@@ -106,36 +99,60 @@ def _resolve_chapter_scope(
     )
     if resolved:
         return resolved
-
     raise PlanningChapterNotFoundError(current_chapter, subject, class_level)
+
+
+def _analytics_for_units(
+    analytics: Dict[str, Any],
+    units: Sequence[Dict[str, Any]],
+) -> Dict[str, Dict[str, float]]:
+    """Attach a signal only when analytics exactly matches a published unit."""
+    unit_keys: Dict[str, set[str]] = {}
+    for unit in units:
+        keys = {
+            _normalize_key(unit.get("id")),
+            _normalize_key(unit.get("label")),
+            *[_normalize_key(value) for value in unit.get("concept_ids") or []],
+        }
+        unit_keys[str(unit["id"])] = {key for key in keys if key}
+
+    samples: Dict[str, List[float]] = {str(unit["id"]): [] for unit in units}
+    seen: set[tuple[str, str]] = set()
+    for collection_name in ("weak_areas", "topic_heatmap"):
+        for item in analytics.get(collection_name) or []:
+            topic_key = _normalize_key(item.get("topic"))
+            if not topic_key:
+                continue
+            for unit_id, keys in unit_keys.items():
+                marker = (unit_id, topic_key)
+                if topic_key not in keys or marker in seen:
+                    continue
+                seen.add(marker)
+                try:
+                    accuracy = float(item.get("accuracy") or item.get("value") or 0)
+                except (TypeError, ValueError):
+                    continue
+                samples[unit_id].append(max(0.0, min(100.0, accuracy)))
+
+    return {
+        unit_id: {
+            "accuracy": round(sum(values) / len(values), 2),
+            "signal_count": float(len(values)),
+        }
+        for unit_id, values in samples.items()
+        if values
+    }
 
 
 def _chapter_mastery_signal(
     analytics: Dict[str, Any],
     units: Sequence[Dict[str, Any]],
 ) -> tuple[float, int]:
-    unit_keys = {
-        key
-        for unit in units
-        for key in (
-            _normalize_key(unit.get("id")),
-            _normalize_key(unit.get("label")),
-            *[_normalize_key(value) for value in unit.get("concept_ids") or []],
-        )
-        if key
-    }
-    values: List[float] = []
-    seen: set[str] = set()
-    for collection_name in ("weak_areas", "topic_heatmap"):
-        for item in analytics.get(collection_name) or []:
-            key = _normalize_key(item.get("topic"))
-            if not key or key not in unit_keys or key in seen:
-                continue
-            seen.add(key)
-            values.append(float(item.get("accuracy") or item.get("value") or 0))
-    if not values:
+    signals = _analytics_for_units(analytics, units)
+    if not signals:
         return (0.0, 0)
-    return (sum(values) / len(values), len(values))
+    accuracies = [signal["accuracy"] for signal in signals.values()]
+    return (sum(accuracies) / len(accuracies), len(accuracies))
 
 
 def _mastery_band(accuracy: float, signal_count: int) -> str:
@@ -158,346 +175,588 @@ def _mission_priority(mastery_band: str) -> str:
     return "stretch"
 
 
-def _estimate_mission_budget(
-    profile: Dict[str, Any],
-    mastery_band: str,
-    learning_unit_count: int = 1,
-) -> int:
-    unit_count = max(1, int(learning_unit_count or 1))
-    if _is_fast_track(profile):
-        per_unit = 12
-    elif profile["learning_goal"] == "deep_understanding":
-        per_unit = 20
-    else:
-        per_unit = 16
+def _build_focus_area_scopes(units: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Consolidate adjacent units into at most five visible, lossless areas."""
+    if not units:
+        return []
+    target = min(5, len(units))
+    base, remainder = divmod(len(units), target)
+    sizes = [base + (1 if index < remainder else 0) for index in range(target)]
+    areas: List[Dict[str, Any]] = []
+    offset = 0
+    for size in sizes:
+        members = list(units[offset : offset + size])
+        offset += size
+        unit_ids = [str(member["id"]) for member in members]
+        unit_titles = [str(member["label"]).strip() for member in members]
 
-    total = per_unit * unit_count
-    if _needs_prerequisite_block(profile, mastery_band):
-        total += min(20, 4 * unit_count)
-    if mastery_band == "strong" or profile["current_knowledge"] == "know_basics":
-        total -= min(20, 2 * unit_count)
-    return max(12, min(240, total))
+        area_candidates: List[Dict[str, Any]] = []
+        for member_index, member in enumerate(members):
+            source_candidates = member.get("subtopic_candidates") or [
+                {
+                    "title": title,
+                    # Older catalog rows do not carry per-title aliases. The
+                    # containing unit aliases still let learner analytics make
+                    # that unit's representative visible.
+                    "concept_ids": list(member.get("concept_ids") or []),
+                    "focus_signals": member.get("focus_signals") or {},
+                    "source_order": title_index,
+                }
+                for title_index, title in enumerate(
+                    member.get("subtopics") or [member["label"]]
+                )
+            ]
+            for title_index, raw_candidate in enumerate(source_candidates):
+                title = " ".join(str(raw_candidate.get("title") or "").split())
+                if not title:
+                    continue
+                candidate_id = (
+                    f"{member['id']}::subtopic::"
+                    f"{raw_candidate.get('source_order', title_index)}"
+                )
+                area_candidates.append(
+                    {
+                        "id": candidate_id,
+                        "label": title,
+                        "title": title,
+                        "unit_id": str(member["id"]),
+                        # Analytics historically uses a mix of concept IDs,
+                        # unit IDs, and unit titles. Carry all three aliases so
+                        # the visible representative always matches the signal
+                        # that elevated its consolidated area.
+                        "concept_ids": list(
+                            dict.fromkeys(
+                                [
+                                    str(member["id"]),
+                                    str(member["label"]),
+                                    *(raw_candidate.get("concept_ids") or []),
+                                ]
+                            )
+                        ),
+                        "focus_signals": raw_candidate.get("focus_signals")
+                        or member.get("focus_signals")
+                        or {},
+                        "source_order": len(area_candidates),
+                        "unit_order": member_index,
+                    }
+                )
+        if not area_candidates:
+            area_candidates = [
+                {
+                    "id": f"{unit_ids[0]}::subtopic::0",
+                    "label": unit_titles[0],
+                    "title": unit_titles[0],
+                    "unit_id": unit_ids[0],
+                    "concept_ids": [],
+                    "focus_signals": {},
+                    "source_order": 0,
+                    "unit_order": 0,
+                }
+            ]
 
-
-def _allocate_unit_minutes(total_minutes: int, unit_count: int) -> List[int]:
-    count = max(1, unit_count)
-    base, remainder = divmod(total_minutes, count)
-    return [base + (1 if index < remainder else 0) for index in range(count)]
-
-
-def _style_instruction(profile: Dict[str, Any]) -> str:
-    return {
-        "examples_first": "Begin with one clear example, then connect it to the idea.",
-        "short_explanations": "Use a short explanation, then recall it without looking.",
-        "conceptual_detail": "Understand why the idea works and how it connects to the chapter.",
-    }[profile["preferred_style"]]
-
-
-def _goal_instruction(profile: Dict[str, Any]) -> str:
-    return {
-        "deep_understanding": "Explain the reason in your own words before moving ahead.",
-        "exam": "Finish with one standard school-exam application.",
-        "fast_track": "Cover the essential rule, one example, and one quick check.",
-    }[profile["learning_goal"]]
-
-
-def _unit_prerequisite_check(
-    *,
-    chapter_label: str,
-    unit_label: str,
-    previous_label: str,
-    sequence: int,
-    needs_repair: bool,
-) -> Dict[str, str]:
-    if sequence == 1:
-        status = "repair_first" if needs_repair else "ready"
-        question = (
-            f"Before Step 1, what is one fact you already know about {unit_label} "
-            f"in {chapter_label}?"
+        metadata_rows = [member.get("focus_signals") or {} for member in members]
+        total_concepts = sum(int(row.get("concept_count") or 0) for row in metadata_rows)
+        weighted_difficulty = sum(
+            float(row.get("average_difficulty") or 1)
+            * max(1, int(row.get("concept_count") or 1))
+            for row in metadata_rows
         )
-        guidance = (
-            f"Stay in Planning and break {unit_label} into the ideas named in its title. "
-            "Write what each part means, mark the first part you cannot explain, and keep "
-            "Step 1 open until you can answer one accurate sentence."
-            if needs_repair
-            else f"Answer in one sentence about {unit_label}. If it is unclear, mark the exact missing idea and keep Step 1 open before continuing."
+        difficulty_weight = sum(
+            max(1, int(row.get("concept_count") or 1)) for row in metadata_rows
         )
-    else:
-        status = "connect_previous"
-        question = (
-            f"Before Step {sequence}, how does Step {sequence - 1} ({previous_label}) "
-            f"prepare you for {unit_label}?"
-        )
-        guidance = (
-            f"Stay in Planning and write one connection between {previous_label} and {unit_label}. "
-            f"If the link is missing, keep Step {sequence} open and retry after reviewing the Step {sequence - 1} completion check."
-        )
-    return {"status": status, "question": question, "guidance": guidance}
-
-
-def _unit_completion_check(
-    unit_label: str,
-    profile: Dict[str, Any],
-    sequence: int,
-) -> Dict[str, str]:
-    if profile["learning_goal"] == "exam":
-        question = f"For Step {sequence}, can you explain {unit_label} and complete one standard exam-style application without help?"
-        expected = "A clear explanation, the correct method, and a checked final answer."
-    elif _is_fast_track(profile):
-        question = f"For Step {sequence}, can you recall the essential rule and one example for {unit_label} without notes?"
-        expected = "The central rule and one correct example in your own words."
-    else:
-        question = f"For Step {sequence}, can you explain why {unit_label} works and connect it to the chapter without notes?"
-        expected = "A correct explanation plus one meaningful chapter connection."
-    return {"question": question, "expected_outcome": expected}
-
-
-def _build_chapter_study_plan(
-    chapter_scope: Dict[str, Any],
-    mastery_band: str,
-    profile: Dict[str, Any],
-) -> Dict[str, Any]:
-    units = chapter_scope["units"]
-    estimated_minutes = _estimate_mission_budget(profile, mastery_band, len(units))
-    durations = _allocate_unit_minutes(estimated_minutes, len(units))
-    needs_repair = _needs_prerequisite_block(profile, mastery_band)
-    study_plan: List[Dict[str, Any]] = []
-    previous_label = ""
-    for index, (unit, duration) in enumerate(zip(units, durations), start=1):
-        label = unit["label"]
-        study_plan.append(
+        area_id = f"focus_{sha1('|'.join(unit_ids).encode('utf-8')).hexdigest()[:12]}"
+        if len(unit_titles) == 1:
+            display_title = _brief_label(unit_titles[0], 240)
+        elif len(unit_titles) == 2:
+            display_title = _brief_label(" & ".join(unit_titles), 240)
+        else:
+            display_title = _brief_label(
+                f"{unit_titles[0]} + {len(unit_titles) - 1} connected areas",
+                240,
+            )
+        areas.append(
             {
-                "sequence": index,
-                "unit_id": unit["id"],
-                "title": f"Step {index}: {label}",
-                "duration": f"{duration} min",
-                "detail": (
-                    f"Work through {label} as Step {index} of {chapter_scope['chapter_label']}. "
-                    f"Use its in-page checkpoint before continuing. "
-                    f"{_style_instruction(profile)} {_goal_instruction(profile)}"
+                "id": area_id,
+                "label": display_title,
+                "focus_area_id": area_id,
+                "unit_ids": unit_ids,
+                "unit_titles": unit_titles,
+                "subtopics": [],
+                "_subtopic_candidates": area_candidates,
+                # Include source unit IDs in matching keys so existing learner
+                # analytics still elevate the correct consolidated area.
+                "concept_ids": list(
+                    dict.fromkeys(
+                        [
+                            *unit_ids,
+                            *unit_titles,
+                            *[
+                                str(concept_id)
+                                for member in members
+                                for concept_id in member.get("concept_ids") or []
+                            ],
+                        ]
+                    )
                 ),
-                "focus": f"Step {index} · {label}",
-                "prerequisite_check": _unit_prerequisite_check(
-                    chapter_label=chapter_scope["chapter_label"],
-                    unit_label=label,
-                    previous_label=previous_label,
-                    sequence=index,
-                    needs_repair=needs_repair,
-                ),
-                "completion_check": _unit_completion_check(label, profile, index),
+                "focus_signals": {
+                    "concept_count": total_concepts,
+                    "importance_score": max(
+                        (float(row.get("importance_score") or 0) for row in metadata_rows),
+                        default=0,
+                    ),
+                    "exam_weightage_score": max(
+                        (float(row.get("exam_weightage_score") or 0) for row in metadata_rows),
+                        default=0,
+                    ),
+                    "average_difficulty": round(
+                        weighted_difficulty / max(1, difficulty_weight), 2
+                    ),
+                },
             }
         )
-        previous_label = label
+    return _prioritize_focus_area_subtopics(areas, {})
+
+
+def _focus_score(unit: Dict[str, Any], signal: Dict[str, float] | None) -> float:
+    metadata = unit.get("focus_signals") or {}
+    score = (
+        float(metadata.get("importance_score") or 0) * 1.6
+        + float(metadata.get("exam_weightage_score") or 0) * 1.2
+        + float(metadata.get("average_difficulty") or 1) * 0.45
+        + min(1.5, float(metadata.get("concept_count") or 1) * 0.25)
+    )
+    if signal:
+        accuracy = float(signal.get("accuracy") or 0)
+        if accuracy < 40:
+            score += 4.0
+        elif accuracy < 60:
+            score += 2.5
+        elif accuracy < 80:
+            score += 1.0
+        elif accuracy >= 90:
+            score -= 1.0
+    return score
+
+
+def _prioritize_focus_area_subtopics(
+    areas: Sequence[Dict[str, Any]],
+    analytics: Dict[str, Any],
+) -> List[Dict[str, Any]]:
+    """Choose visible, exact titles that explain each area's priority.
+
+    Consolidated areas can contain more than four source units. We retain full
+    unit coverage in ``unit_ids``/``unit_titles`` while rendering at most four
+    approved subtopics. Learner weaknesses win first, followed by grounded
+    syllabus metadata; selected representatives are then restored to syllabus
+    order for readability.
+    """
+    prioritized: List[Dict[str, Any]] = []
+    for original in areas:
+        area = dict(original)
+        candidates = [dict(candidate) for candidate in area.get("_subtopic_candidates") or []]
+        signals = _analytics_for_units(analytics, candidates)
+
+        def priority(candidate: Dict[str, Any]) -> tuple[float, float, float, int]:
+            signal = signals.get(str(candidate["id"]))
+            accuracy = float(signal.get("accuracy") or 0) if signal else 100.0
+            weak = 1.0 if signal and accuracy < 60 else 0.0
+            weakness = 100.0 - accuracy if weak else 0.0
+            return (
+                weak,
+                weakness,
+                _focus_score(candidate, signal),
+                -int(candidate.get("source_order") or 0),
+            )
+
+        best_by_unit: Dict[str, Dict[str, Any]] = {}
+        for candidate in candidates:
+            unit_id = str(candidate["unit_id"])
+            current = best_by_unit.get(unit_id)
+            if current is None or priority(candidate) > priority(current):
+                best_by_unit[unit_id] = candidate
+
+        representatives = list(best_by_unit.values())
+        if len(representatives) > 4:
+            selected = sorted(representatives, key=priority, reverse=True)[:4]
+        else:
+            selected = list(representatives)
+            selected_ids = {str(candidate["id"]) for candidate in selected}
+            remaining = [
+                candidate
+                for candidate in candidates
+                if str(candidate["id"]) not in selected_ids
+            ]
+            selected.extend(
+                sorted(remaining, key=priority, reverse=True)[: 4 - len(selected)]
+            )
+        selected.sort(key=lambda candidate: int(candidate.get("source_order") or 0))
+        area["subtopics"] = [str(candidate["title"]) for candidate in selected]
+
+        weak_candidates = [
+            candidate
+            for candidate in candidates
+            if (signal := signals.get(str(candidate["id"])))
+            and float(signal.get("accuracy") or 0) < 60
+        ]
+        driver = (
+            max(weak_candidates, key=priority)
+            if weak_candidates
+            else max(candidates, key=priority)
+        )
+        driver_signals = driver.get("focus_signals") or {}
+        driver_learner_signal = signals.get(str(driver["id"]))
+        if driver_learner_signal and float(driver_learner_signal.get("accuracy") or 0) < 60:
+            driver_kind = "learner_weakness"
+        elif float(driver_signals.get("importance_score") or 0) >= 3:
+            driver_kind = "syllabus_importance"
+        elif float(driver_signals.get("exam_weightage_score") or 0) >= 3:
+            driver_kind = "exam_weightage"
+        else:
+            driver_kind = "general"
+        area["_priority_driver"] = {
+            "title": str(driver["title"]),
+            "kind": driver_kind,
+        }
+        prioritized.append(area)
+    return prioritized
+
+
+def _brief_label(value: Any, limit: int = 96) -> str:
+    label = " ".join(str(value or "").split())
+    return label if len(label) <= limit else f"{label[: limit - 1].rstrip()}…"
+
+
+def _focus_reason(
+    level: str,
+    _signal: Dict[str, float] | None,
+    unit: Dict[str, Any],
+) -> str:
+    driver = unit.get("_priority_driver") or {}
+    driver_title = _brief_label(driver.get("title") or unit.get("label"))
+    if driver.get("kind") == "learner_weakness":
+        return f"Earlier learning signals show that {driver_title} needs a stronger pass."
+    if driver.get("kind") == "syllabus_importance":
+        return f"Published syllabus metadata marks {driver_title} as especially important."
+    if driver.get("kind") == "exam_weightage":
+        return f"Published syllabus metadata gives {driver_title} higher exam relevance."
     return {
-        "estimated_minutes": estimated_minutes,
-        "study_plan": study_plan,
-        "high_priority_concepts": [unit["label"] for unit in units],
-    }
+        "high": "Give this area the strongest attention in your first chapter pass.",
+        "medium": "Understand the main idea and connect it to the high-focus areas.",
+        "light": "Keep this pass brief, but include it so chapter coverage stays complete.",
+    }[level]
 
 
-def _build_mission_plan(
+def _focus_guidance(level: str, title: str) -> str:
+    label = _brief_label(title, 100)
+    return {
+        "high": f"Explain {label} in your own words, then recall or use it once without notes.",
+        "medium": f"Learn the key idea in {label} and connect it to one example.",
+        "light": f"Read {label} once and confirm that you can recall its central idea.",
+    }[level]
+
+
+def _focus_band_sequence(count: int) -> List[str]:
+    if count <= 0:
+        return []
+    high_count = 1 if count <= 3 else max(1, math.ceil(count * 0.34))
+    light_count = 0 if count < 3 else max(1, math.floor(count * 0.25))
+    return [
+        "high" if rank < high_count else "light" if rank >= count - light_count else "medium"
+        for rank in range(count)
+    ]
+
+
+def _focus_ranking_context(
     chapter_scope: Dict[str, Any],
-    profile: Dict[str, Any],
-    mastery_band: str,
+    analytics: Dict[str, Any],
+) -> tuple[
+    List[Dict[str, Any]],
+    Dict[str, Dict[str, float]],
+    Dict[str, float],
+    List[str],
+]:
+    areas = _prioritize_focus_area_subtopics(
+        _build_focus_area_scopes(chapter_scope["units"]),
+        analytics,
+    )
+    analytics_by_area = _analytics_for_units(analytics, areas)
+    scored = [
+        (index, area, _focus_score(area, analytics_by_area.get(str(area["id"]))))
+        for index, area in enumerate(areas)
+    ]
+    ranked = sorted(scored, key=lambda row: (-row[2], row[0]))
+    return (
+        areas,
+        analytics_by_area,
+        {str(area["id"]): score for _index, area, score in scored},
+        [str(area["id"]) for _index, area, _score in ranked],
+    )
+
+
+def _grounded_focus_brief(
+    chapter_scope: Dict[str, Any],
+    area_scopes: Sequence[Dict[str, Any]],
+    analytics_by_area: Dict[str, Dict[str, float]],
+    levels: Dict[str, str],
 ) -> Dict[str, Any]:
-    chapter = chapter_scope["chapter_label"]
-    unit_count = len(chapter_scope["units"])
-    if mastery_band == "baseline":
-        why = "There is no reliable chapter mastery signal yet, so the route starts gently and checks understanding as you go."
-    elif mastery_band in {"critical", "weak"}:
-        why = "Earlier learning signals show that a guided sequence with small repairs will be more reliable than rushing."
-    elif mastery_band == "building":
-        why = "Known material can move faster while each remaining chapter connection is checked."
-    else:
-        why = "The chapter looks familiar, so the route emphasizes application, accuracy, and confident completion."
+    focus_areas: List[Dict[str, Any]] = []
+    for area_scope in area_scopes:
+        area_id = str(area_scope["id"])
+        title = str(area_scope["label"]).strip()
+        level = levels[area_id]
+        focus_areas.append(
+            {
+                "focus_area_id": area_scope["focus_area_id"],
+                "unit_ids": list(area_scope["unit_ids"]),
+                "unit_id": area_scope["unit_ids"][0],
+                "unit_titles": list(area_scope["unit_titles"]),
+                "title": title,
+                "subtopics": list(area_scope["subtopics"]),
+                "focus_level": level,
+                "reason": _focus_reason(
+                    level,
+                    analytics_by_area.get(area_id),
+                    area_scope,
+                ),
+                "guidance": _focus_guidance(level, title),
+            }
+        )
     return {
-        "primary_agent": "mission_planner",
-        "mode": "fast_track_mission" if _is_fast_track(profile) else "adaptive_mission",
-        "difficulty": "easy" if _needs_prerequisite_block(profile, mastery_band) else "medium" if mastery_band != "strong" else "hard",
-        "objective": f"Complete {chapter} comfortably in {unit_count} ordered learning steps.",
-        "why": why,
-        "steps": [
-            "Begin with Step 1 and complete its short readiness check.",
-            "Learn, practise, and check each step in order without leaving Planning.",
-            "Finish the chapter confidence check before marking the route complete.",
-        ],
-        "next_actions": [
-            "Start Step 1 in this Planning roadmap.",
-            "Use the in-step repair only when a readiness check feels difficult.",
-            "Continue to the next step after the completion check passes.",
-        ],
-    }
-
-
-def _build_prerequisite_check(study_plan: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
-    first_step = study_plan[0]
-    check = first_step["prerequisite_check"]
-    return {
-        "status": check["status"],
-        "question": check["question"],
-        "action": (
-            f"{check['guidance']} You do not need to leave Planning."
-            if check["status"] == "repair_first"
-            else f"Answer briefly, then continue directly into {first_step['title']} here in Planning."
+        "chapter_summary": (
+            f"Use this focus map to complete {chapter_scope['chapter_label']} without turning Planning into another study session."
         ),
-        "unit_id": first_step["unit_id"],
-    }
-
-
-def _build_chapter_diagnostic(chapter_scope: Dict[str, Any]) -> Dict[str, Any]:
-    chapter = chapter_scope["chapter_label"]
-    first_unit = chapter_scope["units"][0]["label"]
-    correct = f"I can explain {first_unit} in my own words and give one correct example."
-    return {
-        "id": f"mission_{uuid.uuid4().hex[:8]}",
-        "question": f"Which statement best shows that you are ready to continue the {chapter} roadmap?",
-        "options": [
-            correct,
-            f"I recognise the words in {first_unit}, but cannot explain them yet.",
-            "I will skip the checks and only read the final summary.",
-            "I will memorise the headings without practising an example.",
-        ],
-        "correct": correct,
-        "explanation": (
-            f"Being able to explain {first_unit} and use an example is a reliable first completion signal. "
-            "If you are not there yet, repeat Step 1 inside this plan and retry."
+        "focus_areas": focus_areas,
+        "guidance_steps": _fallback_guidance_steps(focus_areas),
+        "completion_signal": (
+            "Finish when you can explain every High-focus area, connect the Medium areas, and recall the Light areas."
         ),
     }
 
 
-def _build_adaptive_roadmap(chapter_scope: Dict[str, Any]) -> List[Dict[str, str]]:
-    chapter = chapter_scope["chapter_label"]
-    return [
+def _fallback_guidance_steps(focus_areas: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    ids_by_level = {
+        level: [
+            unit_id
+            for area in focus_areas
+            if area["focus_level"] == level
+            for unit_id in area["unit_ids"]
+        ]
+        for level in ("high", "medium", "light")
+    }
+    steps: List[Dict[str, Any]] = []
+    if ids_by_level["high"]:
+        steps.append(
+            {
+                "title": "Start with deep focus",
+                "instruction": "Learn the High-focus areas first and recall or use each one without notes.",
+                "focus_unit_ids": ids_by_level["high"],
+            }
+        )
+    if ids_by_level["medium"]:
+        steps.append(
+            {
+                "title": "Build the chapter links",
+                "instruction": "Connect the Medium-focus areas to what you have just learned.",
+                "focus_unit_ids": ids_by_level["medium"],
+            }
+        )
+    if ids_by_level["light"]:
+        steps.append(
+            {
+                "title": "Make a light pass",
+                "instruction": "Cover the Light-focus areas briefly so no syllabus unit is missed.",
+                "focus_unit_ids": ids_by_level["light"],
+            }
+        )
+    all_ids = [unit_id for area in focus_areas for unit_id in area["unit_ids"]]
+    steps.append(
         {
-            "condition": "If a step check is clear",
-            "next_step": "Continue to the next numbered step in this chapter plan.",
-            "mentor_action": "Keep the pace comfortable and preserve the chapter order.",
-        },
-        {
-            "condition": "If a step check is incorrect",
-            "next_step": "Use that step's short repair, review its example, and retry the check here.",
-            "mentor_action": "Repair only the missing idea instead of restarting the chapter.",
-        },
-        {
-            "condition": "If the student feels unsure",
-            "next_step": f"Pause the {chapter} roadmap at the current step and write one simple explanation before continuing.",
-            "mentor_action": "Build confidence inside Planning without an unexpected page change.",
-        },
-    ]
+            "title": "Close the chapter",
+            "instruction": "Recall the full focus map in order and check one mixed recall or application.",
+            "focus_unit_ids": all_ids,
+        }
+    )
+    if len(steps) < 3:
+        steps.insert(
+            -1,
+            {
+                "title": "Connect the ideas",
+                "instruction": "Explain how the chapter areas fit together before the final check.",
+                "focus_unit_ids": all_ids,
+            },
+        )
+    return [dict(step, sequence=index) for index, step in enumerate(steps[:5], start=1)]
 
 
-def _build_success_criteria(chapter_scope: Dict[str, Any]) -> List[str]:
-    chapter = chapter_scope["chapter_label"]
-    return [
-        "Complete every numbered learning step and its in-page check.",
-        "Repair only the step that is unclear; do not restart the whole route.",
-        f"Finish {chapter} by explaining the learning steps in order and completing one final application.",
-    ]
+def _deterministic_focus_brief(
+    chapter_scope: Dict[str, Any],
+    analytics: Dict[str, Any],
+) -> Dict[str, Any]:
+    areas, analytics_by_area, _scores, ranked_ids = _focus_ranking_context(
+        chapter_scope,
+        analytics,
+    )
+    levels = dict(zip(ranked_ids, _focus_band_sequence(len(ranked_ids))))
+    return _grounded_focus_brief(chapter_scope, areas, analytics_by_area, levels)
 
 
-def _build_agent_sequence(plan: Dict[str, Any]) -> List[Dict[str, str]]:
-    return [
-        {"agent": "Supervisor Orchestrator", "role": "diagnose", "status": "complete", "detail": "Reads chapter context and existing learning signals."},
-        {"agent": "Personal Coach", "role": "plan", "status": "complete", "detail": "Turns the complete chapter into a comfortable ordered route."},
-        {"agent": "Adaptive Tutor", "role": "execute", "status": "complete", "detail": "Adds a distinct readiness and completion check to each learning step."},
-        {"agent": "Subject Reviewer", "role": "verify", "status": "complete", "detail": "Preserves chapter coverage and a reliable finish condition."},
-    ]
+def _extract_json_object(raw: Any) -> Dict[str, Any]:
+    text = str(raw or "").strip()
+    if text.startswith("```"):
+        text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text, flags=re.IGNORECASE)
+    try:
+        parsed = json.loads(text)
+    except json.JSONDecodeError:
+        match = re.search(r"\{.*\}", text, flags=re.DOTALL)
+        if not match:
+            return {}
+        try:
+            parsed = json.loads(match.group(0))
+        except json.JSONDecodeError:
+            return {}
+    return parsed if isinstance(parsed, dict) else {}
 
 
-def _build_checkpoints(plan: Dict[str, Any], success_criteria: List[str]) -> List[Dict[str, str]]:
-    return [
-        {"title": "Chapter selected", "owner": "Supervisor", "status": "complete", "detail": plan["objective"]},
-        {"title": "Roadmap ready", "owner": "mission_planner", "status": "complete", "detail": plan["steps"][0]},
-        {"title": "Student progress", "owner": "student", "status": "pending", "detail": success_criteria[0]},
-        {"title": "Chapter completion", "owner": "student", "status": "pending", "detail": success_criteria[2]},
-    ]
+def _validate_model_focus_ranking(
+    payload: Dict[str, Any],
+    chapter_scope: Dict[str, Any],
+    analytics: Dict[str, Any],
+) -> Dict[str, str]:
+    areas, _analytics_by_area, score_by_id, _deterministic_ids = _focus_ranking_context(
+        chapter_scope,
+        analytics,
+    )
+    expected_ids = {str(area["focus_area_id"]) for area in areas}
+    if set(payload) != {"focus_ranking"}:
+        raise ValueError("Model ranking contains unsupported content")
+    raw_ranking = payload.get("focus_ranking")
+    if not isinstance(raw_ranking, list) or len(raw_ranking) != len(areas):
+        raise ValueError("Focus ranking must contain every approved area exactly once")
+
+    ranked_ids: List[str] = []
+    for item in raw_ranking:
+        if not isinstance(item, str):
+            raise ValueError("Model ranking contains unsupported content")
+        area_id = item.strip()
+        if area_id not in expected_ids or area_id in ranked_ids:
+            raise ValueError("Model ranking is not grounded in the selected chapter")
+        ranked_ids.append(area_id)
+    if set(ranked_ids) != expected_ids:
+        raise ValueError("Model ranking does not preserve complete chapter coverage")
+
+    # The model may break close metadata ties, but it may not place a clearly
+    # lower-scored area ahead of a stronger syllabus or learner signal.
+    for earlier_index, earlier_id in enumerate(ranked_ids):
+        for later_id in ranked_ids[earlier_index + 1 :]:
+            if score_by_id[later_id] > score_by_id[earlier_id] + RANK_SCORE_TOLERANCE:
+                raise ValueError("Model ranking contradicts grounded priority signals")
+    return dict(zip(ranked_ids, _focus_band_sequence(len(ranked_ids))))
 
 
-def _build_mission_contract(
-    *,
-    plan: Dict[str, Any],
+def _llm_focus_brief(
     chapter_scope: Dict[str, Any],
     analytics: Dict[str, Any],
     profile: Dict[str, Any],
-    mastery_band: str,
-    accuracy: float,
-    signal_count: int,
-    estimated_minutes: int,
 ) -> Dict[str, Any]:
-    summary = analytics.get("summary") or {}
-    success_criteria = _build_success_criteria(chapter_scope)
-    return {
-        "mission_type": "chapter_plan",
-        "priority": _mission_priority(mastery_band),
-        "mastery_band": mastery_band,
-        "estimated_minutes": estimated_minutes,
-        "student_state": {
-            "plan_scope": "chapter",
-            "chapter_accuracy": accuracy,
-            "chapter_signal_count": signal_count,
-            "learning_unit_count": len(chapter_scope["units"]),
-            "average_accuracy": float(summary.get("avg_accuracy") or 0),
-            "streak": int(summary.get("streak") or 0),
-            "current_knowledge": profile["current_knowledge"],
-            "learning_goal": profile["learning_goal"],
-            "preferred_style": profile["preferred_style"],
-            "prerequisite_confidence": profile["prerequisite_confidence"],
-        },
-        "agent_sequence": _build_agent_sequence(plan),
-        "success_criteria": success_criteria,
-        "checkpoints": _build_checkpoints(plan, success_criteria),
-        "completion_report": {
-            "status": "awaiting_chapter_progress",
-            "measure": success_criteria[0],
-            "next_memory_event": "chapter_plan_completed",
-            "coach_follow_up": plan["next_actions"][0],
-            "final_report_sections": ["Steps completed", "Repairs used", "Final confidence", "Next chapter action"],
-        },
+    focus_area_scopes = _prioritize_focus_area_subtopics(
+        _build_focus_area_scopes(chapter_scope["units"]),
+        analytics,
+    )
+    analytics_by_unit = _analytics_for_units(analytics, focus_area_scopes)
+    grounded_areas = [
+        {
+            "focus_area_id": area["focus_area_id"],
+            "unit_ids": area["unit_ids"],
+            "unit_titles": area["unit_titles"],
+            "title": area["label"],
+            "subtopics": area["subtopics"],
+            "metadata": area.get("focus_signals") or {},
+            "learner_signal": analytics_by_unit.get(str(area["id"])),
+        }
+        for area in focus_area_scopes
+    ]
+    prompt = {
+        "class": chapter_scope.get("class_level") or profile.get("class_level") or "",
+        "subject": chapter_scope.get("subject") or "",
+        "chapter": chapter_scope["chapter_label"],
+        "approved_focus_areas": grounded_areas,
     }
+    raw = model_gateway.complete(
+        "profiler",
+        [
+            {
+                "role": "system",
+                "content": (
+                    "Rank the approved chapter focus areas from most to least attention. "
+                    "Use every focus_area_id exactly once. Return no student-facing prose or extra keys. "
+                    "Use only supplied metadata and learner signals. Return only JSON: "
+                    '{"focus_ranking":["most important exact id","next exact id"]}.'
+                ),
+            },
+            {"role": "user", "content": json.dumps(prompt, ensure_ascii=False)},
+        ],
+        complexity="fast",
+        agent_name="mission_planner",
+        task="build_chapter_focus_brief",
+        student_visible=False,
+        safety_tier="strict_source_grounding",
+        temperature=0.1,
+        max_tokens=400,
+    )
+    levels = _validate_model_focus_ranking(
+        _extract_json_object(raw),
+        chapter_scope,
+        analytics,
+    )
+    return _grounded_focus_brief(
+        chapter_scope,
+        focus_area_scopes,
+        analytics_by_unit,
+        levels,
+    )
 
 
-def _build_fast_revision_strategy(chapter_scope: Dict[str, Any], profile: Dict[str, Any]) -> List[str]:
-    chapter = chapter_scope["chapter_label"]
-    if _is_fast_track(profile):
-        return [
-            f"Move through the numbered {chapter} steps using only the essential rule and example.",
-            "Complete each short check before advancing.",
-            "Repeat only the step that fails; keep completed steps complete.",
-        ]
+def _build_focus_brief(
+    chapter_scope: Dict[str, Any],
+    analytics: Dict[str, Any],
+    profile: Dict[str, Any],
+) -> tuple[Dict[str, Any], str]:
+    try:
+        return _llm_focus_brief(chapter_scope, analytics, profile), "llm"
+    except Exception as exc:  # noqa: BLE001 - deterministic brief must always remain available
+        logger.warning("Planning focus model fell back to grounded ranking: %s", exc)
+        return _deterministic_focus_brief(chapter_scope, analytics), "deterministic_fallback"
+
+
+def _legacy_study_plan(brief: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Truthful response-only bridge during the focus-brief rollout.
+
+    New clients ignore this structure. It retains fields required by the
+    previously deployed validator without adding a visible time estimate or
+    changing the canonical brief.
+    """
     return [
-        f"After each {chapter} step, compress the idea into one recall line.",
-        "Connect each new step to the previous one.",
-        "Use the final pass to recall the complete chapter order.",
-    ]
-
-
-def _build_weakness_detection_points(chapter_scope: Dict[str, Any]) -> List[str]:
-    unit_labels = [unit["label"] for unit in chapter_scope["units"]]
-    points = [f"The student cannot explain {label} in one clear sentence." for label in unit_labels[:3]]
-    points.append("The student completes a step but cannot connect it to the next one.")
-    return points
-
-
-def _build_final_confidence_check(chapter_scope: Dict[str, Any]) -> List[str]:
-    chapter = chapter_scope["chapter_label"]
-    return [
-        f"Can I explain the {chapter} learning steps in the correct order?",
-        "Can I connect every step to at least one example or application?",
-        "Can I complete one final question without notes and explain my method?",
-    ]
-
-
-def _build_fast_track_strategy(chapter_scope: Dict[str, Any], profile: Dict[str, Any]) -> List[str]:
-    chapter = chapter_scope["chapter_label"]
-    if not _is_fast_track(profile):
-        return [
-            f"Use the full {chapter} roadmap at a comfortable pace.",
-            "Move faster only through steps whose checks are already clear.",
-        ]
-    return [
-        f"Use one essential explanation and one example for every {chapter} step.",
-        "Skip repeated reading after a completion check passes.",
-        "Finish with one chapter-wide recall pass.",
+        {
+            "sequence": index,
+            "unit_id": area["unit_id"],
+            "unit_ids": area["unit_ids"],
+            "focus_area_id": area["focus_area_id"],
+            "title": area["title"],
+            "duration": "Self-paced",
+            "detail": area["guidance"],
+            "focus": area["reason"],
+            "focus_level": area["focus_level"],
+            "prerequisite_check": {
+                "status": "ready",
+                "question": f"For focus area {index}, what will you focus on first in {area['title']}?",
+                "guidance": "Use the focus level and approved subtopics shown in this brief.",
+            },
+            "completion_check": {
+                "question": f"Can you recall the central idea in {area['title']}?",
+                "expected_outcome": "A short explanation in your own words.",
+            },
+        }
+        for index, area in enumerate(brief["focus_areas"], start=1)
     ]
 
 
@@ -514,12 +773,17 @@ def run_autonomous_study_loop(
 ) -> Dict[str, Any]:
     started_at = time.time()
     mission_id = f"mission_{uuid.uuid4().hex[:12]}"
-    session_id = f"autonomous-{user_id}-{mission_id}"
-
+    session_id = f"planning-{user_id}-{mission_id}"
+    model_gateway.begin_turn(session_id)
     event_bus.emit(
         "orchestrator",
         "task_start",
-        {"task": f"Chapter planning mission {mission_id}", "message": "Building a complete, comfortable chapter roadmap.", "mission_id": mission_id, "user_id": user_id},
+        {
+            "task": f"Chapter focus brief {mission_id}",
+            "message": "Ranking the selected chapter's published focus areas.",
+            "mission_id": mission_id,
+            "user_id": user_id,
+        },
         session_id=session_id,
     )
 
@@ -539,133 +803,149 @@ def run_autonomous_study_loop(
     )
     accuracy, signal_count = _chapter_mastery_signal(analytics, chapter_scope["units"])
     mastery_band = _mastery_band(accuracy, signal_count)
-    plan = _build_mission_plan(chapter_scope, profile, mastery_band)
-    optimized_plan = _build_chapter_study_plan(chapter_scope, mastery_band, profile)
-    contract = _build_mission_contract(
-        plan=plan,
-        chapter_scope=chapter_scope,
-        analytics=analytics,
-        profile=profile,
-        mastery_band=mastery_band,
-        accuracy=accuracy,
-        signal_count=signal_count,
-        estimated_minutes=optimized_plan["estimated_minutes"],
-    )
 
-    event_bus.emit(
-        "orchestrator",
-        "step",
-        {"step": "chapter_plan", "message": plan["objective"], "mission_id": mission_id, "target_chapter": chapter_scope["chapter_slug"], "primary_agent": plan["primary_agent"]},
-        session_id=session_id,
-    )
-
-    study_plan = optimized_plan["study_plan"]
-    prerequisite_check = _build_prerequisite_check(study_plan)
-    diagnostic_question = _build_chapter_diagnostic(chapter_scope)
-    adaptive_roadmap = _build_adaptive_roadmap(chapter_scope)
-    high_priority_concepts = optimized_plan["high_priority_concepts"]
-    fast_revision_strategy = _build_fast_revision_strategy(chapter_scope, profile)
-    weakness_detection_points = _build_weakness_detection_points(chapter_scope)
-    final_confidence_check = _build_final_confidence_check(chapter_scope)
-    fast_track_strategy = _build_fast_track_strategy(chapter_scope, profile)
+    # Analytics and chapter scope are fully materialized dictionaries. End the
+    # read transaction before external model I/O so provider latency/retries do
+    # not retain a pooled database connection. Coach persistence below starts a
+    # separate, short transaction after the brief is ready.
+    db.commit()
+    brief, generation_source = _build_focus_brief(chapter_scope, analytics, profile)
     chapter_label = chapter_scope["chapter_label"]
-    plan_lines = [
-        f"Chapter Goal: Complete {chapter_label} one clear step at a time.",
-        f"Estimated total: {contract['estimated_minutes']} minutes",
-        "",
-        "Chapter Roadmap:",
-        *[f"- {item['title']} ({item['duration']}): {item['detail']}" for item in study_plan],
-        "",
-        "How to progress:",
-        "- Answer each readiness check inside Planning.",
-        "- Use the short repair only for the step that feels unclear.",
-        "- Continue after the completion check passes.",
+    unit_ids = [str(unit["id"]) for unit in chapter_scope["units"]]
+    coverage = {
+        "status": "complete",
+        "included_unit_ids": unit_ids,
+        "unit_count": len(unit_ids),
+    }
+    study_plan = _legacy_study_plan(brief)
+    high_priority = [
+        area["title"] for area in brief["focus_areas"] if area["focus_level"] == "high"
     ]
+    plan_text = "\n".join(
+        [
+            brief["chapter_summary"],
+            *[
+                f"{area['focus_level'].title()}: {area['title']} — {area['guidance']}"
+                for area in brief["focus_areas"]
+            ],
+            *[
+                f"{step['sequence']}. {step['title']}: {step['instruction']}"
+                for step in brief["guidance_steps"]
+            ],
+            brief["completion_signal"],
+        ]
+    )
     result = {
-        "type": "chapter_plan",
-        "answer": "\n".join(plan_lines),
+        "type": "chapter_focus_brief",
+        "answer": plan_text,
         "data": {
-            "text": "\n".join(plan_lines),
-            "questions": [diagnostic_question],
+            "text": plan_text,
+            **brief,
+            "coverage": coverage,
             "study_plan": study_plan,
-            "adaptive_roadmap": adaptive_roadmap,
-            "prerequisite_check": prerequisite_check,
-            "high_priority_concepts": high_priority_concepts,
-            "fast_revision_strategy": fast_revision_strategy,
-            "weakness_detection_points": weakness_detection_points,
-            "final_confidence_check": final_confidence_check,
-            "fast_track_strategy": fast_track_strategy,
+            "questions": [],
         },
         "metadata": {
-            "agent": "chapter_planner",
-            "mission_model": "chapter_completion_roadmap",
-            "personalization": "step_checks_adapt_the_pace_without_page_redirects",
+            "agent": "mission_planner",
+            "brief_version": "chapter_focus_v1",
+            "generation_source": generation_source,
             "plan_scope": "chapter",
             "profile": profile,
         },
     }
-    latency_ms = round((time.time() - started_at) * 1000)
 
+    objective = f"See what matters most in {chapter_label} and leave Planning with a clear route."
+    next_action = brief["guidance_steps"][0]["instruction"]
     coach = get_or_create_coach(db, user_id)
-    coach.next_best_action = plan["next_actions"][0]
-    coach.daily_strategy = plan["objective"]
+    coach.next_best_action = next_action
+    coach.daily_strategy = objective
     coach.last_recommendation = {
         "mission_id": mission_id,
-        "objective": plan["objective"],
+        "objective": objective,
         "target_chapter": chapter_scope["chapter_slug"],
-        "primary_agent": plan["primary_agent"],
-        "mission_type": contract["mission_type"],
-        "mastery_band": contract["mastery_band"],
-        "priority": contract["priority"],
+        "mission_type": "chapter_focus_brief",
+        "mastery_band": mastery_band,
+        "priority": _mission_priority(mastery_band),
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
     coach.updated_at = datetime.now(timezone.utc).replace(tzinfo=None)
     db.commit()
 
+    latency_ms = round((time.time() - started_at) * 1000)
     event_bus.emit(
         "orchestrator",
         "task_complete",
-        {"status": "success", "message": "The complete chapter roadmap is ready.", "mission_id": mission_id, "latency_ms": latency_ms},
+        {
+            "status": "success",
+            "message": "The short chapter focus brief is ready.",
+            "mission_id": mission_id,
+            "latency_ms": latency_ms,
+        },
         session_id=session_id,
     )
-
     return {
         "mission_id": mission_id,
         "status": "ready",
         "subject": chapter_scope["subject"],
         "chapter": chapter_label,
         "plan_scope": "chapter",
-        "learning_unit_count": len(chapter_scope["units"]),
-        # Compatibility response field: older saved clients still read this
-        # key, but it now carries the chapter label rather than a topic target.
+        "brief_version": "chapter_focus_v1",
+        "chapter_summary": brief["chapter_summary"],
+        "focus_areas": brief["focus_areas"],
+        "guidance_steps": brief["guidance_steps"],
+        "completion_signal": brief["completion_signal"],
+        "coverage": coverage,
+        # Rollout alias: the old client equates this with visible study_plan
+        # entries. Canonical source coverage remains coverage.unit_count.
+        "learning_unit_count": len(brief["focus_areas"]),
+        # Response aliases remain safe for saved clients; requests still ignore topics.
         "target_topic": chapter_label,
         "target_source": chapter_scope["source"],
-        "mission_type": contract["mission_type"],
-        "priority": contract["priority"],
-        "mastery_band": contract["mastery_band"],
-        "estimated_minutes": contract["estimated_minutes"],
-        "mission_goal": f"Complete {chapter_label} through a comfortable, ordered chapter route.",
-        "prerequisite_check": prerequisite_check,
-        "high_priority_concepts": high_priority_concepts,
-        "fast_revision_strategy": fast_revision_strategy,
-        "weakness_detection_points": weakness_detection_points,
-        "final_confidence_check": final_confidence_check,
-        "fast_track_strategy": fast_track_strategy,
-        "primary_agent": plan["primary_agent"],
-        "mode": plan["mode"],
-        "difficulty": plan["difficulty"],
-        "objective": plan["objective"],
-        "why": plan["why"],
-        "steps": plan["steps"],
-        "next_actions": plan["next_actions"],
-        "success_criteria": contract["success_criteria"],
+        "mission_type": "chapter_focus_brief",
+        "priority": _mission_priority(mastery_band),
+        "mastery_band": mastery_band,
+        "estimated_minutes": 0,
+        "mission_goal": objective,
+        "prerequisite_check": {},
+        "high_priority_concepts": high_priority,
+        "fast_revision_strategy": [step["instruction"] for step in brief["guidance_steps"]],
+        "weakness_detection_points": [],
+        "final_confidence_check": [brief["completion_signal"]],
+        "fast_track_strategy": [],
+        "primary_agent": "mission_planner",
+        "mode": "chapter_focus_brief",
+        "difficulty": "easy",
+        "objective": objective,
+        "why": brief["chapter_summary"],
+        "steps": [step["instruction"] for step in brief["guidance_steps"]],
+        "next_actions": [next_action],
+        "success_criteria": [brief["completion_signal"]],
         "study_plan": study_plan,
-        "diagnostic_question": diagnostic_question,
-        "adaptive_roadmap": adaptive_roadmap,
-        "agent_sequence": contract["agent_sequence"],
-        "checkpoints": contract["checkpoints"],
-        "student_state": contract["student_state"],
-        "completion_report": contract["completion_report"],
+        "diagnostic_question": {
+            "id": f"legacy_{mission_id}",
+            "question": f"What should guide your first pass through {chapter_label}?",
+            "options": [
+                "Start with the High-focus areas.",
+                "Treat every area as equally demanding.",
+            ],
+            "correct": "Start with the High-focus areas.",
+            "explanation": "The focus map already ranks the complete published chapter for you.",
+        },
+        "adaptive_roadmap": [],
+        "agent_sequence": [],
+        "checkpoints": [],
+        "student_state": {
+            "plan_scope": "chapter",
+            "chapter_accuracy": accuracy,
+            "chapter_signal_count": signal_count,
+            "learning_unit_count": len(brief["focus_areas"]),
+            "source_unit_count": len(unit_ids),
+            "current_knowledge": profile["current_knowledge"],
+            "learning_goal": profile["learning_goal"],
+            "preferred_style": profile["preferred_style"],
+            "prerequisite_confidence": profile["prerequisite_confidence"],
+        },
+        "completion_report": {"status": "brief_ready"},
         "result": result,
         "analytics_summary": analytics.get("summary", {}),
         "latency_ms": latency_ms,
