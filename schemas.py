@@ -332,6 +332,7 @@ class AutonomousStudyRequest(BaseModel):
     learning_goal: Literal["deep_understanding", "exam", "fast_track"] = "deep_understanding"
     preferred_style: Literal["examples_first", "short_explanations", "conceptual_detail"] = "examples_first"
     prerequisite_confidence: str = "medium"
+    study_time_today: Literal["15", "30", "60", "120_plus", "no_limit"] = "no_limit"
 
     model_config = {"extra": "ignore"}
 
@@ -366,6 +367,16 @@ class AutonomousStudyRequest(BaseModel):
         normalized = value.strip().lower().replace(" ", "_")
         return "fast_track" if normalized == "quick_revision" else normalized
 
+    @field_validator("study_time_today", mode="before")
+    @classmethod
+    def normalize_study_time_today(cls, value: Any) -> Any:
+        if value is None or value == "":
+            return "no_limit"
+        if isinstance(value, str):
+            normalized = value.strip().lower().replace(" ", "_")
+            return "120_plus" if normalized in {"120+", "2+_hours", "2_plus_hours"} else normalized
+        return value
+
 
 class PlanningFocusArea(BaseModel):
     focus_area_id: str = Field(min_length=1, max_length=160)
@@ -393,6 +404,89 @@ class PlanningCoverage(BaseModel):
     unit_count: int = Field(ge=1, le=80)
 
 
+class PlanningEstimatedMinutes(BaseModel):
+    min: int = Field(ge=5, le=180)
+    max: int = Field(ge=5, le=180)
+
+
+class PlanningNcertSection(BaseModel):
+    id: str = Field(min_length=1, max_length=80)
+    title: str = Field(min_length=1, max_length=180)
+
+
+class PlanningCurriculumMetadata(BaseModel):
+    key: str = Field(min_length=1, max_length=180)
+    source: str = Field(min_length=1, max_length=240)
+    edition: str = Field(min_length=1, max_length=120)
+    chapter_number: int = Field(ge=1, le=200)
+    content_order_locked: Literal[True] = True
+    source_reference: Dict[str, Any] = Field(default_factory=dict)
+
+
+class PlanningConcept(BaseModel):
+    id: str = Field(min_length=1, max_length=180)
+    title: str = Field(min_length=1, max_length=240)
+    status: Literal["not_started", "learning", "practising", "needs_review", "mastered"]
+    evidence_count: int = Field(ge=0)
+
+
+class PlanningLearningUnit(BaseModel):
+    id: str = Field(min_length=1, max_length=180)
+    order: int = Field(ge=1, le=80)
+    title: str = Field(min_length=1, max_length=180)
+    short_description: str = Field(min_length=1, max_length=400)
+    ncert_sections: List[PlanningNcertSection] = Field(min_length=1, max_length=40)
+    concepts: List[PlanningConcept] = Field(min_length=1, max_length=80)
+    skills: List[str] = Field(default_factory=list, max_length=40)
+    practice: List[str] = Field(default_factory=list, max_length=40)
+    importance: Literal["very_high", "high", "moderate", "low"]
+    difficulty: Literal["foundation", "steady", "challenging"]
+    estimated_minutes: PlanningEstimatedMinutes
+    prerequisite_unit_ids: List[str] = Field(default_factory=list, max_length=40)
+    dependent_unit_ids: List[str] = Field(default_factory=list, max_length=40)
+    learning_types: List[str] = Field(default_factory=list, max_length=20)
+    depth: Literal["overview", "working", "mastery"]
+    exam_relevance: Literal["very_high", "high", "moderate", "low"]
+    conceptual_importance: Literal["very_high", "high", "moderate", "low"]
+    why_it_matters: str = Field(min_length=1, max_length=500)
+    learning_route: List[str] = Field(min_length=2, max_length=4)
+    mastery_criteria: List[str] = Field(min_length=1, max_length=20)
+    status: Literal["not_started", "learning", "practising", "needs_review", "mastered"]
+    primary_topic_id: str = Field(min_length=1, max_length=180)
+
+
+class PlanningNextStep(BaseModel):
+    unit_id: str = Field(min_length=1, max_length=180)
+    title: str = Field(min_length=1, max_length=180)
+    reason: str = Field(min_length=1, max_length=500)
+    estimated_minutes: PlanningEstimatedMinutes
+
+
+class PlanningDailyRouteItem(BaseModel):
+    unit_id: str = Field(min_length=1, max_length=180)
+    title: str = Field(min_length=1, max_length=180)
+    activity: str = Field(min_length=1, max_length=300)
+    reason: str = Field(min_length=1, max_length=400)
+    minutes: int = Field(ge=5, le=180)
+    scope: Literal["partial", "complete"]
+
+
+class PlanningDailyRoute(BaseModel):
+    time_preference: Literal["15", "30", "60", "120_plus", "no_limit"]
+    budget_minutes: Optional[int] = Field(default=None, ge=15, le=120)
+    total_minutes: int = Field(ge=5, le=240)
+    items: List[PlanningDailyRouteItem] = Field(min_length=1, max_length=20)
+
+
+class PlanningProgress(BaseModel):
+    mastered_units: int = Field(ge=0, le=80)
+    learning_units: int = Field(ge=0, le=80)
+    practising_units: int = Field(ge=0, le=80)
+    needs_review_units: int = Field(ge=0, le=80)
+    total_units: int = Field(ge=1, le=80)
+    percentage: int = Field(ge=0, le=100)
+
+
 class AutonomousStudyResponse(BaseModel):
     mission_id: str
     status: str
@@ -405,6 +499,16 @@ class AutonomousStudyResponse(BaseModel):
     guidance_steps: List[PlanningGuidanceStep] = Field(default_factory=list)
     completion_signal: str = ""
     coverage: Optional[PlanningCoverage] = None
+    roadmap_version: Optional[Literal["planning_roadmap_v2"]] = None
+    study_time_today: Literal["15", "30", "60", "120_plus", "no_limit"] = "no_limit"
+    class_level: str = ""
+    chapter_slug: str = ""
+    curriculum: Optional[PlanningCurriculumMetadata] = None
+    learning_units: List[PlanningLearningUnit] = Field(default_factory=list)
+    next_step: Optional[PlanningNextStep] = None
+    daily_route: Optional[PlanningDailyRoute] = None
+    progress: Optional[PlanningProgress] = None
+    completion_criteria: List[str] = Field(default_factory=list)
     learning_unit_count: int = 0
     # Retained as a response alias for older saved clients. Chapter Planning
     # now places the chapter label here; requests no longer accept a topic.

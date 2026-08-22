@@ -58,17 +58,47 @@ def _load_session_memory(session_id: str, limit: int = _MEMORY_TURNS) -> list:
         db.close()
 
 
-def _save_turn(session_id: str, question: str, answer: str) -> None:
+def _save_turn(
+    session_id: str,
+    question: str,
+    answer: str,
+    *,
+    content_scope: dict | None = None,
+) -> int | None:
     if not session_id:
-        return
+        return None
     db = SessionLocal()
     try:
         db.add(AgentChatMemory(session_id=session_id, role="user", content=question))
-        db.add(AgentChatMemory(session_id=session_id, role="assistant", content=answer))
+        assistant = AgentChatMemory(
+            session_id=session_id,
+            role="assistant",
+            content=answer,
+            metadata_json=(
+                {
+                    "event_type": "study_answer",
+                    "catalog_source": "planning_manifest",
+                    "curriculum_key": str(content_scope.get("curriculum_key") or ""),
+                    "unit_id": str(content_scope.get("planning_unit_id") or ""),
+                    "chapter_slug": str(content_scope.get("chapter_slug") or ""),
+                    "primary_topic_id": str(content_scope.get("section_id") or ""),
+                    "subject": str(content_scope.get("subject") or ""),
+                    "class_level": str(content_scope.get("class_level") or ""),
+                }
+                if str((content_scope or {}).get("catalog_source") or "").lower()
+                == "planning_manifest"
+                else {}
+            ),
+        )
+        db.add(assistant)
+        db.flush()
+        interaction_id = int(assistant.id)
         db.commit()
+        return interaction_id
     except Exception as exc:
         db.rollback()
         logger.warning("Could not save tutor session memory | session_id=%s error=%s", session_id, exc)
+        return None
     finally:
         db.close()
 
@@ -82,11 +112,10 @@ def tutor_agent(request) -> dict:
     question = request.question
     section_id = request.section_id
     session_id = request.session_id
-    difficulty = getattr(request, "difficulty", "medium")
     content_scope = getattr(request, "content_scope", None)
-    uses_published_catalog = (
+    uses_strict_catalog = (
         str((content_scope or {}).get("catalog_source") or "").strip().lower()
-        == "published"
+        in {"published", "planning_manifest"}
     )
 
     logger.info(f"[TUTOR] Processing: '{question}' | Section: {section_id}")
@@ -166,7 +195,7 @@ def tutor_agent(request) -> dict:
     # Published catalog sessions are grounded exclusively in the selected
     # versioned material. The bundled graph is a legacy fallback and may
     # represent another chapter/version.
-    if not uses_published_catalog and knowledge_graph.concepts:
+    if not uses_strict_catalog and knowledge_graph.concepts:
         # First try exact match via section_id (which may be a concept_id)
         exact = knowledge_graph.get_concept(section_id)
         if exact:
@@ -354,7 +383,12 @@ def tutor_agent(request) -> dict:
                 logger.warning("Tutor quality retry failed; keeping first answer | session_id=%s error=%s", session_id, exc)
 
     # ===== STEP 7: UPDATE MEMORY =====
-    _save_turn(session_id, question, formatted_answer)
+    interaction_id = _save_turn(
+        session_id,
+        question,
+        formatted_answer,
+        content_scope=content_scope,
+    )
 
     latency_ms = round((time.time() - start_time) * 1000)
 
@@ -382,6 +416,9 @@ def tutor_agent(request) -> dict:
             "concepts_from_graph": len(concepts_found),
             "keywords_used": search_result["keywords_used"][:5],
             "latency_ms": latency_ms,
+            "interaction_id": (
+                f"study_answer:{interaction_id}" if interaction_id is not None else None
+            ),
         },
     }
 

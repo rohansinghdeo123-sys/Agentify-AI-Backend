@@ -1,0 +1,1515 @@
+{
+  "curriculum_key": "ncert_class_11_chemistry_chapter_01",
+  "source": {
+    "authority": "NCERT",
+    "type": "pdf",
+    "path": "data/raw/ncert/class_11/chemistry/chapter_01_some_basic_concepts_of_chemistry.pdf",
+    "sha256": "DFCE99993EEB8AA5BEDF527F284341ADCC492F383B0DD0BB2C6852B129AD79C6",
+    "page_count": 28
+  },
+  "edition": "Reprint 2026-27",
+  "board": "NCERT",
+  "class_level": "Class 11",
+  "subject": "Chemistry",
+  "chapter_number": 1,
+  "chapter_slug": "some_basic_concepts_of_chemistry",
+  "chapter_title": "Some Basic Concepts of Chemistry",
+  "aliases": [
+    "matter",
+    "Basic Concepts of Chemistry",
+    "basic-concepts-of-chemistry",
+    "Some Basic Concepts Of Chemistry"
+  ],
+  "content_order_locked": true,
+  "units": [
+    {
+      "id": "chem11_u01_lu01_chemistry_and_its_importance",
+      "order": 1,
+      "title": "Chemistry and Why It Matters",
+      "short_description": "See what chemistry studies, how it developed, and why it matters in daily life, science, industry, health, and the environment.",
+      "ncert_sections": [
+        {
+          "id": "intro.development_of_chemistry",
+          "title": "Development of Chemistry",
+          "pages": {
+            "start": 1,
+            "end": 3
+          }
+        },
+        {
+          "id": "1.1",
+          "title": "Importance of Chemistry",
+          "pages": {
+            "start": 4,
+            "end": 4
+          }
+        }
+      ],
+      "source_segments": [
+        {"page": 1},
+        {"page": 2},
+        {"page": 3},
+        {
+          "page": 4,
+          "start_anchor": "1.1 importance of chemistry",
+          "end_anchor": "1.2 nature of matter"
+        }
+      ],
+      "concepts": [
+        {
+          "id": "scope_of_chemistry",
+          "title": "Scope and Meaning of Chemistry",
+          "prerequisite_concept_ids": []
+        },
+        {
+          "id": "development_of_chemistry",
+          "title": "Alchemy, Iatrochemistry, and the Development of Modern Chemistry",
+          "prerequisite_concept_ids": [
+            "scope_of_chemistry"
+          ]
+        },
+        {
+          "id": "ancient_indian_chemistry",
+          "title": "Contributions of Ancient Indian Chemistry",
+          "prerequisite_concept_ids": [
+            "development_of_chemistry"
+          ]
+        },
+        {
+          "id": "importance_of_chemistry",
+          "title": "Chemistry in Life, Industry, Health, Materials, and the Environment",
+          "prerequisite_concept_ids": [
+            "scope_of_chemistry"
+          ]
+        }
+      ],
+      "skills": [
+        "Explain the scope of chemistry in simple language.",
+        "Recognise major contributions to the development of chemistry.",
+        "Connect chemistry to familiar applications in life and society."
+      ],
+      "practice": {
+        "minimum_items": 2,
+        "modes": [
+          "recall",
+          "explanation"
+        ],
+        "source_refs": [
+          "NCERT Unit 1 opening reflection",
+          "NCERT Unit 1 Summary"
+        ]
+      },
+      "importance": "moderate",
+      "difficulty": "foundation",
+      "estimated_minutes": {
+        "min": 20,
+        "max": 30
+      },
+      "prerequisite_unit_ids": [],
+      "dependent_unit_ids": [],
+      "learning_types": [
+        "theory_concept",
+        "recall"
+      ],
+      "depth": "overview",
+      "exam_relevance": "low",
+      "conceptual_importance": "moderate",
+      "why_it_matters": "This unit gives the chapter a purpose and helps the student connect abstract chemical ideas with the world they already know.",
+      "learning_route": [
+        "Notice the kinds of substances and changes that chemistry explains.",
+        "Trace the shift from early chemical practices to modern chemistry.",
+        "Connect chemistry to health, materials, industry, and the environment."
+      ],
+      "mastery_criteria": [
+        "Explain what chemistry studies without relying on a memorised sentence.",
+        "Name at least three areas in which chemistry improves life or technology.",
+        "Distinguish the historical development of chemistry from the modern scientific discipline."
+      ],
+      "primary_topic_id": "importance_of_chemistry",
+      "legacy_topic_ids": [
+        "chemistry_definition",
+        "historical_alchemy"
+      ],
+      "default_status": "not_started"
+    },
+    {
+      "id": "chem11_u01_lu02_nature_of_matter",
+      "order": 2,
+      "title": "Understanding Matter",
+      "short_description": "Understand what matter is, how particles behave in its three states, and how matter is classified into mixtures and pure substances.",
+      "ncert_sections": [
+        {
+          "id": "1.2",
+          "title": "Nature of Matter",
+          "pages": {
+            "start": 4,
+            "end": 6
+          }
+        },
+        {
+          "id": "1.2.1",
+          "title": "States of Matter",
+          "pages": {
+            "start": 4,
+            "end": 5
+          }
+        },
+        {
+          "id": "1.2.2",
+          "title": "Classification of Matter",
+          "pages": {
+            "start": 5,
+            "end": 6
+          }
+        }
+      ],
+      "source_segments": [
+        {
+          "page": 4,
+          "start_anchor": "1.2 nature of matter"
+        },
+        {"page": 5},
+        {
+          "page": 6,
+          "end_anchor": "1.3 properties of matter and their measurement"
+        },
+        {
+          "page": 6,
+          "start_anchor": "When two or more atoms of different elements combine together",
+          "end_anchor": "Unit 1.indd 6"
+        }
+      ],
+      "concepts": [
+        {
+          "id": "nature_of_matter",
+          "title": "Matter: Mass and Occupied Space",
+          "prerequisite_concept_ids": []
+        },
+        {
+          "id": "states_of_matter",
+          "title": "Particle Arrangement in Solids, Liquids, and Gases",
+          "prerequisite_concept_ids": [
+            "nature_of_matter"
+          ]
+        },
+        {
+          "id": "interconversion_of_states",
+          "title": "Interconversion of States by Temperature and Pressure",
+          "prerequisite_concept_ids": [
+            "states_of_matter"
+          ]
+        },
+        {
+          "id": "classification_of_matter",
+          "title": "Macroscopic Classification of Matter",
+          "prerequisite_concept_ids": [
+            "nature_of_matter"
+          ]
+        },
+        {
+          "id": "mixtures_and_pure_substances",
+          "title": "Mixtures, Pure Substances, and Physical Separation",
+          "prerequisite_concept_ids": [
+            "classification_of_matter"
+          ]
+        },
+        {
+          "id": "homogeneous_and_heterogeneous_mixtures",
+          "title": "Homogeneous and Heterogeneous Mixtures",
+          "prerequisite_concept_ids": [
+            "mixtures_and_pure_substances"
+          ]
+        },
+        {
+          "id": "elements_and_compounds",
+          "title": "Elements, Compounds, Atoms, and Molecules",
+          "prerequisite_concept_ids": [
+            "classification_of_matter"
+          ]
+        }
+      ],
+      "skills": [
+        "Compare the particle arrangement and observable behaviour of solids, liquids, and gases.",
+        "Classify common substances as elements, compounds, homogeneous mixtures, or heterogeneous mixtures.",
+        "Explain why mixtures can be separated physically while compounds require chemical methods."
+      ],
+      "practice": {
+        "minimum_items": 4,
+        "modes": [
+          "classification",
+          "explanation",
+          "recall"
+        ],
+        "source_refs": [
+          "NCERT Figures 1.1-1.4",
+          "NCERT Unit 1 Summary"
+        ]
+      },
+      "importance": "high",
+      "difficulty": "foundation",
+      "estimated_minutes": {
+        "min": 35,
+        "max": 45
+      },
+      "prerequisite_unit_ids": [],
+      "dependent_unit_ids": [
+        "chem11_u01_lu03_measuring_matter",
+        "chem11_u01_lu05_laws_of_combination"
+      ],
+      "learning_types": [
+        "theory_concept",
+        "application",
+        "recall"
+      ],
+      "depth": "working",
+      "exam_relevance": "moderate",
+      "conceptual_importance": "high",
+      "why_it_matters": "Every later calculation and model in the chapter refers to matter, its particles, or a type of substance, so this gives the student the language needed to continue.",
+      "learning_route": [
+        "Build a particle-level picture of matter and its three physical states.",
+        "Compare how temperature and pressure change particle behaviour.",
+        "Classify familiar samples as mixtures, pure substances, elements, or compounds."
+      ],
+      "mastery_criteria": [
+        "Explain the three states of matter using particle arrangement and movement.",
+        "Predict the effect of heating, cooling, or pressure on a change of state.",
+        "Correctly classify unfamiliar examples as mixture, pure substance, element, or compound and justify the choice."
+      ],
+      "primary_topic_id": "nature_of_matter",
+      "legacy_topic_ids": [
+        "matter_definition",
+        "properties_of_matter",
+        "solid_state",
+        "liquid_state",
+        "gaseous_state"
+      ],
+      "default_status": "not_started"
+    },
+    {
+      "id": "chem11_u01_lu03_measuring_matter",
+      "order": 3,
+      "title": "Measuring Matter",
+      "short_description": "Describe matter with reliable physical quantities, SI units, laboratory measurements, density, and temperature scales.",
+      "ncert_sections": [
+        {
+          "id": "1.3",
+          "title": "Properties of Matter and their Measurement",
+          "pages": {
+            "start": 6,
+            "end": 10
+          }
+        },
+        {
+          "id": "1.3.1",
+          "title": "Physical and Chemical Properties",
+          "pages": {
+            "start": 6,
+            "end": 7
+          }
+        },
+        {
+          "id": "1.3.2",
+          "title": "Measurement of Physical Properties",
+          "pages": {
+            "start": 7,
+            "end": 7
+          }
+        },
+        {
+          "id": "1.3.3",
+          "title": "The International System of Units (SI)",
+          "pages": {
+            "start": 7,
+            "end": 9
+          }
+        },
+        {
+          "id": "1.3.4",
+          "title": "Mass and Weight",
+          "pages": {
+            "start": 9,
+            "end": 9
+          }
+        },
+        {
+          "id": "1.3.5",
+          "title": "Volume",
+          "pages": {
+            "start": 9,
+            "end": 10
+          }
+        },
+        {
+          "id": "1.3.6",
+          "title": "Density",
+          "pages": {
+            "start": 10,
+            "end": 10
+          }
+        },
+        {
+          "id": "1.3.7",
+          "title": "Temperature",
+          "pages": {
+            "start": 10,
+            "end": 10
+          }
+        }
+      ],
+      "source_segments": [
+        {
+          "page": 6,
+          "start_anchor": "1.3 properties of matter and their measurement",
+          "end_anchor": "When two or more atoms of different elements combine together"
+        },
+        {"page": 7},
+        {"page": 8},
+        {"page": 9},
+        {
+          "page": 10,
+          "end_anchor": "1.4 Uncertainty in measurement"
+        },
+        {
+          "page": 10,
+          "start_anchor": "fahrenheit) and K (kelvin)",
+          "end_anchor": "Unit 1.indd 10"
+        }
+      ],
+      "concepts": [
+        {
+          "id": "physical_and_chemical_properties",
+          "title": "Physical and Chemical Properties",
+          "prerequisite_concept_ids": [
+            "nature_of_matter"
+          ]
+        },
+        {
+          "id": "quantitative_measurement",
+          "title": "Quantitative Measurement as a Number with a Unit",
+          "prerequisite_concept_ids": [
+            "physical_and_chemical_properties"
+          ]
+        },
+        {
+          "id": "si_units",
+          "title": "SI Base Units, Derived Quantities, and Prefixes",
+          "prerequisite_concept_ids": [
+            "quantitative_measurement"
+          ]
+        },
+        {
+          "id": "mass_and_weight",
+          "title": "Mass, Weight, and Laboratory Measurement",
+          "prerequisite_concept_ids": [
+            "si_units"
+          ]
+        },
+        {
+          "id": "volume_measurement",
+          "title": "Volume Units and Measuring Apparatus",
+          "prerequisite_concept_ids": [
+            "si_units"
+          ]
+        },
+        {
+          "id": "density",
+          "title": "Density as Mass per Unit Volume",
+          "prerequisite_concept_ids": [
+            "mass_and_weight",
+            "volume_measurement"
+          ]
+        },
+        {
+          "id": "temperature_scales",
+          "title": "Celsius, Fahrenheit, and Kelvin Scales",
+          "prerequisite_concept_ids": [
+            "si_units"
+          ]
+        }
+      ],
+      "skills": [
+        "Distinguish physical properties from chemical properties.",
+        "Select appropriate SI units and prefixes for a quantity.",
+        "Convert common mass, volume, density, and temperature units.",
+        "Use laboratory measurement vocabulary and apparatus correctly.",
+        "Calculate density, mass, or volume when the other two values are known."
+      ],
+      "practice": {
+        "minimum_items": 6,
+        "modes": [
+          "formula",
+          "calculation",
+          "application"
+        ],
+        "source_refs": [
+          "NCERT Exercise 1.13",
+          "NCERT Exercise 1.14",
+          "NCERT Exercise 1.15",
+          "NCERT Exercise 1.27"
+        ]
+      },
+      "importance": "high",
+      "difficulty": "steady",
+      "estimated_minutes": {
+        "min": 50,
+        "max": 65
+      },
+      "prerequisite_unit_ids": [
+        "chem11_u01_lu02_nature_of_matter"
+      ],
+      "dependent_unit_ids": [
+        "chem11_u01_lu04_uncertainty_and_data",
+        "chem11_u01_lu05_laws_of_combination"
+      ],
+      "learning_types": [
+        "theory_concept",
+        "formula",
+        "calculation_numerical",
+        "application",
+        "recall"
+      ],
+      "depth": "working",
+      "exam_relevance": "high",
+      "conceptual_importance": "high",
+      "why_it_matters": "Chemistry becomes quantitative only when a student can measure properties, attach the correct units, and move confidently between related quantities.",
+      "learning_route": [
+        "Separate physical properties from chemical properties.",
+        "Match each measured quantity to its SI unit and suitable apparatus.",
+        "Use density and temperature conversions in short measurement examples."
+      ],
+      "mastery_criteria": [
+        "Choose correct SI units for the seven base quantities and common derived quantities.",
+        "Explain the difference between mass and weight and between physical and chemical properties.",
+        "Convert between common volume and temperature scales without losing units.",
+        "Solve density calculations and state the result with an appropriate unit."
+      ],
+      "primary_topic_id": "si_units",
+      "default_status": "not_started"
+    },
+    {
+      "id": "chem11_u01_lu04_uncertainty_and_data",
+      "order": 4,
+      "title": "Working with Measured Data",
+      "short_description": "Handle very large and small numbers, measurement uncertainty, significant figures, rounding, and unit conversions correctly.",
+      "ncert_sections": [
+        {
+          "id": "1.4",
+          "title": "Uncertainty in Measurement",
+          "pages": {
+            "start": 10,
+            "end": 14
+          }
+        },
+        {
+          "id": "1.4.1",
+          "title": "Scientific Notation",
+          "pages": {
+            "start": 11,
+            "end": 12
+          }
+        },
+        {
+          "id": "1.4.2",
+          "title": "Significant Figures",
+          "pages": {
+            "start": 12,
+            "end": 13
+          }
+        },
+        {
+          "id": "1.4.3",
+          "title": "Dimensional Analysis",
+          "pages": {
+            "start": 13,
+            "end": 14
+          }
+        }
+      ],
+      "source_segments": [
+        {
+          "page": 10,
+          "start_anchor": "1.4 Uncertainty in measurement",
+          "end_anchor": "fahrenheit) and K (kelvin)"
+        },
+        {"page": 11},
+        {"page": 12},
+        {"page": 13},
+        {
+          "page": 14,
+          "end_anchor": "1.5 laws of chemical combinations"
+        }
+      ],
+      "concepts": [
+        {
+          "id": "scientific_notation",
+          "title": "Scientific Notation for Very Large and Small Numbers",
+          "prerequisite_concept_ids": [
+            "si_units"
+          ]
+        },
+        {
+          "id": "scientific_notation_operations",
+          "title": "Arithmetic with Scientific Notation",
+          "prerequisite_concept_ids": [
+            "scientific_notation"
+          ]
+        },
+        {
+          "id": "measurement_uncertainty",
+          "title": "Measurement Uncertainty and Instrument Limits",
+          "prerequisite_concept_ids": [
+            "quantitative_measurement"
+          ]
+        },
+        {
+          "id": "significant_figures",
+          "title": "Rules for Identifying Significant Figures",
+          "prerequisite_concept_ids": [
+            "measurement_uncertainty",
+            "scientific_notation"
+          ]
+        },
+        {
+          "id": "precision_and_accuracy",
+          "title": "Precision and Accuracy",
+          "prerequisite_concept_ids": [
+            "measurement_uncertainty"
+          ]
+        },
+        {
+          "id": "significant_figure_operations",
+          "title": "Significant Figures in Calculations and Rounding",
+          "prerequisite_concept_ids": [
+            "significant_figures",
+            "scientific_notation_operations"
+          ]
+        },
+        {
+          "id": "dimensional_analysis",
+          "title": "Dimensional Analysis and the Unit-Factor Method",
+          "prerequisite_concept_ids": [
+            "si_units",
+            "scientific_notation_operations"
+          ]
+        }
+      ],
+      "skills": [
+        "Write and interpret numbers in scientific notation.",
+        "Apply the correct arithmetic rule to numbers in scientific notation.",
+        "Count significant figures and round a result appropriately.",
+        "Distinguish precision from accuracy using experimental data.",
+        "Build and cancel unit factors to perform dimensional analysis."
+      ],
+      "practice": {
+        "minimum_items": 8,
+        "modes": [
+          "calculation",
+          "error_analysis",
+          "unit_conversion"
+        ],
+        "source_refs": [
+          "NCERT Exercise 1.16",
+          "NCERT Exercise 1.18",
+          "NCERT Exercise 1.19",
+          "NCERT Exercise 1.20",
+          "NCERT Exercise 1.22",
+          "NCERT Exercise 1.31"
+        ]
+      },
+      "importance": "very_high",
+      "difficulty": "steady",
+      "estimated_minutes": {
+        "min": 60,
+        "max": 75
+      },
+      "prerequisite_unit_ids": [
+        "chem11_u01_lu03_measuring_matter"
+      ],
+      "dependent_unit_ids": [
+        "chem11_u01_lu07_atomic_and_molecular_masses",
+        "chem11_u01_lu08_mole_and_molar_mass",
+        "chem11_u01_lu09_composition_and_formulae"
+      ],
+      "learning_types": [
+        "theory_concept",
+        "formula",
+        "calculation_numerical",
+        "application"
+      ],
+      "depth": "mastery",
+      "exam_relevance": "high",
+      "conceptual_importance": "very_high",
+      "why_it_matters": "These are the calculation habits that protect every later answer from wrong powers, wrong units, and unjustified precision.",
+      "learning_route": [
+        "Express very large and small measurements in scientific notation.",
+        "Read instrument precision and apply significant-figure rules.",
+        "Carry precision through calculations and round correctly.",
+        "Use dimensional analysis to convert units and check an answer."
+      ],
+      "mastery_criteria": [
+        "Convert ordinary numbers to and from scientific notation and perform the four basic operations correctly.",
+        "Identify significant figures in varied values, including zeros and exact counted quantities.",
+        "Round calculated answers using the rule appropriate to the operation.",
+        "Explain whether a set of measurements is precise, accurate, both, or neither.",
+        "Complete a multi-step unit conversion with units cancelling visibly at each step."
+      ],
+      "primary_topic_id": "significant_figures",
+      "default_status": "not_started"
+    },
+    {
+      "id": "chem11_u01_lu05_laws_of_combination",
+      "order": 5,
+      "title": "How Elements Combine",
+      "short_description": "Learn the five experimental laws that describe how mass and gaseous volumes behave when substances form compounds.",
+      "ncert_sections": [
+        {
+          "id": "1.5",
+          "title": "Laws of Chemical Combinations",
+          "pages": {
+            "start": 14,
+            "end": 16
+          }
+        },
+        {
+          "id": "1.5.1",
+          "title": "Law of Conservation of Mass",
+          "pages": {
+            "start": 14,
+            "end": 14
+          }
+        },
+        {
+          "id": "1.5.2",
+          "title": "Law of Definite Proportions",
+          "pages": {
+            "start": 15,
+            "end": 15
+          }
+        },
+        {
+          "id": "1.5.3",
+          "title": "Law of Multiple Proportions",
+          "pages": {
+            "start": 15,
+            "end": 15
+          }
+        },
+        {
+          "id": "1.5.4",
+          "title": "Gay Lussac's Law of Gaseous Volumes",
+          "pages": {
+            "start": 15,
+            "end": 15
+          }
+        },
+        {
+          "id": "1.5.5",
+          "title": "Avogadro's Law",
+          "pages": {
+            "start": 15,
+            "end": 16
+          }
+        }
+      ],
+      "source_segments": [
+        {
+          "page": 14,
+          "start_anchor": "1.5 laws of chemical combinations"
+        },
+        {"page": 15},
+        {
+          "page": 16,
+          "end_anchor": "1.6 Dalton's atomic theory"
+        }
+      ],
+      "concepts": [
+        {
+          "id": "law_of_conservation_of_mass",
+          "title": "Law of Conservation of Mass",
+          "prerequisite_concept_ids": [
+            "quantitative_measurement"
+          ]
+        },
+        {
+          "id": "law_of_definite_proportions",
+          "title": "Law of Definite Proportions",
+          "prerequisite_concept_ids": [
+            "law_of_conservation_of_mass"
+          ]
+        },
+        {
+          "id": "law_of_multiple_proportions",
+          "title": "Law of Multiple Proportions",
+          "prerequisite_concept_ids": [
+            "law_of_definite_proportions"
+          ]
+        },
+        {
+          "id": "gay_lussacs_law",
+          "title": "Gay Lussac's Law of Gaseous Volumes",
+          "prerequisite_concept_ids": [
+            "law_of_definite_proportions",
+            "states_of_matter"
+          ]
+        },
+        {
+          "id": "avogadros_law",
+          "title": "Avogadro's Law",
+          "prerequisite_concept_ids": [
+            "gay_lussacs_law"
+          ]
+        }
+      ],
+      "skills": [
+        "State each law in precise but student-friendly language.",
+        "Identify which law is illustrated by a simple mass or gas-volume data set.",
+        "Use small whole-number ratios to explain multiple proportions and gaseous volumes.",
+        "Distinguish laws based on mass from laws based on gas volume."
+      ],
+      "practice": {
+        "minimum_items": 5,
+        "modes": [
+          "recall",
+          "data_interpretation",
+          "application"
+        ],
+        "source_refs": [
+          "NCERT Exercise 1.21",
+          "NCERT Exercise 1.26"
+        ]
+      },
+      "importance": "high",
+      "difficulty": "steady",
+      "estimated_minutes": {
+        "min": 40,
+        "max": 50
+      },
+      "prerequisite_unit_ids": [
+        "chem11_u01_lu02_nature_of_matter",
+        "chem11_u01_lu03_measuring_matter"
+      ],
+      "dependent_unit_ids": [
+        "chem11_u01_lu06_daltons_atomic_theory",
+        "chem11_u01_lu10_stoichiometry_and_solutions"
+      ],
+      "learning_types": [
+        "theory_concept",
+        "application",
+        "recall"
+      ],
+      "depth": "working",
+      "exam_relevance": "high",
+      "conceptual_importance": "high",
+      "why_it_matters": "The laws are the experimental evidence behind atomic theory and the quantitative rules later used to balance and interpret reactions.",
+      "learning_route": [
+        "Start from the experimental mass and volume patterns in chemical reactions.",
+        "Learn what each law of chemical combination claims.",
+        "Distinguish the laws by applying them to short data examples."
+      ],
+      "mastery_criteria": [
+        "State all five laws and distinguish them by the quantity each law compares.",
+        "Identify the correct law from unfamiliar experimental data and justify the choice.",
+        "Calculate and interpret the simple whole-number ratio in a multiple-proportion or gas-volume example."
+      ],
+      "primary_topic_id": "law_of_conservation_of_mass",
+      "default_status": "not_started"
+    },
+    {
+      "id": "chem11_u01_lu06_daltons_atomic_theory",
+      "order": 6,
+      "title": "Dalton's Atomic Model",
+      "short_description": "Use Dalton's postulates to connect experimental combination laws with a particle model of matter, while recognising the model's limits.",
+      "ncert_sections": [
+        {
+          "id": "1.6",
+          "title": "Dalton's Atomic Theory",
+          "pages": {
+            "start": 16,
+            "end": 16
+          }
+        }
+      ],
+      "source_segments": [
+        {
+          "page": 16,
+          "start_anchor": "1.6 Dalton's atomic theory",
+          "end_anchor": "1.7 atomic and molecular masses"
+        }
+      ],
+      "concepts": [
+        {
+          "id": "daltons_atomic_theory",
+          "title": "Experimental Origin of Dalton's Atomic Theory",
+          "prerequisite_concept_ids": [
+            "law_of_conservation_of_mass",
+            "law_of_definite_proportions",
+            "law_of_multiple_proportions"
+          ]
+        },
+        {
+          "id": "dalton_postulates",
+          "title": "Dalton's Four Postulates",
+          "prerequisite_concept_ids": [
+            "daltons_atomic_theory"
+          ]
+        },
+        {
+          "id": "dalton_explanatory_power_and_limits",
+          "title": "What Dalton's Theory Explains and Where It Falls Short",
+          "prerequisite_concept_ids": [
+            "dalton_postulates",
+            "gay_lussacs_law",
+            "avogadros_law"
+          ]
+        }
+      ],
+      "skills": [
+        "State and explain Dalton's postulates.",
+        "Connect specific postulates to laws of chemical combination.",
+        "Describe why Dalton's theory could not fully explain gaseous-volume relationships or why atoms combine."
+      ],
+      "practice": {
+        "minimum_items": 3,
+        "modes": [
+          "recall",
+          "explanation",
+          "comparison"
+        ],
+        "source_refs": [
+          "NCERT Section 1.6 concept check",
+          "NCERT Unit 1 Summary"
+        ]
+      },
+      "importance": "high",
+      "difficulty": "foundation",
+      "estimated_minutes": {
+        "min": 20,
+        "max": 30
+      },
+      "prerequisite_unit_ids": [
+        "chem11_u01_lu05_laws_of_combination"
+      ],
+      "dependent_unit_ids": [
+        "chem11_u01_lu07_atomic_and_molecular_masses"
+      ],
+      "learning_types": [
+        "theory_concept",
+        "application",
+        "recall"
+      ],
+      "depth": "working",
+      "exam_relevance": "moderate",
+      "conceptual_importance": "very_high",
+      "why_it_matters": "Dalton's model turns measured laws into a particle explanation and prepares the student to reason about atomic and molecular masses.",
+      "learning_route": [
+        "Link the chemical-combination laws to the need for an atomic model.",
+        "Understand Dalton's postulates in their original sequence.",
+        "Use the postulates to explain the laws and recognise the model's limits."
+      ],
+      "mastery_criteria": [
+        "Explain each Dalton postulate in the student's own words.",
+        "Link conservation of mass and fixed composition to the relevant postulates.",
+        "Name at least one limitation without dismissing the model's historical value."
+      ],
+      "primary_topic_id": "daltons_atomic_theory",
+      "default_status": "not_started"
+    },
+    {
+      "id": "chem11_u01_lu07_atomic_and_molecular_masses",
+      "order": 7,
+      "title": "Masses of Atoms and Molecules",
+      "short_description": "Use the carbon-12 standard, isotopic abundance, and chemical formulae to calculate atomic, average atomic, molecular, and formula masses.",
+      "ncert_sections": [
+        {
+          "id": "1.7",
+          "title": "Atomic and Molecular Masses",
+          "pages": {
+            "start": 16,
+            "end": 18
+          }
+        },
+        {
+          "id": "1.7.1",
+          "title": "Atomic Mass",
+          "pages": {
+            "start": 16,
+            "end": 17
+          }
+        },
+        {
+          "id": "1.7.2",
+          "title": "Average Atomic Mass",
+          "pages": {
+            "start": 17,
+            "end": 17
+          }
+        },
+        {
+          "id": "1.7.3",
+          "title": "Molecular Mass",
+          "pages": {
+            "start": 17,
+            "end": 17
+          }
+        },
+        {
+          "id": "1.7.4",
+          "title": "Formula Mass",
+          "pages": {
+            "start": 17,
+            "end": 18
+          }
+        }
+      ],
+      "source_segments": [
+        {
+          "page": 16,
+          "start_anchor": "1.7 atomic and molecular masses"
+        },
+        {"page": 17}
+      ],
+      "concepts": [
+        {
+          "id": "atomic_mass",
+          "title": "Relative Atomic Mass, Carbon-12 Standard, and Unified Mass Unit",
+          "prerequisite_concept_ids": [
+            "dalton_postulates",
+            "significant_figures"
+          ]
+        },
+        {
+          "id": "average_atomic_mass",
+          "title": "Average Atomic Mass from Isotopic Abundance",
+          "prerequisite_concept_ids": [
+            "atomic_mass",
+            "significant_figure_operations"
+          ]
+        },
+        {
+          "id": "molecular_mass",
+          "title": "Molecular Mass from a Molecular Formula",
+          "prerequisite_concept_ids": [
+            "atomic_mass",
+            "elements_and_compounds"
+          ]
+        },
+        {
+          "id": "formula_mass",
+          "title": "Formula Mass for Ionic and Non-Molecular Substances",
+          "prerequisite_concept_ids": [
+            "atomic_mass",
+            "elements_and_compounds"
+          ]
+        }
+      ],
+      "skills": [
+        "Explain why atomic masses are relative and what one unified mass unit represents.",
+        "Calculate a weighted average atomic mass from isotope data.",
+        "Calculate molecular mass from a molecular formula.",
+        "Choose formula mass instead of molecular mass for an ionic solid and calculate it correctly."
+      ],
+      "practice": {
+        "minimum_items": 6,
+        "modes": [
+          "formula",
+          "calculation",
+          "comparison"
+        ],
+        "source_refs": [
+          "NCERT Problem 1.1",
+          "NCERT Exercise 1.1",
+          "NCERT Exercise 1.9",
+          "NCERT Exercise 1.30",
+          "NCERT Exercise 1.32"
+        ]
+      },
+      "importance": "very_high",
+      "difficulty": "steady",
+      "estimated_minutes": {
+        "min": 45,
+        "max": 60
+      },
+      "prerequisite_unit_ids": [
+        "chem11_u01_lu04_uncertainty_and_data",
+        "chem11_u01_lu06_daltons_atomic_theory"
+      ],
+      "dependent_unit_ids": [
+        "chem11_u01_lu08_mole_and_molar_mass"
+      ],
+      "learning_types": [
+        "theory_concept",
+        "formula",
+        "calculation_numerical",
+        "application"
+      ],
+      "depth": "mastery",
+      "exam_relevance": "high",
+      "conceptual_importance": "very_high",
+      "why_it_matters": "Atomic and molecular masses are the bridge between chemical formulae and measurable amounts of substance.",
+      "learning_route": [
+        "Use carbon-12 to understand relative atomic mass and the unified mass unit.",
+        "Calculate average atomic mass from isotopic abundance.",
+        "Find molecular and formula masses from chemical formulae."
+      ],
+      "mastery_criteria": [
+        "Explain the carbon-12 reference and use u correctly.",
+        "Calculate average atomic mass from isotope abundances with correct weighting.",
+        "Calculate molecular and formula masses from unfamiliar formulae.",
+        "Explain why NaCl has a formula mass rather than a molecular mass."
+      ],
+      "primary_topic_id": "atomic_mass",
+      "default_status": "not_started"
+    },
+    {
+      "id": "chem11_u01_lu08_mole_and_molar_mass",
+      "order": 8,
+      "title": "The Mole and Molar Mass",
+      "short_description": "Connect microscopic particles with laboratory-scale amounts using the mole, Avogadro constant, molar mass, and reliable conversions.",
+      "ncert_sections": [
+        {
+          "id": "1.8",
+          "title": "Mole Concept and Molar Masses",
+          "pages": {
+            "start": 18,
+            "end": 18
+          }
+        }
+      ],
+      "source_segments": [
+        {
+          "page": 18,
+          "end_anchor": "1.9 percentage composition"
+        },
+        {
+          "page": 18,
+          "start_anchor": "1.8 mole concept and molar masses",
+          "end_anchor": "Unit 1.indd 18"
+        }
+      ],
+      "concepts": [
+        {
+          "id": "mole_concept",
+          "title": "Mole as the SI Unit of Amount of Substance",
+          "prerequisite_concept_ids": [
+            "atomic_mass"
+          ]
+        },
+        {
+          "id": "avogadro_constant",
+          "title": "Avogadro Constant and Specified Elementary Entities",
+          "prerequisite_concept_ids": [
+            "mole_concept",
+            "scientific_notation"
+          ]
+        },
+        {
+          "id": "entities_and_amount_of_substance",
+          "title": "Atoms, Molecules, Ions, Electrons, and Formula Units as Entities",
+          "prerequisite_concept_ids": [
+            "mole_concept",
+            "avogadro_constant"
+          ]
+        },
+        {
+          "id": "molar_mass",
+          "title": "Molar Mass and its Relation to Atomic, Molecular, and Formula Mass",
+          "prerequisite_concept_ids": [
+            "mole_concept",
+            "molecular_mass",
+            "formula_mass"
+          ]
+        },
+        {
+          "id": "mole_mass_entity_conversions",
+          "title": "Conversions among Mass, Moles, and Number of Entities",
+          "prerequisite_concept_ids": [
+            "avogadro_constant",
+            "entities_and_amount_of_substance",
+            "molar_mass",
+            "dimensional_analysis"
+          ]
+        }
+      ],
+      "skills": [
+        "Identify the elementary entity represented by one mole of a substance.",
+        "Use the Avogadro constant with correct powers and units.",
+        "Relate mass in u to molar mass in grams per mole.",
+        "Convert in both directions among mass, moles, and number of entities."
+      ],
+      "practice": {
+        "minimum_items": 8,
+        "modes": [
+          "formula",
+          "calculation",
+          "unit_conversion",
+          "application"
+        ],
+        "source_refs": [
+          "NCERT Exercise 1.10",
+          "NCERT Exercise 1.28",
+          "NCERT Exercise 1.33"
+        ]
+      },
+      "importance": "very_high",
+      "difficulty": "challenging",
+      "estimated_minutes": {
+        "min": 55,
+        "max": 70
+      },
+      "prerequisite_unit_ids": [
+        "chem11_u01_lu04_uncertainty_and_data",
+        "chem11_u01_lu07_atomic_and_molecular_masses"
+      ],
+      "dependent_unit_ids": [
+        "chem11_u01_lu09_composition_and_formulae",
+        "chem11_u01_lu10_stoichiometry_and_solutions"
+      ],
+      "learning_types": [
+        "theory_concept",
+        "formula",
+        "calculation_numerical",
+        "application"
+      ],
+      "depth": "mastery",
+      "exam_relevance": "very_high",
+      "conceptual_importance": "very_high",
+      "why_it_matters": "The mole is the central bridge between particles, formulae, and the masses a student can measure in a real reaction.",
+      "learning_route": [
+        "Treat the mole as a count of specified chemical entities.",
+        "Connect one mole to the Avogadro constant and molar mass.",
+        "Practise conversions among particles, moles, and mass."
+      ],
+      "mastery_criteria": [
+        "Explain why one mole always contains the same number of specified entities.",
+        "State the entity being counted for an element, molecule, ion, or ionic compound.",
+        "Move accurately among grams, moles, and entities in multi-step questions.",
+        "Write every conversion with an appropriate unit and sensible significant figures."
+      ],
+      "primary_topic_id": "mole_concept",
+      "default_status": "not_started"
+    },
+    {
+      "id": "chem11_u01_lu09_composition_and_formulae",
+      "order": 9,
+      "title": "Composition and Chemical Formulae",
+      "short_description": "Use elemental mass percentages to analyse composition and derive empirical and molecular formulae step by step.",
+      "ncert_sections": [
+        {
+          "id": "1.9",
+          "title": "Percentage Composition",
+          "pages": {
+            "start": 18,
+            "end": 19
+          }
+        },
+        {
+          "id": "1.9.1",
+          "title": "Empirical Formula for Molecular Formula",
+          "pages": {
+            "start": 19,
+            "end": 20
+          }
+        }
+      ],
+      "source_segments": [
+        {
+          "page": 18,
+          "start_anchor": "1.9 percentage composition",
+          "end_anchor": "Fig. 1.11 One mole of various substances"
+        },
+        {"page": 19},
+        {
+          "page": 20,
+          "start_anchor": "Step 3. Divide each of the mole values",
+          "end_anchor": "Unit 1.indd 20"
+        }
+      ],
+      "concepts": [
+        {
+          "id": "percentage_composition",
+          "title": "Mass Percentage of Elements in a Compound",
+          "prerequisite_concept_ids": [
+            "molar_mass",
+            "significant_figure_operations"
+          ]
+        },
+        {
+          "id": "empirical_formula",
+          "title": "Empirical Formula as the Simplest Whole-Number Ratio",
+          "prerequisite_concept_ids": [
+            "percentage_composition",
+            "mole_mass_entity_conversions"
+          ]
+        },
+        {
+          "id": "molecular_formula",
+          "title": "Molecular Formula from Empirical Formula and Molar Mass",
+          "prerequisite_concept_ids": [
+            "empirical_formula",
+            "molar_mass"
+          ]
+        }
+      ],
+      "skills": [
+        "Calculate the mass percentage of each element in a compound.",
+        "Use percentage data to obtain moles and a simplest whole-number ratio.",
+        "Derive an empirical formula without prematurely rounding ratios.",
+        "Use empirical-formula mass and molar mass to determine a molecular formula."
+      ],
+      "practice": {
+        "minimum_items": 7,
+        "modes": [
+          "formula",
+          "calculation",
+          "multi_step_problem"
+        ],
+        "source_refs": [
+          "NCERT Problem 1.2",
+          "NCERT Exercise 1.2",
+          "NCERT Exercise 1.3",
+          "NCERT Exercise 1.8",
+          "NCERT Exercise 1.34(i)"
+        ]
+      },
+      "importance": "very_high",
+      "difficulty": "challenging",
+      "estimated_minutes": {
+        "min": 55,
+        "max": 70
+      },
+      "prerequisite_unit_ids": [
+        "chem11_u01_lu04_uncertainty_and_data",
+        "chem11_u01_lu08_mole_and_molar_mass"
+      ],
+      "dependent_unit_ids": [
+        "chem11_u01_lu10_stoichiometry_and_solutions"
+      ],
+      "learning_types": [
+        "theory_concept",
+        "formula",
+        "calculation_numerical",
+        "application"
+      ],
+      "depth": "mastery",
+      "exam_relevance": "high",
+      "conceptual_importance": "high",
+      "why_it_matters": "Composition data lets a student move from experimental measurements to a defensible chemical formula, a core form of quantitative chemical reasoning.",
+      "learning_route": [
+        "Calculate the mass percentage of each element in a compound.",
+        "Convert composition data into the simplest mole ratio and empirical formula.",
+        "Use molar mass to move from an empirical formula to a molecular formula."
+      ],
+      "mastery_criteria": [
+        "Calculate elemental mass percentages from a correct chemical formula.",
+        "Explain the difference between empirical and molecular formulae.",
+        "Derive an empirical formula from percentage or mass data using a transparent sequence of steps.",
+        "Determine a molecular formula from empirical formula and molar mass and verify that the multiplier is a whole number."
+      ],
+      "primary_topic_id": "percentage_composition",
+      "default_status": "not_started"
+    },
+    {
+      "id": "chem11_u01_lu10_stoichiometry_and_solutions",
+      "order": 10,
+      "title": "Stoichiometry and Solution Calculations",
+      "short_description": "Read a balanced equation as a quantitative map, solve reaction and limiting-reagent problems, and express solution concentration correctly.",
+      "ncert_sections": [
+        {
+          "id": "1.10",
+          "title": "Stoichiometry and Stoichiometric Calculations",
+          "pages": {
+            "start": 20,
+            "end": 24
+          }
+        },
+        {
+          "id": "1.10.box.balancing",
+          "title": "Balancing a Chemical Equation",
+          "pages": {
+            "start": 20,
+            "end": 21
+          }
+        },
+        {
+          "id": "1.10.1",
+          "title": "Limiting Reagent",
+          "pages": {
+            "start": 20,
+            "end": 22
+          }
+        },
+        {
+          "id": "1.10.2",
+          "title": "Reactions in Solutions",
+          "pages": {
+            "start": 21,
+            "end": 24
+          }
+        }
+      ],
+      "source_segments": [
+        {
+          "page": 20,
+          "start_anchor": "equation of a given reaction. Let us consider",
+          "end_anchor": "1.10 Stoichiometry and Stoichiometric Calculations"
+        },
+        {
+          "page": 20,
+          "start_anchor": "1.10 Stoichiometry and Stoichiometric Calculations",
+          "end_anchor": "Step 3. Divide each of the mole values"
+        },
+        {"page": 21},
+        {"page": 22},
+        {"page": 23},
+        {
+          "page": 24,
+          "start_anchor": "Problem 1.8",
+          "end_anchor": "Unit 1.indd 24"
+        }
+      ],
+      "concepts": [
+        {
+          "id": "balanced_chemical_equations",
+          "title": "Balancing Chemical Equations without Changing Formula Subscripts",
+          "prerequisite_concept_ids": [
+            "law_of_conservation_of_mass",
+            "elements_and_compounds"
+          ]
+        },
+        {
+          "id": "stoichiometric_coefficients",
+          "title": "Stoichiometric Coefficients and Mole Ratios",
+          "prerequisite_concept_ids": [
+            "balanced_chemical_equations",
+            "mole_concept"
+          ]
+        },
+        {
+          "id": "stoichiometric_relationships",
+          "title": "Mass, Mole, Particle, and Gas-Volume Relationships",
+          "prerequisite_concept_ids": [
+            "stoichiometric_coefficients",
+            "mole_mass_entity_conversions"
+          ]
+        },
+        {
+          "id": "limiting_reagent",
+          "title": "Limiting Reagent and Maximum Product",
+          "prerequisite_concept_ids": [
+            "stoichiometric_relationships"
+          ]
+        },
+        {
+          "id": "solution_concentration",
+          "title": "Amount of Substance in a Solution",
+          "prerequisite_concept_ids": [
+            "mole_mass_entity_conversions",
+            "volume_measurement"
+          ]
+        },
+        {
+          "id": "mass_percent_solution",
+          "title": "Mass Per Cent of a Solution",
+          "prerequisite_concept_ids": [
+            "solution_concentration",
+            "percentage_composition"
+          ]
+        },
+        {
+          "id": "mole_fraction",
+          "title": "Mole Fraction",
+          "prerequisite_concept_ids": [
+            "solution_concentration"
+          ]
+        },
+        {
+          "id": "molarity_and_dilution",
+          "title": "Molarity, Dilution, and Temperature Dependence",
+          "prerequisite_concept_ids": [
+            "solution_concentration"
+          ]
+        },
+        {
+          "id": "molality",
+          "title": "Molality and Temperature Independence",
+          "prerequisite_concept_ids": [
+            "solution_concentration"
+          ]
+        },
+        {
+          "id": "density_concentration_conversions",
+          "title": "Using Density to Convert between Concentration Measures",
+          "prerequisite_concept_ids": [
+            "density",
+            "molarity_and_dilution",
+            "molality"
+          ]
+        }
+      ],
+      "skills": [
+        "Balance a chemical equation by changing coefficients only.",
+        "Interpret coefficients as particle, mole, mass, and gas-volume relationships where valid.",
+        "Use a mole ratio to calculate a required reactant or expected product.",
+        "Identify the limiting reagent and calculate the maximum product formed.",
+        "Calculate mass per cent, mole fraction, molarity, and molality.",
+        "Use dilution and density relationships while keeping volume and solvent-mass definitions distinct."
+      ],
+      "practice": {
+        "minimum_items": 12,
+        "modes": [
+          "balancing",
+          "calculation",
+          "multi_step_problem",
+          "application"
+        ],
+        "source_refs": [
+          "NCERT Problems 1.3-1.8",
+          "NCERT Exercises 1.4-1.7",
+          "NCERT Exercises 1.11-1.12",
+          "NCERT Exercise 1.17",
+          "NCERT Exercises 1.23-1.25",
+          "NCERT Exercise 1.29",
+          "NCERT Exercise 1.34(ii)-(iii)",
+          "NCERT Exercises 1.35-1.36"
+        ]
+      },
+      "importance": "very_high",
+      "difficulty": "challenging",
+      "estimated_minutes": {
+        "min": 75,
+        "max": 90
+      },
+      "prerequisite_unit_ids": [
+        "chem11_u01_lu05_laws_of_combination",
+        "chem11_u01_lu08_mole_and_molar_mass",
+        "chem11_u01_lu09_composition_and_formulae"
+      ],
+      "dependent_unit_ids": [],
+      "learning_types": [
+        "theory_concept",
+        "formula",
+        "calculation_numerical",
+        "application"
+      ],
+      "depth": "mastery",
+      "exam_relevance": "very_high",
+      "conceptual_importance": "very_high",
+      "why_it_matters": "Stoichiometry turns a chemical equation into a practical calculation tool and integrates nearly every quantitative idea learned earlier in the chapter.",
+      "learning_route": [
+        "Balance the chemical equation and read its mole relationships.",
+        "Convert known amounts into moles before applying the stoichiometric ratio.",
+        "Identify a limiting reagent and calculate the amount of product.",
+        "Apply stoichiometry to molarity, molality, mole fraction, and mass percentage."
+      ],
+      "mastery_criteria": [
+        "Balance unfamiliar chemical equations without changing any formula subscript.",
+        "Translate a balanced equation into mole and mass relationships with units shown.",
+        "Solve a limiting-reagent problem and explain why the identified reactant limits product formation.",
+        "Choose the correct concentration expression from the information given and apply its exact definition.",
+        "Solve multi-step solution problems involving dilution or density and check whether the final magnitude and unit are sensible."
+      ],
+      "primary_topic_id": "stoichiometric_relationships",
+      "default_status": "not_started"
+    }
+  ]
+}

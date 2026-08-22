@@ -68,6 +68,7 @@ from Logic.coach.memory_store import (
 from Logic.knowledge_graph import knowledge_graph
 from Logic.observability_store import persist_coach_trace
 from services.revision_scheduler import build_revision_queue
+from services.planning_progress_service import record_study_answer_event
 from models import (
     AICoachDailySignal,
     AICoachInteraction,
@@ -249,6 +250,7 @@ def _selected_material_scope(request, adaptive_context: Optional[Dict[str, Any]]
         ).strip(),
         "section_id": str(
             getattr(request, "section_id", "")
+            or learning_context.get("selected_topic_id")
             or learning_context.get("section_id")
             or learning_context.get("topic")
             or ""
@@ -3134,9 +3136,31 @@ def _coach_agent_stream_impl(request, db=None, turn_state: Optional[Dict[str, An
         "agent_message_count": len(agent_state.agent_messages),
     }
 
+    planning_learning_event = None
+    if (
+        final_answer.strip()
+        and final_answer.strip() != _material_not_found(adaptive_context).strip()
+        and str(selected_scope.get("catalog_source") or "").lower()
+        == "planning_manifest"
+        and str((retrieved_material or {}).get("context") or "").strip()
+        and not str((retrieved_material or {}).get("error") or "").strip()
+    ):
+        try:
+            planning_learning_event = record_study_answer_event(
+                db,
+                user_id=user_id,
+                interaction_id=f"coach_turn:{turn_id}",
+                scope=selected_scope,
+                source_session_id=session_id,
+            )
+        except Exception as exc:  # noqa: BLE001 - answer remains available
+            db.rollback()
+            logger.warning("Could not persist Planning learning evidence: %s", exc)
+
     completed_event = semantic_event(
         "answer.completed",
         turn_id=turn_id,
+        interaction_id=(planning_learning_event or {}).get("interaction_id"),
         answer=final_answer,
         blocks=answer_blocks,
         sources=source_bundle,
@@ -3190,6 +3214,7 @@ def _coach_agent_stream_impl(request, db=None, turn_state: Optional[Dict[str, An
             "verification": verification,
             "agent_state": agent_state.to_trace_dict(),
             "latency_ms": latency_ms,
+            "planning_learning": planning_learning_event,
         },
     )
 
@@ -3277,6 +3302,7 @@ def _coach_agent_stream_impl(request, db=None, turn_state: Optional[Dict[str, An
             "sources": source_bundle,
             "verification": verification,
             "multimodal": multimodal_payload,
+            "planning_learning": planning_learning_event,
         },
         quality_score=quality_report.score,
     )

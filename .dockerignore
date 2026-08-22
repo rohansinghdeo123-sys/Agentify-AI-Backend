@@ -11,6 +11,7 @@ __pycache__/
 .claude/
 tests/
 data/raw/ncert/**/*.pdf
+!data/raw/ncert/class_11/chemistry/chapter_01_some_basic_concepts_of_chemistry.pdf
 desktop.ini
 Dockerfile
 .dockerignore

@@ -157,6 +157,42 @@ class TopicPerformance(Base):
 
 
 # =========================================================
+# PLANNING LEARNING EVIDENCE
+# =========================================================
+class PlanningLearningEvent(Base):
+    """Append-only proof that a registered Planning unit was studied.
+
+    This records exposure/learning only. It intentionally contains no client-
+    writable mastery field; scored Exam analytics remain the mastery authority.
+    """
+
+    __tablename__ = "planning_learning_events"
+    __table_args__ = (
+        UniqueConstraint(
+            "user_id",
+            "curriculum_key",
+            "unit_id",
+            "interaction_id",
+            name="uq_planning_learning_event_identity",
+        ),
+        Index(
+            "ix_planning_learning_events_user_curriculum",
+            "user_id",
+            "curriculum_key",
+        ),
+    )
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(String, nullable=False, index=True)
+    curriculum_key = Column(String, nullable=False, index=True)
+    unit_id = Column(String, nullable=False, index=True)
+    interaction_id = Column(String, nullable=False)
+    event_type = Column(String, nullable=False, default="study_answer")
+    source_session_id = Column(String, nullable=False, default="")
+    created_at = Column(DateTime, default=_utcnow_naive, nullable=False)
+
+
+# =========================================================
 # PERSONAL AI COACH PROFILE
 # =========================================================
 class AICoachProfile(Base):

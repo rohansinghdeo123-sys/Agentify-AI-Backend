@@ -22,7 +22,10 @@ from Logic.agent_event_bus import event_bus
 from Logic.agents.coach_agent import get_or_create_coach
 from Logic.analytics_engine import get_user_analytics
 from Logic.coach.model_gateway import model_gateway
+from Logic.planning.curriculum_registry import resolve_planning_curriculum
+from Logic.planning.recommendation_engine import build_planning_roadmap
 from services.catalog_service import resolve_catalog_chapter_units
+from services.planning_progress_service import planning_learning_states
 
 
 logger = logging.getLogger("ai_educator.planning")
@@ -760,6 +763,234 @@ def _legacy_study_plan(brief: Dict[str, Any]) -> List[Dict[str, Any]]:
     ]
 
 
+def _v1_focus_brief_from_roadmap(roadmap: Dict[str, Any], chapter_label: str) -> Dict[str, Any]:
+    """Derive rollout aliases from the canonical ordered roadmap.
+
+    The compatibility grouping never mutates or reorders v2 learning units.
+    Older clients receive at most five adjacent groups while v2 clients retain
+    the complete NCERT sequence and metadata.
+    """
+    units = list(roadmap["learning_units"])
+    target = min(5, len(units))
+    base, remainder = divmod(len(units), target)
+    sizes = [base + (1 if index < remainder else 0) for index in range(target)]
+    groups: List[List[Dict[str, Any]]] = []
+    offset = 0
+    for size in sizes:
+        groups.append(units[offset : offset + size])
+        offset += size
+
+    # The deployed v1 UI groups High, then Medium, then Light.  A neutral label
+    # on every rollout group preserves the canonical array order without
+    # falsely teaching that later NCERT units are less important.  Canonical
+    # importance remains available only on the v2 learning units.
+    levels = dict.fromkeys(range(len(groups)), "medium")
+
+    focus_areas: List[Dict[str, Any]] = []
+    for index, group in enumerate(groups):
+        unit_ids = [str(unit["id"]) for unit in group]
+        unit_titles = [str(unit["title"]) for unit in group]
+        concepts = list(
+            dict.fromkeys(
+                str(concept.get("title") if isinstance(concept, dict) else concept)
+                for unit in group
+                for concept in unit.get("concepts") or []
+                if str(concept.get("title") if isinstance(concept, dict) else concept).strip()
+            )
+        )[:4]
+        area_id = f"roadmap_{sha1('|'.join(unit_ids).encode('utf-8')).hexdigest()[:12]}"
+        focus_areas.append(
+            {
+                "focus_area_id": area_id,
+                "unit_ids": unit_ids,
+                "unit_id": unit_ids[0],
+                "unit_titles": unit_titles,
+                "title": " & ".join(unit_titles),
+                "subtopics": concepts or unit_titles[:4],
+                "focus_level": levels[index],
+                "reason": (
+                    f"These are NCERT steps {group[0]['order']}–{group[-1]['order']}; "
+                    "this neutral rollout group preserves their learning order."
+                ),
+                "guidance": "Complete these learning units in their numbered NCERT order and use each mastery check.",
+            }
+        )
+
+    guidance_steps = [
+        {
+            "sequence": index,
+            "title": f"Follow NCERT steps {group[0]['order']}–{group[-1]['order']}",
+            "instruction": (
+                f"Begin with {group[0]['title']} and continue in order through {group[-1]['title']}."
+            ),
+            "focus_unit_ids": [str(unit["id"]) for unit in group],
+        }
+        for index, group in enumerate(groups, start=1)
+    ]
+    return {
+        "chapter_summary": (
+            f"Your next step and the complete NCERT-ordered roadmap for {chapter_label} are ready."
+        ),
+        "focus_areas": focus_areas,
+        "guidance_steps": guidance_steps,
+        "completion_signal": "Finish when every learning unit meets its specific mastery criteria.",
+    }
+
+
+def _registered_roadmap_response(
+    *,
+    db,
+    user_id: str,
+    mission_id: str,
+    session_id: str,
+    started_at: float,
+    curriculum: Dict[str, Any],
+    analytics: Dict[str, Any],
+    profile: Dict[str, Any],
+    study_time_today: str,
+) -> Dict[str, Any]:
+    persisted_states = planning_learning_states(
+        db,
+        user_id=user_id,
+        curriculum_key=str(curriculum["curriculum_key"]),
+        valid_unit_ids=[str(unit["id"]) for unit in curriculum["units"]],
+    )
+    roadmap = build_planning_roadmap(
+        curriculum,
+        study_time_today=study_time_today,
+        analytics=analytics,
+        persisted_states=persisted_states,
+        profile=profile,
+    )
+    chapter_label = curriculum["chapter_title"]
+    brief = _v1_focus_brief_from_roadmap(roadmap, chapter_label)
+    study_plan = _legacy_study_plan(brief)
+    next_action = roadmap["daily_route"]["items"][0]["activity"]
+    objective = f"Take the next clear NCERT step in {chapter_label}."
+    high_priority = [
+        unit["title"]
+        for unit in roadmap["learning_units"]
+        if unit["importance"] in {"very_high", "high"}
+    ]
+    plan_text = "\n".join(
+        [
+            brief["chapter_summary"],
+            f"Next: {roadmap['next_step']['title']} — {roadmap['next_step']['reason']}",
+            *[
+                f"{unit['order']}. {unit['title']}"
+                for unit in roadmap["learning_units"]
+            ],
+        ]
+    )
+    result = {
+        "type": "planning_roadmap_v2",
+        "answer": plan_text,
+        "data": {
+            "text": plan_text,
+            **roadmap,
+            **brief,
+            "study_plan": study_plan,
+            "questions": [],
+        },
+        "metadata": {
+            "agent": "mission_planner",
+            "brief_version": "chapter_focus_v1",
+            "roadmap_version": "planning_roadmap_v2",
+            "generation_source": "deterministic_curriculum",
+            "plan_scope": "chapter",
+            "profile": profile,
+        },
+    }
+
+    coach = get_or_create_coach(db, user_id)
+    coach.next_best_action = next_action
+    coach.daily_strategy = objective
+    coach.last_recommendation = {
+        "mission_id": mission_id,
+        "objective": objective,
+        "target_chapter": curriculum["chapter_slug"],
+        "target_unit_id": roadmap["next_step"]["unit_id"],
+        "mission_type": "planning_roadmap_v2",
+        "study_time_today": study_time_today,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+    }
+    coach.updated_at = datetime.now(timezone.utc).replace(tzinfo=None)
+    db.commit()
+
+    latency_ms = round((time.time() - started_at) * 1000)
+    event_bus.emit(
+        "orchestrator",
+        "task_complete",
+        {
+            "status": "success",
+            "message": "The NCERT-ordered learning roadmap is ready.",
+            "mission_id": mission_id,
+            "latency_ms": latency_ms,
+        },
+        session_id=session_id,
+    )
+    return {
+        **roadmap,
+        "mission_id": mission_id,
+        "status": "ready",
+        "subject": curriculum["subject"],
+        "chapter": chapter_label,
+        "plan_scope": "chapter",
+        "brief_version": "chapter_focus_v1",
+        "chapter_summary": brief["chapter_summary"],
+        "focus_areas": brief["focus_areas"],
+        "guidance_steps": brief["guidance_steps"],
+        "completion_signal": brief["completion_signal"],
+        # This remains the visible v1 group count; v2 progress.total_units is
+        # the canonical number of NCERT learning units.
+        "learning_unit_count": len(brief["focus_areas"]),
+        "target_topic": chapter_label,
+        "target_source": "ncert_planning_manifest",
+        "mission_type": "planning_roadmap_v2",
+        "priority": "high",
+        "mastery_band": "roadmap",
+        "estimated_minutes": 0,
+        "mission_goal": objective,
+        "prerequisite_check": {},
+        "high_priority_concepts": high_priority,
+        "fast_revision_strategy": [step["instruction"] for step in brief["guidance_steps"]],
+        "weakness_detection_points": [],
+        "final_confidence_check": list(roadmap["completion_criteria"]),
+        "fast_track_strategy": [],
+        "primary_agent": "mission_planner",
+        "mode": "planning_roadmap_v2",
+        "difficulty": roadmap["learning_units"][0]["difficulty"],
+        "objective": objective,
+        "why": roadmap["next_step"]["reason"],
+        "steps": [item["activity"] for item in roadmap["daily_route"]["items"]],
+        "next_actions": [next_action],
+        "success_criteria": list(roadmap["completion_criteria"]),
+        "study_plan": study_plan,
+        "diagnostic_question": {
+            "id": f"legacy_{mission_id}",
+            "question": f"What is your next NCERT step in {chapter_label}?",
+            "options": [roadmap["next_step"]["title"], "Skip to the highest-importance unit"],
+            "correct": roadmap["next_step"]["title"],
+            "explanation": "Learning order follows NCERT; importance changes depth, not sequence.",
+        },
+        "adaptive_roadmap": [],
+        "agent_sequence": [],
+        "checkpoints": [],
+        "student_state": {
+            "plan_scope": "chapter",
+            "roadmap_version": "planning_roadmap_v2",
+            "current_knowledge": profile["current_knowledge"],
+            "learning_goal": profile["learning_goal"],
+            "preferred_style": profile["preferred_style"],
+            "prerequisite_confidence": profile["prerequisite_confidence"],
+        },
+        "completion_report": {"status": "roadmap_ready"},
+        "result": result,
+        "analytics_summary": analytics.get("summary", {}),
+        "latency_ms": latency_ms,
+    }
+
+
 def run_autonomous_study_loop(
     db,
     user_id: str,
@@ -770,6 +1001,7 @@ def run_autonomous_study_loop(
     preferred_style: str = "examples_first",
     prerequisite_confidence: str = "medium",
     class_level: str = "",
+    study_time_today: str = "no_limit",
 ) -> Dict[str, Any]:
     started_at = time.time()
     mission_id = f"mission_{uuid.uuid4().hex[:12]}"
@@ -779,8 +1011,8 @@ def run_autonomous_study_loop(
         "orchestrator",
         "task_start",
         {
-            "task": f"Chapter focus brief {mission_id}",
-            "message": "Ranking the selected chapter's published focus areas.",
+            "task": f"Chapter learning roadmap {mission_id}",
+            "message": "Building a curriculum-grounded chapter roadmap.",
             "mission_id": mission_id,
             "user_id": user_id,
         },
@@ -795,6 +1027,26 @@ def run_autonomous_study_loop(
         prerequisite_confidence=prerequisite_confidence,
         class_level=class_level,
     )
+    curriculum = resolve_planning_curriculum(
+        chapter_ref=current_chapter,
+        subject=subject or None,
+        class_level=class_level or None,
+    )
+    if curriculum:
+        # End the analytics read transaction before deterministic assembly and
+        # keep coach persistence in its own short transaction.
+        db.commit()
+        return _registered_roadmap_response(
+            db=db,
+            user_id=user_id,
+            mission_id=mission_id,
+            session_id=session_id,
+            started_at=started_at,
+            curriculum=curriculum,
+            analytics=analytics,
+            profile=profile,
+            study_time_today=study_time_today,
+        )
     chapter_scope = _resolve_chapter_scope(
         db,
         current_chapter=current_chapter,

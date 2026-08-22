@@ -84,24 +84,52 @@ def build_reference_context(
     *,
     subject: str = "",
     chapter: str = "",
+    class_level: str = "",
+    catalog_source: str = "",
     max_chars: int = 2200,
 ) -> str:
     """Best-effort grounding from approved syllabus content. Never raises."""
     try:
+        from Logic.planning.curriculum_registry import resolve_planning_curriculum
         from Logic.content_pipeline import search_approved_content
+        from Logic.tools.knowledge_search import search_knowledge_base
 
         scope: Dict[str, Any] = {}
         if subject:
             scope["subject"] = subject
         if chapter:
             scope["chapter"] = chapter
-        result = search_approved_content(
-            section_id=section_id or (chapter or subject or "general"),
-            question=query or section_id,
-            scope=scope or None,
-            max_chars=max_chars,
-            limit=4,
-        )
+        if class_level:
+            scope["class_level"] = class_level
+        explicit_planning_scope = catalog_source.strip().lower() == "planning_manifest"
+        curriculum = resolve_planning_curriculum(
+            chapter_ref=chapter,
+            subject=subject or None,
+            class_level=class_level or None,
+        ) if chapter and explicit_planning_scope else None
+        if curriculum and section_id:
+            scope.update(
+                {
+                    "catalog_source": "planning_manifest",
+                    "chapter_slug": curriculum["chapter_slug"],
+                    "class_level": curriculum["class_level"],
+                }
+            )
+            result = search_knowledge_base(
+                section_id=section_id or chapter,
+                question=query or section_id,
+                scope=scope,
+                max_chars=max_chars,
+                max_paragraphs=4,
+            )
+        else:
+            result = search_approved_content(
+                section_id=section_id or (chapter or subject or "general"),
+                question=query or section_id,
+                scope=scope or None,
+                max_chars=max_chars,
+                limit=4,
+            )
         return str(result.get("context") or "")[:max_chars]
     except Exception as exc:  # noqa: BLE001
         logger.debug("Reference augmentation skipped: %s", exc)

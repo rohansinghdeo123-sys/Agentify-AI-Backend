@@ -26,7 +26,6 @@ from Logic.tools.mcq_normalization import (
     parse_text_mcqs,  # noqa: F401  (used by the legacy text-output fallback)
 )
 from Logic.knowledge_graph import knowledge_graph   # <-- NEW
-from prompts.agent_prompts import EXAM_MCQ_PROMPT, EXAM_PROBABLE_PROMPT
 
 logger = logging.getLogger("ai_educator.agents.exam")
 
@@ -269,9 +268,9 @@ def exam_agent(request, exam_type: str = "mcq") -> dict:
     section_id = request.section_id
     question = request.question
     content_scope = getattr(request, "content_scope", None)
-    uses_published_catalog = (
+    uses_strict_catalog = (
         str((content_scope or {}).get("catalog_source") or "").strip().lower()
-        == "published"
+        in {"published", "planning_manifest"}
     )
     try:
         requested_count = max(1, min(int(getattr(request, "count", 5) or 5), 10))
@@ -365,7 +364,7 @@ def exam_agent(request, exam_type: str = "mcq") -> dict:
 
     concept_data = ""
     concepts_found = []
-    if not uses_published_catalog and knowledge_graph.concepts:
+    if not uses_strict_catalog and knowledge_graph.concepts:
         exact = knowledge_graph.get_concept(section_id)
         if exact:
             concepts_found = [exact]

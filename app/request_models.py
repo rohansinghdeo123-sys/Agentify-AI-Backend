@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -17,11 +17,20 @@ class SectionAIRequest(BaseModel):
     subject: Optional[str] = Field(default=None, max_length=120)
     chapter: Optional[str] = Field(default=None, max_length=180)
     topic: Optional[str] = Field(default=None, max_length=180)
+    class_level: Optional[str] = Field(default=None, max_length=64)
+    catalog_source: Optional[
+        Literal["published", "planning_manifest", "builtin", "starter"]
+    ] = None
     system_guardrail: Optional[str] = Field(default=None, max_length=8000)
     strict_grounding: bool = False
     retrieval_required: bool = False
     fallback_to_general_knowledge: bool = True
     required_not_found_response: Optional[str] = Field(default=None, max_length=500)
+
+
+class PlanningLearningEventRequest(BaseModel):
+    interaction_id: str = Field(min_length=3, max_length=220)
+    event_type: Literal["study_answer"] = "study_answer"
 
 
 class ResetRequest(BaseModel):
@@ -99,6 +108,10 @@ class GenerateMCQRequest(BaseModel):
     count: int = Field(default=5, ge=1, le=10)
     subject: Optional[str] = Field(default=None, max_length=120)
     chapter: Optional[str] = Field(default=None, max_length=180)
+    class_level: Optional[str] = Field(default=None, max_length=64)
+    catalog_source: Optional[
+        Literal["published", "planning_manifest", "builtin", "starter"]
+    ] = None
     system_guardrail: Optional[str] = Field(default=None, max_length=8000)
     strict_grounding: bool = False
     retrieval_required: bool = False
@@ -116,6 +129,10 @@ class GenerateProbableRequest(BaseModel):
     difficulty: str = Field(default="medium", max_length=40)
     subject: Optional[str] = Field(default=None, max_length=120)
     chapter: Optional[str] = Field(default=None, max_length=180)
+    class_level: Optional[str] = Field(default=None, max_length=64)
+    catalog_source: Optional[
+        Literal["published", "planning_manifest", "builtin", "starter"]
+    ] = None
     system_guardrail: Optional[str] = Field(default=None, max_length=8000)
     strict_grounding: bool = False
     retrieval_required: bool = False
@@ -130,6 +147,10 @@ class ArtifactGenerateRequest(BaseModel):
     artifact_type: str = Field(default="auto", max_length=50)
     subject: Optional[str] = Field(default=None, max_length=120)
     chapter: Optional[str] = Field(default=None, max_length=180)
+    class_level: Optional[str] = Field(default=None, max_length=64)
+    catalog_source: Optional[
+        Literal["published", "planning_manifest", "builtin", "starter"]
+    ] = None
     system_guardrail: Optional[str] = Field(default=None, max_length=8000)
     strict_grounding: bool = False
     retrieval_required: bool = False

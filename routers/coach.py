@@ -41,6 +41,7 @@ from Logic.autonomous_study_loop import (
     PlanningChapterNotFoundError,
     run_autonomous_study_loop,
 )
+from Logic.planning.curriculum_registry import resolve_planning_curriculum
 from models import AICoachDailySignal, AICoachMemory
 from schemas import (
     AutonomousStudyRequest,
@@ -127,6 +128,16 @@ class CoachTurnRequest:
             **payload.learning_context,
             **(learner_profile or {}),
         }
+        if (
+            str(payload.learning_context.get("catalog_source") or "").strip().lower()
+            == "planning_manifest"
+            and str(payload.learning_context.get("class_level") or "").strip()
+        ):
+            # A registered Planning handoff carries an exact curriculum class;
+            # retain it while keeping profile-owned identity fields authoritative.
+            self.learning_context["class_level"] = str(
+                payload.learning_context["class_level"]
+            ).strip()
         self.attachments = [item.model_dump() for item in payload.attachments]
         self.direct_answer = payload.direct_answer
         self.socratic_mode = payload.socratic_mode
@@ -392,7 +403,13 @@ def coach_autonomous_study(
     current_user: Dict[str, Any] = Depends(verify_firebase_user),
 ):
     require_same_user_or_admin(user_id, current_user)
-    enforce_user_quota(user_id, "coach")
+    registered_curriculum = resolve_planning_curriculum(
+        chapter_ref=payload.current_chapter,
+        subject=payload.subject or None,
+        class_level=payload.class_level or None,
+    )
+    if registered_curriculum is None:
+        enforce_user_quota(user_id, "coach")
 
     try:
         mission = run_autonomous_study_loop(
@@ -405,6 +422,7 @@ def coach_autonomous_study(
             preferred_style=payload.preferred_style,
             prerequisite_confidence=payload.prerequisite_confidence,
             class_level=payload.class_level,
+            study_time_today=payload.study_time_today,
         )
     except PlanningChapterNotFoundError as exc:
         raise HTTPException(

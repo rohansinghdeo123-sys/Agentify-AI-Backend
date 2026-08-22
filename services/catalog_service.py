@@ -16,6 +16,10 @@ from sqlalchemy import func, or_
 from sqlalchemy.orm import Session
 
 from Logic.content_pipeline import APPROVED_STATUSES, normalize_key
+from Logic.planning.curriculum_registry import (
+    load_planning_curricula,
+    resolve_planning_curriculum,
+)
 from models import ContentChapter, ContentConcept
 from services.topic_grouping import build_learning_units
 
@@ -23,6 +27,24 @@ from services.topic_grouping import build_learning_units
 # frontend lists never leaves a student with empty selectors.
 BUILTIN_SUBJECT = "Chemistry"
 BUILTIN_CLASS_LEVEL = "Class 11"
+_PLANNING_CURRICULA = load_planning_curricula()
+
+
+def _planning_catalog_entries() -> List[Dict[str, Any]]:
+    return [
+        {
+            "supported": True,
+            "roadmap_version": "planning_roadmap_v2",
+            "class_level": curriculum["class_level"],
+            "subject": curriculum["subject"],
+            "canonical_slug": curriculum["chapter_slug"],
+            "name": curriculum["chapter_title"],
+            "chapter_number": curriculum["chapter_number"],
+            "aliases": list(curriculum.get("aliases", [])),
+        }
+        for curriculum in _PLANNING_CURRICULA
+    ]
+
 BUILTIN_CHAPTERS: List[Dict[str, Any]] = [
     {
         "slug": "hydrocarbon",
@@ -60,6 +82,7 @@ BUILTIN_CHAPTERS: List[Dict[str, Any]] = [
 def _builtin_catalog() -> Dict[str, Any]:
     return {
         "source": "builtin",
+        "planning_chapters": _planning_catalog_entries(),
         "subjects": [
             {
                 "subject": BUILTIN_SUBJECT,
@@ -303,7 +326,12 @@ def _builtin_chapter_units(
     matches = [
         chapter
         for chapter in BUILTIN_CHAPTERS
-        if requested in {normalize_key(chapter["slug"]), normalize_key(chapter["name"])}
+        if requested
+        in {
+            normalize_key(chapter["slug"]),
+            normalize_key(chapter["name"]),
+            *(normalize_key(alias) for alias in chapter.get("aliases", [])),
+        }
     ]
     if len(matches) != 1:
         return None
@@ -496,10 +524,17 @@ def build_catalog(db: Session) -> Dict[str, Any]:
 
     groups: Dict[tuple, Dict[str, Any]] = {}
     for chapter in chapters:
-        key = (chapter.subject or BUILTIN_SUBJECT, chapter.class_level or "")
+        key, subject_label, class_label = _catalog_group_identity(
+            chapter.subject,
+            chapter.class_level,
+        )
         group = groups.setdefault(
             key,
-            {"subject": key[0], "class_level": key[1], "chapters": []},
+            {
+                "subject": subject_label,
+                "class_level": class_label,
+                "chapters": [],
+            },
         )
         topics = [
             {
@@ -529,12 +564,38 @@ def build_catalog(db: Session) -> Dict[str, Any]:
             }
         )
 
-    return {"source": "published", "subjects": list(groups.values())}
+    return {
+        "source": "published",
+        "planning_chapters": _planning_catalog_entries(),
+        "subjects": list(groups.values()),
+    }
 
 
 def _normalized_class_level(value: Any) -> str:
     normalized = normalize_key(value)
-    return normalized.removeprefix("class_")
+    normalized = normalized.removeprefix("class_").removeprefix("grade_")
+    return {"xi": "11", "11th": "11"}.get(normalized, normalized)
+
+
+def _catalog_group_identity(subject: Any, class_level: Any) -> tuple[tuple[str, str], str, str]:
+    subject_text = " ".join(str(subject or BUILTIN_SUBJECT).split())
+    subject_key = normalize_key(subject_text)
+    class_text = " ".join(str(class_level or "").split())
+    class_key = _normalized_class_level(class_text)
+
+    manifest_subject_key = normalize_key(BUILTIN_SUBJECT)
+    manifest_class_key = _normalized_class_level(BUILTIN_CLASS_LEVEL)
+    subject_label = (
+        BUILTIN_SUBJECT
+        if subject_key == manifest_subject_key
+        else subject_text
+    )
+    class_label = (
+        BUILTIN_CLASS_LEVEL
+        if class_key == manifest_class_key
+        else class_text
+    )
+    return (subject_key, class_key), subject_label, class_label
 
 
 def _chapter_matches_catalog_scope(
@@ -589,6 +650,73 @@ def _resolved_catalog_topic(
     }
 
 
+def _resolved_planning_manifest_topic(
+    section_id: str,
+    *,
+    subject: Optional[str],
+    chapter_ref: Optional[str],
+    topic: Optional[str],
+    class_level: Optional[str],
+) -> Optional[Dict[str, Any]]:
+    """Resolve the locked chapter map when published concept rows are absent.
+
+    This keeps Planning-to-Study/Practice handoffs on the same canonical IDs.
+    Retrieval may still use published content when present; the manifest is the
+    deterministic scope and ordering authority, not a replacement teaching
+    corpus.
+    """
+    curriculum = resolve_planning_curriculum(
+        chapter_ref=chapter_ref or "",
+        subject=subject,
+        class_level=class_level,
+    )
+    if not curriculum:
+        return None
+    requested = {
+        normalize_key(value)
+        for value in (section_id, topic)
+        if normalize_key(value)
+    }
+    matches: List[Dict[str, Any]] = []
+    for unit in curriculum["units"]:
+        keys = {
+            normalize_key(unit["id"]),
+            normalize_key(unit["title"]),
+            normalize_key(unit["primary_topic_id"]),
+            *(normalize_key(value) for value in unit.get("legacy_topic_ids") or []),
+            *(
+                normalize_key(value)
+                for concept in unit["concepts"]
+                for value in (concept["id"], concept["title"])
+            ),
+        }
+        if requested.intersection(keys):
+            matches.append(unit)
+    if len(matches) != 1:
+        return None
+    unit = matches[0]
+    return {
+        "section_id": unit["primary_topic_id"],
+        "topic": unit["title"],
+        "concept_ids": list(
+            dict.fromkeys(
+                [
+                    *(concept["id"] for concept in unit["concepts"]),
+                    *(unit.get("legacy_topic_ids") or []),
+                ]
+            )
+        ),
+        "subject": curriculum["subject"],
+        "chapter": curriculum["chapter_title"],
+        "chapter_slug": curriculum["chapter_slug"],
+        "class_level": curriculum["class_level"],
+        "content_version": curriculum["edition"],
+        "catalog_source": "planning_manifest",
+        "curriculum_key": curriculum["curriculum_key"],
+        "planning_unit_id": unit["id"],
+    }
+
+
 def resolve_catalog_topic(
     db: Session,
     section_id: str,
@@ -597,6 +725,7 @@ def resolve_catalog_topic(
     chapter: Optional[str] = None,
     topic: Optional[str] = None,
     class_level: Optional[str] = None,
+    catalog_source: Optional[str] = None,
 ) -> Optional[Dict[str, Any]]:
     """Resolve current units and legacy micro-topic aliases safely.
 
@@ -612,6 +741,33 @@ def resolve_catalog_topic(
     }
     if not requested_keys:
         return None
+
+    explicit_planning_source = normalize_key(catalog_source) == "planning_manifest"
+    planning_curriculum = (
+        resolve_planning_curriculum(
+            chapter_ref=chapter,
+            subject=subject,
+            class_level=class_level,
+        )
+        if chapter and explicit_planning_source
+        else None
+    )
+    # A resolved registered curriculum already proves that the explicit
+    # chapter reference is either its canonical slug or one of its validated
+    # historical aliases.  Accepting those aliases here keeps saved Planning
+    # handoffs working without weakening normal Study/Exam catalog lookups.
+    explicit_planning_handoff = bool(explicit_planning_source and planning_curriculum)
+    if explicit_planning_handoff:
+        # The registered manifest is the complete unit boundary. A partial
+        # published micro-concept must never narrow Study or Exam retrieval for
+        # an explicit Planning handoff.
+        return _resolved_planning_manifest_topic(
+            section_id,
+            subject=subject,
+            chapter_ref=chapter,
+            topic=topic,
+            class_level=class_level,
+        )
 
     chapters = (
         db.query(ContentChapter)

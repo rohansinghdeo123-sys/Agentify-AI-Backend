@@ -267,21 +267,34 @@ def serialize_coach_conversation(session_id: str, rows: List[AICoachInteraction]
         "titleLocked": bool(metadata.get("conversation_title_locked")),
         "messageCount": len(sorted_rows),
     }
-    if learning_context.get("scope") == "selected_study_material_only":
-        chapter_label = str(learning_context.get("selected_chapter") or "").strip()
-        topic_label = str(learning_context.get("selected_topic") or "").strip()
+    catalog_source = str(learning_context.get("catalog_source") or "").strip().lower()
+    if (
+        learning_context.get("scope") == "selected_study_material_only"
+        or catalog_source == "planning_manifest"
+    ):
         chapter_id = str(learning_context.get("selected_chapter_id") or "").strip()
-        topic_id = str(learning_context.get("section_id") or "").strip()
-        if chapter_label and topic_label and topic_id:
+        topic_id = str(
+            learning_context.get("selected_topic_id")
+            or learning_context.get("section_id")
+            or ""
+        ).strip()
+        chapter_label = str(
+            learning_context.get("selected_chapter")
+            or learning_context.get("chapter")
+            or chapter_id
+        ).strip()
+        topic_label = str(
+            learning_context.get("selected_topic")
+            or learning_context.get("topic")
+            or topic_id
+        ).strip()
+        if chapter_id and topic_id:
             payload["scope"] = {
                 "source": "syllabus",
-                "catalogSource": (
-                    "published"
-                    if str(learning_context.get("catalog_source") or "").strip().lower() == "published"
-                    else "starter"
-                ),
+                "catalogSource": catalog_source or "starter",
                 "subject": str(learning_context.get("selected_subject") or "").strip(),
-                "chapterId": chapter_id or re.sub(r"[^a-z0-9]+", "_", chapter_label.lower()).strip("_"),
+                "classLevel": str(learning_context.get("class_level") or "").strip(),
+                "chapterId": chapter_id,
                 "chapterLabel": chapter_label,
                 "topicId": topic_id,
                 "topicLabel": topic_label,

@@ -74,37 +74,39 @@ class GroundedRetriever:
         return candidates
 
     def _retrieve_section(self, section_id: str, question: str, scope: Dict[str, Any]) -> RetrievalResult:
-        try:
-            approved = search_approved_content(
-                section_id=section_id,
-                question=question or section_id,
-                scope=scope,
-                max_chars=coach_settings.max_retrieval_chars,
-            )
-            approved_context = str(approved.get("context") or "").strip()
-            if approved_context:
-                return RetrievalResult(
-                    context=approved_context,
-                    section_id=str(approved.get("section_id") or section_id),
-                    source=str(approved.get("source") or "approved_content_pipeline"),
-                    paragraphs_found=int(approved.get("paragraphs_found") or 0),
-                    keywords_used=list(approved.get("keywords_used") or []),
-                    scope={
-                        "subject": _scope_value(scope, "subject"),
-                        "chapter": _scope_value(scope, "chapter"),
-                        "topic": _scope_value(scope, "topic"),
-                        "section_id": section_id,
-                        "source_pages": list(approved.get("source_pages") or []),
-                    },
-                    supported=True,
+        planning_scope = _scope_value(scope, "catalog_source").lower() == "planning_manifest"
+        if not planning_scope:
+            try:
+                approved = search_approved_content(
+                    section_id=section_id,
+                    question=question or section_id,
+                    scope=scope,
+                    max_chars=coach_settings.max_retrieval_chars,
                 )
-        except Exception:
-            # Approved content is the primary source; a failure here silently
-            # downgrades answers to the markdown knowledge base, so make it loud.
-            logger.exception(
-                "Approved-content search failed; falling back to markdown knowledge base | section_id=%s",
-                section_id,
-            )
+                approved_context = str(approved.get("context") or "").strip()
+                if approved_context:
+                    return RetrievalResult(
+                        context=approved_context,
+                        section_id=str(approved.get("section_id") or section_id),
+                        source=str(approved.get("source") or "approved_content_pipeline"),
+                        paragraphs_found=int(approved.get("paragraphs_found") or 0),
+                        keywords_used=list(approved.get("keywords_used") or []),
+                        scope={
+                            "subject": _scope_value(scope, "subject"),
+                            "chapter": _scope_value(scope, "chapter"),
+                            "topic": _scope_value(scope, "topic"),
+                            "section_id": section_id,
+                            "source_pages": list(approved.get("source_pages") or []),
+                        },
+                        supported=True,
+                    )
+            except Exception:
+                # Approved content is the primary source; a failure here silently
+                # downgrades answers to the markdown knowledge base, so make it loud.
+                logger.exception(
+                    "Approved-content search failed; falling back to markdown knowledge base | section_id=%s",
+                    section_id,
+                )
 
         result = search_knowledge_base(
             section_id=section_id,
@@ -126,6 +128,9 @@ class GroundedRetriever:
                 "chapter": _scope_value(scope, "chapter"),
                 "topic": _scope_value(scope, "topic"),
                 "section_id": section_id,
+                "catalog_source": _scope_value(scope, "catalog_source"),
+                "class_level": _scope_value(scope, "class_level"),
+                "source_pages": list(result.get("source_pages") or []),
             },
             supported=bool(context and not error),
             error=error,
