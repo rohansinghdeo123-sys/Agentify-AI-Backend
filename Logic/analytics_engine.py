@@ -182,6 +182,7 @@ def get_user_analytics(db, user_id):
             
     # 4. Performance Trends (Last 10 sessions)
     trends = []
+    topic_evidence = []
     for s in reversed(sessions[:10]):
         trends.append({
             "date": s.date.isoformat(),
@@ -193,6 +194,14 @@ def get_user_analytics(db, user_id):
             "hints": int(getattr(s, "hint_count", 0) or 0),
             "retries": int(getattr(s, "retry_count", 0) or 0),
         })
+        if str(getattr(s, "topic", "") or "").strip() and int(s.total_questions or 0) > 0:
+            topic_evidence.append({
+                "topic": s.topic,
+                "session_type": str(getattr(s, "session_type", "") or "assessment"),
+                "attempts": int(s.total_questions or 0),
+                "accuracy": float(s.accuracy_rate or 0),
+                "confidence_after": getattr(s, "confidence_after", None),
+            })
         
     # 5. AI Insights Generation
     insights = []
@@ -234,6 +243,7 @@ def get_user_analytics(db, user_id):
         },
         "topic_heatmap": heatmap,
         "performance_trends": trends,
+        "topic_evidence": topic_evidence,
         "weak_areas": weak_areas[:3],
         "insights": insights,
         "cognitive_metrics": cog_metrics,

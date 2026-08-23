@@ -1,0 +1,1295 @@
+{
+  "curriculum_key": "ncert_class_11_chemistry_chapter_02",
+  "source": {
+    "authority": "NCERT",
+    "type": "pdf",
+    "path": "data/raw/ncert/class_11/chemistry/chapter_02_structure_of_atom.pdf",
+    "sha256": "3498491C7DDDAF6F9145245A2A62DE70059AF2F9514396B8F088A7DD65A82319",
+    "page_count": 45
+  },
+  "edition": "Reprint 2026-27",
+  "board": "NCERT",
+  "class_level": "Class 11",
+  "subject": "Chemistry",
+  "chapter_number": 2,
+  "chapter_slug": "structure_of_atom",
+  "chapter_title": "Structure of Atom",
+  "aliases": [
+    "Atomic Structure",
+    "structure-of-atom",
+    "ncert_class_11_chemistry_chapter_2_structure_of_atom",
+    "NCERT Class 11 Chemistry Chapter 2"
+  ],
+  "content_order_locked": true,
+  "units": [
+    {
+      "id": "chem11_u02_lu01_subatomic_particles",
+      "order": 1,
+      "title": "Discovering Sub-atomic Particles",
+      "short_description": "Follow the experiments that revealed electrons, protons, and neutrons, and connect each particle with its charge and mass.",
+      "ncert_sections": [
+        {
+          "id": "2.1",
+          "title": "Discovery of Sub-atomic Particles",
+          "pages": {
+            "start": 2,
+            "end": 4
+          }
+        },
+        {
+          "id": "2.1.1",
+          "title": "Discovery of Electron",
+          "pages": {
+            "start": 2,
+            "end": 3
+          }
+        },
+        {
+          "id": "2.1.2",
+          "title": "Charge to Mass Ratio of Electron",
+          "pages": {
+            "start": 3,
+            "end": 3
+          }
+        },
+        {
+          "id": "2.1.3",
+          "title": "Charge on the Electron",
+          "pages": {
+            "start": 3,
+            "end": 4
+          }
+        },
+        {
+          "id": "2.1.4",
+          "title": "Discovery of Protons and Neutrons",
+          "pages": {
+            "start": 4,
+            "end": 4
+          }
+        }
+      ],
+      "source_segments": [
+        {
+          "page": 2,
+          "start_anchor": "2.1 Discovery of Sub-atomic Particles"
+        },
+        {
+          "page": 3
+        },
+        {
+          "page": 4,
+          "end_anchor": "2.2 Atomic Models"
+        }
+      ],
+      "concepts": [
+        {
+          "id": "subatomic_particles",
+          "title": "Atoms as Collections of Sub-atomic Particles",
+          "prerequisite_concept_ids": []
+        },
+        {
+          "id": "cathode_rays_and_electron",
+          "title": "Cathode Rays and the Discovery of the Electron",
+          "prerequisite_concept_ids": [
+            "subatomic_particles"
+          ]
+        },
+        {
+          "id": "electron_charge_to_mass_ratio",
+          "title": "Thomson's Electron Charge-to-Mass Experiment",
+          "prerequisite_concept_ids": [
+            "cathode_rays_and_electron"
+          ]
+        },
+        {
+          "id": "millikan_electron_charge",
+          "title": "Millikan's Measurement of Electron Charge",
+          "prerequisite_concept_ids": [
+            "electron_charge_to_mass_ratio"
+          ]
+        },
+        {
+          "id": "protons_and_neutrons",
+          "title": "Canal Rays, Protons, and Neutrons",
+          "prerequisite_concept_ids": [
+            "subatomic_particles"
+          ]
+        },
+        {
+          "id": "fundamental_particle_properties",
+          "title": "Charge and Mass of Electron, Proton, and Neutron",
+          "prerequisite_concept_ids": [
+            "millikan_electron_charge",
+            "protons_and_neutrons"
+          ]
+        }
+      ],
+      "skills": [
+        "Interpret cathode-ray and canal-ray observations as evidence for sub-atomic particles.",
+        "Relate electron deflection to the charge-to-mass ratio measured by Thomson.",
+        "Explain how Millikan's oil-drop experiment established the electron's charge.",
+        "Compare the relative charge and approximate mass of electrons, protons, and neutrons."
+      ],
+      "practice": {
+        "minimum_items": 5,
+        "modes": [
+          "explanation",
+          "comparison",
+          "calculation"
+        ],
+        "source_refs": [
+          "NCERT Table 2.1",
+          "NCERT Exercises 2.1-2.2",
+          "NCERT Exercises 2.38-2.39"
+        ]
+      },
+      "importance": "high",
+      "difficulty": "foundation",
+      "estimated_minutes": {
+        "min": 35,
+        "max": 45
+      },
+      "prerequisite_unit_ids": [],
+      "dependent_unit_ids": [
+        "chem11_u02_lu02_atomic_models_and_identity",
+        "chem11_u02_lu03_radiation_and_atomic_spectra"
+      ],
+      "learning_types": [
+        "theory_concept",
+        "application",
+        "calculation_numerical",
+        "recall"
+      ],
+      "depth": "working",
+      "exam_relevance": "high",
+      "conceptual_importance": "high",
+      "why_it_matters": "The experiments in this unit replace the idea of an indivisible atom with evidence-based particles and measurements used by every later atomic model.",
+      "learning_route": [
+        "Read each discharge-tube observation and identify what it proves.",
+        "Connect Thomson's and Millikan's measurements to electron mass and charge.",
+        "Compare electrons, protons, and neutrons using NCERT Table 2.1.",
+        "Finish with a short evidence-to-conclusion check."
+      ],
+      "mastery_criteria": [
+        "Explain why cathode-ray behaviour supports electrons being present in every atom.",
+        "Distinguish what Thomson measured from what Millikan measured.",
+        "Use charge and mass data to compare all three fundamental particles.",
+        "Solve a short particle-count or total-charge problem with correct units."
+      ],
+      "primary_topic_id": "subatomic_particles",
+      "legacy_topic_ids": [
+        "discovery_of_electron",
+        "discovery_of_proton_and_neutron"
+      ],
+      "default_status": "not_started"
+    },
+    {
+      "id": "chem11_u02_lu02_atomic_models_and_identity",
+      "order": 2,
+      "title": "Atomic Models and Nuclear Identity",
+      "short_description": "Compare Thomson and Rutherford models, interpret the scattering experiment, and use atomic and mass numbers to identify atoms, isotopes, and isobars.",
+      "ncert_sections": [
+        {
+          "id": "2.2",
+          "title": "Atomic Models",
+          "pages": {
+            "start": 4,
+            "end": 9
+          }
+        },
+        {
+          "id": "2.2.1",
+          "title": "Thomson Model of Atom",
+          "pages": {
+            "start": 5,
+            "end": 5
+          }
+        },
+        {
+          "id": "2.2.2",
+          "title": "Rutherford's Nuclear Model of Atom",
+          "pages": {
+            "start": 6,
+            "end": 7
+          }
+        },
+        {
+          "id": "2.2.3",
+          "title": "Atomic Number and Mass Number",
+          "pages": {
+            "start": 7,
+            "end": 8
+          }
+        },
+        {
+          "id": "2.2.4",
+          "title": "Isobars and Isotopes",
+          "pages": {
+            "start": 7,
+            "end": 8
+          }
+        },
+        {
+          "id": "2.2.5",
+          "title": "Drawbacks of Rutherford Model",
+          "pages": {
+            "start": 8,
+            "end": 9
+          }
+        }
+      ],
+      "source_segments": [
+        {
+          "page": 4,
+          "start_anchor": "2.2 Atomic Models"
+        },
+        {
+          "page": 5
+        },
+        {
+          "page": 6
+        },
+        {
+          "page": 7
+        },
+        {
+          "page": 8
+        },
+        {
+          "page": 9,
+          "end_anchor": "2.3 Developments Leading to the Bohr's Model of Atom"
+        }
+      ],
+      "concepts": [
+        {
+          "id": "atomic_models",
+          "title": "Why Atomic Models Are Needed",
+          "prerequisite_concept_ids": [
+            "fundamental_particle_properties"
+          ]
+        },
+        {
+          "id": "thomson_atomic_model",
+          "title": "Thomson's Uniform Positive Sphere Model",
+          "prerequisite_concept_ids": [
+            "atomic_models"
+          ]
+        },
+        {
+          "id": "rutherford_scattering_experiment",
+          "title": "Rutherford's Alpha-particle Scattering Experiment",
+          "prerequisite_concept_ids": [
+            "thomson_atomic_model"
+          ]
+        },
+        {
+          "id": "rutherford_nuclear_model",
+          "title": "The Nuclear Model and Mostly Empty Atomic Space",
+          "prerequisite_concept_ids": [
+            "rutherford_scattering_experiment"
+          ]
+        },
+        {
+          "id": "atomic_and_mass_numbers",
+          "title": "Atomic Number, Mass Number, Protons, Neutrons, and Electrons",
+          "prerequisite_concept_ids": [
+            "rutherford_nuclear_model"
+          ]
+        },
+        {
+          "id": "isotopes_and_isobars",
+          "title": "Isotopes, Isobars, and Nuclide Notation",
+          "prerequisite_concept_ids": [
+            "atomic_and_mass_numbers"
+          ]
+        },
+        {
+          "id": "rutherford_model_limitations",
+          "title": "Atomic Stability and Other Limits of Rutherford's Model",
+          "prerequisite_concept_ids": [
+            "rutherford_nuclear_model"
+          ]
+        }
+      ],
+      "skills": [
+        "Predict Rutherford-scattering observations from Thomson's model and compare them with the actual results.",
+        "Infer the size, charge, and location of the nucleus from alpha-particle deflections.",
+        "Calculate numbers of protons, neutrons, and electrons from atomic notation or ionic charge.",
+        "Distinguish isotopes from isobars and explain why isotopes have similar chemical behaviour.",
+        "Explain why Rutherford's orbiting-electron model cannot account for atomic stability."
+      ],
+      "practice": {
+        "minimum_items": 7,
+        "modes": [
+          "diagram_interpretation",
+          "classification",
+          "calculation",
+          "explanation"
+        ],
+        "source_refs": [
+          "NCERT Figure 2.5",
+          "NCERT Problems 2.1-2.2",
+          "NCERT Exercises 2.3-2.4",
+          "NCERT Exercises 2.40-2.44"
+        ]
+      },
+      "importance": "very_high",
+      "difficulty": "steady",
+      "estimated_minutes": {
+        "min": 50,
+        "max": 65
+      },
+      "prerequisite_unit_ids": [
+        "chem11_u02_lu01_subatomic_particles"
+      ],
+      "dependent_unit_ids": [
+        "chem11_u02_lu04_bohr_model_hydrogen"
+      ],
+      "learning_types": [
+        "theory_concept",
+        "application",
+        "calculation_numerical",
+        "recall"
+      ],
+      "depth": "mastery",
+      "exam_relevance": "very_high",
+      "conceptual_importance": "very_high",
+      "why_it_matters": "This unit turns experimental observations into a model of the nucleus and gives the notation needed to describe every atomic species accurately.",
+      "learning_route": [
+        "Compare what Thomson's model predicts with Rutherford's observations.",
+        "Build Rutherford's nuclear model from the three scattering conclusions.",
+        "Use Z, A, and ionic charge to count particles and classify nuclides.",
+        "Identify the stability problem that the next model must solve."
+      ],
+      "mastery_criteria": [
+        "Derive Rutherford's three conclusions from the scattering observations rather than recalling them without evidence.",
+        "Correctly determine protons, neutrons, and electrons for neutral atoms and ions.",
+        "Classify and represent unfamiliar isotope and isobar examples using nuclide notation.",
+        "Explain at least two limitations of Rutherford's model, including the atomic-stability problem."
+      ],
+      "primary_topic_id": "rutherford_nuclear_model",
+      "legacy_topic_ids": [
+        "thomson_model_of_atom",
+        "rutherford_model_of_atom",
+        "atomic_number_and_mass_number",
+        "isotopes_and_isobars_topic"
+      ],
+      "default_status": "not_started"
+    },
+    {
+      "id": "chem11_u02_lu03_radiation_and_atomic_spectra",
+      "order": 3,
+      "title": "Radiation, Quanta, and Atomic Spectra",
+      "short_description": "Connect wave properties, Planck's quantum idea, the photoelectric effect, and hydrogen line spectra to the evidence that atomic energies are quantized.",
+      "ncert_sections": [
+        {
+          "id": "2.3",
+          "title": "Developments Leading to the Bohr's Model of Atom",
+          "pages": {
+            "start": 9,
+            "end": 18
+          }
+        },
+        {
+          "id": "2.3.1",
+          "title": "Wave Nature of Electromagnetic Radiation",
+          "pages": {
+            "start": 9,
+            "end": 11
+          }
+        },
+        {
+          "id": "2.3.2",
+          "title": "Particle Nature of Electromagnetic Radiation: Planck's Quantum Theory",
+          "pages": {
+            "start": 11,
+            "end": 16
+          }
+        },
+        {
+          "id": "2.3.3",
+          "title": "Evidence for the Quantized Electronic Energy Levels: Atomic Spectra",
+          "pages": {
+            "start": 16,
+            "end": 18
+          }
+        }
+      ],
+      "source_segments": [
+        {
+          "page": 9,
+          "start_anchor": "2.3 Developments Leading to the Bohr's Model of Atom"
+        },
+        {
+          "page": 10
+        },
+        {
+          "page": 11
+        },
+        {
+          "page": 12
+        },
+        {
+          "page": 13
+        },
+        {
+          "page": 14
+        },
+        {
+          "page": 15
+        },
+        {
+          "page": 16
+        },
+        {
+          "page": 17
+        },
+        {
+          "page": 18,
+          "end_anchor": "2.4 Bohr's Model for Hydrogen Atom"
+        }
+      ],
+      "concepts": [
+        {
+          "id": "electromagnetic_radiation",
+          "title": "Electromagnetic Radiation as Oscillating Fields",
+          "prerequisite_concept_ids": [
+            "cathode_rays_and_electron"
+          ]
+        },
+        {
+          "id": "wave_parameters",
+          "title": "Wavelength, Frequency, Wavenumber, and the Speed of Light",
+          "prerequisite_concept_ids": [
+            "electromagnetic_radiation"
+          ]
+        },
+        {
+          "id": "electromagnetic_spectrum",
+          "title": "Regions of the Electromagnetic Spectrum",
+          "prerequisite_concept_ids": [
+            "wave_parameters"
+          ]
+        },
+        {
+          "id": "black_body_radiation",
+          "title": "Black-body Radiation and the Failure of Classical Physics",
+          "prerequisite_concept_ids": [
+            "wave_parameters"
+          ]
+        },
+        {
+          "id": "planck_quantum_theory",
+          "title": "Planck's Quanta and Photon Energy",
+          "prerequisite_concept_ids": [
+            "black_body_radiation"
+          ]
+        },
+        {
+          "id": "photoelectric_effect",
+          "title": "Photoelectric Effect and Threshold Frequency",
+          "prerequisite_concept_ids": [
+            "planck_quantum_theory"
+          ]
+        },
+        {
+          "id": "atomic_line_spectra",
+          "title": "Emission, Absorption, and Line Spectra",
+          "prerequisite_concept_ids": [
+            "planck_quantum_theory"
+          ]
+        },
+        {
+          "id": "hydrogen_spectrum",
+          "title": "Hydrogen Spectrum, Balmer Series, and Rydberg Relation",
+          "prerequisite_concept_ids": [
+            "atomic_line_spectra",
+            "wave_parameters"
+          ]
+        }
+      ],
+      "skills": [
+        "Relate wavelength, frequency, wavenumber, and the speed of electromagnetic radiation.",
+        "Locate a radiation within the electromagnetic spectrum from its wavelength or frequency.",
+        "Calculate photon energy and molar photon energy using Planck's relation.",
+        "Use threshold frequency and work function to reason about the photoelectric effect.",
+        "Distinguish continuous, emission-line, and absorption spectra.",
+        "Use the Balmer or Rydberg relation to interpret hydrogen spectral lines."
+      ],
+      "practice": {
+        "minimum_items": 10,
+        "modes": [
+          "formula",
+          "calculation",
+          "graph_interpretation",
+          "explanation"
+        ],
+        "source_refs": [
+          "NCERT Problems 2.3-2.9",
+          "NCERT Figures 2.7-2.10",
+          "NCERT Exercises 2.5-2.13",
+          "NCERT Exercises 2.45-2.53"
+        ]
+      },
+      "importance": "very_high",
+      "difficulty": "challenging",
+      "estimated_minutes": {
+        "min": 80,
+        "max": 100
+      },
+      "prerequisite_unit_ids": [
+        "chem11_u02_lu01_subatomic_particles"
+      ],
+      "dependent_unit_ids": [
+        "chem11_u02_lu04_bohr_model_hydrogen"
+      ],
+      "learning_types": [
+        "theory_concept",
+        "formula",
+        "calculation_numerical",
+        "application"
+      ],
+      "depth": "mastery",
+      "exam_relevance": "very_high",
+      "conceptual_importance": "very_high",
+      "why_it_matters": "Bohr's model only makes sense after the student sees the experimental evidence that radiation and atomic energy exchange occur in discrete quantities.",
+      "learning_route": [
+        "Build the wavelength-frequency-wavenumber relationship and map the spectrum.",
+        "Use black-body and photoelectric observations to understand Planck's quantum idea.",
+        "Compare continuous and atomic line spectra.",
+        "Read the hydrogen series as evidence for discrete electronic energies."
+      ],
+      "mastery_criteria": [
+        "Convert accurately among wavelength, frequency, and wavenumber with correct units.",
+        "Calculate photon energy and explain why intensity and frequency play different roles in the photoelectric effect.",
+        "Distinguish continuous, emission, and absorption spectra from descriptions or diagrams.",
+        "Identify the hydrogen spectral series and use a supplied relation to calculate or explain a transition."
+      ],
+      "primary_topic_id": "planck_quantum_theory",
+      "legacy_topic_ids": [
+        "electromagnetic_radiation_topic",
+        "plancks_quantum_theory",
+        "atomic_spectra_topic"
+      ],
+      "default_status": "not_started"
+    },
+    {
+      "id": "chem11_u02_lu04_bohr_model_hydrogen",
+      "order": 4,
+      "title": "Bohr's Hydrogen Atom",
+      "short_description": "Use Bohr's postulates to connect allowed orbits, quantized energies, electronic transitions, and the hydrogen spectrum, then recognise where the model fails.",
+      "ncert_sections": [
+        {
+          "id": "2.4",
+          "title": "Bohr's Model for Hydrogen Atom",
+          "pages": {
+            "start": 18,
+            "end": 21
+          }
+        },
+        {
+          "id": "2.4.1",
+          "title": "Explanation of Line Spectrum of Hydrogen",
+          "pages": {
+            "start": 20,
+            "end": 21
+          }
+        },
+        {
+          "id": "2.4.2",
+          "title": "Limitations of Bohr's Model",
+          "pages": {
+            "start": 21,
+            "end": 21
+          }
+        }
+      ],
+      "source_segments": [
+        {
+          "page": 18,
+          "start_anchor": "2.4 Bohr's Model for Hydrogen Atom"
+        },
+        {
+          "page": 19
+        },
+        {
+          "page": 20
+        },
+        {
+          "page": 21,
+          "end_anchor": "2.5 Towards Quantum Mechanical Model of the Atom"
+        }
+      ],
+      "concepts": [
+        {
+          "id": "bohr_model_postulates",
+          "title": "Bohr's Postulates and Stationary States",
+          "prerequisite_concept_ids": [
+            "rutherford_model_limitations",
+            "hydrogen_spectrum"
+          ]
+        },
+        {
+          "id": "quantized_angular_momentum",
+          "title": "Quantized Angular Momentum",
+          "prerequisite_concept_ids": [
+            "bohr_model_postulates"
+          ]
+        },
+        {
+          "id": "bohr_radius_and_energy",
+          "title": "Radius and Energy of Hydrogen Orbits",
+          "prerequisite_concept_ids": [
+            "quantized_angular_momentum"
+          ]
+        },
+        {
+          "id": "hydrogen_like_species",
+          "title": "Bohr Relations for One-electron Species",
+          "prerequisite_concept_ids": [
+            "bohr_radius_and_energy"
+          ]
+        },
+        {
+          "id": "electronic_transitions",
+          "title": "Absorption, Emission, and Electronic Transitions",
+          "prerequisite_concept_ids": [
+            "bohr_radius_and_energy",
+            "planck_quantum_theory"
+          ]
+        },
+        {
+          "id": "bohr_line_spectrum_explanation",
+          "title": "Bohr Explanation of the Hydrogen Line Spectrum",
+          "prerequisite_concept_ids": [
+            "electronic_transitions",
+            "hydrogen_spectrum"
+          ]
+        },
+        {
+          "id": "bohr_model_limitations",
+          "title": "Limitations of Bohr's Model",
+          "prerequisite_concept_ids": [
+            "bohr_line_spectrum_explanation"
+          ]
+        }
+      ],
+      "skills": [
+        "State and interpret Bohr's postulates rather than treating them as isolated facts.",
+        "Calculate orbit radius and energy for hydrogen and hydrogen-like species.",
+        "Determine whether a transition represents absorption or emission and calculate its energy, frequency, or wavelength.",
+        "Connect a hydrogen transition with the appropriate spectral series.",
+        "Explain the successes and limitations of Bohr's model."
+      ],
+      "practice": {
+        "minimum_items": 9,
+        "modes": [
+          "formula",
+          "calculation",
+          "diagram_interpretation",
+          "explanation"
+        ],
+        "source_refs": [
+          "NCERT Problems 2.10-2.11",
+          "NCERT Figure 2.11",
+          "NCERT Exercises 2.14-2.19",
+          "NCERT Exercises 2.33-2.34"
+        ]
+      },
+      "importance": "very_high",
+      "difficulty": "challenging",
+      "estimated_minutes": {
+        "min": 70,
+        "max": 90
+      },
+      "prerequisite_unit_ids": [
+        "chem11_u02_lu02_atomic_models_and_identity",
+        "chem11_u02_lu03_radiation_and_atomic_spectra"
+      ],
+      "dependent_unit_ids": [
+        "chem11_u02_lu05_wave_particle_quantum_transition"
+      ],
+      "learning_types": [
+        "theory_concept",
+        "formula",
+        "calculation_numerical",
+        "application"
+      ],
+      "depth": "mastery",
+      "exam_relevance": "very_high",
+      "conceptual_importance": "very_high",
+      "why_it_matters": "Bohr's model is the first chapter model that quantitatively connects atomic structure with energy and spectra, while its limitations motivate quantum mechanics.",
+      "learning_route": [
+        "Translate each Bohr postulate into a picture of allowed states and transitions.",
+        "Use the radius and energy relations for hydrogen-like species.",
+        "Calculate absorption or emission quantities and connect them to spectral lines.",
+        "Finish by identifying precisely what the model still cannot explain."
+      ],
+      "mastery_criteria": [
+        "Explain the meaning of stationary states and quantized angular momentum.",
+        "Use Bohr relations accurately for H, He+, or another one-electron species.",
+        "Solve a transition problem with correct sign, energy, frequency, wavelength, and spectral-series interpretation.",
+        "State at least two model limitations and explain why they matter."
+      ],
+      "primary_topic_id": "bohr_model_postulates",
+      "legacy_topic_ids": [
+        "bohr_model_of_atom",
+        "hydrogen_line_spectrum",
+        "limitations_of_bohr_model"
+      ],
+      "default_status": "not_started"
+    },
+    {
+      "id": "chem11_u02_lu05_wave_particle_quantum_transition",
+      "order": 5,
+      "title": "From Orbits to Quantum Mechanics",
+      "short_description": "Use de Broglie's matter waves and Heisenberg's uncertainty principle to understand why exact electron paths must give way to a probability-based model.",
+      "ncert_sections": [
+        {
+          "id": "2.5",
+          "title": "Towards Quantum Mechanical Model of the Atom",
+          "pages": {
+            "start": 21,
+            "end": 25
+          }
+        },
+        {
+          "id": "2.5.1",
+          "title": "Dual Behaviour of Matter",
+          "pages": {
+            "start": 21,
+            "end": 22
+          }
+        },
+        {
+          "id": "2.5.2",
+          "title": "Heisenberg's Uncertainty Principle",
+          "pages": {
+            "start": 22,
+            "end": 25
+          }
+        }
+      ],
+      "source_segments": [
+        {
+          "page": 21,
+          "start_anchor": "2.5 Towards Quantum Mechanical Model of the Atom"
+        },
+        {
+          "page": 22
+        },
+        {
+          "page": 23
+        },
+        {
+          "page": 24
+        },
+        {
+          "page": 25,
+          "end_anchor": "2.6 Quantum Mechanical Model of Atom"
+        }
+      ],
+      "concepts": [
+        {
+          "id": "need_for_quantum_mechanics",
+          "title": "Why Atomic Theory Must Move Beyond Bohr Orbits",
+          "prerequisite_concept_ids": [
+            "bohr_model_limitations"
+          ]
+        },
+        {
+          "id": "wave_particle_duality_of_matter",
+          "title": "Wave-particle Duality of Matter",
+          "prerequisite_concept_ids": [
+            "need_for_quantum_mechanics"
+          ]
+        },
+        {
+          "id": "de_broglie_relation",
+          "title": "de Broglie Wavelength and Particle Momentum",
+          "prerequisite_concept_ids": [
+            "wave_particle_duality_of_matter"
+          ]
+        },
+        {
+          "id": "heisenberg_uncertainty",
+          "title": "Heisenberg's Position-Momentum Uncertainty Principle",
+          "prerequisite_concept_ids": [
+            "de_broglie_relation"
+          ]
+        },
+        {
+          "id": "microscopic_significance_of_uncertainty",
+          "title": "Why Uncertainty Matters for Electrons but Not Everyday Objects",
+          "prerequisite_concept_ids": [
+            "heisenberg_uncertainty"
+          ]
+        },
+        {
+          "id": "probability_instead_of_paths",
+          "title": "Probability Description Instead of Exact Electron Orbits",
+          "prerequisite_concept_ids": [
+            "microscopic_significance_of_uncertainty"
+          ]
+        }
+      ],
+      "skills": [
+        "Calculate de Broglie wavelength from mass and velocity or momentum.",
+        "Compare why wave behaviour is observable for microscopic particles but negligible for macroscopic objects.",
+        "Apply the uncertainty relation to position, velocity, or momentum estimates.",
+        "Explain why the idea of a precise electron trajectory conflicts with quantum evidence."
+      ],
+      "practice": {
+        "minimum_items": 7,
+        "modes": [
+          "formula",
+          "calculation",
+          "comparison",
+          "explanation"
+        ],
+        "source_refs": [
+          "NCERT Problems 2.12-2.16",
+          "NCERT Exercises 2.20-2.21",
+          "NCERT Exercises 2.32 and 2.57-2.61"
+        ]
+      },
+      "importance": "very_high",
+      "difficulty": "challenging",
+      "estimated_minutes": {
+        "min": 55,
+        "max": 70
+      },
+      "prerequisite_unit_ids": [
+        "chem11_u02_lu04_bohr_model_hydrogen"
+      ],
+      "dependent_unit_ids": [
+        "chem11_u02_lu06_quantum_numbers_and_orbitals"
+      ],
+      "learning_types": [
+        "theory_concept",
+        "formula",
+        "calculation_numerical",
+        "application"
+      ],
+      "depth": "mastery",
+      "exam_relevance": "very_high",
+      "conceptual_importance": "very_high",
+      "why_it_matters": "These two principles explain why electrons cannot be treated as tiny planets and establish the conceptual foundation for atomic orbitals.",
+      "learning_route": [
+        "Connect matter-wave behaviour with de Broglie's wavelength relation.",
+        "Compare electron and everyday-object wavelengths through short calculations.",
+        "Use the uncertainty principle to test what can be known simultaneously.",
+        "Replace the idea of an exact orbit with a probability-based description."
+      ],
+      "mastery_criteria": [
+        "Calculate and compare de Broglie wavelengths with correct SI units.",
+        "Use Heisenberg's relation to find an uncertainty and interpret its physical meaning.",
+        "Explain why quantum effects are consequential for electrons but usually negligible for macroscopic objects.",
+        "Justify why an atomic orbital is not the same as a Bohr orbit."
+      ],
+      "primary_topic_id": "wave_particle_duality_of_matter",
+      "legacy_topic_ids": [
+        "dual_behaviour_of_matter",
+        "heisenberg_uncertainty_principle"
+      ],
+      "default_status": "not_started"
+    },
+    {
+      "id": "chem11_u02_lu06_quantum_numbers_and_orbitals",
+      "order": 6,
+      "title": "Quantum Numbers and Atomic Orbitals",
+      "short_description": "Build the probability model of the atom, use four quantum numbers to describe electrons, and interpret orbital shapes, orientations, and nodes.",
+      "ncert_sections": [
+        {
+          "id": "2.6",
+          "title": "Quantum Mechanical Model of Atom",
+          "pages": {
+            "start": 25,
+            "end": 39
+          }
+        },
+        {
+          "id": "2.6.1",
+          "title": "Orbitals and Quantum Numbers",
+          "pages": {
+            "start": 26,
+            "end": 29
+          }
+        },
+        {
+          "id": "2.6.2",
+          "title": "Shapes of Atomic Orbitals",
+          "pages": {
+            "start": 29,
+            "end": 31
+          }
+        }
+      ],
+      "source_segments": [
+        {
+          "page": 25,
+          "start_anchor": "2.6 Quantum Mechanical Model of Atom"
+        },
+        {
+          "page": 26
+        },
+        {
+          "page": 27
+        },
+        {
+          "page": 28
+        },
+        {
+          "page": 29
+        },
+        {
+          "page": 30
+        },
+        {
+          "page": 31,
+          "end_anchor": "2.6.3 Energies of Orbitals"
+        }
+      ],
+      "concepts": [
+        {
+          "id": "quantum_mechanical_model",
+          "title": "Quantum Mechanical Model and the Schrodinger Equation",
+          "prerequisite_concept_ids": [
+            "probability_instead_of_paths"
+          ]
+        },
+        {
+          "id": "wave_function_and_probability_density",
+          "title": "Wave Function, Atomic Orbital, and Probability Density",
+          "prerequisite_concept_ids": [
+            "quantum_mechanical_model"
+          ]
+        },
+        {
+          "id": "principal_quantum_number",
+          "title": "Principal Quantum Number: Shell, Size, and Energy",
+          "prerequisite_concept_ids": [
+            "wave_function_and_probability_density"
+          ]
+        },
+        {
+          "id": "azimuthal_quantum_number",
+          "title": "Azimuthal Quantum Number: Subshell and Shape",
+          "prerequisite_concept_ids": [
+            "principal_quantum_number"
+          ]
+        },
+        {
+          "id": "magnetic_quantum_number",
+          "title": "Magnetic Quantum Number: Orbital Orientation",
+          "prerequisite_concept_ids": [
+            "azimuthal_quantum_number"
+          ]
+        },
+        {
+          "id": "electron_spin_quantum_number",
+          "title": "Electron Spin Quantum Number",
+          "prerequisite_concept_ids": [
+            "magnetic_quantum_number"
+          ]
+        },
+        {
+          "id": "orbital_shapes_and_orientation",
+          "title": "Boundary Surfaces and Shapes of s, p, and d Orbitals",
+          "prerequisite_concept_ids": [
+            "azimuthal_quantum_number",
+            "magnetic_quantum_number"
+          ]
+        },
+        {
+          "id": "radial_and_angular_nodes",
+          "title": "Radial Nodes, Angular Nodes, and Total Nodes",
+          "prerequisite_concept_ids": [
+            "orbital_shapes_and_orientation"
+          ]
+        }
+      ],
+      "skills": [
+        "Distinguish an orbital probability distribution from a fixed electron path.",
+        "Determine allowed n, l, ml, and ms values and reject impossible combinations.",
+        "Calculate the number of subshells, orbitals, and possible electrons for a shell or subshell.",
+        "Identify s, p, and d orbital shapes and orientations from diagrams.",
+        "Calculate radial, angular, and total nodes for an orbital."
+      ],
+      "practice": {
+        "minimum_items": 10,
+        "modes": [
+          "classification",
+          "diagram_interpretation",
+          "calculation",
+          "explanation"
+        ],
+        "source_refs": [
+          "NCERT Problems 2.17-2.18",
+          "NCERT Figures 2.12-2.15",
+          "NCERT Exercises 2.24-2.31",
+          "NCERT Exercises 2.62 and 2.67"
+        ]
+      },
+      "importance": "very_high",
+      "difficulty": "challenging",
+      "estimated_minutes": {
+        "min": 90,
+        "max": 115
+      },
+      "prerequisite_unit_ids": [
+        "chem11_u02_lu05_wave_particle_quantum_transition"
+      ],
+      "dependent_unit_ids": [
+        "chem11_u02_lu07_orbital_energies_and_electronic_configuration"
+      ],
+      "learning_types": [
+        "theory_concept",
+        "application",
+        "calculation_numerical",
+        "recall"
+      ],
+      "depth": "mastery",
+      "exam_relevance": "very_high",
+      "conceptual_importance": "very_high",
+      "why_it_matters": "Quantum numbers and orbitals provide the language for locating electron probability, counting available states, and building electronic configurations correctly.",
+      "learning_route": [
+        "Move from the Schrodinger model to wave functions, orbitals, and probability density.",
+        "Build the allowed values and meaning of all four quantum numbers.",
+        "Connect quantum numbers to shell, subshell, orientation, and electron capacity.",
+        "Read orbital-shape diagrams and calculate their nodes."
+      ],
+      "mastery_criteria": [
+        "Explain the physical meaning of probability density and why a wave function defines an orbital.",
+        "Validate or construct complete quantum-number sets without violating allowed ranges.",
+        "Determine shell and subshell capacities from quantum numbers.",
+        "Identify s, p, and d orbitals and correctly calculate radial, angular, and total nodes."
+      ],
+      "primary_topic_id": "wave_function_and_probability_density",
+      "legacy_topic_ids": [
+        "quantum_mechanical_model_of_atom",
+        "quantum_numbers_topic",
+        "shapes_of_atomic_orbitals"
+      ],
+      "default_status": "not_started"
+    },
+    {
+      "id": "chem11_u02_lu07_orbital_energies_and_electronic_configuration",
+      "order": 7,
+      "title": "Orbital Energies and Electronic Configuration",
+      "short_description": "Order orbitals, apply Aufbau, Pauli, and Hund rules, write electronic configurations, and explain the stability of half-filled and fully filled subshells.",
+      "ncert_sections": [
+        {
+          "id": "2.6.3",
+          "title": "Energies of Orbitals",
+          "pages": {
+            "start": 31,
+            "end": 33
+          }
+        },
+        {
+          "id": "2.6.4",
+          "title": "Filling of Orbitals in Atom",
+          "pages": {
+            "start": 33,
+            "end": 35
+          }
+        },
+        {
+          "id": "2.6.5",
+          "title": "Electronic Configuration of Atoms",
+          "pages": {
+            "start": 35,
+            "end": 39
+          }
+        },
+        {
+          "id": "2.6.6",
+          "title": "Stability of Completely Filled and Half Filled Subshells",
+          "pages": {
+            "start": 36,
+            "end": 37
+          }
+        }
+      ],
+      "source_segments": [
+        {
+          "page": 31,
+          "start_anchor": "2.6.3 Energies of Orbitals"
+        },
+        {
+          "page": 32
+        },
+        {
+          "page": 33
+        },
+        {
+          "page": 34
+        },
+        {
+          "page": 35
+        },
+        {
+          "page": 36
+        },
+        {
+          "page": 37
+        },
+        {
+          "page": 38
+        },
+        {
+          "page": 39
+        }
+      ],
+      "concepts": [
+        {
+          "id": "orbital_energies_hydrogen",
+          "title": "Orbital Energies and Degeneracy in Hydrogen",
+          "prerequisite_concept_ids": [
+            "principal_quantum_number"
+          ]
+        },
+        {
+          "id": "orbital_energies_multielectron_atoms",
+          "title": "Orbital Energies in Multi-electron Atoms",
+          "prerequisite_concept_ids": [
+            "orbital_energies_hydrogen",
+            "orbital_shapes_and_orientation"
+          ]
+        },
+        {
+          "id": "effective_nuclear_charge_and_shielding",
+          "title": "Effective Nuclear Charge, Shielding, and Penetration",
+          "prerequisite_concept_ids": [
+            "orbital_energies_multielectron_atoms"
+          ]
+        },
+        {
+          "id": "n_plus_l_rule",
+          "title": "The n + l Rule for Orbital Energy Order",
+          "prerequisite_concept_ids": [
+            "effective_nuclear_charge_and_shielding"
+          ]
+        },
+        {
+          "id": "aufbau_principle",
+          "title": "Aufbau Principle",
+          "prerequisite_concept_ids": [
+            "n_plus_l_rule"
+          ]
+        },
+        {
+          "id": "pauli_exclusion_principle",
+          "title": "Pauli Exclusion Principle",
+          "prerequisite_concept_ids": [
+            "electron_spin_quantum_number",
+            "aufbau_principle"
+          ]
+        },
+        {
+          "id": "hund_rule",
+          "title": "Hund's Rule of Maximum Multiplicity",
+          "prerequisite_concept_ids": [
+            "pauli_exclusion_principle"
+          ]
+        },
+        {
+          "id": "electronic_configuration_notation",
+          "title": "Orbital Diagrams and Electronic Configuration Notation",
+          "prerequisite_concept_ids": [
+            "aufbau_principle",
+            "pauli_exclusion_principle",
+            "hund_rule"
+          ]
+        },
+        {
+          "id": "core_and_valence_electrons",
+          "title": "Core Electrons, Valence Electrons, and Noble-gas Notation",
+          "prerequisite_concept_ids": [
+            "electronic_configuration_notation"
+          ]
+        },
+        {
+          "id": "half_and_fully_filled_stability",
+          "title": "Stability of Half-filled and Fully Filled Subshells",
+          "prerequisite_concept_ids": [
+            "hund_rule",
+            "electronic_configuration_notation"
+          ]
+        },
+        {
+          "id": "exceptional_electronic_configurations",
+          "title": "Chromium and Copper Configuration Exceptions",
+          "prerequisite_concept_ids": [
+            "half_and_fully_filled_stability"
+          ]
+        }
+      ],
+      "skills": [
+        "Compare orbital energy order in hydrogen and multi-electron atoms.",
+        "Apply the n + l rule and shielding ideas to compare orbital energies.",
+        "Use Aufbau, Pauli, and Hund rules together to fill orbital diagrams.",
+        "Write full and noble-gas electronic configurations for atoms and ions.",
+        "Identify valence electrons and unpaired electrons.",
+        "Explain chromium and copper exceptions using half-filled and fully filled subshell stability."
+      ],
+      "practice": {
+        "minimum_items": 12,
+        "modes": [
+          "ordering",
+          "orbital_diagram",
+          "configuration_writing",
+          "explanation"
+        ],
+        "source_refs": [
+          "NCERT Tables 2.5-2.6",
+          "NCERT Figures 2.16-2.18",
+          "NCERT Exercises 2.22-2.23 and 2.26-2.31",
+          "NCERT Exercises 2.62-2.67"
+        ]
+      },
+      "importance": "very_high",
+      "difficulty": "challenging",
+      "estimated_minutes": {
+        "min": 100,
+        "max": 125
+      },
+      "prerequisite_unit_ids": [
+        "chem11_u02_lu06_quantum_numbers_and_orbitals"
+      ],
+      "dependent_unit_ids": [],
+      "learning_types": [
+        "theory_concept",
+        "application",
+        "calculation_numerical",
+        "recall"
+      ],
+      "depth": "mastery",
+      "exam_relevance": "very_high",
+      "conceptual_importance": "very_high",
+      "why_it_matters": "Electronic configuration is the chapter's practical outcome and becomes the foundation for periodicity, bonding, reactivity, and later chemistry.",
+      "learning_route": [
+        "Order orbitals using hydrogen degeneracy, shielding, and the n + l rule.",
+        "Apply Aufbau, Pauli, and Hund rules to orbital diagrams.",
+        "Write full and noble-gas configurations and identify valence electrons.",
+        "Explain stable half-filled and fully filled patterns, including Cr and Cu."
+      ],
+      "mastery_criteria": [
+        "Correctly compare energies of orbitals in hydrogen and multi-electron atoms.",
+        "Construct orbital diagrams without violating Aufbau, Pauli, or Hund rules.",
+        "Write accurate electronic configurations for unfamiliar atoms and common ions and identify unpaired electrons.",
+        "Explain Cr and Cu exceptions using symmetry and exchange-energy ideas from NCERT."
+      ],
+      "primary_topic_id": "electronic_configuration_notation",
+      "legacy_topic_ids": [
+        "energies_of_orbitals",
+        "filling_of_orbitals",
+        "electronic_configuration_of_atoms",
+        "stability_of_half_filled_subshells"
+      ],
+      "default_status": "not_started"
+    }
+  ]
+}

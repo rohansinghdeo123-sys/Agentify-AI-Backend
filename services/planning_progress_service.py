@@ -57,6 +57,7 @@ def resolve_learning_event_scope(scope: Mapping[str, Any]) -> Optional[Dict[str,
                 _normalized(unit["id"]),
                 _normalized(unit["title"]),
                 _normalized(unit["primary_topic_id"]),
+                *(_normalized(value) for value in unit.get("legacy_topic_ids") or []),
             }
         )
     ]
@@ -190,8 +191,18 @@ def planning_learning_states(
     user_id: str,
     curriculum_key: str,
     valid_unit_ids: Sequence[str],
+    unit_aliases: Optional[Mapping[str, str]] = None,
 ) -> list[SimpleNamespace]:
     """Project durable exposure into the engine's canonical persisted-state shape."""
+    aliases = {
+        _normalized(alias): canonical
+        for alias, canonical in (unit_aliases or {}).items()
+        if _normalized(alias) and canonical in set(valid_unit_ids)
+    }
+    canonical_by_identity = {
+        **{_normalized(unit_id): unit_id for unit_id in valid_unit_ids},
+        **aliases,
+    }
     rows = (
         db.query(
             PlanningLearningEvent.unit_id,
@@ -201,18 +212,21 @@ def planning_learning_states(
             PlanningLearningEvent.user_id == user_id,
             PlanningLearningEvent.curriculum_key == curriculum_key,
             PlanningLearningEvent.event_type == "study_answer",
-            PlanningLearningEvent.unit_id.in_(list(valid_unit_ids)),
         )
         .group_by(PlanningLearningEvent.unit_id)
         .all()
     )
+    counts: Dict[str, int] = {}
+    for unit_id, event_count in rows:
+        canonical = canonical_by_identity.get(_normalized(unit_id))
+        if canonical and int(event_count or 0) > 0:
+            counts[canonical] = counts.get(canonical, 0) + int(event_count or 0)
     return [
         SimpleNamespace(
-            unit_id=str(unit_id),
+            unit_id=unit_id,
             status="learning",
-            evidence_count=int(event_count or 0),
+            evidence_count=event_count,
             mastery_score=None,
         )
-        for unit_id, event_count in rows
-        if int(event_count or 0) > 0
+        for unit_id, event_count in counts.items()
     ]

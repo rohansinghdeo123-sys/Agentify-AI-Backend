@@ -15,7 +15,7 @@ from Logic.autonomous_study_loop import (
     _build_focus_brief,
     _deterministic_focus_brief,
     _focus_ranking_context,
-    _is_fast_track,
+    _is_quick_revision,
     _llm_focus_brief,
     _normalize_mission_profile,
     _resolve_chapter_scope,
@@ -92,31 +92,20 @@ class AutonomousStudyPlanningTests(unittest.TestCase):
         self.assertNotIn("exam_target", AutonomousStudyRequest.model_fields)
         self.assertEqual(payload.class_level, "Class 11")
 
-    def test_retired_choices_are_rejected_and_quick_revision_is_mapped(self):
-        with self.assertRaises(ValidationError):
-            AutonomousStudyRequest(
-                current_chapter="matter",
-                subject="Chemistry",
-                class_level="Class 11",
-                current_knowledge="weak_basics",
-            )
-        with self.assertRaises(ValidationError):
-            AutonomousStudyRequest(
-                current_chapter="matter",
-                subject="Chemistry",
-                class_level="Class 11",
-                preferred_style="visual_intuition",
-            )
-
+    def test_retired_choices_are_removed_and_fast_track_maps_to_quick_revision(self):
         request = AutonomousStudyRequest(
             current_chapter="matter",
             subject="Chemistry",
             class_level="Class 11",
-            learning_goal="quick_revision",
+            learning_goal="fast_track",
         )
-        profile = _normalize_mission_profile(learning_goal="quick_revision")
-        self.assertEqual(request.learning_goal, "fast_track")
-        self.assertTrue(_is_fast_track(profile))
+        profile = _normalize_mission_profile(learning_goal="fast_track")
+        self.assertNotIn("current_knowledge", AutonomousStudyRequest.model_fields)
+        self.assertNotIn("learning_goal", AutonomousStudyRequest.model_fields)
+        self.assertNotIn("preferred_style", AutonomousStudyRequest.model_fields)
+        self.assertNotIn("study_time_today", AutonomousStudyRequest.model_fields)
+        self.assertEqual(request.chapter_proficiency, "mostly_confident")
+        self.assertTrue(_is_quick_revision(profile))
 
     def test_request_requires_nonblank_selected_class_subject_and_chapter(self):
         valid = {

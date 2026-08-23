@@ -8,13 +8,44 @@ from typing import Any, Dict, List, Mapping, Optional, Sequence
 from .curriculum_registry import STATUS_VALUES
 
 
-TIME_BUDGETS: Dict[str, Optional[int]] = {
-    "15": 15,
-    "30": 30,
-    "60": 60,
-    "120_plus": 120,
-    "no_limit": None,
+DEFAULT_SESSION_MINUTES = 25
+MIN_SESSION_MINUTES = 20
+MAX_SESSION_MINUTES = 120
+PROFICIENCY_VALUES = {
+    "new_to_it",
+    "know_a_little",
+    "know_the_basics",
+    "mostly_confident",
 }
+
+
+def _proficiency(profile: Mapping[str, Any]) -> str:
+    value = _normalized(profile.get("chapter_proficiency"))
+    if value in PROFICIENCY_VALUES:
+        return value
+    # Compatibility for server-side callers that still pass the retired
+    # knowledge vocabulary. Fast Track now maps into the one Quick Revision
+    # behaviour; it is never a separate planning path.
+    if _normalized(profile.get("learning_goal")) in {"fast_track", "quick_revision"}:
+        return "mostly_confident"
+    return {
+        "new": "new_to_it",
+        "some_idea": "know_a_little",
+        "know_basics": "know_the_basics",
+        "weak_basics": "know_a_little",
+    }.get(_normalized(profile.get("current_knowledge")), "know_a_little")
+
+
+def _session_budget(session_duration_minutes: Optional[int]) -> tuple[int, str]:
+    if session_duration_minutes is None:
+        return DEFAULT_SESSION_MINUTES, "default_focus"
+    try:
+        duration = int(session_duration_minutes)
+    except (TypeError, ValueError):
+        return DEFAULT_SESSION_MINUTES, "default_focus"
+    duration = max(MIN_SESSION_MINUTES, min(MAX_SESSION_MINUTES, duration))
+    # Five-minute increments feel realistic and avoid false precision.
+    return int(round(duration / 5.0) * 5), "session_state"
 
 
 def _normalized(value: Any) -> str:
@@ -49,6 +80,66 @@ def _analytics_accuracy(item: Mapping[str, Any]) -> float:
         return max(0.0, min(100.0, float(value or 0)))
     except (TypeError, ValueError):
         return 0.0
+
+
+def _normalized_confidence(value: Any) -> Optional[float]:
+    try:
+        confidence = float(value)
+    except (TypeError, ValueError):
+        return None
+    # Test-history confidence is defined by the public API as a 0-100 value.
+    # Do not guess at alternate scales: a genuine low score such as ``1`` must
+    # stay low rather than becoming false mastery evidence.
+    return max(0.0, min(100.0, confidence))
+
+
+def _canonical_evidence_dimensions(
+    analytics: Mapping[str, Any],
+    canonical_keys: set[str],
+) -> Dict[str, Any]:
+    """Summarise independent evidence without treating time as mastery."""
+    rows = [
+        item
+        for item in analytics.get("topic_evidence") or []
+        if isinstance(item, Mapping)
+        and _normalized(item.get("topic")) in canonical_keys
+    ]
+    session_types = {
+        _normalized(item.get("session_type"))
+        for item in rows
+        if _normalized(item.get("session_type"))
+    }
+    recall_types = {"recall", "revision", "quick_revision"}
+    practice_types = {
+        "practice",
+        "exam",
+        "mcq",
+        "assessment",
+        "question_paper",
+        "written_practice",
+    }
+    confidences = [
+        confidence
+        for item in rows
+        if (confidence := _normalized_confidence(item.get("confidence_after"))) is not None
+    ]
+    session_tokens = {
+        token
+        for session_type in session_types
+        for token in session_type.split("_")
+        if token
+    }
+    return {
+        "has_recall": bool(
+            session_types.intersection(recall_types)
+            or session_tokens.intersection(recall_types)
+        ),
+        "has_practice": bool(
+            session_types.intersection(practice_types)
+            or session_tokens.intersection(practice_types)
+        ),
+        "confidence": sum(confidences) / len(confidences) if confidences else None,
+    }
 
 
 def _mastery_attempt_requirement(unit: Mapping[str, Any]) -> int:
@@ -108,8 +199,7 @@ def derive_unit_statuses(
     ]
     for unit in units:
         unit_id = str(unit["id"])
-        if statuses[unit_id] == "mastered":
-            continue
+        was_mastered = statuses[unit_id] == "mastered"
         aliases = _unit_aliases(unit)
         matching: Dict[str, Dict[str, Any]] = {}
         for item in analytics_rows:
@@ -138,9 +228,22 @@ def derive_unit_statuses(
             if canonical_attempts
             else 0.0
         )
+        dimensions = _canonical_evidence_dimensions(analytics, canonical_keys)
+        study_exposure = int(
+            getattr(persisted_by_unit.get(unit_id), "evidence_count", 0) or 0
+        ) > 0
+        independent_dimensions = 1 + sum(
+            (
+                study_exposure,
+                bool(dimensions["has_recall"]),
+                bool(dimensions["has_practice"]),
+                dimensions["confidence"] is not None and dimensions["confidence"] >= 70,
+            )
+        )
         if (
             canonical_attempts >= _mastery_attempt_requirement(unit)
             and canonical_accuracy >= 80
+            and independent_dimensions >= 2
         ):
             statuses[unit_id] = "mastered"
             continue
@@ -151,7 +254,10 @@ def derive_unit_statuses(
             * max(1, _analytics_attempts(item))
             for item in matching.values()
         ) / max(attempts, 1)
-        statuses[unit_id] = "needs_review" if weighted_accuracy < 60 else "practising"
+        if weighted_accuracy < 60:
+            statuses[unit_id] = "needs_review"
+        elif not was_mastered:
+            statuses[unit_id] = "practising"
     return statuses
 
 
@@ -212,12 +318,15 @@ def _recommended_minutes(unit: Mapping[str, Any], profile: Mapping[str, Any]) ->
         {"overview": 0, "working": 3, "mastery": 6}[str(unit["depth"])],
     ]
     extra = sum(factors)
-    if profile.get("learning_goal") == "fast_track" or profile.get("current_knowledge") == "know_basics":
-        extra = round(extra * 0.4)
-    elif profile.get("learning_goal") in {"deep_understanding", "exam"}:
+    proficiency = _proficiency(profile)
+    if proficiency == "new_to_it":
         extra += 4
-    if profile.get("current_knowledge") == "new":
-        extra += 3
+    elif proficiency == "know_a_little":
+        extra = round(extra * 0.82)
+    elif proficiency == "know_the_basics":
+        extra = round(extra * 0.55)
+    else:
+        extra = round(extra * 0.32)
     target = min(maximum, minimum + max(0, extra))
     rounded = int(round(target / 5.0) * 5)
     return max(minimum, min(maximum, rounded))
@@ -285,6 +394,7 @@ def _next_reason(
     unmet_dependencies: Sequence[str],
     completed: bool,
     by_id: Mapping[str, Mapping[str, Any]],
+    profile: Mapping[str, Any],
 ) -> str:
     if completed:
         return "You have met the recorded mastery evidence for every unit. Use this final unit for a short recall pass."
@@ -297,7 +407,24 @@ def _next_reason(
         return "You have started this NCERT unit; the clearest next step is to practise it before moving on."
     if status == "learning":
         return "Continue the earliest NCERT unit you already started."
-    return "This is the first unfinished unit in the locked NCERT learning sequence."
+    return {
+        "new_to_it": (
+            "This is the first unfinished NCERT unit. Starting here builds the foundation "
+            "before guided examples and practice."
+        ),
+        "know_a_little": (
+            "This is the earliest unfinished NCERT unit. A short reinforcement pass here "
+            "will make the later applications more reliable."
+        ),
+        "know_the_basics": (
+            "This is the earliest unverified NCERT unit. Confirm it quickly, then use an "
+            "application to expose any gap before moving forward."
+        ),
+        "mostly_confident": (
+            "This is the earliest NCERT unit without demonstrated mastery. Begin with a "
+            "quick diagnostic scan and spend effort only where the check finds a gap."
+        ),
+    }[_proficiency(profile)]
 
 
 def _activity(
@@ -316,35 +443,62 @@ def _activity(
         return f"Practise {title} against its mastery criteria"
     if status == "learning":
         return f"Continue {title} and complete one understanding check"
-    if profile.get("learning_goal") == "fast_track":
-        return f"Recall the essential ideas in {title}, then try one quick check"
-    if profile.get("learning_goal") == "exam":
-        return f"Learn {title}, then complete one school-exam application"
-    if profile.get("current_knowledge") == "know_basics":
-        return f"Confirm the key ideas in {title}, then practise one application"
-    if profile.get("current_knowledge") == "new":
-        return f"Build the foundations of {title}, then explain the main idea once"
-    return f"Learn {title}, explain why it works, and complete its first mastery check"
+    return {
+        "new_to_it": f"Understand {title} with a guided example, then explain the main idea once",
+        "know_a_little": f"Reinforce {title} with one example and a moderate practice check",
+        "know_the_basics": f"Scan {title}, apply it once, and use the result to find any gap",
+        "mostly_confident": f"Diagnose {title} quickly, then revise or practise only the weak part",
+    }[_proficiency(profile)]
+
+
+def _approach(
+    unit: Mapping[str, Any],
+    status: str,
+    profile: Mapping[str, Any],
+) -> List[str]:
+    if status == "needs_review":
+        return ["Revisit prerequisite", "Worked example", "Targeted practice", "Quick check"]
+    if status == "practising":
+        return ["Recall", "Apply", "Practise", "Quick check"]
+    if status == "learning":
+        return ["Continue", "Example", "Practice", "Quick check"]
+    return {
+        "new_to_it": ["Understand", "Guided example", "Practice", "Quick check"],
+        "know_a_little": ["Recall", "Reinforce", "Practice", "Quick check"],
+        "know_the_basics": ["Concept scan", "Application", "Gap check", "Practice"],
+        "mostly_confident": ["Quick scan", "Diagnostic", "Weak-area practice", "Revision"],
+    }[_proficiency(profile)]
+
+
+def _outcome(unit: Mapping[str, Any]) -> str:
+    criteria = [str(value).strip() for value in unit.get("mastery_criteria") or [] if str(value).strip()]
+    if criteria:
+        return criteria[0]
+    return f"Explain and apply the central idea in {unit['title']} without relying on notes."
 
 
 def _build_daily_route(
     units: Sequence[Mapping[str, Any]],
     statuses: Mapping[str, str],
-    time_preference: str,
+    session_duration_minutes: Optional[int],
     start_unit_id: str,
     *,
     chapter_completed: bool,
     profile: Mapping[str, Any],
 ) -> Dict[str, Any]:
-    budget = TIME_BUDGETS[time_preference]
+    budget, source = _session_budget(session_duration_minutes)
     start_index = next(index for index, unit in enumerate(units) if unit["id"] == start_unit_id)
     if chapter_completed:
         unit = units[-1]
-        minutes = 10 if budget is None else min(budget, 10)
+        recall_minutes = min(20, budget)
         return {
-            "time_preference": time_preference,
+            "source": source,
             "budget_minutes": budget,
-            "total_minutes": minutes,
+            "estimated_minutes": {
+                "min": max(20, recall_minutes),
+                "max": min(30, max(20, recall_minutes + 5)),
+            },
+            "total_minutes": max(20, recall_minutes),
             "items": [
                 {
                     "unit_id": unit["id"],
@@ -356,76 +510,80 @@ def _build_daily_route(
                         completed=True,
                     ),
                     "reason": "The chapter is mastered; this optional recall keeps the final link fresh.",
-                    "minutes": minutes,
+                    "role": "quick_check",
+                    "minutes": max(20, recall_minutes),
                     "scope": "partial",
                 }
             ],
         }
 
-    mastered_before = {
-        str(unit["id"])
-        for unit in units
-        if statuses[str(unit["id"])] == "mastered"
-    }
     remaining = budget
     items: List[Dict[str, Any]] = []
-    available = set(mastered_before)
     for unit in units[start_index:]:
         unit_id = str(unit["id"])
         if statuses[unit_id] == "mastered":
-            available.add(unit_id)
             continue
-        if any(dependency not in available for dependency in unit.get("prerequisite_unit_ids") or []):
+        if remaining < 20:
             break
         target = _recommended_minutes(unit, profile)
         minimum = int(unit["estimated_minutes"]["min"])
-        if remaining is None:
-            minutes = target
-            scope = "complete"
-        elif remaining >= minimum:
-            minutes = min(target, remaining)
-            scope = "complete"
-        elif remaining >= 5:
-            minutes = remaining
-            scope = "partial"
-        else:
-            break
+        # Reserve a five-minute demonstrated check. The main block remains in
+        # rounded increments and may be a first win rather than a false claim
+        # that the whole unit is complete.
+        focus_minutes = min(target, remaining - 5)
+        focus_minutes = max(15, int(focus_minutes // 5 * 5))
+        scope = "full_unit" if focus_minutes >= minimum else "partial"
         items.append(
             {
                 "unit_id": unit_id,
                 "title": unit["title"],
                 "activity": _activity(unit, statuses[unit_id], profile),
                 "reason": _route_reason(unit, statuses[unit_id]),
-                "minutes": int(minutes),
+                "role": "main_focus",
+                "minutes": focus_minutes,
                 "scope": scope,
             }
         )
-        if remaining is None:
-            break
-        remaining -= int(minutes)
-        if scope == "partial":
-            break
-        available.add(unit_id)
-        if remaining < 5:
+        check_minutes = min(5, remaining - focus_minutes)
+        if check_minutes >= 5:
+            items.append(
+                {
+                    "unit_id": unit_id,
+                    "title": unit["title"],
+                    "activity": f"Quick check: {_outcome(unit)}",
+                    "reason": "A short check turns study into evidence and decides whether to continue or revisit.",
+                    "role": "quick_check",
+                    "minutes": check_minutes,
+                    "scope": "partial",
+                }
+            )
+        remaining -= focus_minutes + check_minutes
+        if scope == "partial" or remaining < 20:
             break
 
     if not items:
         unit = units[start_index]
-        minutes = min(int(unit["estimated_minutes"]["min"]), budget or 15)
         items.append(
             {
                 "unit_id": unit["id"],
                 "title": unit["title"],
                 "activity": _activity(unit, statuses[str(unit["id"])], profile),
                 "reason": _route_reason(unit, statuses[str(unit["id"])]),
-                "minutes": max(5, minutes),
+                "role": "main_focus",
+                "minutes": 20,
                 "scope": "partial",
             }
         )
+    total = sum(int(item["minutes"]) for item in items)
+    if source == "default_focus":
+        estimate = {"min": 20, "max": 30}
+    else:
+        estimate = {"min": max(20, total - 5), "max": total}
     return {
-        "time_preference": time_preference,
+        "source": source,
         "budget_minutes": budget,
-        "total_minutes": sum(int(item["minutes"]) for item in items),
+        "estimated_minutes": estimate,
+        "total_minutes": total,
         "items": items,
     }
 
@@ -450,6 +608,14 @@ def _public_unit(
         "ncert_sections": [
             {"id": section["id"], "title": section["title"]}
             for section in unit["ncert_sections"]
+        ],
+        "ncert_subtopics": [
+            {
+                "id": subtopic["id"],
+                "title": subtopic["title"],
+                "section_id": subtopic["section_id"],
+            }
+            for subtopic in unit["ncert_subtopics"]
         ],
         "concepts": [
             {
@@ -498,9 +664,14 @@ def _completion_criteria(units: Sequence[Mapping[str, Any]]) -> List[str]:
     ]
     # The detailed criteria remain on each unit.  Keep the chapter-level list
     # small enough to guide completion without becoming another syllabus dump.
+    sequence_criterion = (
+        f"Explain how {units[0]['title']} builds toward {units[-1]['title']} in NCERT order."
+        if units
+        else "Explain how each learning unit connects to the next in NCERT order."
+    )
     return [
         "Meet the specific mastery criteria shown inside every learning unit.",
-        "Explain the dependency chain from measurement through stoichiometry in NCERT order.",
+        sequence_criterion,
         "Complete a mixed chapter check without relying on elapsed time as proof of mastery.",
         *([f"Final application check: {explicit[-1]}"] if explicit else []),
     ]
@@ -509,23 +680,27 @@ def _completion_criteria(units: Sequence[Mapping[str, Any]]) -> List[str]:
 def build_planning_roadmap(
     curriculum: Mapping[str, Any],
     *,
-    study_time_today: str = "no_limit",
+    chapter_proficiency: str = "know_a_little",
+    session_duration_minutes: Optional[int] = None,
     analytics: Optional[Mapping[str, Any]] = None,
     persisted_states: Sequence[Any] = (),
     profile: Optional[Mapping[str, Any]] = None,
 ) -> Dict[str, Any]:
     """Build the v2 contract without allowing a model to change curriculum."""
-    if study_time_today not in TIME_BUDGETS:
-        study_time_today = "no_limit"
     analytics = analytics or {}
-    profile = profile or {
-        "current_knowledge": "some_idea",
-        "learning_goal": "deep_understanding",
-    }
+    normalized_proficiency = _normalized(chapter_proficiency)
+    if normalized_proficiency not in PROFICIENCY_VALUES:
+        normalized_proficiency = "know_a_little"
+    profile = dict(profile or {})
+    profile["chapter_proficiency"] = _proficiency(
+        {**profile, "chapter_proficiency": normalized_proficiency}
+    )
     units = list(curriculum["units"])
     statuses = derive_unit_statuses(curriculum, analytics, persisted_states)
     concept_progress = derive_concept_progress(curriculum, analytics)
     next_unit, unmet_dependencies, completed = _next_unit(units, statuses)
+    if not completed and statuses[str(next_unit["id"])] == "not_started":
+        statuses[str(next_unit["id"])] = "recommended"
     by_id = {str(unit["id"]): unit for unit in units}
     public_units = [
         _public_unit(
@@ -539,11 +714,13 @@ def build_planning_roadmap(
     learning_count = sum(status == "learning" for status in statuses.values())
     practising_count = sum(status == "practising" for status in statuses.values())
     needs_review_count = sum(status == "needs_review" for status in statuses.values())
+    recommended_count = sum(status == "recommended" for status in statuses.values())
     unit_count = len(units)
 
     return {
         "roadmap_version": "planning_roadmap_v2",
-        "study_time_today": study_time_today,
+        "chapter_proficiency": profile["chapter_proficiency"],
+        "session_duration_minutes": session_duration_minutes,
         "class_level": curriculum["class_level"],
         "chapter_slug": curriculum["chapter_slug"],
         "curriculum": {
@@ -564,13 +741,22 @@ def build_planning_roadmap(
                 unmet_dependencies,
                 completed,
                 by_id,
+                profile,
             ),
             "estimated_minutes": dict(next_unit["estimated_minutes"]),
+            "importance": next_unit["importance"],
+            "learning_types": list(next_unit["learning_types"]),
+            "approach": _approach(
+                next_unit,
+                statuses[str(next_unit["id"])],
+                profile,
+            ),
+            "outcome": _outcome(next_unit),
         },
         "daily_route": _build_daily_route(
             units,
             statuses,
-            study_time_today,
+            session_duration_minutes,
             str(next_unit["id"]),
             chapter_completed=completed,
             profile=profile,
@@ -580,6 +766,7 @@ def build_planning_roadmap(
             "learning_units": learning_count,
             "practising_units": practising_count,
             "needs_review_units": needs_review_count,
+            "recommended_units": recommended_count,
             "total_units": unit_count,
             "percentage": round((mastered_count / unit_count) * 100) if unit_count else 0,
         },

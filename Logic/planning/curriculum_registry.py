@@ -32,7 +32,14 @@ PLANNING_CURRICULUM_ROOT = BACKEND_ROOT / "data" / "planning"
 IMPORTANCE_VALUES = {"very_high", "high", "moderate", "low"}
 DIFFICULTY_VALUES = {"foundation", "steady", "challenging"}
 DEPTH_VALUES = {"overview", "working", "mastery"}
-STATUS_VALUES = {"not_started", "learning", "practising", "needs_review", "mastered"}
+STATUS_VALUES = {
+    "not_started",
+    "recommended",
+    "learning",
+    "practising",
+    "needs_review",
+    "mastered",
+}
 
 
 class PlanningCurriculumError(ValueError):
@@ -202,6 +209,38 @@ def _validate_manifest(payload: Any) -> Dict[str, Any]:
                 or end > int(payload["source"]["page_count"])
             ):
                 raise PlanningCurriculumError(f"{section_location}.pages is outside the source")
+
+        # Older checked-in manifests modelled NCERT subsections only as source
+        # sections. Promote that mapping into the explicit subtopic layer so
+        # new clients receive Chapter -> Learning Unit -> NCERT Subtopic ->
+        # Concept without invalidating approved curriculum data.
+        subtopics = unit.get("ncert_subtopics")
+        if subtopics is None:
+            subtopics = [
+                {
+                    "id": str(section["id"]),
+                    "title": str(section["title"]),
+                    "section_id": str(section["id"]),
+                }
+                for section in sections
+            ]
+            unit["ncert_subtopics"] = subtopics
+        if not isinstance(subtopics, list) or not subtopics:
+            raise PlanningCurriculumError(f"{location}.ncert_subtopics must not be empty")
+        subtopic_ids: List[str] = []
+        known_section_ids = {str(section["id"]) for section in sections}
+        for subtopic_index, subtopic in enumerate(subtopics):
+            subtopic_location = f"{location}.ncert_subtopics[{subtopic_index}]"
+            if not isinstance(subtopic, dict):
+                raise PlanningCurriculumError(f"{subtopic_location} must be an object")
+            subtopic_ids.append(_require_string(subtopic, "id", location=subtopic_location))
+            _require_string(subtopic, "title", location=subtopic_location)
+            section_id = _require_string(subtopic, "section_id", location=subtopic_location)
+            if section_id not in known_section_ids:
+                raise PlanningCurriculumError(
+                    f"{subtopic_location}.section_id must reference this learning unit"
+                )
+        _ensure_unique(subtopic_ids, location=f"{location} NCERT subtopic ids")
 
         source_segments = unit.get("source_segments")
         if not isinstance(source_segments, list) or not source_segments:

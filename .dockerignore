@@ -12,6 +12,7 @@ __pycache__/
 tests/
 data/raw/ncert/**/*.pdf
 !data/raw/ncert/class_11/chemistry/chapter_01_some_basic_concepts_of_chemistry.pdf
+!data/raw/ncert/class_11/chemistry/chapter_02_structure_of_atom.pdf
 desktop.ini
 Dockerfile
 .dockerignore

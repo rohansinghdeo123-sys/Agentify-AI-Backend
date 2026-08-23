@@ -1,7 +1,7 @@
 from datetime import date, datetime
 from typing import Any, Dict, List, Literal, Optional
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 
 ALLOWED_CLASS_LEVELS = {
@@ -328,20 +328,61 @@ class AutonomousStudyRequest(BaseModel):
     current_chapter: str = Field(min_length=1, max_length=240)
     subject: str = Field(min_length=1, max_length=120)
     class_level: str = Field(min_length=1, max_length=64)
-    current_knowledge: Literal["new", "some_idea", "know_basics"] = "some_idea"
-    learning_goal: Literal["deep_understanding", "exam", "fast_track"] = "deep_understanding"
-    preferred_style: Literal["examples_first", "short_explanations", "conceptual_detail"] = "examples_first"
-    prerequisite_confidence: str = "medium"
-    study_time_today: Literal["15", "30", "60", "120_plus", "no_limit"] = "no_limit"
+    chapter_proficiency: Literal[
+        "new_to_it",
+        "know_a_little",
+        "know_the_basics",
+        "mostly_confident",
+    ] = "know_a_little"
+    # Planning never asks for time. An existing study-session context may pass
+    # a duration, otherwise the engine creates a calm 20-30 minute first win.
+    session_duration_minutes: Optional[int] = Field(default=None, ge=20, le=120)
 
     model_config = {"extra": "ignore"}
 
-    @field_validator("current_knowledge", "preferred_style", mode="before")
+    @model_validator(mode="before")
     @classmethod
-    def normalize_planning_choice(cls, value: Any) -> Any:
-        if isinstance(value, str):
-            return value.strip().lower().replace(" ", "_")
-        return value
+    def migrate_retired_planning_choices(cls, value: Any) -> Any:
+        """Load historical clients without keeping retired controls alive.
+
+        ``Fast Track`` is the only legacy value that needs semantic migration:
+        it now resolves to the single Quick Revision behaviour represented by
+        ``mostly_confident``. Old knowledge values receive their closest new
+        proficiency. Retired time, exam-target, and style fields are ignored by
+        the model and never enter current planning logic.
+        """
+        if not isinstance(value, dict):
+            return value
+        payload = dict(value)
+        if payload.get("chapter_proficiency") in {None, ""}:
+            legacy_goal = str(payload.get("learning_goal") or "").strip().lower()
+            legacy_goal = legacy_goal.replace(" ", "_").replace("-", "_")
+            legacy_knowledge = str(payload.get("current_knowledge") or "").strip().lower()
+            legacy_knowledge = legacy_knowledge.replace(" ", "_").replace("-", "_")
+            if legacy_goal in {"fast_track", "quick_revision"}:
+                payload["chapter_proficiency"] = "mostly_confident"
+            else:
+                payload["chapter_proficiency"] = {
+                    "new": "new_to_it",
+                    "weak_basics": "know_a_little",
+                    "some_idea": "know_a_little",
+                    "know_basics": "know_the_basics",
+                }.get(legacy_knowledge, "know_a_little")
+        return payload
+
+    @field_validator("chapter_proficiency", mode="before")
+    @classmethod
+    def normalize_chapter_proficiency(cls, value: Any) -> Any:
+        if not isinstance(value, str):
+            return value
+        normalized = value.strip().lower().replace(" ", "_").replace("-", "_")
+        return {
+            "new": "new_to_it",
+            "some_idea": "know_a_little",
+            "know_basics": "know_the_basics",
+            "fast_track": "mostly_confident",
+            "quick_revision": "mostly_confident",
+        }.get(normalized, normalized)
 
     @field_validator("current_chapter")
     @classmethod
@@ -358,25 +399,6 @@ class AutonomousStudyRequest(BaseModel):
         if not normalized:
             raise ValueError("Select a class and subject before generating a plan")
         return normalized
-
-    @field_validator("learning_goal", mode="before")
-    @classmethod
-    def normalize_learning_goal(cls, value: Any) -> Any:
-        if not isinstance(value, str):
-            return value
-        normalized = value.strip().lower().replace(" ", "_")
-        return "fast_track" if normalized == "quick_revision" else normalized
-
-    @field_validator("study_time_today", mode="before")
-    @classmethod
-    def normalize_study_time_today(cls, value: Any) -> Any:
-        if value is None or value == "":
-            return "no_limit"
-        if isinstance(value, str):
-            normalized = value.strip().lower().replace(" ", "_")
-            return "120_plus" if normalized in {"120+", "2+_hours", "2_plus_hours"} else normalized
-        return value
-
 
 class PlanningFocusArea(BaseModel):
     focus_area_id: str = Field(min_length=1, max_length=160)
@@ -414,6 +436,12 @@ class PlanningNcertSection(BaseModel):
     title: str = Field(min_length=1, max_length=180)
 
 
+class PlanningNcertSubtopic(BaseModel):
+    id: str = Field(min_length=1, max_length=180)
+    title: str = Field(min_length=1, max_length=240)
+    section_id: str = Field(min_length=1, max_length=80)
+
+
 class PlanningCurriculumMetadata(BaseModel):
     key: str = Field(min_length=1, max_length=180)
     source: str = Field(min_length=1, max_length=240)
@@ -426,7 +454,14 @@ class PlanningCurriculumMetadata(BaseModel):
 class PlanningConcept(BaseModel):
     id: str = Field(min_length=1, max_length=180)
     title: str = Field(min_length=1, max_length=240)
-    status: Literal["not_started", "learning", "practising", "needs_review", "mastered"]
+    status: Literal[
+        "not_started",
+        "recommended",
+        "learning",
+        "practising",
+        "needs_review",
+        "mastered",
+    ]
     evidence_count: int = Field(ge=0)
 
 
@@ -436,6 +471,7 @@ class PlanningLearningUnit(BaseModel):
     title: str = Field(min_length=1, max_length=180)
     short_description: str = Field(min_length=1, max_length=400)
     ncert_sections: List[PlanningNcertSection] = Field(min_length=1, max_length=40)
+    ncert_subtopics: List[PlanningNcertSubtopic] = Field(min_length=1, max_length=80)
     concepts: List[PlanningConcept] = Field(min_length=1, max_length=80)
     skills: List[str] = Field(default_factory=list, max_length=40)
     practice: List[str] = Field(default_factory=list, max_length=40)
@@ -451,7 +487,14 @@ class PlanningLearningUnit(BaseModel):
     why_it_matters: str = Field(min_length=1, max_length=500)
     learning_route: List[str] = Field(min_length=2, max_length=4)
     mastery_criteria: List[str] = Field(min_length=1, max_length=20)
-    status: Literal["not_started", "learning", "practising", "needs_review", "mastered"]
+    status: Literal[
+        "not_started",
+        "recommended",
+        "learning",
+        "practising",
+        "needs_review",
+        "mastered",
+    ]
     primary_topic_id: str = Field(min_length=1, max_length=180)
 
 
@@ -460,6 +503,10 @@ class PlanningNextStep(BaseModel):
     title: str = Field(min_length=1, max_length=180)
     reason: str = Field(min_length=1, max_length=500)
     estimated_minutes: PlanningEstimatedMinutes
+    importance: Literal["very_high", "high", "moderate", "low"]
+    learning_types: List[str] = Field(min_length=1, max_length=20)
+    approach: List[str] = Field(min_length=2, max_length=4)
+    outcome: str = Field(min_length=1, max_length=500)
 
 
 class PlanningDailyRouteItem(BaseModel):
@@ -467,14 +514,16 @@ class PlanningDailyRouteItem(BaseModel):
     title: str = Field(min_length=1, max_length=180)
     activity: str = Field(min_length=1, max_length=300)
     reason: str = Field(min_length=1, max_length=400)
+    role: Literal["main_focus", "quick_check"]
     minutes: int = Field(ge=5, le=180)
-    scope: Literal["partial", "complete"]
+    scope: Literal["partial", "full_unit"]
 
 
 class PlanningDailyRoute(BaseModel):
-    time_preference: Literal["15", "30", "60", "120_plus", "no_limit"]
-    budget_minutes: Optional[int] = Field(default=None, ge=15, le=120)
-    total_minutes: int = Field(ge=5, le=240)
+    source: Literal["default_focus", "session_state"]
+    budget_minutes: int = Field(ge=20, le=120)
+    estimated_minutes: PlanningEstimatedMinutes
+    total_minutes: int = Field(ge=20, le=120)
     items: List[PlanningDailyRouteItem] = Field(min_length=1, max_length=20)
 
 
@@ -483,6 +532,7 @@ class PlanningProgress(BaseModel):
     learning_units: int = Field(ge=0, le=80)
     practising_units: int = Field(ge=0, le=80)
     needs_review_units: int = Field(ge=0, le=80)
+    recommended_units: int = Field(ge=0, le=1)
     total_units: int = Field(ge=1, le=80)
     percentage: int = Field(ge=0, le=100)
 
@@ -500,7 +550,13 @@ class AutonomousStudyResponse(BaseModel):
     completion_signal: str = ""
     coverage: Optional[PlanningCoverage] = None
     roadmap_version: Optional[Literal["planning_roadmap_v2"]] = None
-    study_time_today: Literal["15", "30", "60", "120_plus", "no_limit"] = "no_limit"
+    chapter_proficiency: Literal[
+        "new_to_it",
+        "know_a_little",
+        "know_the_basics",
+        "mostly_confident",
+    ] = "know_a_little"
+    session_duration_minutes: Optional[int] = Field(default=None, ge=20, le=120)
     class_level: str = ""
     chapter_slug: str = ""
     curriculum: Optional[PlanningCurriculumMetadata] = None
@@ -524,7 +580,6 @@ class AutonomousStudyResponse(BaseModel):
     fast_revision_strategy: List[str] = Field(default_factory=list)
     weakness_detection_points: List[str] = Field(default_factory=list)
     final_confidence_check: List[str] = Field(default_factory=list)
-    fast_track_strategy: List[str] = Field(default_factory=list)
     primary_agent: str
     mode: str
     difficulty: str

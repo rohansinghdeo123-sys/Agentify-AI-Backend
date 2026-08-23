@@ -417,12 +417,9 @@ def coach_autonomous_study(
             user_id=user_id,
             current_chapter=payload.current_chapter,
             subject=payload.subject,
-            current_knowledge=payload.current_knowledge,
-            learning_goal=payload.learning_goal,
-            preferred_style=payload.preferred_style,
-            prerequisite_confidence=payload.prerequisite_confidence,
+            chapter_proficiency=payload.chapter_proficiency,
             class_level=payload.class_level,
-            study_time_today=payload.study_time_today,
+            session_duration_minutes=payload.session_duration_minutes,
         )
     except PlanningChapterNotFoundError as exc:
         raise HTTPException(

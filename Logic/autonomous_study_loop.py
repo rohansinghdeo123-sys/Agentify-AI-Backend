@@ -49,41 +49,38 @@ def _normalize_key(value: Any) -> str:
 
 
 def _normalize_mission_profile(
-    current_knowledge: str = "some_idea",
-    learning_goal: str = "deep_understanding",
-    preferred_style: str = "examples_first",
-    prerequisite_confidence: str = "medium",
+    chapter_proficiency: str = "",
     class_level: str = "",
+    **legacy: Any,
 ) -> Dict[str, Any]:
-    knowledge = (current_knowledge or "some_idea").strip().lower()
-    if knowledge not in {"new", "some_idea", "know_basics"}:
-        knowledge = "some_idea"
-
-    goal = (learning_goal or "deep_understanding").strip().lower()
-    if goal == "quick_revision":
-        goal = "fast_track"
-    elif goal not in {"deep_understanding", "exam", "fast_track"}:
-        goal = "deep_understanding"
-
-    style = (preferred_style or "examples_first").strip().lower()
-    if style not in {"examples_first", "short_explanations", "conceptual_detail"}:
-        style = "examples_first"
-
-    confidence = (prerequisite_confidence or "medium").strip().lower()
-    if confidence not in {"low", "medium", "high"}:
-        confidence = "medium"
+    proficiency = _normalize_key(chapter_proficiency)
+    if proficiency not in {
+        "new_to_it",
+        "know_a_little",
+        "know_the_basics",
+        "mostly_confident",
+    }:
+        legacy_goal = _normalize_key(legacy.get("learning_goal"))
+        legacy_knowledge = _normalize_key(legacy.get("current_knowledge"))
+        if legacy_goal in {"fast_track", "quick_revision"}:
+            proficiency = "mostly_confident"
+        else:
+            proficiency = {
+                "new": "new_to_it",
+                "weak_basics": "know_a_little",
+                "some_idea": "know_a_little",
+                "know_basics": "know_the_basics",
+            }.get(legacy_knowledge, "know_a_little")
 
     return {
-        "current_knowledge": knowledge,
-        "learning_goal": goal,
-        "preferred_style": style,
-        "prerequisite_confidence": confidence,
+        "chapter_proficiency": proficiency,
+        "planning_intent": "quick_revision" if proficiency == "mostly_confident" else "guided_learning",
         "class_level": (class_level or "").strip(),
     }
 
 
-def _is_fast_track(profile: Dict[str, Any]) -> bool:
-    return profile["learning_goal"] == "fast_track"
+def _is_quick_revision(profile: Dict[str, Any]) -> bool:
+    return profile["planning_intent"] == "quick_revision"
 
 
 def _resolve_chapter_scope(
@@ -847,17 +844,23 @@ def _registered_roadmap_response(
     curriculum: Dict[str, Any],
     analytics: Dict[str, Any],
     profile: Dict[str, Any],
-    study_time_today: str,
+    session_duration_minutes: int | None,
 ) -> Dict[str, Any]:
     persisted_states = planning_learning_states(
         db,
         user_id=user_id,
         curriculum_key=str(curriculum["curriculum_key"]),
         valid_unit_ids=[str(unit["id"]) for unit in curriculum["units"]],
+        unit_aliases={
+            str(alias): str(unit["id"])
+            for unit in curriculum["units"]
+            for alias in unit.get("legacy_topic_ids") or []
+        },
     )
     roadmap = build_planning_roadmap(
         curriculum,
-        study_time_today=study_time_today,
+        chapter_proficiency=profile["chapter_proficiency"],
+        session_duration_minutes=session_duration_minutes,
         analytics=analytics,
         persisted_states=persisted_states,
         profile=profile,
@@ -911,7 +914,8 @@ def _registered_roadmap_response(
         "target_chapter": curriculum["chapter_slug"],
         "target_unit_id": roadmap["next_step"]["unit_id"],
         "mission_type": "planning_roadmap_v2",
-        "study_time_today": study_time_today,
+        "chapter_proficiency": profile["chapter_proficiency"],
+        "session_duration_minutes": session_duration_minutes,
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
     coach.updated_at = datetime.now(timezone.utc).replace(tzinfo=None)
@@ -956,7 +960,6 @@ def _registered_roadmap_response(
         "fast_revision_strategy": [step["instruction"] for step in brief["guidance_steps"]],
         "weakness_detection_points": [],
         "final_confidence_check": list(roadmap["completion_criteria"]),
-        "fast_track_strategy": [],
         "primary_agent": "mission_planner",
         "mode": "planning_roadmap_v2",
         "difficulty": roadmap["learning_units"][0]["difficulty"],
@@ -979,10 +982,8 @@ def _registered_roadmap_response(
         "student_state": {
             "plan_scope": "chapter",
             "roadmap_version": "planning_roadmap_v2",
-            "current_knowledge": profile["current_knowledge"],
-            "learning_goal": profile["learning_goal"],
-            "preferred_style": profile["preferred_style"],
-            "prerequisite_confidence": profile["prerequisite_confidence"],
+            "chapter_proficiency": profile["chapter_proficiency"],
+            "planning_intent": profile["planning_intent"],
         },
         "completion_report": {"status": "roadmap_ready"},
         "result": result,
@@ -996,12 +997,9 @@ def run_autonomous_study_loop(
     user_id: str,
     current_chapter: str,
     subject: str = "Chemistry",
-    current_knowledge: str = "some_idea",
-    learning_goal: str = "deep_understanding",
-    preferred_style: str = "examples_first",
-    prerequisite_confidence: str = "medium",
+    chapter_proficiency: str = "know_a_little",
     class_level: str = "",
-    study_time_today: str = "no_limit",
+    session_duration_minutes: int | None = None,
 ) -> Dict[str, Any]:
     started_at = time.time()
     mission_id = f"mission_{uuid.uuid4().hex[:12]}"
@@ -1021,10 +1019,7 @@ def run_autonomous_study_loop(
 
     analytics = get_user_analytics(db, user_id)
     profile = _normalize_mission_profile(
-        current_knowledge=current_knowledge,
-        learning_goal=learning_goal,
-        preferred_style=preferred_style,
-        prerequisite_confidence=prerequisite_confidence,
+        chapter_proficiency=chapter_proficiency,
         class_level=class_level,
     )
     curriculum = resolve_planning_curriculum(
@@ -1045,7 +1040,7 @@ def run_autonomous_study_loop(
             curriculum=curriculum,
             analytics=analytics,
             profile=profile,
-            study_time_today=study_time_today,
+            session_duration_minutes=session_duration_minutes,
         )
     chapter_scope = _resolve_chapter_scope(
         db,
@@ -1163,7 +1158,6 @@ def run_autonomous_study_loop(
         "fast_revision_strategy": [step["instruction"] for step in brief["guidance_steps"]],
         "weakness_detection_points": [],
         "final_confidence_check": [brief["completion_signal"]],
-        "fast_track_strategy": [],
         "primary_agent": "mission_planner",
         "mode": "chapter_focus_brief",
         "difficulty": "easy",
@@ -1192,10 +1186,8 @@ def run_autonomous_study_loop(
             "chapter_signal_count": signal_count,
             "learning_unit_count": len(brief["focus_areas"]),
             "source_unit_count": len(unit_ids),
-            "current_knowledge": profile["current_knowledge"],
-            "learning_goal": profile["learning_goal"],
-            "preferred_style": profile["preferred_style"],
-            "prerequisite_confidence": profile["prerequisite_confidence"],
+            "chapter_proficiency": profile["chapter_proficiency"],
+            "planning_intent": profile["planning_intent"],
         },
         "completion_report": {"status": "brief_ready"},
         "result": result,
