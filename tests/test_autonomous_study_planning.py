@@ -103,7 +103,8 @@ class AutonomousStudyPlanningTests(unittest.TestCase):
         self.assertNotIn("current_knowledge", AutonomousStudyRequest.model_fields)
         self.assertNotIn("learning_goal", AutonomousStudyRequest.model_fields)
         self.assertNotIn("preferred_style", AutonomousStudyRequest.model_fields)
-        self.assertNotIn("study_time_today", AutonomousStudyRequest.model_fields)
+        self.assertIn("study_time_today", AutonomousStudyRequest.model_fields)
+        self.assertIsNone(request.study_time_today)
         self.assertEqual(request.chapter_proficiency, "mostly_confident")
         self.assertTrue(_is_quick_revision(profile))
 
@@ -615,6 +616,8 @@ class AutonomousStudyPlanningTests(unittest.TestCase):
                         current_chapter="Unknown Chapter",
                         subject="Science",
                         class_level="Class 10",
+                        study_time_today="30",
+                        session_duration_minutes=47,
                     ),
                     db=SimpleNamespace(),
                     current_user={"uid": "student-1"},
@@ -622,6 +625,8 @@ class AutonomousStudyPlanningTests(unittest.TestCase):
 
         profile.assert_not_called()
         self.assertEqual(run_loop.call_args.kwargs["class_level"], "Class 10")
+        self.assertEqual(run_loop.call_args.kwargs["study_time_today"], "30")
+        self.assertEqual(run_loop.call_args.kwargs["session_duration_minutes"], 47)
         self.assertEqual(raised.exception.status_code, 422)
         self.assertIn("Choose a chapter from Planning", raised.exception.detail)
 

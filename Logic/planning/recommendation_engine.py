@@ -8,9 +8,16 @@ from typing import Any, Dict, List, Mapping, Optional, Sequence
 from .curriculum_registry import STATUS_VALUES
 
 
-DEFAULT_SESSION_MINUTES = 25
-MIN_SESSION_MINUTES = 20
+DEFAULT_ROUTE_CEILING_MINUTES = 30
+MIN_SESSION_MINUTES = 15
 MAX_SESSION_MINUTES = 120
+STUDY_TIME_BUDGETS: Dict[str, Optional[int]] = {
+    "15": 15,
+    "30": 30,
+    "60": 60,
+    "120_plus": 120,
+    "no_limit": None,
+}
 PROFICIENCY_VALUES = {
     "new_to_it",
     "know_a_little",
@@ -36,16 +43,32 @@ def _proficiency(profile: Mapping[str, Any]) -> str:
     }.get(_normalized(profile.get("current_knowledge")), "know_a_little")
 
 
-def _session_budget(session_duration_minutes: Optional[int]) -> tuple[int, str]:
-    if session_duration_minutes is None:
-        return DEFAULT_SESSION_MINUTES, "default_focus"
-    try:
-        duration = int(session_duration_minutes)
-    except (TypeError, ValueError):
-        return DEFAULT_SESSION_MINUTES, "default_focus"
-    duration = max(MIN_SESSION_MINUTES, min(MAX_SESSION_MINUTES, duration))
-    # Five-minute increments feel realistic and avoid false precision.
-    return int(round(duration / 5.0) * 5), "session_state"
+def _route_budget(
+    study_time_today: Optional[str],
+    session_duration_minutes: Optional[int],
+) -> tuple[Optional[int], str, Optional[str]]:
+    """Resolve a ceiling without turning available time into a target.
+
+    An explicit student choice takes precedence over ambient session state.
+    Absence is a calm automatic route capped at 30 minutes; ``no_limit`` has no
+    ceiling but still schedules only the current content-sized learning unit.
+    """
+
+    preference = _normalized(study_time_today)
+    if preference in STUDY_TIME_BUDGETS:
+        return STUDY_TIME_BUDGETS[preference], "student_choice", preference
+    if session_duration_minutes is not None:
+        try:
+            duration = int(session_duration_minutes)
+        except (TypeError, ValueError):
+            duration = DEFAULT_ROUTE_CEILING_MINUTES
+        duration = max(MIN_SESSION_MINUTES, min(MAX_SESSION_MINUTES, duration))
+        # Ambient session state can be arbitrary (for example 48 minutes).
+        # Floor it to a calm five-minute block so the plan never exceeds the
+        # time actually available; the response keeps the original context.
+        floored_duration = max(MIN_SESSION_MINUTES, int(duration // 5 * 5))
+        return floored_duration, "session_state", None
+    return DEFAULT_ROUTE_CEILING_MINUTES, "default_focus", None
 
 
 def _normalized(value: Any) -> str:
@@ -480,25 +503,27 @@ def _outcome(unit: Mapping[str, Any]) -> str:
 def _build_daily_route(
     units: Sequence[Mapping[str, Any]],
     statuses: Mapping[str, str],
+    study_time_today: Optional[str],
     session_duration_minutes: Optional[int],
     start_unit_id: str,
     *,
     chapter_completed: bool,
     profile: Mapping[str, Any],
 ) -> Dict[str, Any]:
-    budget, source = _session_budget(session_duration_minutes)
+    budget, source, _ = _route_budget(study_time_today, session_duration_minutes)
     start_index = next(index for index, unit in enumerate(units) if unit["id"] == start_unit_id)
     if chapter_completed:
         unit = units[-1]
-        recall_minutes = min(20, budget)
+        # Mastered work needs a light recall, not an invented 20-minute floor.
+        recall_minutes = 10 if budget is None else min(10, budget)
         return {
             "source": source,
             "budget_minutes": budget,
             "estimated_minutes": {
-                "min": max(20, recall_minutes),
-                "max": min(30, max(20, recall_minutes + 5)),
+                "min": max(5, recall_minutes - 5),
+                "max": recall_minutes,
             },
-            "total_minutes": max(20, recall_minutes),
+            "total_minutes": recall_minutes,
             "items": [
                 {
                     "unit_id": unit["id"],
@@ -511,74 +536,54 @@ def _build_daily_route(
                     ),
                     "reason": "The chapter is mastered; this optional recall keeps the final link fresh.",
                     "role": "quick_check",
-                    "minutes": max(20, recall_minutes),
+                    "minutes": recall_minutes,
                     "scope": "partial",
                 }
             ],
         }
 
-    remaining = budget
-    items: List[Dict[str, Any]] = []
-    for unit in units[start_index:]:
-        unit_id = str(unit["id"])
-        if statuses[unit_id] == "mastered":
-            continue
-        if remaining < 20:
-            break
-        target = _recommended_minutes(unit, profile)
-        minimum = int(unit["estimated_minutes"]["min"])
-        # Reserve a five-minute demonstrated check. The main block remains in
-        # rounded increments and may be a first win rather than a false claim
-        # that the whole unit is complete.
-        focus_minutes = min(target, remaining - 5)
-        focus_minutes = max(15, int(focus_minutes // 5 * 5))
-        scope = "full_unit" if focus_minutes >= minimum else "partial"
+    # Today's route is one coherent next unit.  A longer availability is a
+    # ceiling, never a request to pad the plan or silently chain later units.
+    unit = units[start_index]
+    unit_id = str(unit["id"])
+    natural_total = _recommended_minutes(unit, profile)
+    total = natural_total if budget is None else min(natural_total, budget)
+    total = max(5, int(total))
+    unit_minimum = int(unit["estimated_minutes"]["min"])
+    scope = "full_unit" if total >= unit_minimum else "partial"
+
+    # The demonstrated check belongs inside the content-sized total.  This is
+    # what keeps a 15-minute route at exactly 15 minutes rather than 20.
+    check_minutes = 5 if total >= 10 else 0
+    focus_minutes = total - check_minutes
+    items: List[Dict[str, Any]] = [
+        {
+            "unit_id": unit_id,
+            "title": unit["title"],
+            "activity": _activity(unit, statuses[unit_id], profile),
+            "reason": _route_reason(unit, statuses[unit_id]),
+            "role": "main_focus",
+            "minutes": focus_minutes,
+            "scope": scope,
+        }
+    ]
+    if check_minutes:
         items.append(
             {
                 "unit_id": unit_id,
                 "title": unit["title"],
-                "activity": _activity(unit, statuses[unit_id], profile),
-                "reason": _route_reason(unit, statuses[unit_id]),
-                "role": "main_focus",
-                "minutes": focus_minutes,
-                "scope": scope,
-            }
-        )
-        check_minutes = min(5, remaining - focus_minutes)
-        if check_minutes >= 5:
-            items.append(
-                {
-                    "unit_id": unit_id,
-                    "title": unit["title"],
-                    "activity": f"Quick check: {_outcome(unit)}",
-                    "reason": "A short check turns study into evidence and decides whether to continue or revisit.",
-                    "role": "quick_check",
-                    "minutes": check_minutes,
-                    "scope": "partial",
-                }
-            )
-        remaining -= focus_minutes + check_minutes
-        if scope == "partial" or remaining < 20:
-            break
-
-    if not items:
-        unit = units[start_index]
-        items.append(
-            {
-                "unit_id": unit["id"],
-                "title": unit["title"],
-                "activity": _activity(unit, statuses[str(unit["id"])], profile),
-                "reason": _route_reason(unit, statuses[str(unit["id"])]),
-                "role": "main_focus",
-                "minutes": 20,
+                "activity": f"Quick check: {_outcome(unit)}",
+                "reason": "A short check turns study into evidence and decides whether to continue or revisit.",
+                "role": "quick_check",
+                "minutes": check_minutes,
                 "scope": "partial",
             }
         )
-    total = sum(int(item["minutes"]) for item in items)
-    if source == "default_focus":
-        estimate = {"min": 20, "max": 30}
+
+    if total < unit_minimum:
+        estimate = {"min": total, "max": total}
     else:
-        estimate = {"min": max(20, total - 5), "max": total}
+        estimate = {"min": min(unit_minimum, total), "max": total}
     return {
         "source": source,
         "budget_minutes": budget,
@@ -681,6 +686,7 @@ def build_planning_roadmap(
     curriculum: Mapping[str, Any],
     *,
     chapter_proficiency: str = "know_a_little",
+    study_time_today: Optional[str] = None,
     session_duration_minutes: Optional[int] = None,
     analytics: Optional[Mapping[str, Any]] = None,
     persisted_states: Sequence[Any] = (),
@@ -716,10 +722,24 @@ def build_planning_roadmap(
     needs_review_count = sum(status == "needs_review" for status in statuses.values())
     recommended_count = sum(status == "recommended" for status in statuses.values())
     unit_count = len(units)
+    daily_route = _build_daily_route(
+        units,
+        statuses,
+        study_time_today,
+        session_duration_minutes,
+        str(next_unit["id"]),
+        chapter_completed=completed,
+        profile=profile,
+    )
 
     return {
         "roadmap_version": "planning_roadmap_v2",
         "chapter_proficiency": profile["chapter_proficiency"],
+        "study_time_today": (
+            _normalized(study_time_today)
+            if _normalized(study_time_today) in STUDY_TIME_BUDGETS
+            else None
+        ),
         "session_duration_minutes": session_duration_minutes,
         "class_level": curriculum["class_level"],
         "chapter_slug": curriculum["chapter_slug"],
@@ -743,7 +763,9 @@ def build_planning_roadmap(
                 by_id,
                 profile,
             ),
-            "estimated_minutes": dict(next_unit["estimated_minutes"]),
+            # Unit cards retain their full authored range. The next action tells
+            # the truth about what fits today's selected or inferred ceiling.
+            "estimated_minutes": dict(daily_route["estimated_minutes"]),
             "importance": next_unit["importance"],
             "learning_types": list(next_unit["learning_types"]),
             "approach": _approach(
@@ -753,14 +775,7 @@ def build_planning_roadmap(
             ),
             "outcome": _outcome(next_unit),
         },
-        "daily_route": _build_daily_route(
-            units,
-            statuses,
-            session_duration_minutes,
-            str(next_unit["id"]),
-            chapter_completed=completed,
-            profile=profile,
-        ),
+        "daily_route": daily_route,
         "progress": {
             "mastered_units": mastered_count,
             "learning_units": learning_count,

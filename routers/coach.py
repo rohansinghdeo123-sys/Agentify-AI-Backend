@@ -419,6 +419,7 @@ def coach_autonomous_study(
             subject=payload.subject,
             chapter_proficiency=payload.chapter_proficiency,
             class_level=payload.class_level,
+            study_time_today=payload.study_time_today,
             session_duration_minutes=payload.session_duration_minutes,
         )
     except PlanningChapterNotFoundError as exc:

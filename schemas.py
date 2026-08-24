@@ -334,9 +334,13 @@ class AutonomousStudyRequest(BaseModel):
         "know_the_basics",
         "mostly_confident",
     ] = "know_a_little"
-    # Planning never asks for time. An existing study-session context may pass
-    # a duration, otherwise the engine creates a calm 20-30 minute first win.
-    session_duration_minutes: Optional[int] = Field(default=None, ge=20, le=120)
+    # A student's choice is distinct from duration supplied by an existing
+    # study session.  When both are absent, Planning chooses a focused route of
+    # at most 30 minutes; ``no_limit`` still remains content-sized.
+    study_time_today: Optional[
+        Literal["15", "30", "60", "120_plus", "no_limit"]
+    ] = None
+    session_duration_minutes: Optional[int] = Field(default=None, ge=15, le=120)
 
     model_config = {"extra": "ignore"}
 
@@ -348,12 +352,22 @@ class AutonomousStudyRequest(BaseModel):
         ``Fast Track`` is the only legacy value that needs semantic migration:
         it now resolves to the single Quick Revision behaviour represented by
         ``mostly_confident``. Old knowledge values receive their closest new
-        proficiency. Retired time, exam-target, and style fields are ignored by
-        the model and never enter current planning logic.
+        proficiency. Numeric historical time choices are normalized into the
+        current presets. Exam-target and style fields remain ignored.
         """
         if not isinstance(value, dict):
             return value
         payload = dict(value)
+        raw_time = payload.get("study_time_today")
+        if raw_time is not None and raw_time != "":
+            if isinstance(raw_time, bool):
+                # Let the field validator return the normal validation error.
+                pass
+            elif isinstance(raw_time, (int, float)) and float(raw_time).is_integer():
+                numeric_time = int(raw_time)
+                payload["study_time_today"] = (
+                    "120_plus" if numeric_time == 120 else str(numeric_time)
+                )
         if payload.get("chapter_proficiency") in {None, ""}:
             legacy_goal = str(payload.get("learning_goal") or "").strip().lower()
             legacy_goal = legacy_goal.replace(" ", "_").replace("-", "_")
@@ -369,6 +383,24 @@ class AutonomousStudyRequest(BaseModel):
                     "know_basics": "know_the_basics",
                 }.get(legacy_knowledge, "know_a_little")
         return payload
+
+    @field_validator("study_time_today", mode="before")
+    @classmethod
+    def normalize_study_time_today(cls, value: Any) -> Any:
+        if value is None or value == "":
+            return None
+        if isinstance(value, str):
+            normalized = value.strip().lower().replace(" ", "_").replace("-", "_")
+            return {
+                "120": "120_plus",
+                "120+": "120_plus",
+                "2_hours": "120_plus",
+                "2+_hours": "120_plus",
+                "2_plus_hours": "120_plus",
+                "2_hours+": "120_plus",
+                "unlimited": "no_limit",
+            }.get(normalized, normalized)
+        return value
 
     @field_validator("chapter_proficiency", mode="before")
     @classmethod
@@ -520,10 +552,10 @@ class PlanningDailyRouteItem(BaseModel):
 
 
 class PlanningDailyRoute(BaseModel):
-    source: Literal["default_focus", "session_state"]
-    budget_minutes: int = Field(ge=20, le=120)
+    source: Literal["default_focus", "student_choice", "session_state"]
+    budget_minutes: Optional[int] = Field(default=None, ge=15, le=120)
     estimated_minutes: PlanningEstimatedMinutes
-    total_minutes: int = Field(ge=20, le=120)
+    total_minutes: int = Field(ge=5, le=180)
     items: List[PlanningDailyRouteItem] = Field(min_length=1, max_length=20)
 
 
@@ -556,7 +588,10 @@ class AutonomousStudyResponse(BaseModel):
         "know_the_basics",
         "mostly_confident",
     ] = "know_a_little"
-    session_duration_minutes: Optional[int] = Field(default=None, ge=20, le=120)
+    study_time_today: Optional[
+        Literal["15", "30", "60", "120_plus", "no_limit"]
+    ] = None
+    session_duration_minutes: Optional[int] = Field(default=None, ge=15, le=120)
     class_level: str = ""
     chapter_slug: str = ""
     curriculum: Optional[PlanningCurriculumMetadata] = None

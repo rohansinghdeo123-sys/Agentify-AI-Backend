@@ -844,6 +844,7 @@ def _registered_roadmap_response(
     curriculum: Dict[str, Any],
     analytics: Dict[str, Any],
     profile: Dict[str, Any],
+    study_time_today: str | None,
     session_duration_minutes: int | None,
 ) -> Dict[str, Any]:
     persisted_states = planning_learning_states(
@@ -860,6 +861,7 @@ def _registered_roadmap_response(
     roadmap = build_planning_roadmap(
         curriculum,
         chapter_proficiency=profile["chapter_proficiency"],
+        study_time_today=study_time_today,
         session_duration_minutes=session_duration_minutes,
         analytics=analytics,
         persisted_states=persisted_states,
@@ -915,7 +917,8 @@ def _registered_roadmap_response(
         "target_unit_id": roadmap["next_step"]["unit_id"],
         "mission_type": "planning_roadmap_v2",
         "chapter_proficiency": profile["chapter_proficiency"],
-        "session_duration_minutes": session_duration_minutes,
+        "study_time_today": roadmap["study_time_today"],
+        "session_duration_minutes": roadmap["session_duration_minutes"],
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
     coach.updated_at = datetime.now(timezone.utc).replace(tzinfo=None)
@@ -953,7 +956,7 @@ def _registered_roadmap_response(
         "mission_type": "planning_roadmap_v2",
         "priority": "high",
         "mastery_band": "roadmap",
-        "estimated_minutes": 0,
+        "estimated_minutes": roadmap["daily_route"]["total_minutes"],
         "mission_goal": objective,
         "prerequisite_check": {},
         "high_priority_concepts": high_priority,
@@ -984,6 +987,9 @@ def _registered_roadmap_response(
             "roadmap_version": "planning_roadmap_v2",
             "chapter_proficiency": profile["chapter_proficiency"],
             "planning_intent": profile["planning_intent"],
+            "study_time_today": roadmap["study_time_today"],
+            "session_duration_minutes": roadmap["session_duration_minutes"],
+            "planned_minutes": roadmap["daily_route"]["total_minutes"],
         },
         "completion_report": {"status": "roadmap_ready"},
         "result": result,
@@ -999,6 +1005,7 @@ def run_autonomous_study_loop(
     subject: str = "Chemistry",
     chapter_proficiency: str = "know_a_little",
     class_level: str = "",
+    study_time_today: str | None = None,
     session_duration_minutes: int | None = None,
 ) -> Dict[str, Any]:
     started_at = time.time()
@@ -1040,6 +1047,7 @@ def run_autonomous_study_loop(
             curriculum=curriculum,
             analytics=analytics,
             profile=profile,
+            study_time_today=study_time_today,
             session_duration_minutes=session_duration_minutes,
         )
     chapter_scope = _resolve_chapter_scope(

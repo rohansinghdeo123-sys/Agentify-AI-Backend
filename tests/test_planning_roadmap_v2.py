@@ -176,7 +176,7 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
             )
         )
 
-    def test_request_exposes_only_proficiency_and_optional_session_state(self):
+    def test_request_exposes_proficiency_student_time_choice_and_optional_session_state(self):
         common = {
             "current_chapter": "some_basic_concepts_of_chemistry",
             "subject": "Chemistry",
@@ -184,7 +184,6 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
         }
         for retired in (
             "available_time",
-            "study_time_today",
             "exam_target",
             "current_knowledge",
             "learning_goal",
@@ -199,10 +198,36 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
                 self.assertEqual(request.chapter_proficiency, proficiency)
 
         self.assertIsNone(AutonomousStudyRequest(**common).session_duration_minutes)
+        self.assertIsNone(AutonomousStudyRequest(**common).study_time_today)
+        for raw, expected in (
+            ("15", "15"),
+            (30, "30"),
+            ("60", "60"),
+            (120, "120_plus"),
+            ("120+", "120_plus"),
+            ("2 hours", "120_plus"),
+            ("2+ hours", "120_plus"),
+            ("no_limit", "no_limit"),
+            ("unlimited", "no_limit"),
+        ):
+            with self.subTest(time=raw):
+                self.assertEqual(
+                    AutonomousStudyRequest(**common, study_time_today=raw).study_time_today,
+                    expected,
+                )
+        self.assertEqual(
+            AutonomousStudyRequest(**common, session_duration_minutes=15).session_duration_minutes,
+            15,
+        )
         self.assertEqual(
             AutonomousStudyRequest(**common, session_duration_minutes=60).session_duration_minutes,
             60,
         )
+        for invalid_duration in (14, 121):
+            with self.subTest(duration=invalid_duration), self.assertRaises(ValueError):
+                AutonomousStudyRequest(**common, session_duration_minutes=invalid_duration)
+        with self.assertRaises(ValueError):
+            AutonomousStudyRequest(**common, study_time_today="45")
         self.assertEqual(
             AutonomousStudyRequest(**common, learning_goal="fast_track").chapter_proficiency,
             "mostly_confident",
@@ -212,7 +237,7 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
             "mostly_confident",
         )
 
-    def test_default_route_is_always_20_to_30_minutes_and_one_hour_uses_state(self):
+    def test_time_is_a_ceiling_and_never_padding_target(self):
         units = self.curriculum["units"]
         for mastered_count in range(len(units)):
             analytics = _mastery_signals(units[:mastered_count])
@@ -220,9 +245,16 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
                 roadmap = build_planning_roadmap(self.curriculum, analytics=analytics)
                 route = roadmap["daily_route"]
                 self.assertEqual(route["source"], "default_focus")
-                self.assertGreaterEqual(route["total_minutes"], 20)
                 self.assertLessEqual(route["total_minutes"], 30)
-                self.assertEqual(route["estimated_minutes"], {"min": 20, "max": 30})
+                self.assertIsNone(roadmap["study_time_today"])
+                self.assertIsNone(roadmap["session_duration_minutes"])
+                self.assertEqual(route["budget_minutes"], 30)
+                self.assertEqual(
+                    route["total_minutes"],
+                    sum(item["minutes"] for item in route["items"]),
+                )
+                self.assertEqual({item["unit_id"] for item in route["items"]}, {roadmap["next_step"]["unit_id"]})
+                self.assertEqual(roadmap["next_step"]["estimated_minutes"], route["estimated_minutes"])
 
         one_hour = build_planning_roadmap(
             self.curriculum,
@@ -231,8 +263,96 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
         )
         self.assertEqual(one_hour["daily_route"]["source"], "session_state")
         self.assertEqual(one_hour["daily_route"]["budget_minutes"], 60)
-        self.assertGreaterEqual(one_hour["daily_route"]["total_minutes"], 45)
         self.assertLessEqual(one_hour["daily_route"]["total_minutes"], 60)
+        self.assertLess(one_hour["daily_route"]["total_minutes"], 60)
+        self.assertEqual(one_hour["session_duration_minutes"], 60)
+
+        for duration in (47, 48, 49):
+            with self.subTest(ambient_duration=duration):
+                ambient = build_planning_roadmap(
+                    self.curriculum,
+                    session_duration_minutes=duration,
+                )
+                self.assertEqual(ambient["session_duration_minutes"], duration)
+                self.assertEqual(ambient["daily_route"]["source"], "session_state")
+                self.assertEqual(ambient["daily_route"]["budget_minutes"], 45)
+                self.assertLessEqual(ambient["daily_route"]["budget_minutes"], duration)
+                self.assertLessEqual(ambient["daily_route"]["total_minutes"], duration)
+
+    def test_every_student_time_choice_is_a_ceiling_and_choice_wins_over_session_state(self):
+        budgets = {"15": 15, "30": 30, "60": 60, "120_plus": 120, "no_limit": None}
+        first_id = self.curriculum["units"][0]["id"]
+        for preference, budget in budgets.items():
+            with self.subTest(preference=preference):
+                roadmap = build_planning_roadmap(
+                    self.curriculum,
+                    study_time_today=preference,
+                    session_duration_minutes=60,
+                )
+                route = roadmap["daily_route"]
+                self.assertEqual(roadmap["study_time_today"], preference)
+                self.assertEqual(roadmap["session_duration_minutes"], 60)
+                self.assertEqual(route["source"], "student_choice")
+                self.assertEqual(route["budget_minutes"], budget)
+                self.assertEqual({item["unit_id"] for item in route["items"]}, {first_id})
+                self.assertEqual(route["total_minutes"], sum(item["minutes"] for item in route["items"]))
+                if budget is not None:
+                    self.assertLessEqual(route["total_minutes"], budget)
+
+        selected = build_planning_roadmap(
+            self.curriculum,
+            study_time_today="15",
+            session_duration_minutes=60,
+        )
+        self.assertEqual(selected["daily_route"]["source"], "student_choice")
+        self.assertEqual(selected["daily_route"]["budget_minutes"], 15)
+        self.assertEqual(selected["daily_route"]["total_minutes"], 15)
+
+    def test_fifteen_minute_content_stays_fifteen_for_all_large_or_unlimited_choices(self):
+        compact = deepcopy(self.curriculum)
+        unit = deepcopy(compact["units"][0])
+        unit["estimated_minutes"] = {"min": 15, "max": 15}
+        unit["prerequisite_unit_ids"] = []
+        unit["dependent_unit_ids"] = []
+        compact["units"] = [unit]
+
+        for preference in (None, "15", "30", "60", "120_plus", "no_limit"):
+            with self.subTest(preference=preference):
+                roadmap = build_planning_roadmap(compact, study_time_today=preference)
+                route = roadmap["daily_route"]
+                self.assertEqual(route["total_minutes"], 15)
+                self.assertEqual(route["estimated_minutes"], {"min": 15, "max": 15})
+                self.assertEqual(roadmap["next_step"]["estimated_minutes"], {"min": 15, "max": 15})
+                self.assertEqual(sum(item["minutes"] for item in route["items"]), 15)
+                self.assertEqual(route["items"][0]["scope"], "full_unit")
+
+    def test_fifteen_minute_cap_on_broad_unit_is_truthfully_partial(self):
+        roadmap = build_planning_roadmap(self.curriculum, study_time_today="15")
+        route = roadmap["daily_route"]
+        self.assertEqual(route["total_minutes"], 15)
+        self.assertEqual(route["estimated_minutes"], {"min": 15, "max": 15})
+        self.assertEqual([item["minutes"] for item in route["items"]], [10, 5])
+        self.assertEqual(route["items"][0]["scope"], "partial")
+        self.assertEqual(route["items"][1]["role"], "quick_check")
+
+    def test_no_limit_remains_one_content_sized_unit_and_completed_recall_stays_short(self):
+        unlimited = build_planning_roadmap(self.curriculum, study_time_today="no_limit")
+        route = unlimited["daily_route"]
+        first = self.curriculum["units"][0]
+        self.assertIsNone(route["budget_minutes"])
+        self.assertEqual(route["source"], "student_choice")
+        self.assertEqual({item["unit_id"] for item in route["items"]}, {first["id"]})
+        self.assertGreaterEqual(route["total_minutes"], first["estimated_minutes"]["min"])
+        self.assertLessEqual(route["total_minutes"], first["estimated_minutes"]["max"])
+
+        complete = build_planning_roadmap(
+            self.curriculum,
+            study_time_today="120_plus",
+            analytics=_mastery_signals(self.curriculum["units"]),
+        )
+        self.assertEqual(complete["daily_route"]["total_minutes"], 10)
+        self.assertEqual(complete["daily_route"]["estimated_minutes"], {"min": 5, "max": 10})
+        self.assertEqual(complete["next_step"]["estimated_minutes"], {"min": 5, "max": 10})
 
     def test_all_proficiencies_change_strategy_without_reordering_curriculum(self):
         expected_order = [unit["id"] for unit in self.curriculum["units"]]
@@ -436,12 +556,22 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
                 subject="Chemistry",
                 class_level="Class 11",
                 chapter_proficiency="mostly_confident",
+                study_time_today="15",
+                session_duration_minutes=60,
             )
 
         complete.assert_not_called()
         self.assertEqual(mission["roadmap_version"], "planning_roadmap_v2")
         self.assertEqual(mission["chapter_proficiency"], "mostly_confident")
-        self.assertEqual(mission["daily_route"]["source"], "default_focus")
+        self.assertEqual(mission["study_time_today"], "15")
+        self.assertEqual(mission["session_duration_minutes"], 60)
+        self.assertEqual(mission["daily_route"]["source"], "student_choice")
+        self.assertEqual(mission["daily_route"]["total_minutes"], 15)
+        self.assertEqual(mission["estimated_minutes"], 15)
+        self.assertEqual(mission["student_state"]["study_time_today"], "15")
+        self.assertEqual(mission["student_state"]["planned_minutes"], 15)
+        self.assertEqual(coach.last_recommendation["study_time_today"], "15")
+        self.assertEqual(coach.last_recommendation["session_duration_minutes"], 60)
         self.assertEqual(
             [unit["id"] for unit in mission["learning_units"]],
             mission["coverage"]["included_unit_ids"],
