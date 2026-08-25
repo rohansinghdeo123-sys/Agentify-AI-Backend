@@ -25,6 +25,7 @@ from routers import (
     coach,
     exam_papers,
     health,
+    planning,
     profile,
     progress,
     rivals,
@@ -128,6 +129,7 @@ app.include_router(coach.router)
 app.include_router(health.router)
 app.include_router(admin.router)
 app.include_router(progress.router)
+app.include_router(planning.router)
 app.include_router(profile.router)
 app.include_router(exam_papers.router)
 app.include_router(written_practice.router)

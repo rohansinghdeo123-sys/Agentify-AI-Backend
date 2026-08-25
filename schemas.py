@@ -569,6 +569,184 @@ class PlanningProgress(BaseModel):
     percentage: int = Field(ge=0, le=100)
 
 
+class PlanningPortfolioChapterSelection(BaseModel):
+    chapter_ref: str = Field(min_length=1, max_length=240)
+    chapter_proficiency: Literal[
+        "new_to_it",
+        "know_a_little",
+        "know_the_basics",
+        "mostly_confident",
+    ] = "know_a_little"
+
+    model_config = {"extra": "forbid"}
+
+    @field_validator("chapter_ref")
+    @classmethod
+    def normalize_chapter_ref(cls, value: str) -> str:
+        normalized = " ".join(value.split())
+        if not normalized:
+            raise ValueError("Select a chapter before building a portfolio")
+        return normalized
+
+    @field_validator("chapter_proficiency", mode="before")
+    @classmethod
+    def normalize_proficiency(cls, value: Any) -> Any:
+        if not isinstance(value, str):
+            return value
+        normalized = value.strip().lower().replace(" ", "_").replace("-", "_")
+        return {
+            "new": "new_to_it",
+            "some_idea": "know_a_little",
+            "know_basics": "know_the_basics",
+            "fast_track": "mostly_confident",
+            "quick_revision": "mostly_confident",
+        }.get(normalized, normalized)
+
+
+class PlanningPortfolioRequest(BaseModel):
+    class_level: str = Field(min_length=1, max_length=64)
+    subject: str = Field(min_length=1, max_length=120)
+    chapters: List[PlanningPortfolioChapterSelection] = Field(
+        min_length=1,
+        max_length=6,
+    )
+    study_time_today: Optional[
+        Literal["15", "30", "60", "120_plus", "no_limit"]
+    ] = None
+    session_duration_minutes: Optional[int] = Field(default=None, ge=15, le=120)
+
+    model_config = {"extra": "forbid"}
+
+    @field_validator("class_level", "subject")
+    @classmethod
+    def normalize_scope_label(cls, value: str) -> str:
+        normalized = " ".join(value.split())
+        if not normalized:
+            raise ValueError("Select a class and subject before building a portfolio")
+        return normalized
+
+    @field_validator("study_time_today", mode="before")
+    @classmethod
+    def normalize_study_time_today(cls, value: Any) -> Any:
+        if value is None or value == "":
+            return None
+        if isinstance(value, bool):
+            return value
+        if isinstance(value, (int, float)) and float(value).is_integer():
+            numeric = int(value)
+            return "120_plus" if numeric == 120 else str(numeric)
+        if isinstance(value, str):
+            normalized = value.strip().lower().replace(" ", "_").replace("-", "_")
+            return {
+                "120": "120_plus",
+                "120+": "120_plus",
+                "2_hours": "120_plus",
+                "2+_hours": "120_plus",
+                "2_plus_hours": "120_plus",
+                "2_hours+": "120_plus",
+                "unlimited": "no_limit",
+            }.get(normalized, normalized)
+        return value
+
+
+class PlanningPortfolioSelectionFactor(BaseModel):
+    id: Literal[
+        "status_urgency",
+        "chapter_continuity",
+        "importance",
+        "exam_relevance",
+        "effort_sizing",
+        "selection_order",
+    ]
+    label: str = Field(min_length=1, max_length=80)
+    value: str = Field(min_length=1, max_length=120)
+    score: int = Field(ge=0, le=1000)
+    explanation: str = Field(min_length=1, max_length=320)
+
+
+class PlanningPortfolioChapterRoadmap(BaseModel):
+    curriculum_key: str = Field(min_length=1, max_length=180)
+    chapter_slug: str = Field(min_length=1, max_length=180)
+    chapter: str = Field(min_length=1, max_length=240)
+    chapter_proficiency: Literal[
+        "new_to_it",
+        "know_a_little",
+        "know_the_basics",
+        "mostly_confident",
+    ]
+    roadmap_version: Literal["planning_roadmap_v2"]
+    curriculum: PlanningCurriculumMetadata
+    learning_units: List[PlanningLearningUnit] = Field(min_length=1, max_length=80)
+    next_step: PlanningNextStep
+    progress: PlanningProgress
+    coverage: PlanningCoverage
+    completion_criteria: List[str] = Field(min_length=1, max_length=20)
+    candidate_score: int = Field(ge=0, le=5000)
+    selection_factors: List[PlanningPortfolioSelectionFactor] = Field(
+        min_length=1,
+        max_length=8,
+    )
+    selected_for_today: bool
+
+
+class PlanningPortfolioGlobalNextStep(PlanningNextStep):
+    curriculum_key: str = Field(min_length=1, max_length=180)
+    chapter_slug: str = Field(min_length=1, max_length=180)
+    chapter: str = Field(min_length=1, max_length=240)
+    chapter_proficiency: Literal[
+        "new_to_it",
+        "know_a_little",
+        "know_the_basics",
+        "mostly_confident",
+    ]
+    selection_reason: str = Field(min_length=1, max_length=500)
+    candidate_score: int = Field(ge=0, le=5000)
+
+
+class PlanningPortfolioRouteItem(PlanningDailyRouteItem):
+    curriculum_key: str = Field(min_length=1, max_length=180)
+    chapter_slug: str = Field(min_length=1, max_length=180)
+    chapter: str = Field(min_length=1, max_length=240)
+
+
+class PlanningPortfolioTodayRoute(BaseModel):
+    source: Literal["default_focus", "student_choice", "session_state"]
+    budget_minutes: Optional[int] = Field(default=None, ge=15, le=120)
+    estimated_minutes: PlanningEstimatedMinutes
+    total_minutes: int = Field(ge=5, le=180)
+    items: List[PlanningPortfolioRouteItem] = Field(min_length=1, max_length=20)
+
+
+class PlanningPortfolioAggregateProgress(BaseModel):
+    mastered_units: int = Field(ge=0, le=480)
+    active_units: int = Field(ge=0, le=480)
+    needs_review_units: int = Field(ge=0, le=480)
+    total_units: int = Field(ge=1, le=480)
+    percentage: int = Field(ge=0, le=100)
+
+
+class PlanningPortfolioResponse(BaseModel):
+    portfolio_version: Literal["planning_portfolio_v1"]
+    user_id: str = Field(min_length=1, max_length=240)
+    class_level: str = Field(min_length=1, max_length=64)
+    subject: str = Field(min_length=1, max_length=120)
+    requested_chapter_count: int = Field(ge=1, le=6)
+    chapter_count: int = Field(ge=1, le=6)
+    deduplicated_chapter_count: int = Field(ge=0, le=5)
+    study_time_today: Optional[
+        Literal["15", "30", "60", "120_plus", "no_limit"]
+    ] = None
+    session_duration_minutes: Optional[int] = Field(default=None, ge=15, le=120)
+    chapters: List[PlanningPortfolioChapterRoadmap] = Field(min_length=1, max_length=6)
+    global_next_step: PlanningPortfolioGlobalNextStep
+    today_route: PlanningPortfolioTodayRoute
+    selection_factors: List[PlanningPortfolioSelectionFactor] = Field(
+        min_length=1,
+        max_length=8,
+    )
+    aggregate_progress: PlanningPortfolioAggregateProgress
+
+
 class AutonomousStudyResponse(BaseModel):
     mission_id: str
     status: str
