@@ -117,7 +117,9 @@ Set these environment variables before deploying:
   example `model-a=0.20:0.60;model-b=0.10:0.30`.
 - `BACKEND_ADMIN_EMAILS`: comma-separated backend admin emails.
 - `BACKEND_FOUNDER_ADMIN_EMAILS`: comma-separated founder-console emails for
-  Rohan and Amit. If omitted, it falls back to `BACKEND_ADMIN_EMAILS`.
+  Rohan and Amit. Founder emails are an additive admin superset; if this value
+  is omitted, it falls back to `BACKEND_ADMIN_EMAILS`. Verified Firebase
+  `founder`, `founderAdmin`, or `roles: ["founder"]` claims are also accepted.
 
 Every response includes `X-Request-ID` and `X-Response-Time-ms`. Pass your own
 `X-Request-ID` from the frontend or gateway when you want to correlate logs.

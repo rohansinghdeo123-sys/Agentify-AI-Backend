@@ -19,7 +19,7 @@ from app.request_models import (
     ContentGenerateConceptsRequest,
     ContentIngestFolderRequest,
 )
-from app.security import require_admin, require_founder_admin
+from app.security import is_founder_admin, require_admin, require_founder_admin
 from app.serializers import normalize_topic, serialize_audit_log
 from database import get_db
 from Logic.agent_event_bus import event_bus
@@ -79,6 +79,7 @@ def admin_me(current_admin: Dict[str, Any] = Depends(require_admin)):
         "email": current_admin.get("email"),
         "phone": current_admin.get("phone_number"),
         "role": "admin",
+        "founder": is_founder_admin(current_admin),
         "verified": True,
     }
 

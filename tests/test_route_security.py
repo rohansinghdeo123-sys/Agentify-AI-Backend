@@ -7,7 +7,8 @@ os.environ["DATABASE_URL"] = ""
 from fastapi.testclient import TestClient
 
 import main
-from app.security import verify_firebase_user
+from app import config
+from app.security import is_backend_admin, is_founder_admin, verify_firebase_user
 
 STUDENT = {"uid": "student-1", "email": "student@example.com"}
 
@@ -78,6 +79,40 @@ class RouteSecurityTests(unittest.TestCase):
         self._login()
         for path in ["/admin/me", "/admin/console", "/admin/overview", "/admin/prompts", "/admin/students"]:
             self.assertEqual(self.client.get(path).status_code, 404, path)
+
+    def test_founder_only_allowlist_is_also_valid_admin_access(self):
+        email = "amit.kumarmunda4@gmail.com"
+        token = {"uid": "amit-founder", "email": email}
+        previous_admins = set(config.BACKEND_ADMIN_EMAILS)
+        previous_founders = set(config.BACKEND_FOUNDER_ADMIN_EMAILS)
+
+        try:
+            config.BACKEND_ADMIN_EMAILS.clear()
+            config.BACKEND_FOUNDER_ADMIN_EMAILS.clear()
+            config.BACKEND_FOUNDER_ADMIN_EMAILS.add(email)
+
+            self.assertTrue(is_backend_admin(token))
+            self.assertTrue(is_founder_admin(token))
+            self._login(token)
+            response = self.client.get("/admin/me")
+            self.assertEqual(response.status_code, 200, response.text)
+            self.assertEqual(response.json()["role"], "admin")
+            self.assertTrue(response.json()["founder"])
+        finally:
+            config.BACKEND_ADMIN_EMAILS.clear()
+            config.BACKEND_ADMIN_EMAILS.update(previous_admins)
+            config.BACKEND_FOUNDER_ADMIN_EMAILS.clear()
+            config.BACKEND_FOUNDER_ADMIN_EMAILS.update(previous_founders)
+
+    def test_verified_founder_claim_is_valid_without_a_public_email_list(self):
+        token = {"uid": "founder-claim", "email": "founder@example.com", "founder": True}
+        self.assertTrue(is_backend_admin(token))
+        self.assertTrue(is_founder_admin(token))
+
+        self._login(token)
+        response = self.client.get("/admin/me")
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertTrue(response.json()["founder"])
 
     def test_cross_user_access_forbidden(self):
         self._login()

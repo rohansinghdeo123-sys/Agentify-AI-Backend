@@ -17,7 +17,7 @@ target_metadata = Base.metadata
 
 
 def database_url() -> str:
-    value = os.getenv("DATABASE_URL", "sqlite:///./ai_educator.db")
+    value = os.getenv("DATABASE_URL") or "sqlite:///./ai_educator.db"
     if value.startswith("postgresql://"):
         value = value.replace("postgresql://", "postgresql+pg8000://", 1)
     return value

@@ -141,8 +141,16 @@ def has_admin_claim(decoded_token: Dict[str, Any]) -> bool:
     return isinstance(roles, list) and "admin" in roles
 
 
+def has_founder_claim(decoded_token: Dict[str, Any]) -> bool:
+    if decoded_token.get("founder") is True or decoded_token.get("founderAdmin") is True:
+        return True
+
+    roles = decoded_token.get("roles")
+    return isinstance(roles, list) and "founder" in roles
+
+
 def is_backend_admin(decoded_token: Dict[str, Any]) -> bool:
-    if has_admin_claim(decoded_token):
+    if has_admin_claim(decoded_token) or has_founder_claim(decoded_token):
         return True
 
     uid = str(decoded_token.get("uid", "")).lower()
@@ -152,6 +160,11 @@ def is_backend_admin(decoded_token: Dict[str, Any]) -> bool:
     return (
         uid in config.BACKEND_ADMIN_UIDS
         or email in config.BACKEND_ADMIN_EMAILS
+        # Founder-console identities are a strict admin superset. Treating the
+        # founder allow-list as additive keeps a founder-only deployment
+        # configuration usable while the backend remains the authority for
+        # every protected admin operation.
+        or email in config.BACKEND_FOUNDER_ADMIN_EMAILS
         or phone in config.BACKEND_ADMIN_PHONES
     )
 
@@ -169,6 +182,9 @@ def require_admin(
 
 
 def is_founder_admin(decoded_token: Dict[str, Any]) -> bool:
+    if has_founder_claim(decoded_token):
+        return True
+
     email = str(decoded_token.get("email", "")).lower()
     return bool(email and email in config.BACKEND_FOUNDER_ADMIN_EMAILS and is_backend_admin(decoded_token))
 
