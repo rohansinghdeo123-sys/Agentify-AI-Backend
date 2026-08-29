@@ -447,7 +447,7 @@
         },
         {
           "page": 18,
-          "end_anchor": "2.4 Bohr's Model for Hydrogen Atom"
+          "end_anchor": "2.4 Bohr's Model for Hydrogen"
         }
       ],
       "concepts": [
@@ -608,7 +608,7 @@
       "source_segments": [
         {
           "page": 18,
-          "start_anchor": "2.4 Bohr's Model for Hydrogen Atom"
+          "start_anchor": "2.4 Bohr's Model for Hydrogen"
         },
         {
           "page": 19
@@ -618,7 +618,7 @@
         },
         {
           "page": 21,
-          "end_anchor": "2.5 Towards Quantum Mechanical Model of the Atom"
+          "end_anchor": "2.5 Towards Quantum Mechanical"
         }
       ],
       "concepts": [
@@ -774,7 +774,7 @@
       "source_segments": [
         {
           "page": 21,
-          "start_anchor": "2.5 Towards Quantum Mechanical Model of the Atom"
+          "start_anchor": "2.5 Towards Quantum Mechanical"
         },
         {
           "page": 22

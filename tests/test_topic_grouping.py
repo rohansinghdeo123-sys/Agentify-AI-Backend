@@ -110,6 +110,27 @@ class TopicGroupingTests(unittest.TestCase):
         self.assertTrue(all(unit["label"] for unit in units))
         self.assertTrue(all(len(unit["concept_ids"]) >= 2 for unit in units))
 
+    def test_long_group_labels_keep_multiple_syllabus_themes_visible(self):
+        themes = [
+            "Foundations", "Measurement", "Classification", "Uncertainty",
+            "Atomic masses", "Mole calculations", "Stoichiometry", "Concentration",
+            "Thermochemistry", "Equilibrium", "Redox reactions", "Hydrocarbons",
+        ]
+        concepts = [
+            _concept(
+                index,
+                title=f"Detailed NCERT {themes[index - 1]} theme with essential chemistry",
+                page=index,
+            )
+            for index in range(1, 13)
+        ]
+
+        units = build_learning_units(concepts, chapter_key="chemistry", page_count=12)
+
+        self.assertEqual(len(units), 4)
+        self.assertTrue(all(len(unit["label"]) <= 96 for unit in units))
+        self.assertTrue(all(" · " in unit["label"] for unit in units))
+
     def test_complexity_changes_budget_without_returning_to_micro_topics(self):
         simple = [
             _concept(index, title=f"Cell concept {index}", page=index)

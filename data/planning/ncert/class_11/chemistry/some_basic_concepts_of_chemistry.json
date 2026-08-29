@@ -452,18 +452,7 @@
           "page": 9
         },
         {
-          "page": 10,
-          "end_anchor": "1.4 Uncertainty in measurement"
-        },
-        {
-          "page": 10,
-          "start_anchor": "fahrenheit) and K (kelvin)",
-          "end_anchor": "Unit 1.indd 10"
-        },
-        {
-          "page": 10,
-          "start_anchor": "1.4 Uncertainty in measurement",
-          "end_anchor": "fahrenheit) and K (kelvin)"
+          "page": 10
         },
         {
           "page": 11
@@ -476,7 +465,7 @@
         },
         {
           "page": 14,
-          "end_anchor": "1.5 laws of chemical combinations"
+          "end_anchor": "1.5 laws of chemical"
         }
       ],
       "concepts": [
@@ -768,7 +757,7 @@
       "source_segments": [
         {
           "page": 14,
-          "start_anchor": "1.5 laws of chemical combinations"
+          "start_anchor": "1.5 laws of chemical"
         },
         {
           "page": 15

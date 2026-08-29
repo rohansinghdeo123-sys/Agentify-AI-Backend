@@ -164,7 +164,11 @@ def meaningful_topic_budget(concepts: Sequence[Any], *, page_count: int = 0) -> 
     # Concept volume catches dense source pages; page volume catches long
     # chapters whose LLM extraction was already conservative.
     concept_units = max(3, math.ceil(math.sqrt(count)))
-    page_units = math.ceil(teaching_pages / 7) if teaching_pages else 0
+    # A chapter page span is a second signal that prevents the compactor from
+    # folding several distinct NCERT sections into one opaque mega-card. Four
+    # teaching pages per unit still yields a short roadmap, while long chapters
+    # can reach the ten-unit guardrail when their syllabus genuinely needs it.
+    page_units = math.ceil(teaching_pages / 4) if teaching_pages else 0
     target = max(concept_units, page_units)
 
     formula_count = sum(len(_as_list(_value(item, "formulas", []))) for item in concepts)
@@ -335,9 +339,18 @@ def _group_label(group: Dict[str, Any]) -> str:
     selected.sort()
 
     chosen = [titles[index] for index in selected]
-    while len(chosen) > 1 and len(" & ".join(chosen)) > 88:
-        chosen.pop()
     label = " & ".join(chosen)
+    if len(label) > 96 and len(chosen) > 1:
+        separator = " · "
+        per_title = max(20, (96 - len(separator) * (len(chosen) - 1)) // len(chosen))
+        compacted: List[str] = []
+        for title in chosen:
+            if len(title) <= per_title:
+                compacted.append(title)
+                continue
+            prefix = title[: max(1, per_title - 1)].rsplit(" ", 1)[0].rstrip(" ,&-")
+            compacted.append(f"{prefix or title[: per_title - 1]}…")
+        label = separator.join(compacted)
     if len(label) > 96:
         label = f"{label[:93].rstrip(' ,&-')}…"
     return label

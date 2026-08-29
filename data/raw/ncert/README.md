@@ -25,6 +25,12 @@ Naming rules:
 - Start chapter files with `chapter_<number>_`.
 - Keep one complete chapter per PDF.
 
+The automated Class 11 Chemistry download has a checked-in nine-chapter source
+map (`kech1` Units 1-6, then `kech2` Units 7-9). New files use canonical names
+such as `chapter_03_classification_of_elements_and_periodicity_in_properties.pdf`.
+On resume, any valid existing `chapter_NN*.pdf` is reused, so manually supplied
+descriptive Chapter 1/2 files are not downloaded again under generic names.
+
 Pipeline rule:
 
 - Ingest PDFs first.

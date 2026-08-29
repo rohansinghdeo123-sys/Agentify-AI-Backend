@@ -7,7 +7,8 @@ just **monitor the admin page** (Operations → Data & content pipeline) or run
 
 ## What it does (per chapter, automatically)
 1. **Download** the NCERT chapter PDF (polite: rate-limited, identifies itself,
-   resumable, validates it's a real PDF, respects robots.txt).
+   resumable, validates both the PDF file and expected curriculum title, respects
+   robots.txt).
 2. **Ingest** → pages + retrieval chunks.
 3. **Generate concepts** with the content agents (the real subtopics).
 4. **Embed** chunks for semantic retrieval.
@@ -18,7 +19,9 @@ just **monitor the admin page** (Operations → Data & content pipeline) or run
    unverified.
 
 Every chapter is isolated: one failure never stops the run. Re-running skips
-PDFs already downloaded and republishes only if the source changed.
+PDFs already downloaded and republishes only if the source changed. Replacing a
+live chapter is atomic: students keep the last published version unless the new
+extraction, concepts, embeddings, and publication gate all succeed.
 
 ## How to run (from the `backend/` directory)
 ```bash
@@ -28,6 +31,13 @@ python scripts/automate_content.py
 # Narrow scope
 python scripts/automate_content.py --classes 11 --subjects Chemistry
 
+# Resume or repair exact chapters
+python scripts/automate_content.py --classes 11 --subjects Chemistry --chapters 3,4
+python scripts/automate_content.py --classes 11 --subjects Chemistry --chapters 8 --reingest
+
+# Check configuration without downloading or touching the database
+python scripts/automate_content.py --preflight-only
+
 # Just fetch the PDFs (no ingestion)
 python scripts/automate_content.py --download-only
 
@@ -36,7 +46,15 @@ python scripts/automate_content.py --no-publish
 
 # Be extra polite / probe fewer chapters
 python scripts/automate_content.py --delay 6 --max-chapters 25
+
+# Override concept-generation pacing only for a verified provider limit
+python scripts/automate_content.py --generation-batch-delay 90
 ```
+
+`--reingest --no-publish` is intentionally rejected for a chapter that is
+already live. The current schema stores one row per chapter, so a live repair
+uses auto-publish as one gated transaction and rolls back to the existing
+published version if any step fails.
 
 A run summary is written to `content_automation_run.json` (downloaded / published
 / needs_review / failed counts + per-chapter status).
@@ -46,6 +64,10 @@ A run summary is written to `content_automation_run.json` (downloaded / publishe
   it at the **live DB** to populate production (Neon URL **without** `sslmode`).
 - LLM + embeddings keys must be set for concept generation and embedding:
   `GROQ_API_KEY` (concepts) and `EMBEDDINGS_API_KEY` (semantic vectors).
+- When Groq is in the configured model route, uncached generation calls default
+  to a conservative 61-second interval to respect its cumulative TPM window.
+  `CONTENT_GENERATION_BATCH_DELAY_SECONDS` or `--generation-batch-delay` can
+  override this for a different verified account limit.
 - This is **best run locally by Rohan** (or on an always-on worker): it is a long,
   heavy job and the free-tier web instance sleeps/￼is memory-limited, so it should
   not run inside that instance.

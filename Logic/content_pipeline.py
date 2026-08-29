@@ -10,10 +10,13 @@ import json
 import logging
 import os
 import re
+import time
 import uuid
+from dataclasses import dataclass
 from datetime import datetime
 from hashlib import sha256
 from pathlib import Path
+from statistics import median
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 from pydantic import BaseModel, Field, ValidationError, field_validator, model_validator
@@ -32,8 +35,18 @@ from services.topic_grouping import build_learning_units
 
 try:
     from pypdf import PdfReader
+    from pypdf._codecs.symbol import _symbol_encoding as _PYPDF_SYMBOL_ENCODING
+    from pypdf.generic import DecodedStreamObject, NameObject
 except Exception:  # pragma: no cover - exercised in environments without pypdf
     PdfReader = None  # type: ignore[assignment]
+    _PYPDF_SYMBOL_ENCODING = []  # type: ignore[assignment]
+    DecodedStreamObject = None  # type: ignore[assignment]
+    NameObject = None  # type: ignore[assignment]
+
+try:
+    import pdfplumber
+except Exception:  # pragma: no cover - publication gate catches unresolved aliases
+    pdfplumber = None  # type: ignore[assignment]
 
 
 logger = logging.getLogger("ai_educator.content_pipeline")
@@ -43,6 +56,58 @@ DATA_DIR = BASE_DIR / "data"
 RAW_NCERT_DIR = DATA_DIR / "raw" / "ncert"
 APPROVED_STATUSES = {"approved", "published"}
 DEFAULT_VERSION = "v1"
+CONTENT_GENERATION_PROMPT_VERSION = "ncert-learning-units-v2"
+CONTENT_GENERATION_TEMPERATURE = 0.1
+CONTENT_GENERATION_MAX_TOKENS = 4096
+# Groq's current low-tier reviewer route rejects a single request when prompt
+# tokens plus the requested completion exceed 8,000 tokens.  Leave a material
+# safety margin because the provider's model tokenizer is more expensive for
+# equations and dense numeric tables than the application's generic estimator.
+CONTENT_GENERATION_REQUEST_TOKEN_BUDGET = 7200
+CONTENT_GENERATION_MIN_OUTPUT_TOKENS = 1800
+CONTENT_GENERATION_PREFERRED_OUTPUT_TOKENS = 2600
+# Groq's configured reviewer route has an 8k tokens-per-minute ceiling. Keeping
+# provider calls one minute apart prevents a valid 7.2k-token request followed
+# by another valid request from failing on the cumulative TPM window.
+CONTENT_GENERATION_GROQ_BATCH_DELAY_SECONDS = 61.0
+CONTENT_GENERATION_SYSTEM_PROMPT = (
+    "You convert NCERT textbook pages into strict structured concept JSON. "
+    "Use ONLY the supplied page text. Do not add outside facts. "
+    "Create a small set of meaningful learning units, not one item per heading or subheading. "
+    "Merge a definition with its explanation, properties, formulas, examples, applications, "
+    "and special cases whenever they teach the same underlying idea. Do not create standalone "
+    "items for tiny definitions, individual examples, single formulas, practice prompts, or summaries. "
+    "Preserve every essential syllabus concept by placing it inside the most relevant broader unit. "
+    "Simple page batches should usually need 1-2 units; dense batches may need 3 or occasionally 4. "
+    "Choose subject- and chapter-specific titles that describe the actual material; never force a "
+    "generic template or fixed topic names. "
+    "Be concise enough to finish the JSON: keep each definition under 60 words, each core_explanation "
+    "under 180 words, key_points to 3-6, examples to at most 3, and other list fields to at most 4 items. "
+    "Include formulas only when they are explicitly visible in the supplied text; never reconstruct a "
+    "missing equation or add an outside fact. Avoid repeating the same fact across fields. "
+    "Return ONLY a JSON array. Each item must include: concept_id, title, "
+    "definition, core_explanation, key_points, examples, formulas, properties, "
+    "applications, common_mistakes, prerequisites, related_concepts, "
+    "learning_objectives, source_pages, difficulty_level, "
+    "blooms_taxonomy, typical_exam_weightage, importance_level. "
+    "difficulty_level must be an integer from 1 (easiest) to 5 (hardest). "
+    "source_pages must be a JSON array of integer page numbers (e.g. [4, 5]), "
+    "not page markers. typical_exam_weightage and importance_level must be short strings. "
+    "Every concept must cite source_pages from the supplied [PAGE n] markers."
+)
+
+# A secondary corruption signal for PDFs outside the structurally repairable
+# legacy Bookman family. It never alters text; it only blocks publication when
+# the extracted prose itself still looks cipher-like.
+_LEGACY_FONT_COMMON_WORDS = {
+    "a", "able", "about", "after", "also", "an", "and", "are", "as", "at",
+    "be", "been", "between", "by", "can", "carbon", "chemical", "chemistry",
+    "compound", "compounds", "for", "from", "has", "have", "in", "into", "is",
+    "it", "learn", "may", "of", "on", "or", "organic", "other", "reaction",
+    "reactions", "structure", "structures", "that", "the", "their", "these",
+    "this", "to", "understand", "unit", "was", "which", "will", "with", "write",
+    "you",
+}
 
 
 def _min_coverage_score() -> float:
@@ -304,25 +369,424 @@ def infer_metadata_from_pdf_path(pdf_path: Path, root_path: Optional[Path] = Non
     }
 
 
+_LEGACY_BOOKMAN_FAMILIES = {
+    "Bookman-Light",
+    "Bookman-Demi",
+    "Bookman-LightItalic",
+    "Bookman-DemiItalic",
+}
+_LEGACY_BOOKMAN_EXTRAS = {
+    101: 0x00C9,  # É
+    112: 0x00E9,  # é
+    129: 0x00FC,  # ü
+    171: 0x2026,  # …
+    178: 0x2014,  # —
+    179: 0x201C,  # “
+    180: 0x201D,  # ”
+    181: 0x2018,  # ‘
+    182: 0x2019,  # ’
+    259: 0x2013,  # –
+    262: 0x2022,  # •
+}
+
+# pdfplumber/PDFMiner deliberately preserves Adobe Symbol glyphs without a
+# direct Unicode equivalent in the private-use area. NCERT also carries two
+# custom mathematical glyphs outside the standard F0xx Symbol range. Convert
+# these deterministically before any page reaches retrieval or the LLM.
+_PDF_PRIVATE_GLYPH_MAP = {
+    0xF103: "α",
+    0xF106: "σ",
+    0xF8E5: "",
+    0xF8E6: "|",  # vertical extender (also used for organic branch bonds)
+    0xF8E7: "-",  # horizontal extender
+    0xF8E8: "{",
+    0xF8E9: "",
+    0xF8EA: "",
+    0xF8EB: "(",
+    0xF8EC: "",
+    0xF8ED: "",
+    0xF8EE: "[",
+    0xF8EF: "",
+    0xF8F0: "",
+    0xF8F1: "{",
+    0xF8F2: "",
+    0xF8F3: "",
+    0xF8F4: "",
+    0xF8F5: "",
+    0xF8F6: ")",
+    0xF8F7: "",
+    0xF8F8: "",
+    0xF8F9: "]",
+    0xF8FA: "",
+    0xF8FB: "",
+    0xF8FC: "}",
+    0xF8FD: "",
+    0xF8FE: "",
+}
+
+
+def _pdf_object(value: Any) -> Any:
+    try:
+        return value.get_object()
+    except (AttributeError, TypeError):
+        return value
+
+
+def _legacy_bookman_cmap():
+    """Build the canonical Unicode map used by NCERT's full Bookman fonts."""
+
+    if DecodedStreamObject is None:
+        raise RuntimeError("pypdf generic stream support is unavailable.")
+    pairs = [*_LEGACY_BOOKMAN_EXTRAS.items(), *((cid, 0x0020) for cid in (239, 257, 264))]
+    lines = [
+        "/CIDInit /ProcSet findresource begin",
+        "12 dict begin",
+        "begincmap",
+        "/CIDSystemInfo << /Registry (Adobe) /Ordering (UCS) /Supplement 0 >> def",
+        "/CMapName /AgentifyLegacyBookman-UCS def",
+        "/CMapType 2 def",
+        "1 begincodespacerange",
+        "<0000> <FFFF>",
+        "endcodespacerange",
+        "1 beginbfrange",
+        "<0003> <0061> <0020>",
+        "endbfrange",
+        f"{len(pairs)} beginbfchar",
+        *(f"<{cid:04X}> <{codepoint:04X}>" for cid, codepoint in pairs),
+        "endbfchar",
+        "endcmap",
+        "CMapName currentdict /CMap defineresource pop",
+        "end",
+        "end",
+    ]
+    stream = DecodedStreamObject()
+    stream.set_data(("\n".join(lines) + "\n").encode("ascii"))
+    return stream
+
+
+def _is_full_legacy_bookman_font(font: Any) -> bool:
+    """Identify only the full embedded NCERT Type0/Identity-H Bookman fonts.
+
+    Sparse four-kilobyte subsets in earlier chapters and WinAnsi/Type1 fonts
+    intentionally fail this structural gate.  The full legacy fonts use a
+    stable CID/GID layout; rebuilding their incomplete ToUnicode CMap is
+    deterministic and does not rely on guessing whether prose looks English.
+    """
+
+    font = _pdf_object(font)
+    if not hasattr(font, "get"):
+        return False
+    base_font = str(font.get("/BaseFont") or "").lstrip("/").split("+")[-1]
+    if (
+        base_font not in _LEGACY_BOOKMAN_FAMILIES
+        or str(font.get("/Subtype") or "") != "/Type0"
+        or str(font.get("/Encoding") or "") != "/Identity-H"
+    ):
+        return False
+    descendants = _pdf_object(font.get("/DescendantFonts") or [])
+    if not descendants:
+        return False
+    descendant = _pdf_object(descendants[0])
+    if (
+        not hasattr(descendant, "get")
+        or str(descendant.get("/Subtype") or "") != "/CIDFontType2"
+        or str(descendant.get("/CIDToGIDMap") or "") != "/Identity"
+    ):
+        return False
+    descriptor = _pdf_object(descendant.get("/FontDescriptor") or {})
+    font_file_ref = descriptor.get("/FontFile2") if hasattr(descriptor, "get") else None
+    font_file = _pdf_object(font_file_ref) if font_file_ref is not None else None
+    if font_file is None or not hasattr(font_file, "get_data"):
+        return False
+    try:
+        return len(font_file.get_data()) >= 15_000
+    except Exception:  # noqa: BLE001 - malformed font must remain untouched
+        return False
+
+
+def _cmap_unicode_mappings(font: Any) -> Dict[int, int]:
+    font = _pdf_object(font)
+    cmap_ref = font.get("/ToUnicode") if hasattr(font, "get") else None
+    cmap = _pdf_object(cmap_ref) if cmap_ref is not None else None
+    try:
+        text = cmap.get_data().decode("latin1") if cmap is not None else ""
+    except (AttributeError, OSError, UnicodeError):
+        return {}
+    mappings: Dict[int, int] = {}
+    for raw_line in text.splitlines():
+        line = raw_line.strip()
+        range_match = re.fullmatch(
+            r"<([0-9A-Fa-f]+)>\s*<([0-9A-Fa-f]+)>\s*<([0-9A-Fa-f]+)>",
+            line,
+        )
+        if range_match:
+            start, end, target = (int(value, 16) for value in range_match.groups())
+            for offset, cid in enumerate(range(start, end + 1)):
+                mappings[cid] = target + offset
+            continue
+        pair_match = re.fullmatch(
+            r"<([0-9A-Fa-f]+)>\s*<([0-9A-Fa-f]+)>",
+            line,
+        )
+        if pair_match:
+            cid, target = (int(value, 16) for value in pair_match.groups())
+            mappings[cid] = target
+    return mappings
+
+
+def _has_defective_legacy_bookman_cmap(font: Any) -> bool:
+    """Recognise the incomplete/misaligned NCERT maps without touching valid maps."""
+    if not _is_full_legacy_bookman_font(font):
+        return False
+    mappings = _cmap_unicode_mappings(font)
+    if not mappings:
+        return False
+    expected = {cid: 0x20 + cid - 3 for cid in range(3, 98)}
+    comparable = {cid: target for cid, target in mappings.items() if cid in expected}
+    return bool(comparable and any(target != expected[cid] for cid, target in comparable.items()))
+
+
+def _repair_legacy_ncert_font_maps(reader: Any) -> List[str]:
+    """Repair eligible font maps in memory; the source PDF is never modified."""
+
+    if NameObject is None:
+        return []
+    repaired: set[str] = set()
+    for page in reader.pages:
+        resources = _pdf_object(page.get("/Resources") or {})
+        fonts = _pdf_object(resources.get("/Font") or {}) if hasattr(resources, "get") else {}
+        for _resource_name, font_ref in (fonts.items() if hasattr(fonts, "items") else []):
+            font = _pdf_object(font_ref)
+            if not _has_defective_legacy_bookman_cmap(font):
+                continue
+            font[NameObject("/ToUnicode")] = _legacy_bookman_cmap()
+            repaired.add(str(font.get("/BaseFont") or "<unknown>"))
+    return sorted(repaired)
+
+
+def _legacy_font_text_metrics(value: str) -> Dict[str, float]:
+    text = str(value or "")
+    tokens = re.findall(r"[A-Za-z]{1,}", text)
+    common_words = sum(token.lower() in _LEGACY_FONT_COMMON_WORDS for token in tokens)
+    controls = sum(ord(character) < 32 and character not in "\t\n\r" for character in text)
+    letters = [character for character in text if character.isalpha()]
+    uppercase_ratio = (
+        sum(character.isupper() for character in letters) / len(letters)
+        if letters
+        else 0.0
+    )
+    return {
+        "tokens": float(len(tokens)),
+        "common_words": float(common_words),
+        "common_ratio": common_words / max(1, len(tokens)),
+        "controls": float(controls),
+        "backslashes": float(text.count("\\")),
+        "uppercase_ratio": uppercase_ratio,
+    }
+
+
+def _normalize_pdf_formula_glyphs(value: str) -> Tuple[str, int]:
+    """Decode NCERT Symbol-font aliases/private glyphs into portable Unicode.
+
+    Some NCERT Symbol fonts reach pypdf as names such as ``/unif0ae`` rather
+    than a character.  The suffix is the low byte of Adobe Symbol encoding
+    (for example, ``ae`` is a right arrow).  Decode only aliases that resolve
+    through that published encoding table; unknown aliases remain visible so
+    the extraction quality gate can reject them instead of silently guessing.
+    """
+
+    source = str(value or "")
+    changed = 0
+
+    def replace_alias(match: re.Match[str]) -> str:
+        nonlocal changed
+        raw_code = int(match.group(1), 16)
+        symbol_index: Optional[int] = None
+        if raw_code <= 0xFF:
+            symbol_index = raw_code
+        elif 0xF000 <= raw_code <= 0xF0FF:
+            symbol_index = raw_code - 0xF000
+        if symbol_index is None or not _PYPDF_SYMBOL_ENCODING:
+            return match.group(0)
+        replacement = _PYPDF_SYMBOL_ENCODING[symbol_index]
+        replacement = _PDF_PRIVATE_GLYPH_MAP.get(ord(replacement), replacement)
+        if replacement and 0xE000 <= ord(replacement[0]) <= 0xF8FF:
+            return match.group(0)
+        changed += 1
+        return replacement
+
+    source = re.sub(
+        r"/unif([0-9A-Fa-f]{3,4})",
+        replace_alias,
+        source,
+        flags=re.IGNORECASE,
+    )
+    normalized: List[str] = []
+    for character in source:
+        codepoint = ord(character)
+        replacement: Optional[str] = None
+        if 0xF000 <= codepoint <= 0xF0FF and _PYPDF_SYMBOL_ENCODING:
+            replacement = _PYPDF_SYMBOL_ENCODING[codepoint - 0xF000]
+            replacement = _PDF_PRIVATE_GLYPH_MAP.get(ord(replacement), replacement)
+        elif codepoint in _PDF_PRIVATE_GLYPH_MAP:
+            replacement = _PDF_PRIVATE_GLYPH_MAP[codepoint]
+        if replacement is None:
+            normalized.append(character)
+            continue
+        normalized.append(replacement)
+        changed += 1
+    text = "".join(normalized)
+    # Multi-piece mathematical delimiters and bond extenders otherwise leave
+    # long runs after their top/middle/bottom glyphs are flattened.
+    text = re.sub(r"\|{2,}", "|", text)
+    text = re.sub(r"-{3,}", "-", text)
+    text = re.sub(r"(?:-\s*)*→(?:\s*-)*", " → ", text)
+    return text, changed
+
+
+def _extracted_text_sanity(value: str) -> Dict[str, Any]:
+    """Measure encoding sanity separately from text length.
+
+    Length alone made cipher text look perfect.  This signal intentionally
+    flags only strong prose corruption; a few control glyphs on equation-heavy
+    pages remain reviewable instead of becoming false hard failures.
+    """
+
+    text = str(value or "")
+    non_space = max(1, sum(not character.isspace() for character in text))
+    controls = sum(ord(character) < 32 and character not in "\t\n\r" for character in text)
+    slash_ratio = text.count("\\") / non_space
+    control_ratio = controls / non_space
+    metrics = _legacy_font_text_metrics(text)
+    formula_alias_count = len(re.findall(r"/unif[0-9A-Fa-f]+", text))
+    cid_placeholder_count = len(re.findall(r"\(cid:\d+\)", text, re.IGNORECASE))
+    private_use_count = sum(0xE000 <= ord(character) <= 0xF8FF for character in text)
+    cipher_like = bool(
+        metrics["tokens"] >= 40
+        and metrics["uppercase_ratio"] >= 0.82
+        and metrics["common_ratio"] < 0.025
+        and (controls >= 5 or text.count("\\") >= 5)
+    )
+    return {
+        "control_ratio": round(control_ratio, 5),
+        "backslash_ratio": round(slash_ratio, 5),
+        "cipher_like": cipher_like,
+        "formula_alias_count": formula_alias_count,
+        "cid_placeholder_count": cid_placeholder_count,
+        "private_use_count": private_use_count,
+        "suspected_formula_glyph_corruption": bool(
+            formula_alias_count or cid_placeholder_count or private_use_count
+        ),
+        # Symbol/formula fonts can legitimately carry controls and backslashes.
+        # Keep that visible for operator review, but only cipher-like prose is a
+        # blocking encoding failure.
+        "needs_symbol_review": bool(
+            control_ratio >= 0.03
+            or slash_ratio >= 0.025
+            or formula_alias_count
+            or cid_placeholder_count
+            or private_use_count
+        ),
+        "suspected_encoding_corruption": bool(
+            cipher_like or formula_alias_count or cid_placeholder_count or private_use_count
+        ),
+    }
+
+
+def _prefer_formula_fallback(primary: str, candidate: str) -> bool:
+    primary_aliases = len(re.findall(r"/unif[0-9A-Fa-f]+", str(primary or "")))
+    candidate_aliases = len(re.findall(r"/unif[0-9A-Fa-f]+", str(candidate or "")))
+    candidate_cids = len(re.findall(r"\(cid:\d+\)", str(candidate or ""), re.IGNORECASE))
+    candidate_length = len(str(candidate or "").strip())
+    minimum_length = max(80, int(len(str(primary or "").strip()) * 0.35))
+    return bool(
+        primary_aliases
+        and not candidate_cids
+        and candidate_aliases < primary_aliases
+        and candidate_length >= minimum_length
+    )
+
+
 def extract_pdf_pages(pdf_path: Path) -> List[Dict[str, Any]]:
     if PdfReader is None:
         raise RuntimeError("pypdf is not installed. Install pypdf to extract NCERT PDFs.")
     reader = PdfReader(str(pdf_path))
-    pages: List[Dict[str, Any]] = []
-    for index, page in enumerate(reader.pages, start=1):
-        raw_text = page.extract_text() or ""
-        text = re.sub(r"[ \t]+", " ", raw_text).strip()
-        text = re.sub(r"\n{3,}", "\n\n", text)
-        char_count = len(text)
-        quality = 0.0 if char_count == 0 else min(1.0, char_count / 900)
-        pages.append(
-            {
-                "page_number": index,
-                "text": text,
-                "char_count": char_count,
-                "extraction_quality": round(quality, 3),
-            }
+    repaired_fonts = _repair_legacy_ncert_font_maps(reader)
+    if repaired_fonts:
+        logger.warning(
+            "Repaired legacy NCERT font mapping | pdf=%s fonts=%s",
+            pdf_path.name,
+            ", ".join(repaired_fonts),
         )
+
+    pages: List[Dict[str, Any]] = []
+    plumber_document = None
+    try:
+        for index, page in enumerate(reader.pages, start=1):
+            raw_text = page.extract_text() or ""
+            extraction_engine = "pypdf"
+            recovered_aliases = 0
+            if "/unif" in raw_text and pdfplumber is not None:
+                if plumber_document is None:
+                    plumber_document = pdfplumber.open(str(pdf_path))
+                fallback_text = plumber_document.pages[index - 1].extract_text() or ""
+                if _prefer_formula_fallback(raw_text, fallback_text):
+                    recovered_aliases = len(
+                        re.findall(r"/unif[0-9A-Fa-f]+", raw_text)
+                    ) - len(re.findall(r"/unif[0-9A-Fa-f]+", fallback_text))
+                    raw_text = fallback_text
+                    extraction_engine = "pdfplumber_formula_fallback"
+            raw_text, normalized_formula_glyphs = _normalize_pdf_formula_glyphs(raw_text)
+            # NCERT's bullet glyph is exposed as a C1 control by non-Bookman Symbol
+            # resources. Other residual control glyphs are layout artifacts, not
+            # instructional formula characters, and are normalised to spaces.
+            raw_text = raw_text.replace("\x9a", "•")
+            raw_text = "".join(
+                character
+                if character in "\t\n\r" or not (ord(character) < 32 or 0x7F <= ord(character) <= 0x9F)
+                else " "
+                for character in raw_text
+            )
+            raw_text = re.sub(r"(?<=\s)\ufffd(?=\s)", "–", raw_text)
+            text = re.sub(r"[ \t]+", " ", raw_text).strip()
+            text = re.sub(r"\n{3,}", "\n\n", text)
+            char_count = len(text)
+            sanity = _extracted_text_sanity(text)
+            length_quality = 0.0 if char_count == 0 else min(1.0, char_count / 900)
+            sanity_multiplier = 0.15 if sanity["suspected_encoding_corruption"] else 1.0
+            quality = length_quality * sanity_multiplier
+            pages.append(
+                {
+                    "page_number": index,
+                    "text": text,
+                    "char_count": char_count,
+                    "extraction_quality": round(quality, 3),
+                    "text_sanity": sanity,
+                    "decoded_fonts": repaired_fonts,
+                    "extraction_engine": extraction_engine,
+                    "formula_aliases_recovered": recovered_aliases,
+                    "formula_glyphs_normalized": normalized_formula_glyphs,
+                }
+            )
+        typical_page_length = median(
+            [page["char_count"] for page in pages if page["char_count"] > 0]
+        ) if pages else 0
+        for extracted_page in pages:
+            abnormal_length = bool(
+                typical_page_length
+                and extracted_page["char_count"] >= 8_000
+                and extracted_page["char_count"] > typical_page_length * 4
+            )
+            extracted_page["text_sanity"]["abnormal_length"] = abnormal_length
+            if abnormal_length:
+                extracted_page["text_sanity"]["suspected_encoding_corruption"] = True
+                extracted_page["extraction_quality"] = round(
+                    float(extracted_page["extraction_quality"]) * 0.15,
+                    3,
+                )
+    finally:
+        if plumber_document is not None:
+            plumber_document.close()
     return pages
 
 
@@ -503,6 +967,32 @@ def ingest_pdf_file(
     metadata = infer_metadata_from_pdf_path(pdf_path, root_path)
     source_hash = file_sha256(pdf_path)
     chapter = db.query(ContentChapter).filter(ContentChapter.slug == metadata["slug"]).one_or_none()
+    if chapter is None and metadata.get("chapter_number") is not None:
+        identity_matches = (
+            db.query(ContentChapter)
+            .filter(
+                ContentChapter.board == metadata["board"],
+                ContentChapter.class_level == metadata["class_level"],
+                ContentChapter.subject == metadata["subject"],
+                ContentChapter.chapter_number == metadata["chapter_number"],
+            )
+            .order_by(ContentChapter.id)
+            .all()
+        )
+        hash_matches = [row for row in identity_matches if row.source_hash == source_hash]
+        if len(hash_matches) == 1:
+            chapter = hash_matches[0]
+        elif len(identity_matches) == 1:
+            # A new edition of the same curriculum chapter replaces that
+            # chapter and is versioned on approval; it must not create a second
+            # row merely because the descriptive filename (and slug) changed.
+            chapter = identity_matches[0]
+        elif len(identity_matches) > 1:
+            raise ValueError(
+                "Ambiguous curriculum identity: multiple chapter rows exist for "
+                f"{metadata['board']} Class {metadata['class_level']} "
+                f"{metadata['subject']} chapter {metadata['chapter_number']}."
+            )
     if chapter is None:
         chapter = ContentChapter(slug=metadata["slug"])
         db.add(chapter)
@@ -524,6 +1014,15 @@ def ingest_pdf_file(
 
     pages = extract_pdf_pages(pdf_path)
     for page in pages:
+        page_metadata = {
+            "source": "pdf_extraction",
+            "text_sanity": page.get("text_sanity") or {},
+            "extraction_engine": page.get("extraction_engine") or "pypdf",
+            "formula_aliases_recovered": int(page.get("formula_aliases_recovered") or 0),
+            "formula_glyphs_normalized": int(page.get("formula_glyphs_normalized") or 0),
+        }
+        if page.get("decoded_fonts"):
+            page_metadata["decoded_fonts"] = page["decoded_fonts"]
         db.add(
             ContentPage(
                 chapter_id=chapter.id,
@@ -531,7 +1030,7 @@ def ingest_pdf_file(
                 text=page["text"],
                 char_count=page["char_count"],
                 extraction_quality=page["extraction_quality"],
-                metadata_json={"source": "pdf_extraction"},
+                metadata_json=page_metadata,
             )
         )
     db.flush()
@@ -575,7 +1074,17 @@ def ingest_pdf_file(
             )
         )
 
-    report = build_coverage_report(pages, [], chunks)
+    extraction_issues = [
+        {
+            "severity": "error",
+            "code": "suspected_encoding_corruption",
+            "page": page["page_number"],
+            "message": "Extracted PDF text appears font-encoded or cipher-like.",
+        }
+        for page in pages
+        if (page.get("text_sanity") or {}).get("suspected_encoding_corruption")
+    ]
+    report = build_coverage_report(pages, [], chunks, extraction_issues)
     chapter.page_count = report["page_count"]
     chapter.extracted_page_count = report["extracted_page_count"]
     chapter.chunk_count = report["chunk_count"]
@@ -645,6 +1154,19 @@ def import_concepts_for_chapter(
     pages = db.query(ContentPage).filter(ContentPage.chapter_id == chapter.id).order_by(ContentPage.page_number).all()
     available_pages = [page.page_number for page in pages]
     concepts, issues = validate_concept_payloads(payload, available_pages=available_pages)
+    extraction_issues = [
+        {
+            "severity": "error",
+            "code": "suspected_encoding_corruption",
+            "page": page.page_number,
+            "message": "Extracted PDF text appears font-encoded or cipher-like.",
+        }
+        for page in pages
+        if ((page.metadata_json or {}).get("text_sanity") or {}).get(
+            "suspected_encoding_corruption"
+        )
+    ]
+    issues = [*extraction_issues, *issues]
 
     if replace:
         db.query(ContentConcept).filter(ContentConcept.chapter_id == chapter.id).delete(synchronize_session=False)
@@ -694,65 +1216,26 @@ def import_concepts_for_chapter(
     return chapter
 
 
-def _salvage_json_objects(text: str) -> List[Dict[str, Any]]:
-    """Recover every well-formed top-level {...} object from a string, scanning
-    with brace-depth tracking that respects strings/escapes. Used when the model
-    response is not valid JSON as a whole (a dropped comma, or output truncated
-    past max_tokens mid-array): the complete objects before the break are still
-    usable, and the malformed/partial tail is simply skipped."""
-    objects: List[Dict[str, Any]] = []
-    depth = 0
-    start: Optional[int] = None
-    in_string = False
-    escape = False
-    for index, char in enumerate(text):
-        if escape:
-            escape = False
-            continue
-        if char == "\\":
-            escape = True
-            continue
-        if char == '"':
-            in_string = not in_string
-            continue
-        if in_string:
-            continue
-        if char == "{":
-            if depth == 0:
-                start = index
-            depth += 1
-        elif char == "}" and depth > 0:
-            depth -= 1
-            if depth == 0 and start is not None:
-                try:
-                    obj = json.loads(text[start:index + 1])
-                except json.JSONDecodeError:
-                    obj = None
-                if isinstance(obj, dict):
-                    objects.append(obj)
-                start = None
-    return objects
-
-
 def _extract_json_array(text: str) -> List[Dict[str, Any]]:
+    """Parse one complete model JSON array without salvaging partial output.
+
+    A valid prefix is not a valid batch: accepting it would silently drop NCERT
+    material while later coverage accounting credits the batch as complete.
+    """
     cleaned = str(text or "").strip()
-    fenced = re.search(r"```(?:json)?\s*(.*?)```", cleaned, flags=re.DOTALL | re.IGNORECASE)
-    if fenced:
-        cleaned = fenced.group(1).strip()
-    start = cleaned.find("[")
-    end = cleaned.rfind("]")
-    candidate = cleaned[start:end + 1] if start >= 0 and end > start else cleaned
-    try:
-        data = json.loads(candidate)
-    except json.JSONDecodeError:
-        # The model dropped a comma or got truncated mid-array. Salvage whatever
-        # complete objects it did emit rather than discarding the whole batch.
-        return _salvage_json_objects(cleaned)
-    if isinstance(data, dict):
-        data = data.get("concepts", []) if "concepts" in data else [data]
+    fence_match = re.fullmatch(
+        r"```(?:json)?\s*(.*?)\s*```",
+        cleaned,
+        flags=re.DOTALL | re.IGNORECASE,
+    )
+    if fence_match:
+        cleaned = fence_match.group(1).strip()
+    data = json.loads(cleaned)
     if not isinstance(data, list):
-        return _salvage_json_objects(cleaned)
-    return [item for item in data if isinstance(item, dict)]
+        raise ValueError("model response must be one complete JSON array")
+    if any(not isinstance(item, dict) for item in data):
+        raise ValueError("every generated concept must be a JSON object")
+    return data
 
 
 def _page_batches(pages: Sequence[ContentPage], max_chars: int) -> List[List[ContentPage]]:
@@ -772,6 +1255,403 @@ def _page_batches(pages: Sequence[ContentPage], max_chars: int) -> List[List[Con
     if current:
         batches.append(current)
     return batches
+
+
+@dataclass(frozen=True)
+class _GenerationPageSlice:
+    """A source-preserving fragment used only when one model request is too large."""
+
+    page_number: int
+    text: str
+
+
+def _generation_messages(
+    chapter: ContentChapter,
+    batch: Sequence[ContentPage | _GenerationPageSlice],
+    *,
+    batch_label: str,
+) -> List[Dict[str, str]]:
+    page_text = "\n\n".join(
+        f"[PAGE {page.page_number}]\n{(page.text or '').strip()}"
+        for page in batch
+    )
+    return [
+        {"role": "system", "content": CONTENT_GENERATION_SYSTEM_PROMPT},
+        {
+            "role": "user",
+            "content": (
+                f"Board: {chapter.board}\n"
+                f"Class: {chapter.class_level}\n"
+                f"Subject: {chapter.subject}\n"
+                f"Chapter: {chapter.chapter_name}\n"
+                f"Batch: {batch_label}\n\n"
+                f"{page_text}"
+            ),
+        },
+    ]
+
+
+def _estimate_generation_input_tokens(messages: Sequence[Dict[str, str]]) -> int:
+    """Conservatively estimate input tokens for formula- and table-heavy NCERT text.
+
+    The shared cost estimator is intentionally lightweight (roughly four
+    characters per token).  That materially under-counts logarithm tables,
+    equations, and other short-token-dense textbook content.  The additional
+    signals below deliberately over-estimate those inputs, while the fixed
+    buffer covers message framing and tokenizer differences.
+    """
+
+    text = "\n".join(str(message.get("content") or "") for message in messages)
+    # Keep this estimator local: importing Logic.coach.costing at module load
+    # would execute Logic.coach.__init__, whose retriever imports this module.
+    generic_estimate = max(1, (len(text) + 3) // 4)
+    non_space_runs = len(re.findall(r"\S+", text))
+    byte_count = len(text.encode("utf-8"))
+    return max(
+        generic_estimate * 2,
+        (non_space_runs * 5 + 1) // 2,
+        (byte_count + 2) // 3,
+    ) + 128
+
+
+def _generation_output_limit(messages: Sequence[Dict[str, str]]) -> int:
+    return min(
+        CONTENT_GENERATION_MAX_TOKENS,
+        CONTENT_GENERATION_REQUEST_TOKEN_BUDGET
+        - _estimate_generation_input_tokens(messages),
+    )
+
+
+def _split_generation_text(text: str) -> Tuple[str, str]:
+    """Split an oversized page near a readable boundary without dropping text."""
+
+    value = str(text or "").strip()
+    if len(value) < 2:
+        return value, ""
+    midpoint = len(value) // 2
+    lower_bound = max(1, midpoint // 2)
+    upper_bound = min(len(value) - 1, midpoint + midpoint // 2)
+    candidates = [
+        value.rfind("\n", lower_bound, upper_bound),
+        value.rfind(". ", lower_bound, upper_bound),
+        value.rfind(" ", lower_bound, upper_bound),
+    ]
+    split_at = max(candidates)
+    if split_at < lower_bound:
+        split_at = midpoint
+    elif value[split_at : split_at + 2] == ". ":
+        split_at += 1
+    return value[:split_at].strip(), value[split_at:].strip()
+
+
+def _generation_request_batches(
+    chapter: ContentChapter,
+    batch: Sequence[ContentPage | _GenerationPageSlice],
+    *,
+    batch_label: str,
+    minimum_output_tokens: int = CONTENT_GENERATION_MIN_OUTPUT_TOKENS,
+) -> List[List[_GenerationPageSlice]]:
+    """Fit one legacy page batch into safe, lossless model requests.
+
+    Page batches remain the stable outer checkpoint boundary.  Only an
+    uncached oversized batch is divided, so completed legacy checkpoints keep
+    their exact signatures and retries resume at the smallest successful
+    request fragment.
+    """
+
+    pending = [
+        _GenerationPageSlice(
+            page_number=int(page.page_number),
+            text=(page.text or "").strip(),
+        )
+        for page in batch
+        if (page.text or "").strip()
+    ]
+    fitted: List[_GenerationPageSlice] = []
+    while pending:
+        page_slice = pending.pop(0)
+        messages = _generation_messages(
+            chapter,
+            [page_slice],
+            batch_label=batch_label,
+        )
+        if _generation_output_limit(messages) >= minimum_output_tokens:
+            fitted.append(page_slice)
+            continue
+        left, right = _split_generation_text(page_slice.text)
+        if not left or not right:
+            raise ValueError(
+                f"NCERT page {page_slice.page_number} cannot fit within the "
+                "content-generation request token budget."
+            )
+        pending[0:0] = [
+            _GenerationPageSlice(page_slice.page_number, left),
+            _GenerationPageSlice(page_slice.page_number, right),
+        ]
+
+    requests: List[List[_GenerationPageSlice]] = []
+    current: List[_GenerationPageSlice] = []
+    for page_slice in fitted:
+        candidate = [*current, page_slice]
+        messages = _generation_messages(
+            chapter,
+            candidate,
+            batch_label=batch_label,
+        )
+        if (
+            current
+            and _generation_output_limit(messages)
+            < minimum_output_tokens
+        ):
+            requests.append(current)
+            current = [page_slice]
+        else:
+            current = candidate
+    if current:
+        requests.append(current)
+    return requests
+
+
+def _generation_batch_is_reference_only(
+    batch: Sequence[ContentPage | _GenerationPageSlice],
+) -> bool:
+    """Identify the numeric log-table appendix that carries no teaching prose.
+
+    NCERT Chemistry includes multi-page logarithm/antilogarithm tables followed
+    by blank Notes pages.  Asking the model to invent a concept for those pages
+    is both wasteful and educationally wrong.  Keep this intentionally narrow:
+    at least one page must explicitly be a log/antilog table, and every
+    companion page must be another numeric table or a short Notes page.
+    """
+
+    texts = [str(page.text or "").strip() for page in batch if str(page.text or "").strip()]
+    if not texts:
+        return False
+
+    def first_line(value: str) -> str:
+        return next((line.strip().lower() for line in value.splitlines() if line.strip()), "")
+
+    def is_log_table(value: str) -> bool:
+        heading = first_line(value)
+        return bool(re.match(r"^(?:anti\s*)?logarithms\b", heading))
+
+    def is_table_companion(value: str) -> bool:
+        heading = first_line(value)
+        if heading == "notes" and len(value) < 500:
+            return True
+        if not re.match(r"^table\s+(?:i|ii|1|2)\b", heading, re.IGNORECASE):
+            return False
+        non_space = max(1, sum(not character.isspace() for character in value))
+        numeric = sum(character.isdigit() for character in value)
+        return numeric / non_space >= 0.45
+
+    return any(is_log_table(value) for value in texts) and all(
+        is_log_table(value) or is_table_companion(value)
+        for value in texts
+    )
+
+
+def _generation_cache_root() -> Path:
+    configured = str(os.getenv("CONTENT_GENERATION_CACHE_DIR", "")).strip()
+    if configured:
+        return Path(configured).expanduser().resolve()
+    return (DATA_DIR / "processed" / "content_generation_cache").resolve()
+
+
+def _content_generation_route_policy(gateway: Any, selected_model: str) -> Dict[str, Any]:
+    """Fingerprint the routes that may legitimately produce a cached batch."""
+    router = getattr(gateway, "router", None)
+    routes: List[Dict[str, str]] = []
+    if router is not None and hasattr(router, "_candidate_routes"):
+        try:
+            candidates = router._candidate_routes(  # noqa: SLF001 - same internal routing subsystem
+                role="reviewer",
+                complexity="balanced",
+                input_tokens=1,
+                output_tokens=CONTENT_GENERATION_MAX_TOKENS,
+            )
+        except Exception:  # noqa: BLE001 - policy still invalidates on env changes
+            candidates = []
+        for route in candidates:
+            provider = str(getattr(route, "provider", "") or "").strip().lower()
+            model = str(getattr(route, "model", "") or "").strip()
+            if provider and model and {"provider": provider, "model": model} not in routes:
+                routes.append({"provider": provider, "model": model})
+    return {
+        "selected_model": str(selected_model or "unknown"),
+        "routes": routes,
+        "provider_order": str(
+            os.getenv("COACH_PROVIDER_ORDER")
+            or os.getenv("COACH_LLM_PROVIDER")
+            or "groq"
+        ),
+        "route_preference": str(os.getenv("COACH_ROUTE_PREFERENCE") or "balanced"),
+        "max_attempts": str(os.getenv("COACH_LLM_MAX_ATTEMPTS") or ""),
+    }
+
+
+def _default_generation_batch_delay(route_policy: Dict[str, Any]) -> float:
+    """Return conservative provider pacing when no operator override exists."""
+
+    providers = {
+        str(route.get("provider") or "").strip().lower()
+        for route in (route_policy.get("routes") or [])
+        if isinstance(route, dict)
+    }
+    providers.update(
+        item.strip().lower()
+        for item in str(route_policy.get("provider_order") or "").split(",")
+        if item.strip()
+    )
+    return CONTENT_GENERATION_GROQ_BATCH_DELAY_SECONDS if "groq" in providers else 0.0
+
+
+def _generation_batch_cache_path(
+    chapter: ContentChapter,
+    batch: Sequence[ContentPage | _GenerationPageSlice],
+    *,
+    batch_index: int,
+    batch_count: int,
+    max_batch_chars: int,
+    route_policy: Dict[str, Any],
+    max_tokens: int = CONTENT_GENERATION_MAX_TOKENS,
+) -> Tuple[Path, str]:
+    """Return an exact-input checkpoint path and signature for one model batch.
+
+    A checkpoint is reusable only when the source PDF, extracted page text,
+    batching, prompt, and selected model all match. This prevents a retry from
+    silently mixing content produced from different source or prompt versions.
+    """
+    page_payload = [
+        {
+            "page_number": int(page.page_number),
+            "text_sha256": sha256((page.text or "").encode("utf-8")).hexdigest(),
+        }
+        for page in batch
+    ]
+    identity = {
+        "schema_version": 2,
+        "chapter_id": int(chapter.id),
+        "chapter_slug": str(chapter.slug or ""),
+        "board": str(chapter.board or ""),
+        "class_level": str(chapter.class_level or ""),
+        "subject": str(chapter.subject or ""),
+        "chapter_name": str(chapter.chapter_name or ""),
+        "source_hash": str(chapter.source_hash or ""),
+        "prompt_version": CONTENT_GENERATION_PROMPT_VERSION,
+        "prompt_sha256": sha256(
+            CONTENT_GENERATION_SYSTEM_PROMPT.encode("utf-8")
+        ).hexdigest(),
+        "route_policy": route_policy,
+        "temperature": CONTENT_GENERATION_TEMPERATURE,
+        "max_tokens": int(max_tokens),
+        "max_batch_chars": int(max_batch_chars),
+        "batch_index": int(batch_index),
+        "batch_count": int(batch_count),
+        "pages": page_payload,
+    }
+    signature = sha256(
+        json.dumps(identity, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    chapter_key = normalize_key(chapter.slug or chapter.chapter_name or chapter.id)
+    return _generation_cache_root() / chapter_key / f"{signature}.json", signature
+
+
+def _load_generation_batch_cache(
+    path: Path,
+    signature: str,
+    route_policy: Dict[str, Any],
+) -> List[Dict[str, Any]]:
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, OSError, UnicodeError, json.JSONDecodeError):
+        return []
+    if (
+        not isinstance(payload, dict)
+        or payload.get("schema_version") != 2
+        or payload.get("signature") != signature
+    ):
+        return []
+    model_record = payload.get("model")
+    if not isinstance(model_record, dict):
+        return []
+    actual_pair = {
+        "provider": str(model_record.get("provider") or "").strip().lower(),
+        "model": str(model_record.get("model") or "").strip(),
+    }
+    allowed_pairs = [
+        {
+            "provider": str(item.get("provider") or "").strip().lower(),
+            "model": str(item.get("model") or "").strip(),
+        }
+        for item in route_policy.get("routes", [])
+        if isinstance(item, dict)
+    ]
+    if not actual_pair["provider"] or not actual_pair["model"] or actual_pair not in allowed_pairs:
+        return []
+    items = payload.get("items")
+    if not isinstance(items, list) or not items:
+        return []
+    return [item for item in items if isinstance(item, dict)]
+
+
+def _store_generation_batch_cache(
+    path: Path,
+    signature: str,
+    items: Sequence[Dict[str, Any]],
+    *,
+    model_record: Optional[Dict[str, Any]] = None,
+) -> None:
+    """Atomically persist a fully parsed batch; incomplete responses are never cached."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "schema_version": 2,
+        "signature": signature,
+        "prompt_version": CONTENT_GENERATION_PROMPT_VERSION,
+        "created_at": datetime.utcnow().isoformat(timespec="seconds") + "Z",
+        "model": {
+            key: model_record.get(key)
+            for key in ("provider", "model", "fallback")
+            if model_record and model_record.get(key) is not None
+        },
+        "items": list(items),
+    }
+    temporary = path.with_name(f".{path.name}.{uuid.uuid4().hex}.tmp")
+    try:
+        temporary.write_text(
+            json.dumps(payload, ensure_ascii=False, sort_keys=True),
+            encoding="utf-8",
+        )
+        os.replace(temporary, path)
+    finally:
+        if temporary.exists():
+            try:
+                temporary.unlink()
+            except OSError:
+                pass
+
+
+def _normalize_generated_batch_items(
+    items: Sequence[Dict[str, Any]],
+    batch_pages: Sequence[int],
+) -> List[Dict[str, Any]]:
+    """Validate a complete model batch and enforce page-local source grounding."""
+    if not items:
+        raise ValueError("model returned an empty concept array")
+    allowed_pages = {int(page) for page in batch_pages}
+    normalized: List[Dict[str, Any]] = []
+    for raw_item in items:
+        item = dict(raw_item)
+        cited_pages = coerce_page_numbers(item.get("source_pages"))
+        if not cited_pages:
+            raise ValueError("every generated concept must cite at least one supplied source page")
+        if any(page not in allowed_pages for page in cited_pages):
+            raise ValueError(
+                "concept cites a source page outside its supplied generation batch"
+            )
+        item["source_pages"] = cited_pages
+        normalized.append(ContentConceptPayload.model_validate(item).model_dump())
+    return normalized
 
 
 def _unique_values(values: Iterable[Any]) -> List[Any]:
@@ -996,79 +1876,258 @@ def generate_concepts_for_chapter(
     generated: List[Dict[str, Any]] = []
     failed_batches = 0
     batches = _page_batches(pages, max_chars=max_batch_chars)
+    model_name = model_gateway.model_for("reviewer", complexity="balanced")
+    route_policy = _content_generation_route_policy(model_gateway, model_name)
+    default_batch_delay = _default_generation_batch_delay(route_policy)
+    try:
+        configured_delay = os.getenv("CONTENT_GENERATION_BATCH_DELAY_SECONDS")
+        batch_delay_seconds = max(
+            0.0,
+            float(configured_delay) if configured_delay not in (None, "") else default_batch_delay,
+        )
+    except ValueError:
+        logger.warning(
+            "Invalid CONTENT_GENERATION_BATCH_DELAY_SECONDS; using provider-safe default %.1fs",
+            default_batch_delay,
+        )
+        batch_delay_seconds = default_batch_delay
+    provider_calls_made = 0
     for batch_index, batch in enumerate(batches, start=1):
-        page_text = "\n\n".join(
-            f"[PAGE {page.page_number}]\n{(page.text or '').strip()}"
-            for page in batch
-        )
-        messages = [
-            {
-                "role": "system",
-                "content": (
-                    "You convert NCERT textbook pages into strict structured concept JSON. "
-                    "Use ONLY the supplied page text. Do not add outside facts. "
-                    "Create a small set of meaningful learning units, not one item per heading or subheading. "
-                    "Merge a definition with its explanation, properties, formulas, examples, applications, "
-                    "and special cases whenever they teach the same underlying idea. Do not create standalone "
-                    "items for tiny definitions, individual examples, single formulas, practice prompts, or summaries. "
-                    "Preserve every essential syllabus concept by placing it inside the most relevant broader unit. "
-                    "Simple page batches should usually need 1-2 units; dense batches may need 3 or occasionally 4. "
-                    "Choose subject- and chapter-specific titles that describe the actual material; never force a "
-                    "generic template or fixed topic names. "
-                    "Return ONLY a JSON array. Each item must include: concept_id, title, "
-                    "definition, core_explanation, key_points, examples, formulas, properties, "
-                    "applications, common_mistakes, prerequisites, related_concepts, "
-                    "learning_objectives, source_pages, difficulty_level, "
-                    "blooms_taxonomy, typical_exam_weightage, importance_level. "
-                    "difficulty_level must be an integer from 1 (easiest) to 5 (hardest). "
-                    "source_pages must be a JSON array of integer page numbers (e.g. [4, 5]), "
-                    "not page markers. typical_exam_weightage and importance_level must be short strings. "
-                    "Every concept must cite source_pages from the supplied [PAGE n] markers."
-                ),
-            },
-            {
-                "role": "user",
-                "content": (
-                    f"Board: {chapter.board}\n"
-                    f"Class: {chapter.class_level}\n"
-                    f"Subject: {chapter.subject}\n"
-                    f"Chapter: {chapter.chapter_name}\n"
-                    f"Batch: {batch_index}/{len(batches)}\n\n"
-                    f"{page_text}"
-                ),
-            },
-        ]
-        response = model_gateway.complete(
-            role="reviewer",
-            complexity="balanced",
-            agent_name="content_ingestion_agent",
-            task=f"generate_content_concepts:{chapter.slug}:batch_{batch_index}",
-            student_visible=False,
-            safety_tier="strict_source_grounding",
-            messages=messages,
-            temperature=0.1,
-            max_tokens=4096,
-        )
         batch_pages = [page.page_number for page in batch]
-        try:
-            items = _extract_json_array(response)
-            for item in items:
-                # Source grounding is the only blocking check; when the model
-                # forgets to cite pages, fall back to the pages of the batch the
-                # concept was actually generated from so it stays approvable.
-                if isinstance(item, dict) and not coerce_page_numbers(item.get("source_pages")):
-                    item["source_pages"] = list(batch_pages)
-            generated.extend(items)
-        except Exception as exc:  # noqa: BLE001 - one bad batch must not fail the chapter
-            failed_batches += 1
-            logger.warning(
-                "Concept generation batch %s/%s for %s yielded no parseable JSON: %s",
-                batch_index, len(batches), chapter.slug, exc,
+        if _generation_batch_is_reference_only(batch):
+            logger.info(
+                "Skipping non-instructional logarithm appendix batch %s/%s for %s",
+                batch_index,
+                len(batches),
+                chapter.slug,
             )
+            continue
+        # Check the original page-batch signature first.  This preserves every
+        # successful checkpoint produced before request-budget enforcement.
+        legacy_cache_path, legacy_cache_signature = _generation_batch_cache_path(
+            chapter,
+            batch,
+            batch_index=batch_index,
+            batch_count=len(batches),
+            max_batch_chars=max_batch_chars,
+            route_policy=route_policy,
+        )
+        cached_items = _load_generation_batch_cache(
+            legacy_cache_path,
+            legacy_cache_signature,
+            route_policy,
+        )
+        if cached_items:
+            try:
+                cached_items = _normalize_generated_batch_items(
+                    cached_items,
+                    batch_pages,
+                )
+            except (TypeError, ValueError, ValidationError) as exc:
+                logger.warning(
+                    "Ignoring invalid concept-generation checkpoint %s/%s for %s: %s",
+                    batch_index,
+                    len(batches),
+                    chapter.slug,
+                    exc,
+                )
+            else:
+                logger.info(
+                    "Using concept-generation checkpoint %s/%s for %s",
+                    batch_index,
+                    len(batches),
+                    chapter.slug,
+                )
+                generated.extend(cached_items)
+                continue
+        request_batches = _generation_request_batches(
+            chapter,
+            batch,
+            batch_label=f"{batch_index}/{len(batches)}",
+        )
+        for request_index, request_batch in enumerate(request_batches, start=1):
+            request_pages = [page.page_number for page in request_batch]
+            request_label = f"{batch_index}/{len(batches)}"
+            if len(request_batches) > 1:
+                request_label += f" (part {request_index}/{len(request_batches)})"
+            messages = _generation_messages(
+                chapter,
+                request_batch,
+                batch_label=request_label,
+            )
+            request_max_tokens = _generation_output_limit(messages)
+            if request_max_tokens < CONTENT_GENERATION_MIN_OUTPUT_TOKENS:
+                raise ValueError(
+                    f"Concept-generation request {request_label} exceeds the safe "
+                    "token budget after source-preserving splitting."
+                )
+            cache_batch_index = (
+                batch_index
+                if len(request_batches) == 1
+                else batch_index * 1000 + request_index
+            )
+            cache_path, cache_signature = _generation_batch_cache_path(
+                chapter,
+                request_batch,
+                batch_index=cache_batch_index,
+                batch_count=len(batches),
+                max_batch_chars=max_batch_chars,
+                route_policy=route_policy,
+                max_tokens=request_max_tokens,
+            )
+            cached_items = _load_generation_batch_cache(
+                cache_path,
+                cache_signature,
+                route_policy,
+            )
+            if cached_items:
+                try:
+                    cached_items = _normalize_generated_batch_items(
+                        cached_items,
+                        request_pages,
+                    )
+                except (TypeError, ValueError, ValidationError) as exc:
+                    logger.warning(
+                        "Ignoring invalid concept-generation checkpoint %s for %s: %s",
+                        request_label,
+                        chapter.slug,
+                        exc,
+                    )
+                else:
+                    logger.info(
+                        "Using concept-generation checkpoint %s for %s",
+                        request_label,
+                        chapter.slug,
+                    )
+                    generated.extend(cached_items)
+                    continue
 
-    if not generated and failed_batches:
+            delivery_batches = [request_batch]
+            if request_max_tokens < CONTENT_GENERATION_PREFERRED_OUTPUT_TOKENS:
+                delivery_batches = _generation_request_batches(
+                    chapter,
+                    request_batch,
+                    batch_label=request_label,
+                    minimum_output_tokens=CONTENT_GENERATION_PREFERRED_OUTPUT_TOKENS,
+                )
+                logger.info(
+                    "Split uncached concept-generation batch %s into %s output-safe part(s)",
+                    request_label,
+                    len(delivery_batches),
+                )
+
+            for delivery_index, delivery_batch in enumerate(delivery_batches, start=1):
+                delivery_pages = [page.page_number for page in delivery_batch]
+                delivery_label = request_label
+                delivery_cache_path = cache_path
+                delivery_cache_signature = cache_signature
+                delivery_messages = messages
+                delivery_max_tokens = request_max_tokens
+                delivery_cached_items: List[Dict[str, Any]] = []
+                if len(delivery_batches) > 1:
+                    delivery_label += (
+                        f" (output part {delivery_index}/{len(delivery_batches)})"
+                    )
+                    delivery_messages = _generation_messages(
+                        chapter,
+                        delivery_batch,
+                        batch_label=delivery_label,
+                    )
+                    delivery_max_tokens = _generation_output_limit(delivery_messages)
+                    delivery_cache_path, delivery_cache_signature = (
+                        _generation_batch_cache_path(
+                            chapter,
+                            delivery_batch,
+                            batch_index=(
+                                batch_index * 1_000_000
+                                + request_index * 1_000
+                                + delivery_index
+                            ),
+                            batch_count=len(batches),
+                            max_batch_chars=max_batch_chars,
+                            route_policy=route_policy,
+                            max_tokens=delivery_max_tokens,
+                        )
+                    )
+                    delivery_cached_items = _load_generation_batch_cache(
+                        delivery_cache_path,
+                        delivery_cache_signature,
+                        route_policy,
+                    )
+                if delivery_cached_items:
+                    try:
+                        delivery_cached_items = _normalize_generated_batch_items(
+                            delivery_cached_items,
+                            delivery_pages,
+                        )
+                    except (TypeError, ValueError, ValidationError) as exc:
+                        logger.warning(
+                            "Ignoring invalid concept-generation checkpoint %s for %s: %s",
+                            delivery_label,
+                            chapter.slug,
+                            exc,
+                        )
+                    else:
+                        logger.info(
+                            "Using concept-generation checkpoint %s for %s",
+                            delivery_label,
+                            chapter.slug,
+                        )
+                        generated.extend(delivery_cached_items)
+                        continue
+                if provider_calls_made and batch_delay_seconds:
+                    time.sleep(batch_delay_seconds)
+                response = model_gateway.complete(
+                    role="reviewer",
+                    complexity="balanced",
+                    agent_name="content_ingestion_agent",
+                    task=(
+                        f"generate_content_concepts:{chapter.slug}:batch_{batch_index}"
+                        f":part_{request_index}:output_part_{delivery_index}"
+                    ),
+                    student_visible=False,
+                    safety_tier="strict_source_grounding",
+                    messages=delivery_messages,
+                    temperature=CONTENT_GENERATION_TEMPERATURE,
+                    max_tokens=delivery_max_tokens,
+                )
+                provider_calls_made += 1
+                records = model_gateway.records()
+                model_record = records[-1] if records else {}
+                try:
+                    if model_record.get("truncated"):
+                        raise ValueError(
+                            "model response was truncated at the output-token limit"
+                        )
+                    items = _extract_json_array(response)
+                    items = _normalize_generated_batch_items(items, delivery_pages)
+                    _store_generation_batch_cache(
+                        delivery_cache_path,
+                        delivery_cache_signature,
+                        items,
+                        model_record=model_record,
+                    )
+                    logger.info(
+                        "Checkpointed concept-generation batch %s for %s (%s units)",
+                        delivery_label,
+                        chapter.slug,
+                        len(items),
+                    )
+                    generated.extend(items)
+                except Exception as exc:  # noqa: BLE001 - one bad batch must not fail the chapter
+                    failed_batches += 1
+                    logger.warning(
+                        "Concept generation batch %s for %s yielded no parseable JSON: %s",
+                        delivery_label,
+                        chapter.slug,
+                        exc,
+                    )
+
+    if failed_batches:
         raise ValueError(
-            f"Concept generation failed: all {failed_batches} batch(es) returned unparseable JSON."
+            "Concept generation is incomplete: "
+            f"{failed_batches} request batch(es) returned no usable JSON. "
+            "No partial chapter was imported; retry the chapter."
         )
     compacted = consolidate_concept_payloads(
         generated,
@@ -1138,10 +2197,14 @@ def publish_chapter(db: Session, chapter_id: int, *, published_by: str = "") -> 
 
 def embed_missing_chunks(db: Session, *, chapter_id: Optional[int] = None) -> Dict[str, Any]:
     """Backfill embeddings for chunks ingested before embeddings were configured."""
-    query = db.query(ContentChunk).filter(ContentChunk.embedding.is_(None))
+    query = db.query(ContentChunk)
     if chapter_id is not None:
         query = query.filter(ContentChunk.chapter_id == chapter_id)
-    rows = query.order_by(ContentChunk.id).all()
+    # SQLAlchemy JSON stores Python ``None`` as JSON text ``null`` on SQLite by
+    # default, so ``IS NULL`` misses legacy rows. Filter the small chapter batch
+    # after deserialisation to cover SQL NULL, JSON null, and empty vectors on
+    # both SQLite staging and PostgreSQL production.
+    rows = [row for row in query.order_by(ContentChunk.id).all() if not row.embedding]
 
     if not embeddings_service.embeddings_enabled():
         return {

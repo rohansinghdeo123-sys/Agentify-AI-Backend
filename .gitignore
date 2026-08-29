@@ -14,3 +14,7 @@ content_ingestion_report.json
 content_automation_run.json
 # Runtime logs (daily scheduled ingest, etc.)
 logs/
+# Local run reports, rendered PDF QA images, and validation artifacts
+tmp/
+# Resumable, source-bound LLM generation checkpoints (runtime-derived content)
+data/processed/content_generation_cache/
