@@ -15,15 +15,23 @@ from Logic.planning.curriculum_registry import (
     resolve_planning_curriculum,
 )
 from models import PlanningLearningEvent
+from services.catalog_service import (
+    find_published_planning_curriculum_by_key,
+    resolve_published_planning_curriculum,
+)
 
 
 def _normalized(value: Any) -> str:
     return re.sub(r"[^a-z0-9]+", "_", str(value or "").strip().lower()).strip("_")
 
 
-def resolve_learning_event_scope(scope: Mapping[str, Any]) -> Optional[Dict[str, str]]:
-    """Resolve only an explicit registered Planning handoff to one unit."""
-    if _normalized(scope.get("catalog_source")) != "planning_manifest":
+def resolve_learning_event_scope(
+    scope: Mapping[str, Any],
+    db: Optional[Session] = None,
+) -> Optional[Dict[str, str]]:
+    """Resolve an explicit manifest or published Planning handoff to one unit."""
+    catalog_source = _normalized(scope.get("catalog_source"))
+    if catalog_source not in {"planning_manifest", "published"}:
         return None
     chapter_ref = str(
         scope.get("chapter_slug")
@@ -31,11 +39,23 @@ def resolve_learning_event_scope(scope: Mapping[str, Any]) -> Optional[Dict[str,
         or scope.get("chapter")
         or ""
     ).strip()
-    curriculum = resolve_planning_curriculum(
-        chapter_ref=chapter_ref,
-        subject=str(scope.get("subject") or scope.get("selected_subject") or "") or None,
-        class_level=str(scope.get("class_level") or "") or None,
-    )
+    subject = str(scope.get("subject") or scope.get("selected_subject") or "") or None
+    class_level = str(scope.get("class_level") or "") or None
+    if catalog_source == "planning_manifest":
+        curriculum = resolve_planning_curriculum(
+            chapter_ref=chapter_ref,
+            subject=subject,
+            class_level=class_level,
+        )
+    else:
+        if db is None:
+            return None
+        curriculum = resolve_published_planning_curriculum(
+            db,
+            chapter_ref=chapter_ref,
+            subject=subject,
+            class_level=class_level,
+        )
     if curriculum is None:
         return None
 
@@ -58,6 +78,11 @@ def resolve_learning_event_scope(scope: Mapping[str, Any]) -> Optional[Dict[str,
                 _normalized(unit["title"]),
                 _normalized(unit["primary_topic_id"]),
                 *(_normalized(value) for value in unit.get("legacy_topic_ids") or []),
+                *(
+                    _normalized(value)
+                    for concept in unit.get("concepts") or []
+                    for value in (concept.get("id"), concept.get("title"))
+                ),
             }
         )
     ]
@@ -124,7 +149,7 @@ def record_study_answer_event(
     source_session_id: str = "",
 ) -> Optional[Dict[str, Any]]:
     """Idempotently record a server-completed, curriculum-grounded answer."""
-    resolved = resolve_learning_event_scope(scope)
+    resolved = resolve_learning_event_scope(scope, db=db)
     if resolved is None or not user_id.strip() or not interaction_id.strip():
         return None
     identity = {
@@ -178,6 +203,11 @@ def confirm_study_answer_event(
         for curriculum in load_planning_curricula()
     }
     curriculum = curricula.get(event.curriculum_key)
+    if curriculum is None:
+        curriculum = find_published_planning_curriculum_by_key(
+            db,
+            event.curriculum_key,
+        )
     if curriculum is None or event.unit_id not in {
         str(unit["id"]) for unit in curriculum["units"]
     }:

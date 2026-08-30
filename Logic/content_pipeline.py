@@ -2469,6 +2469,8 @@ def search_approved_content(
                         "section_id": concept.concept_id,
                     },
                 }
+        warned_embedding_contract = False
+        compatible_vector_count = 0
         for chunk in chunk_rows:
             if member_rank and allowed_source_pages:
                 try:
@@ -2487,9 +2489,34 @@ def search_approved_content(
             lexical = len(chunk_terms.intersection(terms)) * 2 + _score_text(chunk.text or "", terms)
             semantic = 0.0
             if query_vector is not None and chunk.embedding:
-                semantic = embeddings_service.similarity(query_vector, chunk.embedding)
-                if semantic < min_similarity:
-                    semantic = 0.0
+                embedding_metadata = dict(chunk.metadata_json or {})
+                stored_model = str(embedding_metadata.get("embedding_model") or "")
+                stored_endpoint_host = str(
+                    embedding_metadata.get("embedding_endpoint_host") or ""
+                )
+                if embeddings_service.compatible_with_stored(
+                    query_vector,
+                    chunk.embedding,
+                    stored_model=stored_model,
+                    stored_endpoint_host=stored_endpoint_host,
+                ):
+                    compatible_vector_count += 1
+                    semantic = embeddings_service.similarity(query_vector, chunk.embedding)
+                    if semantic < min_similarity:
+                        semantic = 0.0
+                elif not warned_embedding_contract:
+                    logger.warning(
+                        "Semantic retrieval skipped incompatible stored vectors "
+                        "(configured_model=%s configured_endpoint=%s stored_model=%s "
+                        "stored_endpoint=%s query_dim=%d stored_dim=%d).",
+                        embeddings_service.embedding_model(),
+                        embeddings_service.embedding_endpoint_host() or "unknown",
+                        stored_model or "unknown",
+                        stored_endpoint_host or "unknown",
+                        len(query_vector),
+                        len(chunk.embedding),
+                    )
+                    warned_embedding_contract = True
             if lexical or semantic:
                 candidates[("chunk", chunk.id)] = {
                     "lexical": lexical,
@@ -2578,7 +2605,9 @@ def search_approved_content(
             "source": "approved_content_pipeline",
             "source_pages": sorted(set(used_pages)),
             "matched_sections": used_sections,
-            "retrieval_mode": "hybrid" if query_vector is not None else "lexical",
+            "retrieval_mode": (
+                "hybrid" if query_vector is not None and compatible_vector_count else "lexical"
+            ),
             "semantic_matches": len(semantic_ranking),
         }
     finally:

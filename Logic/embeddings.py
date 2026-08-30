@@ -25,9 +25,11 @@ import logging
 import math
 import operator
 import os
+import re
 import threading
 from collections import OrderedDict
-from typing import Dict, List, Optional, Sequence, Tuple
+from typing import List, Optional, Sequence, Tuple
+from urllib.parse import urlparse
 
 import requests
 from tenacity import retry, retry_if_exception, stop_after_attempt, wait_exponential_jitter
@@ -42,6 +44,10 @@ _query_cache: "OrderedDict[Tuple[str, str], List[float]]" = OrderedDict()
 _query_cache_lock = threading.Lock()
 
 
+def _model_key(value: str) -> str:
+    return "_".join(re.findall(r"[a-z0-9]+", str(value or "").lower()))
+
+
 def _api_key() -> str:
     return (os.getenv("EMBEDDINGS_API_KEY") or os.getenv("OPENAI_API_KEY") or "").strip()
 
@@ -52,6 +58,10 @@ def _base_url() -> str:
 
 def embedding_model() -> str:
     return os.getenv("EMBEDDINGS_MODEL", "text-embedding-3-small").strip()
+
+
+def embedding_endpoint_host() -> str:
+    return str(urlparse(_base_url()).hostname or "").lower()
 
 
 def _timeout_seconds() -> float:
@@ -164,3 +174,23 @@ def similarity(a: Optional[Sequence[float]], b: Optional[Sequence[float]]) -> fl
     if not a or not b or len(a) != len(b):
         return 0.0
     return float(sum(map(operator.mul, a, b)))
+
+
+def compatible_with_stored(
+    query_vector: Optional[Sequence[float]],
+    stored_vector: Optional[Sequence[float]],
+    *,
+    stored_model: str = "",
+    stored_endpoint_host: str = "",
+) -> bool:
+    """Reject vectors from a different model or embedding endpoint."""
+    if not query_vector or not stored_vector or len(query_vector) != len(stored_vector):
+        return False
+    if stored_model and _model_key(stored_model) != _model_key(embedding_model()):
+        return False
+    if (
+        stored_endpoint_host
+        and stored_endpoint_host.strip().lower() != embedding_endpoint_host()
+    ):
+        return False
+    return True

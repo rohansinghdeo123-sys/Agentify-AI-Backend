@@ -27,6 +27,7 @@ from services.planning_progress_service import (
     confirm_study_answer_event,
     planning_learning_states,
     record_study_answer_event,
+    resolve_learning_event_scope,
 )
 
 
@@ -671,6 +672,7 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
             "section_id": unit["primary_topic_id"],
         }
         try:
+            direct_scope = resolve_learning_event_scope(scope)
             first = record_study_answer_event(
                 db,
                 user_id="student-1",
@@ -719,6 +721,7 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
             engine.dispose()
 
         self.assertTrue(first["recorded"])
+        self.assertEqual(direct_scope["unit_id"], unit["id"])
         self.assertEqual(first["event_count"], 1)
         self.assertTrue(duplicate["idempotent"])
         self.assertTrue(confirmed["idempotent"])

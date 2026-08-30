@@ -77,16 +77,20 @@ def _save_turn(
             metadata_json=(
                 {
                     "event_type": "study_answer",
-                    "catalog_source": "planning_manifest",
+                    "catalog_source": str(content_scope.get("catalog_source") or ""),
                     "curriculum_key": str(content_scope.get("curriculum_key") or ""),
-                    "unit_id": str(content_scope.get("planning_unit_id") or ""),
+                    "unit_id": str(
+                        content_scope.get("planning_unit_id")
+                        or content_scope.get("section_id")
+                        or ""
+                    ),
                     "chapter_slug": str(content_scope.get("chapter_slug") or ""),
                     "primary_topic_id": str(content_scope.get("section_id") or ""),
                     "subject": str(content_scope.get("subject") or ""),
                     "class_level": str(content_scope.get("class_level") or ""),
                 }
                 if str((content_scope or {}).get("catalog_source") or "").lower()
-                == "planning_manifest"
+                in {"planning_manifest", "published"}
                 else {}
             ),
         )

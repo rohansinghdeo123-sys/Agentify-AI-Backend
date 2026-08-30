@@ -3141,7 +3141,7 @@ def _coach_agent_stream_impl(request, db=None, turn_state: Optional[Dict[str, An
         final_answer.strip()
         and final_answer.strip() != _material_not_found(adaptive_context).strip()
         and str(selected_scope.get("catalog_source") or "").lower()
-        == "planning_manifest"
+        in {"planning_manifest", "published"}
         and str((retrieved_material or {}).get("context") or "").strip()
         and not str((retrieved_material or {}).get("error") or "").strip()
     ):

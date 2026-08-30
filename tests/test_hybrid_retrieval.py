@@ -9,7 +9,7 @@ from sqlalchemy.pool import StaticPool
 from database import Base
 from Logic import embeddings
 from Logic.content_pipeline import embed_missing_chunks, search_approved_content
-from models import ContentChapter, ContentChunk, ContentConcept
+from models import ContentChapter, ContentChunk
 
 
 class FakeEmbeddingResponse:
@@ -42,6 +42,34 @@ class EmbeddingClientTests(unittest.TestCase):
         self.assertAlmostEqual(embeddings.similarity([1.0, 0.0], [0.0, 1.0]), 0.0)
         self.assertEqual(embeddings.similarity(None, [1.0]), 0.0)
         self.assertEqual(embeddings.similarity([1.0], [1.0, 0.0]), 0.0)
+
+    def test_embedding_contract_rejects_cross_model_vectors(self):
+        with patch("Logic.embeddings.embedding_model", return_value="model-a"), patch(
+            "Logic.embeddings.embedding_endpoint_host", return_value="provider-a.example"
+        ):
+            self.assertTrue(
+                embeddings.compatible_with_stored(
+                    [1.0, 0.0],
+                    [1.0, 0.0],
+                    stored_model="model-a",
+                    stored_endpoint_host="provider-a.example",
+                )
+            )
+            self.assertFalse(
+                embeddings.compatible_with_stored(
+                    [1.0, 0.0],
+                    [1.0, 0.0],
+                    stored_model="model-b",
+                )
+            )
+            self.assertFalse(
+                embeddings.compatible_with_stored(
+                    [1.0, 0.0],
+                    [1.0, 0.0],
+                    stored_model="model-a",
+                    stored_endpoint_host="provider-b.example",
+                )
+            )
 
     def test_normalize_returns_unit_vector(self):
         normalized = embeddings.normalize([3.0, 4.0])
@@ -182,6 +210,34 @@ class HybridSearchTests(unittest.TestCase):
         # Query vector nearly orthogonal to both chunks: no semantic matches.
         result = self._search("plants water soil", [0.05, 0.05, 0.99])
 
+        self.assertEqual(result["semantic_matches"], 0)
+        self.assertIn("Plants need water", result["context"])
+
+    def test_model_mismatch_safely_falls_back_to_lexical(self):
+        for chunk in self.db.query(ContentChunk).all():
+            chunk.metadata_json = {"embedding_model": "different-model"}
+        self.db.commit()
+        with patch("Logic.embeddings.embedding_model", return_value="configured-model"):
+            result = self._search("plants water soil", [1.0, 0.0, 0.0])
+
+        self.assertEqual(result["retrieval_mode"], "lexical")
+        self.assertEqual(result["semantic_matches"], 0)
+        self.assertIn("Plants need water", result["context"])
+
+    def test_endpoint_mismatch_safely_falls_back_to_lexical(self):
+        for chunk in self.db.query(ContentChunk).all():
+            chunk.metadata_json = {
+                "embedding_model": "shared-model-name",
+                "embedding_endpoint_host": "stored-provider.example",
+            }
+        self.db.commit()
+        with patch("Logic.embeddings.embedding_model", return_value="shared-model-name"), patch(
+            "Logic.embeddings.embedding_endpoint_host",
+            return_value="configured-provider.example",
+        ):
+            result = self._search("plants water soil", [1.0, 0.0, 0.0])
+
+        self.assertEqual(result["retrieval_mode"], "lexical")
         self.assertEqual(result["semantic_matches"], 0)
         self.assertIn("Plants need water", result["context"])
 

@@ -130,7 +130,7 @@ class CoachTurnRequest:
         }
         if (
             str(payload.learning_context.get("catalog_source") or "").strip().lower()
-            == "planning_manifest"
+            in {"planning_manifest", "published"}
             and str(payload.learning_context.get("class_level") or "").strip()
         ):
             # A registered Planning handoff carries an exact curriculum class;

@@ -20,6 +20,7 @@ from Logic.planning.curriculum_registry import (
     load_planning_curricula,
     resolve_planning_curriculum,
 )
+from Logic.planning.published_curriculum import build_published_planning_curriculum
 from models import ContentChapter, ContentConcept
 from services.topic_grouping import build_learning_units
 
@@ -30,8 +31,10 @@ BUILTIN_CLASS_LEVEL = "Class 11"
 _PLANNING_CURRICULA = load_planning_curricula()
 
 
-def _planning_catalog_entries() -> List[Dict[str, Any]]:
-    return [
+def _planning_catalog_entries(
+    published_chapters: Sequence[ContentChapter] = (),
+) -> List[Dict[str, Any]]:
+    entries = [
         {
             "supported": True,
             "roadmap_version": "planning_roadmap_v2",
@@ -44,6 +47,41 @@ def _planning_catalog_entries() -> List[Dict[str, Any]]:
         }
         for curriculum in _PLANNING_CURRICULA
     ]
+    for chapter in published_chapters:
+        identity = (
+            _normalized_class_level(chapter.class_level),
+            normalize_key(chapter.subject),
+            normalize_key(chapter.slug),
+        )
+        registered_curriculum = resolve_planning_curriculum(
+            chapter_ref=str(chapter.slug or chapter.chapter_name or ""),
+            subject=str(chapter.subject or "") or None,
+            class_level=str(chapter.class_level or "") or None,
+        )
+        if not all(identity) or registered_curriculum is not None:
+            continue
+        entries.append(
+            {
+                "supported": True,
+                "roadmap_version": "planning_roadmap_v2",
+                "class_level": chapter.class_level or "",
+                "subject": chapter.subject or "",
+                "canonical_slug": chapter.slug,
+                "name": chapter.chapter_name or chapter.slug,
+                "chapter_number": chapter.chapter_number,
+                "aliases": [],
+                "source": "published",
+            }
+        )
+    return sorted(
+        entries,
+        key=lambda entry: (
+            _normalized_class_level(entry.get("class_level")),
+            normalize_key(entry.get("subject")),
+            int(entry.get("chapter_number") or 10_000),
+            normalize_key(entry.get("name")),
+        ),
+    )
 
 BUILTIN_CHAPTERS: List[Dict[str, Any]] = [
     {
@@ -486,6 +524,9 @@ def resolve_catalog_chapter_units(
         return {
             "chapter_slug": chapter_slug,
             "chapter_label": chapter_label,
+            "chapter_number": chapter.chapter_number,
+            "content_version": chapter.version or "",
+            "board": chapter.board or "NCERT",
             "subject": chapter.subject or subject or "",
             "class_level": chapter.class_level or class_level or "",
             "source": "published",
@@ -499,6 +540,51 @@ def resolve_catalog_chapter_units(
         subject=subject,
         class_level=class_level,
     )
+
+
+def resolve_published_planning_curriculum(
+    db: Session,
+    *,
+    chapter_ref: str,
+    subject: Optional[str] = None,
+    class_level: Optional[str] = None,
+) -> Optional[Dict[str, Any]]:
+    """Resolve one published chapter and return its stable Planning identity."""
+    scope = resolve_catalog_chapter_units(
+        db,
+        chapter_ref=chapter_ref,
+        subject=subject,
+        class_level=class_level,
+    )
+    if not scope or scope.get("source") != "published":
+        return None
+    return build_published_planning_curriculum(scope)
+
+
+def find_published_planning_curriculum_by_key(
+    db: Session,
+    curriculum_key: str,
+) -> Optional[Dict[str, Any]]:
+    """Validate a stored published-curriculum event against current content."""
+    requested = str(curriculum_key or "").strip()
+    if not requested.startswith("published_"):
+        return None
+    chapters = (
+        db.query(ContentChapter)
+        .filter(ContentChapter.status.in_(APPROVED_STATUSES))
+        .order_by(ContentChapter.id)
+        .all()
+    )
+    for chapter in chapters:
+        curriculum = resolve_published_planning_curriculum(
+            db,
+            chapter_ref=str(chapter.slug or ""),
+            subject=str(chapter.subject or "") or None,
+            class_level=str(chapter.class_level or "") or None,
+        )
+        if curriculum and curriculum["curriculum_key"] == requested:
+            return curriculum
+    return None
 
 
 def build_catalog(db: Session) -> Dict[str, Any]:
@@ -566,7 +652,7 @@ def build_catalog(db: Session) -> Dict[str, Any]:
 
     return {
         "source": "published",
-        "planning_chapters": _planning_catalog_entries(),
+        "planning_chapters": _planning_catalog_entries(chapters),
         "subjects": list(groups.values()),
     }
 

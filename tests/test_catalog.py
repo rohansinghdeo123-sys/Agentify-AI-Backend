@@ -89,6 +89,12 @@ class CatalogTests(unittest.TestCase):
             waves["topics"],
             [{"id": "wave_motion", "label": "Wave Motion", "concept_ids": ["wave_motion"]}],
         )
+        planning_entry = next(
+            item for item in catalog["planning_chapters"] if item["canonical_slug"] == SLUG
+        )
+        self.assertTrue(planning_entry["supported"])
+        self.assertEqual(planning_entry["source"], "published")
+        self.assertEqual(planning_entry["chapter_number"], 3)
 
     def test_chapter_without_concepts_falls_back_to_slug_topic(self):
         self.db.add(
@@ -99,6 +105,30 @@ class CatalogTests(unittest.TestCase):
         physics = next(group for group in catalog["subjects"] if group["subject"] == "Physics")
         optics = next(item for item in physics["chapters"] if item["slug"] == SLUG)
         self.assertEqual(optics["topics"], [{"id": SLUG, "label": "Optics"}])
+
+    def test_scoped_published_slug_does_not_duplicate_registered_planning_chapter(self):
+        scoped_slug = "catalogtest-some_basic_concepts_of_chemistry"
+        self.db.add(
+            ContentChapter(
+                slug=scoped_slug,
+                subject="Chemistry",
+                class_level="11",
+                chapter_name="Some Basic Concepts Of Chemistry",
+                chapter_number=1,
+                status="published",
+            )
+        )
+        self.db.commit()
+
+        entries = build_catalog(self.db)["planning_chapters"]
+        self.assertEqual(
+            sum(
+                entry["canonical_slug"] == "some_basic_concepts_of_chemistry"
+                for entry in entries
+            ),
+            1,
+        )
+        self.assertFalse(any(entry["canonical_slug"] == scoped_slug for entry in entries))
 
     def test_endpoint_requires_auth_and_returns_catalog(self):
         response = self.client.get("/catalog")

@@ -14,6 +14,7 @@ from typing import Any, Dict, Mapping, Sequence
 
 from Logic.analytics_engine import get_user_analytics
 from services.planning_progress_service import planning_learning_states
+from services.catalog_service import resolve_published_planning_curriculum
 
 from .curriculum_registry import resolve_planning_curriculum
 from .recommendation_engine import build_planning_roadmap
@@ -46,6 +47,7 @@ def _selection_value(selection: Any, field: str, default: Any = "") -> Any:
 
 
 def _resolve_selections(
+    db,
     selections: Sequence[Any],
     *,
     subject: str,
@@ -64,6 +66,13 @@ def _resolve_selections(
             subject=subject,
             class_level=class_level,
         )
+        if curriculum is None:
+            curriculum = resolve_published_planning_curriculum(
+                db,
+                chapter_ref=chapter_ref,
+                subject=subject,
+                class_level=class_level,
+            )
         if curriculum is None:
             raise PlanningPortfolioError(
                 f'Chapter "{chapter_ref}" is not available for {class_level} {subject}. '
@@ -227,6 +236,7 @@ def build_planning_portfolio(
     """Build independent chapter roadmaps and one globally bounded Today route."""
     requested_count = len(selections)
     resolved, deduplicated_count = _resolve_selections(
+        db,
         selections,
         subject=subject,
         class_level=class_level,

@@ -11,11 +11,15 @@ from Logic.planning.portfolio_engine import (
     build_planning_portfolio,
 )
 from Logic.planning.recommendation_engine import build_planning_roadmap
-from models import PlanningLearningEvent
+from models import ContentChapter, ContentConcept, PlanningLearningEvent
 from schemas import (
     AutonomousStudyRequest,
     PlanningPortfolioRequest,
     PlanningPortfolioResponse,
+)
+from services.planning_progress_service import (
+    confirm_study_answer_event,
+    record_study_answer_event,
 )
 
 
@@ -38,6 +42,8 @@ class PlanningPortfolioTests(unittest.TestCase):
     def setUp(self):
         self.engine = create_engine("sqlite:///:memory:")
         PlanningLearningEvent.__table__.create(self.engine)
+        ContentChapter.__table__.create(self.engine)
+        ContentConcept.__table__.create(self.engine)
         self.db = sessionmaker(bind=self.engine)()
 
     def tearDown(self):
@@ -234,6 +240,94 @@ class PlanningPortfolioTests(unittest.TestCase):
         self.assertEqual(roadmap["roadmap_version"], "planning_roadmap_v2")
         self.assertEqual(roadmap["chapter_slug"], "structure_of_atom")
         self.assertEqual(roadmap["daily_route"]["budget_minutes"], 30)
+
+    def test_published_chapter_without_manifest_joins_multi_chapter_portfolio(self):
+        chapter = ContentChapter(
+            slug="thermodynamics",
+            subject="Chemistry",
+            class_level="Class 11",
+            chapter_name="Thermodynamics",
+            chapter_number=5,
+            status="published",
+            version="ncert-2026",
+            extracted_page_count=32,
+        )
+        self.db.add(chapter)
+        self.db.flush()
+        self.db.add_all(
+            [
+                ContentConcept(
+                    chapter_id=chapter.id,
+                    concept_id="system_and_surroundings",
+                    title="System and Surroundings",
+                    source_pages=[1, 2],
+                    importance_level="high",
+                    typical_exam_weightage="medium",
+                    difficulty_level=2,
+                ),
+                ContentConcept(
+                    chapter_id=chapter.id,
+                    concept_id="first_law_of_thermodynamics",
+                    title="First Law of Thermodynamics",
+                    source_pages=[8, 9],
+                    importance_level="essential",
+                    typical_exam_weightage="high",
+                    difficulty_level=4,
+                ),
+            ]
+        )
+        self.db.commit()
+
+        portfolio = self._build(
+            [
+                _selection("Some Basic Concepts of Chemistry", "new_to_it"),
+                _selection("thermodynamics", "mostly_confident"),
+            ],
+            study_time_today="30",
+        )
+
+        self.assertEqual(portfolio["chapter_count"], 2)
+        published = next(
+            item for item in portfolio["chapters"] if item["chapter_slug"] == "thermodynamics"
+        )
+        self.assertEqual(published["curriculum"]["edition"], "ncert-2026")
+        self.assertEqual(published["chapter_proficiency"], "mostly_confident")
+        self.assertTrue(published["learning_units"])
+        self.assertEqual(
+            [unit["order"] for unit in published["learning_units"]],
+            list(range(1, len(published["learning_units"]) + 1)),
+        )
+        PlanningPortfolioResponse.model_validate(portfolio)
+
+        first_unit = published["learning_units"][0]
+        receipt = record_study_answer_event(
+            self.db,
+            user_id="portfolio-student",
+            interaction_id="published-coach-turn-1",
+            scope={
+                "catalog_source": "published",
+                "chapter_slug": "thermodynamics",
+                "subject": "Chemistry",
+                "class_level": "Class 11",
+                "section_id": first_unit["primary_topic_id"],
+            },
+            source_session_id="coach-portfolio-student-thermodynamics",
+        )
+        self.assertIsNotNone(receipt)
+        self.assertTrue(receipt["recorded"])
+        self.assertEqual(receipt["unit_id"], first_unit["id"])
+        self.assertEqual(
+            confirm_study_answer_event(
+                self.db,
+                user_id="portfolio-student",
+                interaction_id="published-coach-turn-1",
+            )["unit_id"],
+            first_unit["id"],
+        )
+
+        refreshed = self._build([_selection("thermodynamics", "mostly_confident")])
+        refreshed_unit = refreshed["chapters"][0]["learning_units"][0]
+        self.assertEqual(refreshed_unit["status"], "learning")
 
 
 if __name__ == "__main__":

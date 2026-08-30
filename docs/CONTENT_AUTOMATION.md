@@ -88,3 +88,26 @@ NCERT chapter PDFs are at `https://ncert.nic.in/textbook/pdf/<code><NN>.pdf`.
 - Or `python scripts/content_report.py` for the same report in the terminal.
 - Anything `needs_review` is content the gate held back — open it, fix coverage
   (e.g., re-generate concepts), and publish from the admin tools when good.
+
+## Promote a reviewed corpus to production
+
+Long LLM/embedding runs should not execute inside the web service. After a local
+curriculum run passes the publication gate, export the reviewed database slice
+as an integrity-checked release:
+
+```bash
+python scripts/content_release.py export \
+  --embedding-model gemini-embedding-001 \
+  --embedding-dimensions 3072 \
+  --embedding-provider google-generative-language \
+  --embedding-endpoint-host generativelanguage.googleapis.com
+python scripts/content_release.py verify
+```
+
+The checked-in release is restored idempotently during remote application
+startup. It preserves existing chapter row IDs, rejects ambiguous curriculum
+identities, validates source coverage and all vector dimensions, and records one
+`content_release_restore` ingestion job keyed by the bundle digest. Production
+semantic retrieval must use the same embedding model as the release; health
+readiness reports a model mismatch and retrieval safely falls back to lexical
+ranking instead of mixing incompatible vectors.

@@ -10,6 +10,7 @@ from __future__ import annotations
 import logging
 import os
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from sqlalchemy import inspect, text
 
@@ -25,6 +26,9 @@ logger = logging.getLogger("ai_educator.lifespan")
 
 _BACKEND_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _KNOWLEDGE_GRAPH_PATH = os.path.join(_BACKEND_DIR, "data", "Chapters", "basic_concepts_of_chemistry.json")
+_CONTENT_RELEASE_BUNDLE = (
+    Path(_BACKEND_DIR) / "data" / "releases" / "ncert_class_11_chemistry_v1.json.gz"
+)
 
 
 def _ensure_session_telemetry_columns() -> None:
@@ -58,14 +62,31 @@ def _log_retrieval_mode() -> None:
     """Make the active retrieval mode obvious in the boot logs. Semantic search
     needs EMBEDDINGS_API_KEY; without it retrieval is lexical-only."""
     try:
-        from Logic import embeddings as embeddings_service
+        from database import SessionLocal
+        from services.retrieval_readiness import retrieval_embedding_status
 
-        if embeddings_service.embeddings_enabled():
-            logger.info("RETRIEVAL: semantic search ENABLED (model=%s).", embeddings_service.embedding_model())
+        db = SessionLocal()
+        try:
+            retrieval = retrieval_embedding_status(db)
+        finally:
+            db.close()
+        if retrieval["status"] == "ready":
+            logger.info(
+                "RETRIEVAL: semantic search ENABLED (model=%s@%s, dimensions=%d).",
+                retrieval["configured_model"],
+                retrieval["configured_endpoint_host"],
+                retrieval["stored_dimensions"],
+            )
         else:
             logger.warning(
-                "RETRIEVAL: semantic search DISABLED (lexical-only). Set EMBEDDINGS_API_KEY "
-                "(or OPENAI_API_KEY) and POST /admin/content/embed to backfill and enable it."
+                "RETRIEVAL: semantic search %s; lexical retrieval remains available "
+                "(configured_model=%s@%s, stored_model=%s@%s, stored_dimensions=%d).",
+                retrieval["status"],
+                retrieval["configured_model"] or "none",
+                retrieval["configured_endpoint_host"] or "none",
+                retrieval["stored_model"] or "none",
+                retrieval["stored_endpoint_host"] or "none",
+                retrieval["stored_dimensions"],
             )
     except Exception as exc:
         logger.warning("RETRIEVAL: embeddings status check skipped: %s", exc)
@@ -83,6 +104,50 @@ def _load_knowledge_graph() -> None:
         logger.warning("Could not load basic-concepts-of-chemistry chapter: %s", exc)
 
 
+def _restore_bundled_content_release() -> None:
+    """Promote the verified curriculum snapshot on remote deployments.
+
+    This lives in the application lifespan, instead of relying only on a
+    Procfile/Docker command, because hosted dashboards can override those
+    commands. SQLite development/test databases opt out by default; operators
+    can explicitly set BUNDLED_CONTENT_BOOTSTRAP=true to exercise the same path.
+    """
+    from database import SessionLocal, USE_SQLITE
+    from services.content_release_bundle import restore_content_release
+
+    configured = os.getenv("BUNDLED_CONTENT_BOOTSTRAP")
+    enabled = (
+        configured.strip().lower() in {"1", "true", "yes", "on"}
+        if configured is not None
+        else not USE_SQLITE
+    )
+    if not enabled:
+        logger.info("CONTENT RELEASE: bundled restore skipped for local SQLite.")
+        return
+    db = SessionLocal()
+    try:
+        result = restore_content_release(db, _CONTENT_RELEASE_BUNDLE)
+    finally:
+        db.close()
+    logger.info(
+        "CONTENT RELEASE: verified %s; restored=%d skipped=%d.",
+        result["digest"],
+        len(result["restored"]),
+        len(result["skipped"]),
+    )
+    semantic_status = result["semantic_retrieval"]
+    if semantic_status["status"] != "ready":
+        logger.warning(
+            "CONTENT RELEASE: semantic retrieval is %s (configured=%s@%s, stored=%s@%s); "
+            "lexical retrieval remains available.",
+            semantic_status["status"],
+            semantic_status["configured_model"] or "none",
+            semantic_status["configured_endpoint_host"] or "none",
+            semantic_status["stored_model"],
+            semantic_status["stored_endpoint_host"],
+        )
+
+
 @asynccontextmanager
 async def lifespan(app):
     # ── startup ──────────────────────────────────────────────────────────
@@ -95,6 +160,7 @@ async def lifespan(app):
         _ensure_session_telemetry_columns()
     else:
         logger.info("AUTO_CREATE_TABLES disabled; relying on Alembic migrations.")
+    _restore_bundled_content_release()
     event_bus.set_sink(persist_event_from_bus)
 
     from database import SessionLocal
