@@ -71,6 +71,29 @@ class EmbeddingClientTests(unittest.TestCase):
                 )
             )
 
+    def test_legacy_google_model_setting_uses_release_vector_space(self):
+        with patch.dict(
+            os.environ,
+            {
+                "EMBEDDINGS_MODEL": "text-embedding-004",
+                "EMBEDDINGS_BASE_URL": (
+                    "https://generativelanguage.googleapis.com/v1beta/openai"
+                ),
+            },
+            clear=False,
+        ):
+            self.assertEqual(embeddings.embedding_model(), "gemini-embedding-001")
+
+        with patch.dict(
+            os.environ,
+            {
+                "EMBEDDINGS_MODEL": "text-embedding-004",
+                "EMBEDDINGS_BASE_URL": "https://embeddings.example/v1",
+            },
+            clear=False,
+        ):
+            self.assertEqual(embeddings.embedding_model(), "text-embedding-004")
+
     def test_normalize_returns_unit_vector(self):
         normalized = embeddings.normalize([3.0, 4.0])
         self.assertAlmostEqual(sum(value * value for value in normalized), 1.0)

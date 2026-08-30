@@ -57,7 +57,19 @@ def _base_url() -> str:
 
 
 def embedding_model() -> str:
-    return os.getenv("EMBEDDINGS_MODEL", "text-embedding-3-small").strip()
+    configured = os.getenv("EMBEDDINGS_MODEL", "text-embedding-3-small").strip()
+    # AgentifyAI's verified Chemistry release uses Google's current
+    # ``gemini-embedding-001`` vector space.  Older Render environments may
+    # still carry the predecessor ``text-embedding-004`` setting; using it for
+    # queries would make every released vector incompatible.  Migrate only
+    # that known legacy Google setting and preserve every other explicit
+    # provider/model choice.
+    if (
+        _model_key(configured) == "text_embedding_004"
+        and embedding_endpoint_host() == "generativelanguage.googleapis.com"
+    ):
+        return "gemini-embedding-001"
+    return configured
 
 
 def embedding_endpoint_host() -> str:
