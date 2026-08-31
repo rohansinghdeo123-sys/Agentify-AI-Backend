@@ -3088,6 +3088,11 @@ def _coach_agent_stream_impl(request, db=None, turn_state: Optional[Dict[str, An
             "section_id": str((retrieved_material or {}).get("section_id") or ""),
             "source": str((retrieved_material or {}).get("source") or ""),
             "paragraphs_found": int((retrieved_material or {}).get("paragraphs_found") or 0),
+            # Preserve citation proof in sanitized turn telemetry. The admin
+            # evidence API exposes these page numbers, never the source text.
+            "source_pages": list(
+                _as_dict((retrieved_material or {}).get("scope")).get("source_pages") or []
+            ),
             "supported": material_is_supported,
             "gate": retrieval_gate.to_dict(),
         },

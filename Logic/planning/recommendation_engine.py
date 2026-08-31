@@ -11,6 +11,7 @@ from .curriculum_registry import STATUS_VALUES
 DEFAULT_ROUTE_CEILING_MINUTES = 30
 MIN_SESSION_MINUTES = 15
 MAX_SESSION_MINUTES = 120
+MIN_FOLLOW_ON_BLOCK_MINUTES = 15
 STUDY_TIME_BUDGETS: Dict[str, Optional[int]] = {
     "15": 15,
     "30": 30,
@@ -542,48 +543,72 @@ def _build_daily_route(
             ],
         }
 
-    # Today's route is one coherent next unit.  A longer availability is a
-    # ceiling, never a request to pad the plan or silently chain later units.
-    unit = units[start_index]
-    unit_id = str(unit["id"])
-    natural_total = _recommended_minutes(unit, profile)
-    total = natural_total if budget is None else min(natural_total, budget)
-    total = max(5, int(total))
-    unit_minimum = int(unit["estimated_minutes"]["min"])
-    scope = "full_unit" if total >= unit_minimum else "partial"
+    # Size every scheduled block from its authored content range.  A selected
+    # duration is a ceiling, never a target to pad.  When a student genuinely
+    # has enough time after the current unit, continue in NCERT order instead
+    # of hard-stopping every route at the former one-unit/60-minute cap.
+    # ``no_limit`` deliberately remains one content-sized unit so it cannot
+    # turn into an unbounded whole-chapter demand.
+    remaining = budget
+    items: List[Dict[str, Any]] = []
+    total = 0
+    estimate_minimum = 0
+    for unit in units[start_index:]:
+        unit_id = str(unit["id"])
+        if statuses.get(unit_id) == "mastered":
+            continue
+        if remaining is not None and items and remaining < MIN_FOLLOW_ON_BLOCK_MINUTES:
+            break
 
-    # The demonstrated check belongs inside the content-sized total.  This is
-    # what keeps a 15-minute route at exactly 15 minutes rather than 20.
-    check_minutes = 5 if total >= 10 else 0
-    focus_minutes = total - check_minutes
-    items: List[Dict[str, Any]] = [
-        {
-            "unit_id": unit_id,
-            "title": unit["title"],
-            "activity": _activity(unit, statuses[unit_id], profile),
-            "reason": _route_reason(unit, statuses[unit_id]),
-            "role": "main_focus",
-            "minutes": focus_minutes,
-            "scope": scope,
-        }
-    ]
-    if check_minutes:
+        natural_total = _recommended_minutes(unit, profile)
+        allocated = natural_total if remaining is None else min(natural_total, remaining)
+        allocated = max(5, int(allocated))
+        unit_minimum = int(unit["estimated_minutes"]["min"])
+        scope = "full_unit" if allocated >= unit_minimum else "partial"
+
+        # The demonstrated check belongs inside each content-sized block. This
+        # keeps a 15-minute selection at 15 minutes rather than adding time.
+        check_minutes = 5 if allocated >= 10 else 0
+        focus_minutes = allocated - check_minutes
+        continued = bool(items)
         items.append(
             {
                 "unit_id": unit_id,
                 "title": unit["title"],
-                "activity": f"Quick check: {_outcome(unit)}",
-                "reason": "A short check turns study into evidence and decides whether to continue or revisit.",
-                "role": "quick_check",
-                "minutes": check_minutes,
-                "scope": "partial",
+                "activity": _activity(unit, statuses[unit_id], profile),
+                "reason": (
+                    "Continue here only after the previous quick check is secure; "
+                    "this is the next NCERT-ordered, prerequisite-linked unit."
+                    if continued
+                    else _route_reason(unit, statuses[unit_id])
+                ),
+                "role": "main_focus",
+                "minutes": focus_minutes,
+                "scope": scope,
             }
         )
+        if check_minutes:
+            items.append(
+                {
+                    "unit_id": unit_id,
+                    "title": unit["title"],
+                    "activity": f"Quick check: {_outcome(unit)}",
+                    "reason": "A short check turns study into evidence and decides whether to continue or revisit.",
+                    "role": "quick_check",
+                    "minutes": check_minutes,
+                    "scope": "partial",
+                }
+            )
 
-    if total < unit_minimum:
-        estimate = {"min": total, "max": total}
-    else:
-        estimate = {"min": min(unit_minimum, total), "max": total}
+        total += allocated
+        estimate_minimum += allocated if scope == "partial" else min(unit_minimum, allocated)
+        if remaining is None:
+            break
+        remaining -= allocated
+        if remaining <= 0:
+            break
+
+    estimate = {"min": estimate_minimum, "max": total}
     return {
         "source": source,
         "budget_minutes": budget,
@@ -731,6 +756,24 @@ def build_planning_roadmap(
         chapter_completed=completed,
         profile=profile,
     )
+    if completed:
+        next_step_estimate = dict(daily_route["estimated_minutes"])
+    else:
+        next_route_items = [
+            item
+            for item in daily_route["items"]
+            if str(item["unit_id"]) == str(next_unit["id"])
+        ]
+        next_route_total = sum(int(item["minutes"]) for item in next_route_items)
+        next_unit_minimum = int(next_unit["estimated_minutes"]["min"])
+        next_step_estimate = {
+            "min": (
+                next_route_total
+                if next_route_total < next_unit_minimum
+                else min(next_unit_minimum, next_route_total)
+            ),
+            "max": next_route_total,
+        }
 
     return {
         "roadmap_version": "planning_roadmap_v2",
@@ -763,9 +806,10 @@ def build_planning_roadmap(
                 by_id,
                 profile,
             ),
-            # Unit cards retain their full authored range. The next action tells
-            # the truth about what fits today's selected or inferred ceiling.
-            "estimated_minutes": dict(daily_route["estimated_minutes"]),
+            # Unit cards retain their full authored range. The next action is
+            # only the first unit-sized block, while ``daily_route`` may include
+            # later conditional units when a longer selected ceiling permits.
+            "estimated_minutes": next_step_estimate,
             "importance": next_unit["importance"],
             "learning_types": list(next_unit["learning_types"]),
             "approach": _approach(

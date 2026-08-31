@@ -12,6 +12,7 @@ from app.security import verify_firebase_user
 from database import SessionLocal
 from models import ContentChapter, ContentConcept
 from services.catalog_service import build_catalog
+from services.catalog_service import _planning_catalog_entries
 
 SLUG = "catalogtest-chapter"
 
@@ -129,6 +130,46 @@ class CatalogTests(unittest.TestCase):
             1,
         )
         self.assertFalse(any(entry["canonical_slug"] == scoped_slug for entry in entries))
+
+    def test_release_planning_entries_use_one_canonical_class_scope_for_all_nine_chapters(self):
+        titles = (
+            "Some Basic Concepts Of Chemistry",
+            "Structure Of Atom",
+            "Classification Of Elements And Periodicity In Properties",
+            "Chemical Bonding And Molecular Structure",
+            "Thermodynamics",
+            "Equilibrium",
+            "Redox Reactions",
+            "Organic Chemistry Some Basic Principles And Techniques",
+            "Hydrocarbons",
+        )
+        chapters = [
+            type(
+                "PublishedChapter",
+                (),
+                {
+                    "slug": (
+                        f"ncert_class_11_chemistry_chapter_{number}_"
+                        f"{title.lower().replace(' ', '_')}"
+                    ),
+                    "chapter_name": title,
+                    "chapter_number": number,
+                    "class_level": "11",
+                    "subject": "Chemistry",
+                },
+            )()
+            for number, title in enumerate(titles, start=1)
+        ]
+
+        entries = _planning_catalog_entries(chapters)
+        chemistry = [
+            entry
+            for entry in entries
+            if entry["class_level"] == "Class 11" and entry["subject"] == "Chemistry"
+        ]
+        self.assertEqual([entry["chapter_number"] for entry in chemistry], list(range(1, 10)))
+        self.assertEqual(len(chemistry), 9)
+        self.assertFalse(any(entry["class_level"] == "11" for entry in entries))
 
     def test_endpoint_requires_auth_and_returns_catalog(self):
         response = self.client.get("/catalog")

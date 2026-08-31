@@ -70,6 +70,9 @@ class RouteSecurityTests(unittest.TestCase):
             ("get", "/profile/me"),
             ("get", "/admin/me"),
             ("get", "/admin/console"),
+            ("get", "/admin/evidence/overview"),
+            ("get", "/admin/evidence/content"),
+            ("get", "/admin/evidence/activity"),
             ("get", "/admin/prompts"),
         ]:
             resp = getattr(self.client, method)(path, **({"json": {}} if method == "post" else {}))
@@ -77,7 +80,16 @@ class RouteSecurityTests(unittest.TestCase):
 
     def test_non_admin_gets_404_on_admin_routes(self):
         self._login()
-        for path in ["/admin/me", "/admin/console", "/admin/overview", "/admin/prompts", "/admin/students"]:
+        for path in [
+            "/admin/me",
+            "/admin/console",
+            "/admin/overview",
+            "/admin/evidence/overview",
+            "/admin/evidence/content",
+            "/admin/evidence/activity",
+            "/admin/prompts",
+            "/admin/students",
+        ]:
             self.assertEqual(self.client.get(path).status_code, 404, path)
 
     def test_founder_only_allowlist_is_also_valid_admin_access(self):
@@ -103,6 +115,35 @@ class RouteSecurityTests(unittest.TestCase):
             config.BACKEND_ADMIN_EMAILS.update(previous_admins)
             config.BACKEND_FOUNDER_ADMIN_EMAILS.clear()
             config.BACKEND_FOUNDER_ADMIN_EMAILS.update(previous_founders)
+
+    def test_product_owners_are_builtin_founders_and_identity_is_normalized(self):
+        product_owners = (
+            ("amit-founder", "amit.kumarmunda4@gmail.com"),
+            ("rohan-founder", "rohan.singhdeo123@gmail.com"),
+        )
+
+        for uid, email in product_owners:
+            with self.subTest(email=email):
+                token = {"uid": uid, "email": f"  {email.upper()}  "}
+                self.assertIn(email, config.BUILTIN_FOUNDER_ADMIN_EMAILS)
+                self.assertTrue(is_backend_admin(token))
+                self.assertTrue(is_founder_admin(token))
+
+                self._login(token)
+                response = self.client.get("/admin/me")
+                self.assertEqual(response.status_code, 200, response.text)
+                self.assertTrue(response.json()["founder"])
+
+                console = self.client.get("/admin/console")
+                self.assertEqual(console.status_code, 200, console.text)
+
+                evidence = self.client.get("/admin/evidence/overview")
+                self.assertEqual(evidence.status_code, 200, evidence.text)
+
+    def test_unlisted_email_cannot_use_admin_or_founder_console(self):
+        self._login({"uid": "ordinary-user", "email": "ordinary@example.com"})
+        self.assertEqual(self.client.get("/admin/me").status_code, 404)
+        self.assertEqual(self.client.get("/admin/console").status_code, 404)
 
     def test_verified_founder_claim_is_valid_without_a_public_email_list(self):
         token = {"uid": "founder-claim", "email": "founder@example.com", "founder": True}

@@ -63,6 +63,12 @@ from services.admin_service import (
     record_admin_audit,
     record_admin_audit_simple,
 )
+from services.admin_evidence_service import (
+    build_activity_evidence,
+    build_chapter_evidence,
+    build_content_evidence,
+    build_evidence_overview,
+)
 from services.content_report_service import build_content_report as build_content_ingestion_report
 from services.ttl_cache import TTLCache
 
@@ -70,6 +76,8 @@ router = APIRouter(tags=["admin"])
 
 ADMIN_CONSOLE_TTL_SECONDS = 15.0
 admin_console_cache = TTLCache(max_entries=4)
+ADMIN_EVIDENCE_TTL_SECONDS = 45.0
+admin_evidence_cache = TTLCache(max_entries=256)
 
 
 @router.get("/admin/me")
@@ -366,6 +374,111 @@ def admin_content_ingestion_report(
     the in-app report and the terminal report never diverge.
     """
     return build_content_ingestion_report(db, status_filter=status_filter, include_full_concepts=full)
+
+
+@router.get("/admin/evidence/overview")
+def admin_evidence_overview(
+    hours: int = Query(default=24, ge=1, le=168),
+    db: Session = Depends(get_db),
+    _current_admin: Dict[str, Any] = Depends(require_founder_admin),
+):
+    """Safe roll-up of content, quality, grounding, and retrieval readiness."""
+    return admin_evidence_cache.get_or_build(
+        ("overview", hours),
+        ADMIN_EVIDENCE_TTL_SECONDS,
+        lambda: build_evidence_overview(db, hours=hours),
+    )
+
+
+@router.get("/admin/evidence/content")
+def admin_content_evidence(
+    class_level: Optional[str] = Query(default=None, max_length=40),
+    subject: Optional[str] = Query(default=None, max_length=80),
+    status_filter: Optional[str] = Query(default=None, alias="status", max_length=40),
+    search: Optional[str] = Query(default=None, max_length=120),
+    limit: int = Query(default=20, ge=1, le=100),
+    offset: int = Query(default=0, ge=0, le=100000),
+    db: Session = Depends(get_db),
+    _current_admin: Dict[str, Any] = Depends(require_founder_admin),
+):
+    """Paginated chapter evidence without raw textbook content or vectors."""
+    cache_key = (
+        "content",
+        str(class_level or "").strip().casefold(),
+        str(subject or "").strip().casefold(),
+        str(status_filter or "").strip().casefold(),
+        str(search or "").strip().casefold(),
+        limit,
+        offset,
+    )
+    return admin_evidence_cache.get_or_build(
+        cache_key,
+        ADMIN_EVIDENCE_TTL_SECONDS,
+        lambda: build_content_evidence(
+            db,
+            class_level=class_level,
+            subject=subject,
+            status_filter=status_filter,
+            search=search,
+            limit=limit,
+            offset=offset,
+        ),
+    )
+
+
+@router.get("/admin/evidence/content/{chapter_id}")
+def admin_chapter_evidence(
+    chapter_id: int,
+    limit: int = Query(default=25, ge=1, le=100),
+    offset: int = Query(default=0, ge=0, le=100000),
+    db: Session = Depends(get_db),
+    _current_admin: Dict[str, Any] = Depends(require_founder_admin),
+):
+    """Paginated subtopic provenance and derived-layer readiness."""
+    result = admin_evidence_cache.get_or_build(
+        ("chapter", chapter_id, limit, offset),
+        ADMIN_EVIDENCE_TTL_SECONDS,
+        lambda: build_chapter_evidence(db, chapter_id, limit=limit, offset=offset),
+    )
+    if result is None:
+        raise HTTPException(status_code=404, detail="Content chapter not found")
+    return result
+
+
+@router.get("/admin/evidence/activity")
+def admin_activity_evidence(
+    agent: Optional[str] = Query(default=None, max_length=80),
+    status_filter: Optional[str] = Query(default=None, alias="status", max_length=40),
+    grounding_status: Optional[str] = Query(default=None, max_length=80),
+    hours: int = Query(default=24, ge=1, le=720),
+    limit: int = Query(default=50, ge=1, le=200),
+    offset: int = Query(default=0, ge=0, le=100000),
+    db: Session = Depends(get_db),
+    _current_admin: Dict[str, Any] = Depends(require_founder_admin),
+):
+    """Sanitized, paginated agent-turn evidence for an admin timeline."""
+    cache_key = (
+        "activity",
+        str(agent or "").strip().casefold(),
+        str(status_filter or "").strip().casefold(),
+        str(grounding_status or "").strip().casefold(),
+        hours,
+        limit,
+        offset,
+    )
+    return admin_evidence_cache.get_or_build(
+        cache_key,
+        ADMIN_EVIDENCE_TTL_SECONDS,
+        lambda: build_activity_evidence(
+            db,
+            agent=agent,
+            status_filter=status_filter,
+            grounding_status=grounding_status,
+            hours=hours,
+            limit=limit,
+            offset=offset,
+        ),
+    )
 
 
 @router.get("/admin/content/jobs")

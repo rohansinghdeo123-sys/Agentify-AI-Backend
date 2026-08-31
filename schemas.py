@@ -392,6 +392,19 @@ class AutonomousStudyRequest(BaseModel):
         if isinstance(value, str):
             normalized = value.strip().lower().replace(" ", "_").replace("-", "_")
             return {
+                "15_min": "15",
+                "15_mins": "15",
+                "15_minute": "15",
+                "15_minutes": "15",
+                "30_min": "30",
+                "30_mins": "30",
+                "30_minute": "30",
+                "30_minutes": "30",
+                "1_hour": "60",
+                "1_hr": "60",
+                "60_min": "60",
+                "60_mins": "60",
+                "60_minutes": "60",
                 "120": "120_plus",
                 "120+": "120_plus",
                 "2_hours": "120_plus",
@@ -638,6 +651,19 @@ class PlanningPortfolioRequest(BaseModel):
         if isinstance(value, str):
             normalized = value.strip().lower().replace(" ", "_").replace("-", "_")
             return {
+                "15_min": "15",
+                "15_mins": "15",
+                "15_minute": "15",
+                "15_minutes": "15",
+                "30_min": "30",
+                "30_mins": "30",
+                "30_minute": "30",
+                "30_minutes": "30",
+                "1_hour": "60",
+                "1_hr": "60",
+                "60_min": "60",
+                "60_mins": "60",
+                "60_minutes": "60",
                 "120": "120_plus",
                 "120+": "120_plus",
                 "2_hours": "120_plus",

@@ -94,6 +94,19 @@ class PlanningPortfolioTests(unittest.TestCase):
         self.assertEqual(payload.chapters[0].chapter_proficiency, "new_to_it")
         self.assertEqual(payload.study_time_today, "120_plus")
 
+        for raw, expected in (
+            ("15 minutes", "15"),
+            ("30 min", "30"),
+            ("1 hour", "60"),
+        ):
+            with self.subTest(time_alias=raw):
+                normalized = PlanningPortfolioRequest(
+                    **common,
+                    chapters=[_selection("Structure of Atom")],
+                    study_time_today=raw,
+                )
+                self.assertEqual(normalized.study_time_today, expected)
+
     def test_same_canonical_chapter_is_deduplicated_across_aliases(self):
         portfolio = self._build(
             [

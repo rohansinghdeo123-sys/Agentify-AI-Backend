@@ -130,6 +130,12 @@ def verify_firebase_user(
 
 
 # ================= ROLE / OWNERSHIP =================
+def normalize_identity(value: Any) -> str:
+    """Normalize verified Firebase identity values for exact allow-list checks."""
+
+    return str(value or "").strip().casefold()
+
+
 def has_admin_claim(decoded_token: Dict[str, Any]) -> bool:
     if decoded_token.get("admin") is True:
         return True
@@ -153,9 +159,9 @@ def is_backend_admin(decoded_token: Dict[str, Any]) -> bool:
     if has_admin_claim(decoded_token) or has_founder_claim(decoded_token):
         return True
 
-    uid = str(decoded_token.get("uid", "")).lower()
-    email = str(decoded_token.get("email", "")).lower()
-    phone = str(decoded_token.get("phone_number", "")).lower()
+    uid = normalize_identity(decoded_token.get("uid"))
+    email = normalize_identity(decoded_token.get("email"))
+    phone = normalize_identity(decoded_token.get("phone_number"))
 
     return (
         uid in config.BACKEND_ADMIN_UIDS
@@ -185,7 +191,7 @@ def is_founder_admin(decoded_token: Dict[str, Any]) -> bool:
     if has_founder_claim(decoded_token):
         return True
 
-    email = str(decoded_token.get("email", "")).lower()
+    email = normalize_identity(decoded_token.get("email"))
     return bool(email and email in config.BACKEND_FOUNDER_ADMIN_EMAILS and is_backend_admin(decoded_token))
 
 

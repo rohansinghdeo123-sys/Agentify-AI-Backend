@@ -202,8 +202,11 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
         self.assertIsNone(AutonomousStudyRequest(**common).study_time_today)
         for raw, expected in (
             ("15", "15"),
+            ("15 minutes", "15"),
             (30, "30"),
+            ("30 min", "30"),
             ("60", "60"),
+            ("1 hour", "60"),
             (120, "120_plus"),
             ("120+", "120_plus"),
             ("2 hours", "120_plus"),
@@ -265,7 +268,6 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
         self.assertEqual(one_hour["daily_route"]["source"], "session_state")
         self.assertEqual(one_hour["daily_route"]["budget_minutes"], 60)
         self.assertLessEqual(one_hour["daily_route"]["total_minutes"], 60)
-        self.assertLess(one_hour["daily_route"]["total_minutes"], 60)
         self.assertEqual(one_hour["session_duration_minutes"], 60)
 
         for duration in (47, 48, 49):
@@ -282,7 +284,7 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
 
     def test_every_student_time_choice_is_a_ceiling_and_choice_wins_over_session_state(self):
         budgets = {"15": 15, "30": 30, "60": 60, "120_plus": 120, "no_limit": None}
-        first_id = self.curriculum["units"][0]["id"]
+        ordered_ids = [unit["id"] for unit in self.curriculum["units"]]
         for preference, budget in budgets.items():
             with self.subTest(preference=preference):
                 roadmap = build_planning_roadmap(
@@ -295,10 +297,26 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
                 self.assertEqual(roadmap["session_duration_minutes"], 60)
                 self.assertEqual(route["source"], "student_choice")
                 self.assertEqual(route["budget_minutes"], budget)
-                self.assertEqual({item["unit_id"] for item in route["items"]}, {first_id})
+                routed_ids = list(dict.fromkeys(item["unit_id"] for item in route["items"]))
+                self.assertEqual(routed_ids, ordered_ids[: len(routed_ids)])
                 self.assertEqual(route["total_minutes"], sum(item["minutes"] for item in route["items"]))
                 if budget is not None:
                     self.assertLessEqual(route["total_minutes"], budget)
+
+        long_route = build_planning_roadmap(
+            self.curriculum,
+            study_time_today="120_plus",
+        )
+        long_ids = list(
+            dict.fromkeys(item["unit_id"] for item in long_route["daily_route"]["items"])
+        )
+        self.assertGreater(long_route["daily_route"]["total_minutes"], 60)
+        self.assertGreater(len(long_ids), 1)
+        self.assertEqual(long_ids, ordered_ids[: len(long_ids)])
+        self.assertLess(
+            long_route["next_step"]["estimated_minutes"]["max"],
+            long_route["daily_route"]["estimated_minutes"]["max"],
+        )
 
         selected = build_planning_roadmap(
             self.curriculum,

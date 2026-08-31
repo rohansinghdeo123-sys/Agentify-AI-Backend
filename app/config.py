@@ -104,4 +104,15 @@ QUOTA_LIMITS: Dict[str, int] = {
 BACKEND_ADMIN_EMAILS = parse_csv_env("BACKEND_ADMIN_EMAILS")
 BACKEND_ADMIN_UIDS = parse_csv_env("BACKEND_ADMIN_UIDS")
 BACKEND_ADMIN_PHONES = parse_csv_env("BACKEND_ADMIN_PHONES")
-BACKEND_FOUNDER_ADMIN_EMAILS = parse_csv_env("BACKEND_FOUNDER_ADMIN_EMAILS") or BACKEND_ADMIN_EMAILS
+# Product-owner identities are deliberately explicit rather than inferred from
+# a client-side/Vercel variable. Environment entries remain additive, so
+# deployments can grant further founder-console access without changing code.
+BUILTIN_FOUNDER_ADMIN_EMAILS = {
+    "amit.kumarmunda4@gmail.com",
+    "rohan.singhdeo123@gmail.com",
+}
+BACKEND_FOUNDER_ADMIN_EMAILS = (
+    BUILTIN_FOUNDER_ADMIN_EMAILS
+    | BACKEND_ADMIN_EMAILS
+    | parse_csv_env("BACKEND_FOUNDER_ADMIN_EMAILS")
+)

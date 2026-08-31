@@ -48,6 +48,10 @@ def _planning_catalog_entries(
         for curriculum in _PLANNING_CURRICULA
     ]
     for chapter in published_chapters:
+        _, subject_label, class_label = _catalog_group_identity(
+            chapter.subject,
+            chapter.class_level,
+        )
         identity = (
             _normalized_class_level(chapter.class_level),
             normalize_key(chapter.subject),
@@ -64,8 +68,13 @@ def _planning_catalog_entries(
             {
                 "supported": True,
                 "roadmap_version": "planning_roadmap_v2",
-                "class_level": chapter.class_level or "",
-                "subject": chapter.subject or "",
+                # Keep Planning capability metadata in the same display scope
+                # as ``subjects``.  Release rows intentionally store Class XI
+                # as ``11`` while profiles and the student catalog use
+                # ``Class 11``; leaking the raw value here made an exact client
+                # filter hide every database-backed Planning chapter.
+                "class_level": class_label,
+                "subject": subject_label,
                 "canonical_slug": chapter.slug,
                 "name": chapter.chapter_name or chapter.slug,
                 "chapter_number": chapter.chapter_number,
