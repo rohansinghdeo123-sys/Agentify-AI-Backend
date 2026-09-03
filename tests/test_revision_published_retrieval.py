@@ -515,6 +515,40 @@ class PublishedRevisionRetrievalTests(unittest.TestCase):
         self.assertEqual(result.error, "material_not_found")
         self.assertEqual(search.call_args.kwargs["scope"], scope)
 
+    def test_study_retriever_preserves_semantic_support_evidence(self):
+        scope = {
+            "catalog_source": "published",
+            "chapter_slug": NCERT_CHAPTER_SLUG,
+            "section_id": "atomic_mass",
+            "concept_ids": ["atomic_mass"],
+        }
+        approved = {
+            "context": "Published explanation phrased differently from the doubt.",
+            "source": "approved_content_pipeline",
+            "section_id": "atomic_mass",
+            "paragraphs_found": 1,
+            "matched_sections": ["atomic_mass"],
+            "retrieval_mode": "hybrid",
+            "semantic_matches": 2,
+            "best_semantic_similarity": 0.41,
+        }
+
+        with patch(
+            "Logic.coach.retriever.search_approved_content",
+            return_value=approved,
+        ):
+            result = GroundedRetriever()._retrieve_section(
+                "atomic_mass",
+                "Why are relative values used?",
+                scope,
+            )
+
+        self.assertTrue(result.supported)
+        self.assertEqual(result.matched_sections, ["atomic_mass"])
+        self.assertEqual(result.retrieval_mode, "hybrid")
+        self.assertEqual(result.semantic_matches, 2)
+        self.assertEqual(result.best_semantic_similarity, 0.41)
+
     def test_section_ai_threads_resolved_scope_to_revision(self):
         request = SectionAIRequest(
             question="Explain atomic mass with clear notes.",

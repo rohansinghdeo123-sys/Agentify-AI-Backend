@@ -2609,6 +2609,17 @@ def search_approved_content(
                 "hybrid" if query_vector is not None and compatible_vector_count else "lexical"
             ),
             "semantic_matches": len(semantic_ranking),
+            # A positive value has already passed EMBEDDINGS_MIN_SIMILARITY.
+            # Preserve the signal so the Study coverage gate can recognise a
+            # valid semantic paraphrase instead of requiring a literal token.
+            "best_semantic_similarity": max(
+                (
+                    float(candidate.get("semantic") or 0.0)
+                    for candidate in candidates.values()
+                    if member_rank or candidate.get("exact_topic_match")
+                ),
+                default=0.0,
+            ),
         }
     finally:
         db.close()

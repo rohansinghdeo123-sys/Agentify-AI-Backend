@@ -54,6 +54,7 @@ from schemas import (
     CoachProfileResponse,
 )
 from services.coach_service import conversation_rows_for_user
+from services.catalog_service import resolve_catalog_topic
 from services.profile_service import profile_learning_context
 
 router = APIRouter(tags=["coach"])
@@ -99,23 +100,98 @@ async def _run_sse_on_single_thread(
         yield item
 
 
+def _resolve_selected_catalog_topic(
+    db: Session,
+    payload: CoachChatRequest,
+    learner_profile: Dict[str, str] | None = None,
+) -> Dict[str, Any] | None:
+    """Resolve a Study selector value to its authoritative content boundary.
+
+    The student catalog exposes grouped learning-unit IDs, while retrieval is
+    stored against the underlying published concept IDs.  Other Study routes
+    already resolve that boundary before invoking their agent; the coach route
+    must do the same so a valid selected unit cannot be reported as missing.
+    """
+    learning_context = dict(payload.learning_context or {})
+    catalog_source = str(learning_context.get("catalog_source") or "").strip()
+    selected_scope = str(learning_context.get("scope") or "").strip().lower()
+    if not catalog_source and selected_scope != "selected_study_material_only":
+        return None
+
+    section_id = str(
+        payload.section_id
+        or learning_context.get("selected_topic_id")
+        or learning_context.get("section_id")
+        or payload.topic
+        or ""
+    ).strip()
+    if not section_id:
+        return None
+
+    subject = str(
+        payload.subject
+        or learning_context.get("selected_subject")
+        or learning_context.get("subject")
+        or ""
+    ).strip()
+    chapter = str(
+        learning_context.get("selected_chapter_id")
+        or payload.chapter
+        or learning_context.get("selected_chapter")
+        or learning_context.get("chapter")
+        or ""
+    ).strip()
+    topic = str(
+        payload.topic
+        or learning_context.get("selected_topic")
+        or learning_context.get("topic")
+        or ""
+    ).strip()
+    class_level = str(
+        learning_context.get("class_level")
+        or (learner_profile or {}).get("class_level")
+        or ""
+    ).strip()
+    return resolve_catalog_topic(
+        db,
+        section_id,
+        subject=subject or None,
+        chapter=chapter or None,
+        topic=topic or None,
+        class_level=class_level or None,
+        catalog_source=catalog_source or None,
+    )
+
+
 class CoachTurnRequest:
     """Adapter exposing a CoachChatRequest as the attribute bag the agent expects."""
 
-    def __init__(self, payload: CoachChatRequest, learner_profile: Dict[str, str] | None = None):
+    def __init__(
+        self,
+        payload: CoachChatRequest,
+        learner_profile: Dict[str, str] | None = None,
+        resolved_topic: Dict[str, Any] | None = None,
+    ):
+        resolved_topic = dict(resolved_topic or {})
         self.user_id = payload.user_id
         self.question = (payload.original_message or payload.message).strip()
         self.raw_message = payload.message
         self.original_message = payload.original_message
         self.grounding_context_prompt = payload.grounding_context_prompt
-        self.section_id = payload.section_id or payload.topic or payload.subject or "general"
+        self.section_id = (
+            resolved_topic.get("section_id")
+            or payload.section_id
+            or payload.topic
+            or payload.subject
+            or "general"
+        )
         self.session_id = payload.session_id or f"coach-{payload.user_id}"
         self.mode = "coach"
         self.intent = payload.intent
         self.difficulty = "medium"
-        self.subject = payload.subject
-        self.chapter = payload.chapter
-        self.topic = payload.topic
+        self.subject = resolved_topic.get("subject") or payload.subject
+        self.chapter = resolved_topic.get("chapter") or payload.chapter
+        self.topic = resolved_topic.get("topic") or payload.topic
         self.mentor_directive = payload.mentor_directive
         self.system_guardrail = payload.system_guardrail
         self.strict_grounding = payload.strict_grounding
@@ -138,6 +214,25 @@ class CoachTurnRequest:
             self.learning_context["class_level"] = str(
                 payload.learning_context["class_level"]
             ).strip()
+        if resolved_topic:
+            # Carry the canonical chapter/unit scope into the worker-owned
+            # streaming session.  No database objects escape this adapter.
+            resolved_context = {
+                "selected_subject": resolved_topic.get("subject") or self.subject or "",
+                "selected_chapter_id": resolved_topic.get("chapter_slug") or "",
+                "selected_chapter": resolved_topic.get("chapter") or self.chapter or "",
+                "selected_topic_id": resolved_topic.get("section_id") or self.section_id,
+                "selected_topic": resolved_topic.get("topic") or self.topic or "",
+                "section_id": resolved_topic.get("section_id") or self.section_id,
+                "class_level": resolved_topic.get("class_level") or "",
+                "content_version": resolved_topic.get("content_version") or "",
+                "catalog_source": resolved_topic.get("catalog_source") or "",
+                "concept_ids": list(resolved_topic.get("concept_ids") or []),
+                "planning_unit_id": resolved_topic.get("planning_unit_id") or "",
+            }
+            self.learning_context.update(
+                {key: value for key, value in resolved_context.items() if value not in ("", [])}
+            )
         self.attachments = [item.model_dump() for item in payload.attachments]
         self.direct_answer = payload.direct_answer
         self.socratic_mode = payload.socratic_mode
@@ -329,7 +424,11 @@ def coach_chat(
     enforce_user_quota(payload.user_id, "coach")
 
     learner_profile = profile_learning_context(db, payload.user_id)
-    result = coach_agent(CoachTurnRequest(payload, learner_profile), db=db)
+    resolved_topic = _resolve_selected_catalog_topic(db, payload, learner_profile)
+    result = coach_agent(
+        CoachTurnRequest(payload, learner_profile, resolved_topic),
+        db=db,
+    )
     return result
 
 
@@ -348,7 +447,8 @@ async def coach_chat_stream(
     enforce_user_quota(payload.user_id, "coach")
 
     learner_profile = profile_learning_context(db, payload.user_id)
-    coach_request = CoachTurnRequest(payload, learner_profile)
+    resolved_topic = _resolve_selected_catalog_topic(db, payload, learner_profile)
+    coach_request = CoachTurnRequest(payload, learner_profile, resolved_topic)
 
     def make_event_stream() -> Iterator[str]:
         # The generator owns its session: it is opened only once streaming

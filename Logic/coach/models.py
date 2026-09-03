@@ -34,9 +34,13 @@ class RetrievalResult:
     source: str = ""
     paragraphs_found: int = 0
     keywords_used: List[str] = field(default_factory=list)
-    scope: Dict[str, str] = field(default_factory=dict)
+    scope: Dict[str, Any] = field(default_factory=dict)
     supported: bool = False
     error: str = ""
+    retrieval_mode: str = ""
+    matched_sections: List[str] = field(default_factory=list)
+    semantic_matches: int = 0
+    best_semantic_similarity: float = 0.0
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)

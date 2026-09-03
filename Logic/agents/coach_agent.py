@@ -220,8 +220,11 @@ def _apply_effective_retrieval_policy(query_understanding, retrieval_policy: str
     return query_understanding
 
 
-def _selected_material_scope(request, adaptive_context: Optional[Dict[str, Any]] = None) -> Dict[str, str]:
+def _selected_material_scope(request, adaptive_context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     learning_context = _as_dict((adaptive_context or {}).get("learning_context"))
+    raw_concept_ids = learning_context.get("concept_ids") or []
+    if not isinstance(raw_concept_ids, (list, tuple, set)):
+        raw_concept_ids = [raw_concept_ids]
     class_level = str(learning_context.get("class_level") or "").strip()
     if re.sub(r"[^a-z0-9]+", "_", class_level.lower()).strip("_") in {
         "other",
@@ -263,6 +266,12 @@ def _selected_material_scope(request, adaptive_context: Optional[Dict[str, Any]]
         "class_level": class_level,
         "content_version": str(learning_context.get("content_version") or "").strip(),
         "catalog_source": str(learning_context.get("catalog_source") or "").strip(),
+        "concept_ids": [
+            str(concept_id).strip()
+            for concept_id in raw_concept_ids
+            if str(concept_id).strip()
+        ],
+        "planning_unit_id": str(learning_context.get("planning_unit_id") or "").strip(),
     }
 
 
@@ -273,6 +282,13 @@ def _grounding_terms(value: str) -> List[str]:
         "about", "concept", "topic", "previous", "answer", "student", "question", "selected",
         "chapter", "from", "with", "only", "study", "material", "the", "and", "for", "are",
         "into", "like", "first", "time",
+        # Tutor instructions describe how to answer, not what curriculum fact
+        # is being requested.  Treat them as deictic when a topic is already
+        # selected so the built-in Study quick actions do not fail coverage.
+        "basics", "teach", "help", "understand", "understood", "works", "step",
+        "steps", "focused", "wait", "then", "should", "revisit", "check", "clear",
+        "clearly", "easy", "easier", "brief", "briefly", "detail", "detailed",
+        "language", "start", "learn", "learning",
     }
     words = re.findall(r"[a-zA-Z][a-zA-Z0-9_-]+", (value or "").lower())
     terms = []
@@ -384,7 +400,20 @@ def _material_supports_question(search_result: Dict[str, Any], adaptive_context:
             str(search_result.get("scope", {}).get("chapter") or ""),
         ]
     ).lower()
-    return any(term in searchable for term in terms)
+    if any(term in searchable for term in terms):
+        return True
+
+    # Published chunks may match a student's paraphrase semantically without
+    # repeating any literal query token.  The retriever zeroes similarities
+    # below its configured threshold, so a positive score is trusted only
+    # after the hard class/chapter/unit scope has already been resolved.
+    try:
+        semantic_similarity = float(
+            search_result.get("best_semantic_similarity") or 0.0
+        )
+    except (TypeError, ValueError):
+        semantic_similarity = 0.0
+    return semantic_similarity > 0.0
 
 
 def _coach_name_for_user(user_id: str) -> str:

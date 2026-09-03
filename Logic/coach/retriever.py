@@ -99,6 +99,12 @@ class GroundedRetriever:
                             "source_pages": list(approved.get("source_pages") or []),
                         },
                         supported=True,
+                        retrieval_mode=str(approved.get("retrieval_mode") or ""),
+                        matched_sections=list(approved.get("matched_sections") or []),
+                        semantic_matches=int(approved.get("semantic_matches") or 0),
+                        best_semantic_similarity=float(
+                            approved.get("best_semantic_similarity") or 0.0
+                        ),
                     )
             except Exception:
                 # Approved content is the primary source; a failure here silently
@@ -134,6 +140,12 @@ class GroundedRetriever:
             },
             supported=bool(context and not error),
             error=error,
+            retrieval_mode=str(result.get("retrieval_mode") or ""),
+            matched_sections=list(result.get("matched_sections") or []),
+            semantic_matches=int(result.get("semantic_matches") or 0),
+            best_semantic_similarity=float(
+                result.get("best_semantic_similarity") or 0.0
+            ),
         )
 
     def retrieve(self, question: str, scope: Dict[str, Any]) -> RetrievalResult:

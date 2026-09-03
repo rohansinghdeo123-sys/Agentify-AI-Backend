@@ -54,7 +54,11 @@ from Logic.coach.turn_engine import (
     resolve_hybrid_query,
     semantic_event,
 )
-from Logic.agents.coach_agent import _safe_tutor_fallback, coach_agent_stream
+from Logic.agents.coach_agent import (
+    _material_supports_question,
+    _safe_tutor_fallback,
+    coach_agent_stream,
+)
 from Logic.analytics_engine import get_user_analytics
 from Logic.agent_event_bus import AgentEvent
 from main import (
@@ -164,6 +168,58 @@ class FakeVisionRouter:
 
 
 class CoachArchitectureTests(unittest.TestCase):
+    def test_selected_topic_quick_actions_do_not_false_fail_coverage(self):
+        retrieved = {
+            "context": (
+                "Atomic mass is the mass of an atom relative to one twelfth "
+                "of the mass of a carbon-12 atom."
+            ),
+            "section_id": "atomic_mass",
+            "scope": {
+                "topic": "Atomic Mass of an Element",
+                "chapter": "Some Basic Concepts of Chemistry",
+            },
+            "retrieval_question": (
+                "Explain this concept from the basics with one simple example."
+            ),
+        }
+
+        self.assertTrue(
+            _material_supports_question(retrieved, {"learning_context": {}}, {})
+        )
+
+    def test_semantic_paraphrase_can_pass_scoped_coverage_gate(self):
+        retrieved = {
+            "context": "The electron occupies quantised energy levels around the nucleus.",
+            "section_id": "bohr_model",
+            "scope": {
+                "topic": "Bohr's Model",
+                "chapter": "Structure of Atom",
+            },
+            "retrieval_question": "Why are only certain orbits allowed?",
+            "best_semantic_similarity": 0.43,
+        }
+
+        self.assertTrue(
+            _material_supports_question(retrieved, {"learning_context": {}}, {})
+        )
+
+    def test_unrelated_question_still_fails_selected_topic_coverage(self):
+        retrieved = {
+            "context": "Atomic mass is measured relative to carbon-12.",
+            "section_id": "atomic_mass",
+            "scope": {
+                "topic": "Atomic Mass of an Element",
+                "chapter": "Some Basic Concepts of Chemistry",
+            },
+            "retrieval_question": "Explain photosynthesis and chlorophyll.",
+            "best_semantic_similarity": 0.0,
+        }
+
+        self.assertFalse(
+            _material_supports_question(retrieved, {"learning_context": {}}, {})
+        )
+
     def _response_plan_for(
         self,
         prompt,

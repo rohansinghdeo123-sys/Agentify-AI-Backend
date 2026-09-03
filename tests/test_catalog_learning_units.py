@@ -6,10 +6,13 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
 from database import Base
+from Logic.agents.coach_agent import _selected_material_scope
 from Logic.content_pipeline import search_approved_content
 from Logic.tools.artifact_generator import generate_study_artifacts
 from Logic.tools.knowledge_search import search_knowledge_base
 from models import ContentChapter, ContentChunk, ContentConcept
+from routers.coach import CoachTurnRequest, _resolve_selected_catalog_topic
+from schemas import CoachChatRequest
 from services.catalog_service import build_catalog, resolve_catalog_topic
 
 
@@ -141,6 +144,52 @@ class CatalogLearningUnitTests(unittest.TestCase):
 
         self.assertEqual(result["source"], "approved_content_pipeline")
         self.assertCountEqual(result["matched_sections"], resolved["concept_ids"])
+
+    def test_study_coach_resolves_frontend_group_id_to_published_members(self):
+        chapter = self._published_chapter(12)
+        unit = build_catalog(self.db)["subjects"][0]["chapters"][0]["topics"][0]
+        payload = CoachChatRequest(
+            user_id="student-1",
+            message="Explain this concept from the basics with one simple example.",
+            subject="Science",
+            chapter=chapter.chapter_name,
+            topic=unit["label"],
+            section_id=unit["id"],
+            strict_grounding=True,
+            retrieval_required=True,
+            fallback_to_general_knowledge=False,
+            learning_context={
+                "scope": "selected_study_material_only",
+                "catalog_source": "published",
+                "class_level": "Class 10",
+                "selected_subject": "Science",
+                "selected_chapter_id": chapter.slug,
+                "selected_chapter": chapter.chapter_name,
+                "selected_topic_id": unit["id"],
+                "selected_topic": unit["label"],
+            },
+        )
+
+        resolved = _resolve_selected_catalog_topic(
+            self.db,
+            payload,
+            {"class_level": "Class 10"},
+        )
+        request = CoachTurnRequest(
+            payload,
+            {"class_level": "Class 10"},
+            resolved,
+        )
+        scope = _selected_material_scope(
+            request,
+            {"learning_context": request.learning_context},
+        )
+
+        self.assertIsNotNone(resolved)
+        self.assertEqual(scope["chapter_slug"], chapter.slug)
+        self.assertEqual(scope["content_version"], "v1")
+        self.assertEqual(scope["catalog_source"], "published")
+        self.assertCountEqual(scope["concept_ids"], unit["concept_ids"])
 
     def test_group_scope_remains_usable_by_study_tools(self):
         chapter = self._published_chapter(12)
