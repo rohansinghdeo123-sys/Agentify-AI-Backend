@@ -193,6 +193,85 @@ class PlanningLearningEvent(Base):
 
 
 # =========================================================
+# PLANNING ↔ STUDY LAB — SHARED ROUTE STATE
+# =========================================================
+class StudyRouteState(Base):
+    """Persistent single source of truth for a student's active Study route.
+
+    One row per ``(user_id, route_date)``.  Planning writes the starting
+    selections here; Study Lab reads them to render Today's Route and writes
+    the current position back here on every advance.  The route itself is
+    never stored — it is always recomputed deterministically from the
+    curriculum manifest + analytics + PlanningLearningEvent exposure, so
+    Planning and Study Lab can never display contradictory states.
+
+    ``override_reason`` is the ONLY permitted way to deviate from NCERT order.
+    It is set when Study Lab temporarily branches to a prerequisite or a
+    targeted revision and is surfaced by both surfaces until the branch is
+    resolved.
+    """
+
+    __tablename__ = "study_route_states"
+    __table_args__ = (
+        UniqueConstraint(
+            "user_id",
+            "route_date",
+            name="uq_study_route_state_user_date",
+        ),
+        Index(
+            "ix_study_route_states_user_date",
+            "user_id",
+            "route_date",
+        ),
+    )
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(String, nullable=False, index=True)
+    route_date = Column(Date, nullable=False, index=True)
+
+    # Planning scope captured at route start; used to rebuild the roadmap.
+    class_level = Column(String, nullable=False, default="")
+    subject = Column(String, nullable=False, default="")
+    selections_json = Column(JSON, default=list)
+    study_time_today = Column(String, nullable=True)
+    session_duration_minutes = Column(Integer, nullable=True)
+
+    # Optional student goal, sourced from AICoachProfile.active_goals when
+    # available. Never invented by the backend.
+    goal_json = Column(JSON, default=dict)
+
+    # Currently active chapter/unit in the route.
+    active_curriculum_key = Column(String, nullable=False, default="", index=True)
+    active_chapter_slug = Column(String, nullable=False, default="")
+    current_unit_id = Column(String, nullable=False, default="", index=True)
+    current_step_index = Column(Integer, nullable=False, default=0)
+    current_step_role = Column(String, nullable=False, default="")
+
+    # Free-form position marker for "Continue Learning" (e.g. last sub-step
+    # within a unit, last question index). Server-owned, never client-writable.
+    last_position_json = Column(JSON, default=dict)
+
+    # Temporary deviation from the planned NCERT route. Empty when on-plan.
+    override_reason = Column(String, nullable=False, default="", index=True)
+    override_until_unit_id = Column(String, nullable=False, default="")
+
+    # Demonstrated proficiency per curriculum_key, updated from Study Lab
+    # assessment evidence. Self-reported proficiency remains on the plan.
+    effective_proficiency_json = Column(JSON, default=dict)
+
+    # Concept-level Needs Review signals, distinct from unit-level status.
+    needs_review_concept_ids_json = Column(JSON, default=list)
+
+    # not_started | in_progress | paused | completed
+    status = Column(String, nullable=False, default="not_started", index=True)
+    started_at = Column(DateTime, default=_utcnow_naive)
+    last_active_at = Column(DateTime, default=_utcnow_naive)
+    completed_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=_utcnow_naive)
+    updated_at = Column(DateTime, default=_utcnow_naive, onupdate=_utcnow_naive)
+
+
+# =========================================================
 # PERSONAL AI COACH PROFILE
 # =========================================================
 class AICoachProfile(Base):
