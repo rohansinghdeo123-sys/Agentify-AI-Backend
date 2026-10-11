@@ -859,3 +859,277 @@ class HealthResponse(BaseModel):
     status: str
     database: bool
     version: str = "2.0.0-bloomberg"
+
+
+# =========================================================
+# PLANNING <-> STUDY LAB — SHARED ROUTE SCHEMAS
+# =========================================================
+class StudyRouteChapterSelection(BaseModel):
+    """One chapter the student selected for today's route.
+
+    Mirrors PlanningPortfolioChapterSelection so the client speaks one
+    vocabulary; the request model is separate so future route-only fields can
+    be added without touching the portfolio endpoint's contract.
+    """
+
+    chapter_ref: str = Field(min_length=1, max_length=240)
+    chapter_proficiency: Literal[
+        "new_to_it",
+        "know_a_little",
+        "know_the_basics",
+        "mostly_confident",
+    ] = "know_a_little"
+
+    model_config = {"extra": "forbid"}
+
+    @field_validator("chapter_ref")
+    @classmethod
+    def normalize_chapter_ref(cls, value: str) -> str:
+        normalized = " ".join(value.split())
+        if not normalized:
+            raise ValueError("Select a chapter before starting a route")
+        return normalized
+
+    @field_validator("chapter_proficiency", mode="before")
+    @classmethod
+    def normalize_proficiency(cls, value: Any) -> Any:
+        if not isinstance(value, str):
+            return value
+        normalized = value.strip().lower().replace(" ", "_").replace("-", "_")
+        return {
+            "new": "new_to_it",
+            "some_idea": "know_a_little",
+            "know_basics": "know_the_basics",
+            "fast_track": "mostly_confident",
+            "quick_revision": "mostly_confident",
+        }.get(normalized, normalized)
+
+
+class StudyRouteStartRequest(BaseModel):
+    class_level: str = Field(min_length=1, max_length=64)
+    subject: str = Field(min_length=1, max_length=120)
+    chapters: List[StudyRouteChapterSelection] = Field(min_length=1, max_length=6)
+    study_time_today: Optional[
+        Literal["15", "30", "60", "120_plus", "no_limit"]
+    ] = None
+    session_duration_minutes: Optional[int] = Field(default=None, ge=15, le=120)
+
+    model_config = {"extra": "forbid"}
+
+    @field_validator("class_level", "subject")
+    @classmethod
+    def normalize_scope_label(cls, value: str) -> str:
+        normalized = " ".join(value.split())
+        if not normalized:
+            raise ValueError("Select a class and subject before starting a route")
+        return normalized
+
+    @field_validator("study_time_today", mode="before")
+    @classmethod
+    def normalize_study_time_today(cls, value: Any) -> Any:
+        if value is None or value == "":
+            return None
+        if isinstance(value, bool):
+            return value
+        if isinstance(value, (int, float)) and float(value).is_integer():
+            numeric = int(value)
+            return "120_plus" if numeric == 120 else str(numeric)
+        if isinstance(value, str):
+            normalized = value.strip().lower().replace(" ", "_").replace("-", "_")
+            return {
+                "15_min": "15",
+                "15_mins": "15",
+                "15_minute": "15",
+                "15_minutes": "15",
+                "30_min": "30",
+                "30_mins": "30",
+                "30_minute": "30",
+                "30_minutes": "30",
+                "1_hour": "60",
+                "1_hr": "60",
+                "60_min": "60",
+                "60_mins": "60",
+                "60_minutes": "60",
+                "120": "120_plus",
+                "120+": "120_plus",
+                "2_hours": "120_plus",
+                "2+_hours": "120_plus",
+                "2_plus_hours": "120_plus",
+                "2_hours+": "120_plus",
+                "unlimited": "no_limit",
+            }.get(normalized, normalized)
+        return value
+
+
+class StudyRouteAdvanceRequest(BaseModel):
+    """Study Lab reports a completed unit with its scored evidence.
+
+    No mastery field is accepted — mastery remains derived from analytics by
+    the roadmap engine. Only the raw scored evidence is passed.
+    """
+
+    completed_unit_id: str = Field(min_length=1, max_length=240)
+    interaction_id: str = Field(min_length=1, max_length=240)
+    correct_answers: int = Field(ge=0, le=500)
+    total_questions: int = Field(ge=1, le=500)
+    time_spent_seconds: int = Field(default=0, ge=0, le=86_400)
+    confidence_after: Optional[float] = Field(default=None, ge=0, le=100)
+    xp_earned: Optional[int] = Field(default=None, ge=0, le=10_000)
+    last_position: Dict[str, Any] = Field(default_factory=dict)
+
+    model_config = {"extra": "forbid"}
+
+    @model_validator(mode="after")
+    def validate_answers(self) -> "StudyRouteAdvanceRequest":
+        if self.correct_answers > self.total_questions:
+            raise ValueError("correct_answers cannot exceed total_questions")
+        return self
+
+
+class StudyRouteBranchRequest(BaseModel):
+    """Temporarily point Study Lab at a prerequisite or revision unit."""
+
+    reason: Literal["prerequisite_gap", "revision_required"]
+    target_unit_id: str = Field(min_length=1, max_length=240)
+
+    model_config = {"extra": "forbid"}
+
+
+class StudyRouteHeartbeatRequest(BaseModel):
+    """Lightweight mid-step position save for Continue Learning."""
+
+    last_position: Dict[str, Any] = Field(default_factory=dict)
+
+    model_config = {"extra": "forbid"}
+
+
+class StudyRouteOverride(BaseModel):
+    active: bool
+    reason: str = ""
+    reason_label: str = ""
+    until_unit_id: str = ""
+
+
+class StudyRouteCurrentStep(BaseModel):
+    step_index: int = Field(ge=0)
+    step_total: int = Field(ge=1)
+    step_label: str
+    current_unit_id: str
+    current_unit_title: str
+    current_unit_role: str
+    current_unit_activity: str = ""
+    current_unit_minutes: int = 0
+    current_unit_scope: str = ""
+    recommended_approach: List[str] = Field(default_factory=list)
+    why_now: str = ""
+    outcome: str = ""
+    learning_types: List[str] = Field(default_factory=list)
+    unit_depth: str = ""
+    unit_difficulty: str = ""
+    unit_importance: str = ""
+    prerequisites: List[str] = Field(default_factory=list)
+    unit_status: str = ""
+    last_position: Dict[str, Any] = Field(default_factory=dict)
+
+
+class StudyRouteEffectiveProficiency(BaseModel):
+    self_reported: str = ""
+    demonstrated_accuracy: float = 0.0
+    evidence_count: int = 0
+    last_updated: str = ""
+
+
+class StudyRouteStateResponse(BaseModel):
+    """Canonical response for every route read/write endpoint.
+
+    Composes the existing portfolio blocks so Planning and Study Lab never
+    diverge: ``chapters``, ``global_next_step``, ``today_route``, and
+    ``aggregate_progress`` are the same shapes Planning already returns.
+    """
+
+    user_id: str
+    route_date: date
+    class_level: str
+    subject: str
+    status: Literal["not_started", "in_progress", "paused", "completed"]
+    study_time_today: Optional[
+        Literal["15", "30", "60", "120_plus", "no_limit"]
+    ] = None
+    session_duration_minutes: Optional[int] = None
+    goal: Dict[str, Any] = Field(default_factory=dict)
+    portfolio_version: Optional[str] = None
+    chapters: List[PlanningPortfolioChapterRoadmap] = Field(default_factory=list)
+    global_next_step: Optional[PlanningPortfolioGlobalNextStep] = None
+    today_route: Optional[PlanningPortfolioTodayRoute] = None
+    selection_factors: List[PlanningPortfolioSelectionFactor] = Field(
+        default_factory=list
+    )
+    aggregate_progress: Optional[PlanningPortfolioAggregateProgress] = None
+    current_step: StudyRouteCurrentStep
+    override: StudyRouteOverride
+    effective_proficiency: Dict[str, StudyRouteEffectiveProficiency] = Field(
+        default_factory=dict
+    )
+    needs_review_concept_ids: List[str] = Field(default_factory=list)
+    started_at: Optional[datetime] = None
+    last_active_at: Optional[datetime] = None
+    completed_at: Optional[datetime] = None
+
+    model_config = {"from_attributes": True}
+
+
+class StudyRouteNextAction(BaseModel):
+    title: str = ""
+    reason: str = ""
+    estimated_minutes: PlanningEstimatedMinutes
+    approach: List[str] = Field(default_factory=list)
+    outcome: str = ""
+    done_for_today: bool = False
+
+
+class StudyRouteAdvanceResponse(BaseModel):
+    completion: Dict[str, Any] = Field(default_factory=dict)
+    next_action: StudyRouteNextAction
+    route: StudyRouteStateResponse
+
+
+class StudyLabContextResponse(BaseModel):
+    """Compact Study Lab entry payload derived from the same route state."""
+
+    user_id: str
+    route_date: date
+    status: Literal["not_started", "in_progress", "paused", "completed"]
+    current_topic: str
+    step_label: str
+    step_index: int = Field(ge=0)
+    step_total: int = Field(ge=1)
+    why_now: str = ""
+    recommended_approach: List[str] = Field(default_factory=list)
+    recommended_depth: str = ""
+    learning_types: List[str] = Field(default_factory=list)
+    prerequisites: List[str] = Field(default_factory=list)
+    current_unit_id: str
+    current_unit_status: str = ""
+    progress: Optional[PlanningPortfolioAggregateProgress] = None
+    goal: Dict[str, Any] = Field(default_factory=dict)
+    override: StudyRouteOverride
+    effective_proficiency: Dict[str, StudyRouteEffectiveProficiency] = Field(
+        default_factory=dict
+    )
+    needs_review_concept_ids: List[str] = Field(default_factory=list)
+    last_position: Dict[str, Any] = Field(default_factory=dict)
+    next_step: Optional[PlanningPortfolioGlobalNextStep] = None
+    today_route: Optional[PlanningPortfolioTodayRoute] = None
+    chapters: List[PlanningPortfolioChapterRoadmap] = Field(default_factory=list)
+
+
+class StudyLabCompleteUnitRequest(StudyRouteAdvanceRequest):
+    """Study Lab completion request — same fields as route advance."""
+
+    model_config = {"extra": "forbid"}
+
+
+class StudyLabCompleteUnitResponse(BaseModel):
+    completion: Dict[str, Any] = Field(default_factory=dict)
+    next_action: StudyRouteNextAction
+    route: StudyRouteStateResponse
