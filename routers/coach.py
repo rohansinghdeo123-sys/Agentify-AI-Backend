@@ -11,6 +11,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 
+from app import config
 from app.request_models import CoachConversationPatch
 from app.security import (
     enforce_user_quota,
@@ -52,10 +53,18 @@ from schemas import (
     CoachDashboardResponse,
     CoachMemoryResponse,
     CoachProfileResponse,
+    StudyLabCompleteUnitRequest,
+    StudyLabCompleteUnitResponse,
+    StudyLabContextResponse,
 )
 from services.coach_service import conversation_rows_for_user
 from services.catalog_service import resolve_catalog_topic
 from services.profile_service import profile_learning_context
+from services.study_route_service import (
+    StudyRouteError,
+    advance_route,
+    build_study_lab_context,
+)
 
 router = APIRouter(tags=["coach"])
 
@@ -528,3 +537,83 @@ def coach_autonomous_study(
             detail=str(exc),
         ) from exc
     return AutonomousStudyResponse(**mission)
+
+
+# =========================================================
+# PLANNING <-> STUDY LAB — COACH-SIDE ENDPOINTS
+# =========================================================
+# Additive.  When STUDY_LAB_PLANNING_INTEGRATION is disabled (the default)
+# these endpoints return 404 and every existing coach endpoint above behaves
+# exactly as before.  No LLM is invoked and no quota is consumed by either
+# endpoint — they only read/write the shared route state.
+def _require_integration_enabled() -> None:
+    if not config.STUDY_LAB_PLANNING_INTEGRATION:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Not found",
+        )
+
+
+@router.get(
+    "/coach/study-lab/context/{user_id}",
+    response_model=StudyLabContextResponse,
+)
+def coach_study_lab_context(
+    user_id: str,
+    db: Session = Depends(get_db),
+    current_user: Dict[str, Any] = Depends(verify_firebase_user),
+):
+    """Study Lab entry payload for the student's current Planning route.
+
+    The student must NOT choose what to study again — this endpoint returns
+    the current topic, position in today's route, why-now reason, recommended
+    approach, and progress through the current step.
+    """
+    _require_integration_enabled()
+    require_same_user_or_admin(user_id, current_user)
+    try:
+        return build_study_lab_context(db, user_id=user_id)
+    except StudyRouteError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(exc),
+        ) from exc
+
+
+@router.post(
+    "/coach/study-lab/complete-unit/{user_id}",
+    response_model=StudyLabCompleteUnitResponse,
+)
+def coach_study_lab_complete_unit(
+    user_id: str,
+    payload: StudyLabCompleteUnitRequest,
+    db: Session = Depends(get_db),
+    current_user: Dict[str, Any] = Depends(verify_firebase_user),
+):
+    """Study Lab completion handoff.
+
+    Records the scored evidence through the SAME writers Planning reads from
+    (``TestHistory`` insert, ``update_topic_performance``, and
+    ``record_study_answer_event``), advances the route step, and returns the
+    next recommended action (``Continue`` / ``Done for Today``).
+    """
+    _require_integration_enabled()
+    require_same_user_or_admin(user_id, current_user)
+    try:
+        return advance_route(
+            db,
+            user_id=user_id,
+            completed_unit_id=payload.completed_unit_id,
+            interaction_id=payload.interaction_id,
+            correct_answers=payload.correct_answers,
+            total_questions=payload.total_questions,
+            time_spent_seconds=payload.time_spent_seconds,
+            confidence_after=payload.confidence_after,
+            xp_earned=payload.xp_earned,
+            last_position=payload.last_position,
+        )
+    except StudyRouteError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail=str(exc),
+        ) from exc
