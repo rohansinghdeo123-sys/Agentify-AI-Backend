@@ -12,13 +12,14 @@ from Logic.content_pipeline import import_concepts_for_chapter, approve_chapter,
 def seed():
     db: Session = SessionLocal()
     try:
-        # 1. Setup Chapter (Delete first to start completely clean)
+        # 1. Clean up existing if any
         slug = "ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry"
         existing = db.query(ContentChapter).filter_by(slug=slug).first()
         if existing:
             db.delete(existing)
             db.commit()
 
+        # 2. Setup Chapter
         chapter = ContentChapter(
             board="NCERT", class_level="11", subject="Chemistry",
             chapter_number=1, chapter_name="Some Basic Concepts of Chemistry",
@@ -28,7 +29,7 @@ def seed():
         db.commit()
         db.refresh(chapter)
         
-        # 2. Add Dummy Pages for all 7 pages referenced in the notes
+        # 3. Add Dummy Pages
         for i in range(1, 8):
             db.add(ContentPage(
                 chapter_id=chapter.id, 
@@ -40,7 +41,7 @@ def seed():
             ))
         db.commit()
 
-        # 3. Prepare concepts (using exact LaTeX strings)
+        # 4. Prepare FULL concepts (No lines skipped)
         concepts = [
             {
                 "concept_id": "atoms_and_molecules",
@@ -181,24 +182,27 @@ def seed():
             }
         ]
 
-        # 4. Import
+        # 5. Import the concepts
         import_concepts_for_chapter(db, chapter.id, concepts, replace=True)
         
-        # 5. Approve with Diagnostics
+        # 6. Approve and Publish
+        approve_chapter(db, chapter.id, approved_by="Amit")
+        publish_chapter(db, chapter.id, published_by="Amit")
+        
+        # 7. Commit the final state to the Neon Database
+        db.commit()
+        
+        print("✅ Chapter 1 successfully seeded, approved, and published to the DATABASE!")
+        
+    except Exception as e:
+        db.rollback()
+        print(f"❌ Approval failed: {e}")
         try:
-            approve_chapter(db, chapter.id, approved_by="Amit")
-            publish_chapter(db, chapter.id, published_by="Amit")
-            print("✅ Chapter 1 successfully seeded, approved, and published!")
-        except Exception as e:
-            print(f"❌ Approval failed: {e}")
-            # Print the report to see what failed
             report = chapter_report(db, chapter.id)
             print("\n--- VALIDATION REPORT ---")
             print(json.dumps(report["report"], indent=2))
-            
-    except Exception as e:
-        db.rollback()
-        print(f"❌ Error: {e}")
+        except:
+            pass
     finally:
         db.close()
 
