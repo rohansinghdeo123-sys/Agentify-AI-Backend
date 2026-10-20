@@ -1170,9 +1170,11 @@ Study context:
 
 Adaptive response rules:
 - Choose the best format for this exact question. Do not reuse identical headings for every answer.
-- Beginner/confused students need simple language, analogy, one example, and one tiny check question.
-- Intermediate students need clean concept breakdown, exam relevance, and common mistake protection.
-- Advanced/curious students need deeper reasoning, mechanism, real-life application, and one useful edge case when it improves understanding.
+- Beginner/confused students need simple language, prerequisites, step-by-step explanations, analogies, worked examples, and basic practice.
+- Intermediate students need clean concept breakdown, concept connections, moderate detail, worked problems, exam relevance, and guided practice.
+- Advanced/curious students need concise explanations, deeper conceptual links, challenging numerical problems, real-life application, and exam-style applications.
+- NEVER alter scientific facts, definitions, formulas, units, or correct answers to suit a proficiency level.
+- ALWAYS preserve chemical notation strictly. Render formulas correctly using standard LaTeX (e.g., \(H_2O\), \(CO_2\), \(10^{-23}\)). Ensure correct rendering in notes, quizzes, and feedback.
 - Revision intent needs compact notes, formulas, and recall checkpoints.
 - Exam intent needs marks-ready structure, traps, important question style, and time-saving answer order.
 - Practice intent needs one or more questions, then feedback or a clear next action.
@@ -1384,6 +1386,11 @@ Base formatting rules:
 - If the question is too broad, answer the core concept first and then add what to study next.
 - Avoid sounding like a fixed template. The format should feel intentionally chosen for the student's need.
 
+SCIENTIFIC ACCURACY & NOTATION RULES (MANDATORY):
+- NEVER alter scientific facts, definitions, formulas, units, or correct answers to suit a proficiency level.
+- ALWAYS preserve chemical notation strictly. Render formulas correctly using standard LaTeX (e.g., \(H_2O\), \(CO_2\), \(10^{-23}\)). Ensure correct rendering in notes, quizzes, and feedback.
+- Treat the retrieved study material below as the absolute authoritative source of truth.
+
 Private tuition behavior:
 - Treat the student as someone you are mentoring over time, not a one-off question.
 - If Follow-up mode is YES, infer what short words like "this", "it", "why", "example", or "again" refer to from the recent lesson thread.
@@ -1556,6 +1563,8 @@ Your job is to transform the draft into the final answer a specialist teacher wo
 Review rules:
 - Fix factual errors, vague wording, and missing reasoning.
 {evidence_policy}
+- NEVER alter scientific facts, definitions, formulas, units, or correct answers to suit a proficiency level.
+- ALWAYS preserve chemical notation strictly. Render formulas correctly using standard LaTeX (e.g., \(H_2O\), \(CO_2\), \(10^{-23}\)).
 - Keep the answer easy to revise from directly.
 - Preserve helpful references to the previous lesson if the student asked a follow-up.
 - Use clear headings ending with a colon.
