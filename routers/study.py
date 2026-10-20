@@ -42,6 +42,10 @@ from services.planning_progress_service import (
 )
 from services.ttl_cache import TTLCache
 
+# ADDED IMPORTS FOR NOTES
+from models import ContentChapter, ContentConcept
+from Logic.content_pipeline import APPROVED_STATUSES
+
 router = APIRouter(tags=["study"])
 
 _catalog_cache = TTLCache(max_entries=2)
@@ -361,4 +365,63 @@ def artifact_catalog():
         "subject": "Chemistry",
         "available_sections": available_artifact_sections(),
         "message": "Artifacts are generated only from ingested platform study data.",
+    }
+
+
+# =========================================================
+# NEW: CHAPTER NOTES VIEWER API
+# =========================================================
+@router.get("/notes/{chapter_slug}")
+def get_chapter_notes(
+    chapter_slug: str,
+    db: Session = Depends(get_db),
+    current_user: Dict[str, Any] = Depends(verify_firebase_user),
+):
+    """Fetch the published master notes for a chapter so students can read them directly."""
+    # Verify the chapter exists and is published
+    chapter = (
+        db.query(ContentChapter)
+        .filter(
+            ContentChapter.slug == chapter_slug,
+            ContentChapter.status.in_(APPROVED_STATUSES)
+        )
+        .first()
+    )
+    if not chapter:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Chapter notes not found or not yet published."
+        )
+
+    # Fetch all concepts (notes) for this chapter
+    concepts = (
+        db.query(ContentConcept)
+        .filter(ContentConcept.chapter_id == chapter.id)
+        .order_by(ContentConcept.id)
+        .all()
+    )
+
+    # Format the response for the frontend UI
+    notes = []
+    for concept in concepts:
+        notes.append({
+            "id": concept.concept_id,
+            "title": concept.title,
+            "definition": concept.definition,
+            "explanation": concept.core_explanation,
+            "key_points": concept.key_points or [],
+            "formulas": concept.formulas or [],
+            "examples": concept.examples or [],
+            "common_mistakes": concept.common_mistakes or [],
+        })
+
+    return {
+        "chapter": {
+            "slug": chapter.slug,
+            "name": chapter.chapter_name,
+            "class_level": chapter.class_level,
+            "subject": chapter.subject,
+            "chapter_number": chapter.chapter_number,
+        },
+        "concepts": notes
     }
