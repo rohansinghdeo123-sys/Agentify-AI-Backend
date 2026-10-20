@@ -378,7 +378,8 @@ def get_chapter_notes(
     current_user: Dict[str, Any] = Depends(verify_firebase_user),
 ):
     """Fetch the published master notes for a chapter so students can read them directly."""
-    # Verify the chapter exists and is published
+    
+    # 1. Try exact slug match
     chapter = (
         db.query(ContentChapter)
         .filter(
@@ -387,6 +388,30 @@ def get_chapter_notes(
         )
         .first()
     )
+    
+    # 2. If not found, try a flexible match (e.g., "some_basic_concepts..." matches "ncert_class_11_..._some_basic_concepts...")
+    if not chapter:
+        chapter = (
+            db.query(ContentChapter)
+            .filter(
+                ContentChapter.slug.endswith(chapter_slug),
+                ContentChapter.status.in_(APPROVED_STATUSES)
+            )
+            .first()
+        )
+
+    # 3. If still not found, try matching by chapter name (replacing underscores with spaces)
+    if not chapter:
+        chapter_name_search = chapter_slug.replace("_", " ").title()
+        chapter = (
+            db.query(ContentChapter)
+            .filter(
+                ContentChapter.chapter_name.ilike(f"%{chapter_name_search}%"),
+                ContentChapter.status.in_(APPROVED_STATUSES)
+            )
+            .first()
+        )
+
     if not chapter:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
