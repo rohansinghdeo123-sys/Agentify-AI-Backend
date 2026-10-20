@@ -42,7 +42,6 @@ from services.planning_progress_service import (
 )
 from services.ttl_cache import TTLCache
 
-# ADDED IMPORTS FOR NOTES
 from models import ContentChapter, ContentConcept
 from Logic.content_pipeline import APPROVED_STATUSES
 
@@ -100,12 +99,7 @@ def learning_catalog(
     db: Session = Depends(get_db),
     current_user: Dict[str, Any] = Depends(verify_firebase_user),
 ):
-    """The chapters/topics students may select across Study, Exam, and Missions.
-
-    Served from admin-published content; a built-in starter catalog answers
-    until the first chapter is published. Cached for five minutes, so a new
-    publish appears without a deploy but without per-request DB scans.
-    """
+    """The chapters/topics students may select across Study, Exam, and Missions."""
     return _catalog_cache.get_or_build("catalog", 300.0, lambda: build_catalog(db))
 
 
@@ -400,7 +394,7 @@ def get_chapter_notes(
             .first()
         )
 
-    # 3. If still not found, try matching by chapter name (replacing underscores with spaces)
+    # 3. If still not found, try matching by chapter name
     if not chapter:
         chapter_name_search = chapter_slug.replace("_", " ").title()
         chapter = (
