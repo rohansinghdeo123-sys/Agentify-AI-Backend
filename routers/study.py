@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 import re
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from app.request_models import (
@@ -368,12 +368,13 @@ def artifact_catalog():
 @router.get("/notes/{chapter_slug}")
 def get_chapter_notes(
     chapter_slug: str,
+    topic_id: Optional[str] = Query(None, description="Filter notes by specific topic"),
     db: Session = Depends(get_db),
     current_user: Dict[str, Any] = Depends(verify_firebase_user),
 ):
-    """Fetch the published master notes for a chapter so students can read them directly."""
+    """Fetch the published master notes for a chapter. If topic_id is provided, filter to that topic."""
     
-    # 1. Try exact slug match
+    # 1. Resolve the chapter
     chapter = (
         db.query(ContentChapter)
         .filter(
@@ -383,7 +384,6 @@ def get_chapter_notes(
         .first()
     )
     
-    # 2. If not found, try a flexible match (e.g., "some_basic_concepts..." matches "ncert_class_11_..._some_basic_concepts...")
     if not chapter:
         chapter = (
             db.query(ContentChapter)
@@ -394,7 +394,6 @@ def get_chapter_notes(
             .first()
         )
 
-    # 3. If still not found, try matching by chapter name
     if not chapter:
         chapter_name_search = chapter_slug.replace("_", " ").title()
         chapter = (
@@ -412,15 +411,30 @@ def get_chapter_notes(
             detail="Chapter notes not found or not yet published."
         )
 
-    # Fetch all concepts (notes) for this chapter
-    concepts = (
-        db.query(ContentConcept)
-        .filter(ContentConcept.chapter_id == chapter.id)
-        .order_by(ContentConcept.id)
-        .all()
-    )
+    # 2. Build the query
+    query = db.query(ContentConcept).filter(ContentConcept.chapter_id == chapter.id)
+    
+    # 3. Filter by topic_id if provided
+    if topic_id:
+        # The frontend sends a Unit ID, but the DB stores Concept IDs.
+        # We must resolve the Unit ID to its underlying Concept IDs.
+        resolved = resolve_catalog_topic(
+            db, 
+            topic_id, 
+            subject=chapter.subject, 
+            class_level=chapter.class_level
+        )
+        
+        if resolved and resolved.get("concept_ids"):
+            # Filter by the exact concepts belonging to this unit
+            query = query.filter(ContentConcept.concept_id.in_(resolved["concept_ids"]))
+        else:
+            # Fallback if resolution fails
+            query = query.filter(ContentConcept.concept_id == topic_id)
 
-    # Format the response for the frontend UI
+    concepts = query.order_by(ContentConcept.id).all()
+
+    # 4. Format the response
     notes = []
     for concept in concepts:
         notes.append({
