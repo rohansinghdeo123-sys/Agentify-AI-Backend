@@ -416,8 +416,8 @@ def get_chapter_notes(
     
     # 3. Filter by topic_id if provided
     if topic_id:
-        # The frontend sends a Unit ID, but the DB stores Concept IDs.
-        # We must resolve the Unit ID to its underlying Concept IDs.
+        # The frontend can send either a concept_id or a unit_id. 
+        # We try resolving it via the catalog service first.
         resolved = resolve_catalog_topic(
             db, 
             topic_id, 
@@ -426,10 +426,10 @@ def get_chapter_notes(
         )
         
         if resolved and resolved.get("concept_ids"):
-            # Filter by the exact concepts belonging to this unit
+            # If it resolves to a unit, filter by all concepts inside that unit.
             query = query.filter(ContentConcept.concept_id.in_(resolved["concept_ids"]))
         else:
-            # Fallback if resolution fails
+            # If it's already a concept_id (like "significant_figures"), filter directly.
             query = query.filter(ContentConcept.concept_id == topic_id)
 
     concepts = query.order_by(ContentConcept.id).all()
