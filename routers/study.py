@@ -57,7 +57,6 @@ def _latest_planning_answer_receipt(
     session_id: str,
     answer: str,
 ) -> Dict[str, Any] | None:
-    """Record the latest Tutor answer only when its server scope is canonical."""
     from models import AgentChatMemory
 
     if not session_id_belongs_to_user(session_id, user_id):
@@ -99,7 +98,6 @@ def learning_catalog(
     db: Session = Depends(get_db),
     current_user: Dict[str, Any] = Depends(verify_firebase_user),
 ):
-    """The chapters/topics students may select across Study, Exam, and Missions."""
     return _catalog_cache.get_or_build("catalog", 300.0, lambda: build_catalog(db))
 
 
@@ -173,7 +171,6 @@ def confirm_planning_learning_event(
     db: Session = Depends(get_db),
     current_user: Dict[str, Any] = Depends(verify_firebase_user),
 ):
-    """Confirm backend-owned Study evidence; clients cannot create mastery."""
     user_id = require_authenticated_user_id(current_user)
     result = confirm_study_answer_event(
         db,
@@ -374,7 +371,6 @@ def get_chapter_notes(
 ):
     """Fetch the published master notes for a chapter. If topic_id is provided, filter to that topic."""
     
-    # 1. Resolve the chapter
     chapter = (
         db.query(ContentChapter)
         .filter(
@@ -411,30 +407,14 @@ def get_chapter_notes(
             detail="Chapter notes not found or not yet published."
         )
 
-    # 2. Build the query
     query = db.query(ContentConcept).filter(ContentConcept.chapter_id == chapter.id)
     
-    # 3. Filter by topic_id if provided
+    # STRICT FILTER: Just match the concept_id directly. No complex resolution.
     if topic_id:
-        # The frontend can send either a concept_id or a unit_id. 
-        # We try resolving it via the catalog service first.
-        resolved = resolve_catalog_topic(
-            db, 
-            topic_id, 
-            subject=chapter.subject, 
-            class_level=chapter.class_level
-        )
-        
-        if resolved and resolved.get("concept_ids"):
-            # If it resolves to a unit, filter by all concepts inside that unit.
-            query = query.filter(ContentConcept.concept_id.in_(resolved["concept_ids"]))
-        else:
-            # If it's already a concept_id (like "significant_figures"), filter directly.
-            query = query.filter(ContentConcept.concept_id == topic_id)
+        query = query.filter(ContentConcept.concept_id == topic_id)
 
     concepts = query.order_by(ContentConcept.id).all()
 
-    # 4. Format the response
     notes = []
     for concept in concepts:
         notes.append({
