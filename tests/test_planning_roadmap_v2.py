@@ -258,7 +258,7 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
                     sum(item["minutes"] for item in route["items"]),
                 )
                 self.assertEqual({item["unit_id"] for item in route["items"]}, {roadmap["next_step"]["unit_id"]})
-                self.assertEqual(roadmap["next_step"]["estimated_minutes"], route["estimated_minutes"])
+                self.assertEqual(roadmap["next_step"]["estimated_minutes"], units[mastered_count]["estimated_minutes"] if units[mastered_count].get("duration_source") == "manual" else route["estimated_minutes"])
 
         one_hour = build_planning_roadmap(
             self.curriculum,

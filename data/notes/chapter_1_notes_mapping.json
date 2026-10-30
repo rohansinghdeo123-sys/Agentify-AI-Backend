@@ -1,0 +1,593 @@
+{
+  "source": "data/releases/ncert_class_11_chemistry_v1.json.gz",
+  "source_digest": "sha256:b551bd41ac1cbad3160ed90e73889ce64809d47352db1917e2c1c47eada92272",
+  "units": [
+    {
+      "unit_id": "chem11_u01_lu01_chemistry_and_its_importance",
+      "subtopics": [
+        {
+          "id": "intro.development_of_chemistry",
+          "title": "Development of Chemistry",
+          "section_id": "intro.development_of_chemistry"
+        },
+        {
+          "id": "1.1",
+          "title": "Importance of Chemistry",
+          "section_id": "1.1"
+        },
+        {
+          "id": "1.2",
+          "title": "Nature of Matter",
+          "section_id": "1.2"
+        },
+        {
+          "id": "1.2.1",
+          "title": "States of Matter",
+          "section_id": "1.2.1"
+        },
+        {
+          "id": "1.2.2",
+          "title": "Classification of Matter",
+          "section_id": "1.2.2"
+        }
+      ],
+      "concept_ids": [
+        "scope_of_chemistry",
+        "development_of_chemistry",
+        "ancient_indian_chemistry",
+        "importance_of_chemistry",
+        "nature_of_matter",
+        "states_of_matter",
+        "interconversion_of_states",
+        "classification_of_matter",
+        "mixtures_and_pure_substances",
+        "homogeneous_and_heterogeneous_mixtures",
+        "elements_and_compounds"
+      ],
+      "pages": [
+        {
+          "id": "source-0-0-0",
+          "title": "Definition and Historical Development of Chemistry",
+          "text": "Definition and Historical Development of Chemistry: Chemistry is the branch of science that studies the preparation, properties, structure, and reactions of material substances. It evolved from alchemy and iatrochemistry into a modern discipline in the 18th century.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_21c9d27059",
+          "source_paragraph": 0,
+          "source_text_sha256": "795d4cbdf0c857c7257b5c62a26347150e839a5d092253d60c6075896efea6e2"
+        },
+        {
+          "id": "source-0-1-0",
+          "title": "Definition and Historical Development of Chemistry",
+          "text": "Chemistry is not an ancient discipline studied for its own sake but emerged from the search for the philosopher’s stone (converting base metals to gold) and the elixir of life (immortality). In ancient India, it was known as Rasayan Shastra, Rastantra, Ras Kriya, or Rasvidya, encompassing metallurgy, medicine, and the manufacture of cosmetics, glass, and dyes. Archaeological evidence from Mohenjodaro and Harappa indicates early chemical processes such as pottery production, glass making (faience), and metal forging. Ancient Indian texts like the Charaka Samhita and Rasratnakar document the preparation of acids, metal oxides, and compounds, while scientists like Nagarjuna and Chakrapani contributed to metallurgy and the invention of soap.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_21c9d27059",
+          "source_paragraph": 1,
+          "source_text_sha256": "75c0e4323f3bacbcb61a3caf298248ff03d8ca6fd68720642ffa6428df68bece"
+        },
+        {
+          "id": "source-0-2-0",
+          "title": "Historical Context and Importance of Chemistry",
+          "text": "Historical Context and Importance of Chemistry: Chemistry is the science of atoms and molecules that deals with the composition, structure, properties, and interactions of matter, with roots in ancient Indian philosophical and practical knowledge.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_21c9d27059",
+          "source_paragraph": 2,
+          "source_text_sha256": "2eadd5e6c921d09d8207ab79091abb8550bf68dd37d092689cfba897e033f8ee"
+        },
+        {
+          "id": "source-0-3-0",
+          "title": "Historical Context and Importance of Chemistry",
+          "text": "The study of chemistry has deep historical roots, including ancient Indian texts like the Atharvaveda and Charaka Samhita, which documented dyes, perfumes, fermentation, and the concept of indivisible particles (Paramanu) proposed by Acharya Kanda. Modern chemistry plays a central role in science and the national economy by meeting human needs for food, healthcare, and materials. It enables the production of fertilizers, drugs (like cisplatin and AZT), and new materials with specific magnetic, electric, and optical properties. Additionally, chemistry addresses environmental challenges, such as replacing ozone-depleting CFCs and managing greenhouse gases, while also driving industrial growth and employment.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_21c9d27059",
+          "source_paragraph": 3,
+          "source_text_sha256": "8d3f5ace185a5466b7099068441132400d72f6d8aa3e8e06d7366b42c2f11735"
+        },
+        {
+          "id": "source-0-4-0",
+          "title": "Nature and States of Matter",
+          "text": "Nature and States of Matter: Matter is anything that has mass and occupies space, existing in three physical states—solid, liquid, and gas—distinguished by particle arrangement and movement.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_21c9d27059",
+          "source_paragraph": 4,
+          "source_text_sha256": "2e2a7f74ad2c708bd30bd4791314f70bce1bd5b45409ce85e3d982ade6f41037"
+        },
+        {
+          "id": "source-0-5-0",
+          "title": "Nature and States of Matter",
+          "text": "Matter is defined by two fundamental characteristics: it has mass and occupies space. It exists in three primary physical states: solid, liquid, and gas. In solids, particles are held very close in an orderly fashion with little freedom of movement, resulting in definite volume and shape. In liquids, particles are close but can move around, giving them a definite volume but no definite shape (they take the container's shape). In gases, particles are far apart and move easily and fast, lacking both definite volume and shape. The arrangement and movement of these constituent particles determine the macroscopic properties of each state.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_21c9d27059",
+          "source_paragraph": 5,
+          "source_text_sha256": "b4d94118129b2ac78130f2d98318bbebc1bff0caffa0bd49eef8c422da5ba13e"
+        },
+        {
+          "id": "source-1-0-0",
+          "title": "States of Matter and Macroscopic Classification",
+          "text": "States of Matter and Macroscopic Classification: Matter exists in solid, liquid, and gaseous states, interconvertible via temperature and pressure changes. Macroscopically, matter is classified into pure substances (fixed composition, single particle type) and mixtures (variable composition, multiple particle types).",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_7630483728",
+          "source_paragraph": 0,
+          "source_text_sha256": "62ad3d47c7492acd91c01c70e38cc0f22a49aaabc919295434ff88947e97b24c"
+        },
+        {
+          "id": "source-1-1-0",
+          "title": "States of Matter and Macroscopic Classification",
+          "text": "Solids have definite shape and volume, liquids have definite volume but no definite shape, and gases have neither definite shape nor volume, occupying the entire container. These states are interconvertible: heating converts solids to liquids and liquids to gases, while cooling reverses this process. At the bulk level, matter is divided into pure substances and mixtures. A pure substance consists of particles of the same chemical nature with a fixed composition, such as copper, water, or glucose. A mixture contains particles of two or more pure substances in any ratio, resulting in variable composition, such as air or sugar solution. Mixtures are further categorized as homogeneous (uniform composition, e.g., sugar solution) or heterogeneous (non-uniform composition, e.g., salt and sugar). Components of mixtures can be separated by physical methods like filtration or distillation, whereas pure substances cannot be separated by simple physical means.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_7630483728",
+          "source_paragraph": 1,
+          "source_text_sha256": "5ddfe352f15ffe0ca78cc7244c3c6bf2fb03cd90e702c4b82c2277bf56b9196b"
+        },
+        {
+          "id": "source-1-2-0",
+          "title": "Elements, Compounds, and Properties of Matter",
+          "text": "Elements, Compounds, and Properties of Matter: Pure substances are classified into elements (single type of atoms) and compounds (fixed ratio of different atoms). ",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_7630483728",
+          "source_paragraph": 2,
+          "source_text_sha256": "ee4de3b0afd75be3bfbb2474efb5937ecf992160ab292b03a9a1f4ce74d67cff"
+        },
+        {
+          "id": "source-1-3-0",
+          "title": "Elements, Compounds, and Properties of Matter",
+          "text": "Pure substances are further divided into elements and compounds. Elements consist of only one type of atom, which may exist as individual atoms (e.g., sodium, copper) or molecules (e.g., hydrogen, oxygen, nitrogen gases where two atoms combine). Compounds are formed when atoms of different elements combine in a definite and fixed ratio. The properties of a compound differ from its constituent elements; for instance, hydrogen and oxygen are gases, but their compound, water, is a liquid. Constituents of compounds cannot be separated by physical methods but require chemical methods. ",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_7630483728",
+          "source_paragraph": 3,
+          "source_text_sha256": "f73c13fa0fbeeb8092b95e5748b1419a3b3af61f8ee86839da364532f3c0f862"
+        }
+      ]
+    },
+    {
+      "unit_id": "chem11_u01_lu03_measuring_matter",
+      "subtopics": [
+        {
+          "id": "1.3",
+          "title": "Properties of Matter and their Measurement",
+          "section_id": "1.3"
+        },
+        {
+          "id": "1.3.1",
+          "title": "Physical and Chemical Properties",
+          "section_id": "1.3.1"
+        },
+        {
+          "id": "1.3.2",
+          "title": "Measurement of Physical Properties",
+          "section_id": "1.3.2"
+        },
+        {
+          "id": "1.3.3",
+          "title": "The International System of Units (SI)",
+          "section_id": "1.3.3"
+        },
+        {
+          "id": "1.3.4",
+          "title": "Mass and Weight",
+          "section_id": "1.3.4"
+        },
+        {
+          "id": "1.3.5",
+          "title": "Volume",
+          "section_id": "1.3.5"
+        },
+        {
+          "id": "1.3.6",
+          "title": "Density",
+          "section_id": "1.3.6"
+        },
+        {
+          "id": "1.3.7",
+          "title": "Temperature",
+          "section_id": "1.3.7"
+        },
+        {
+          "id": "1.4",
+          "title": "Uncertainty in Measurement",
+          "section_id": "1.4"
+        },
+        {
+          "id": "1.4.1",
+          "title": "Scientific Notation",
+          "section_id": "1.4.1"
+        },
+        {
+          "id": "1.4.2",
+          "title": "Significant Figures",
+          "section_id": "1.4.2"
+        },
+        {
+          "id": "1.4.3",
+          "title": "Dimensional Analysis",
+          "section_id": "1.4.3"
+        }
+      ],
+      "concept_ids": [
+        "physical_and_chemical_properties",
+        "quantitative_measurement",
+        "si_units",
+        "mass_and_weight",
+        "volume_measurement",
+        "density",
+        "temperature_scales",
+        "scientific_notation",
+        "scientific_notation_operations",
+        "measurement_uncertainty",
+        "significant_figures",
+        "precision_and_accuracy",
+        "significant_figure_operations",
+        "dimensional_analysis"
+      ],
+      "pages": [
+        {
+          "id": "source-1-2-1",
+          "title": "Properties of Matter",
+          "text": "Matter possesses physical properties (observable without chemical change) and chemical properties (requiring chemical change).",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_7630483728",
+          "source_paragraph": 2,
+          "source_text_sha256": "ee4de3b0afd75be3bfbb2474efb5937ecf992160ab292b03a9a1f4ce74d67cff"
+        },
+        {
+          "id": "source-1-3-1",
+          "title": "Properties of Matter",
+          "text": "Additionally, substances have unique properties classified as physical (color, odour, melting/boiling point, density) and chemical (composition, combustibility, reactivity). Physical properties are measured without changing the substance's identity, while chemical properties require a chemical change to occur.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_7630483728",
+          "source_paragraph": 3,
+          "source_text_sha256": "f73c13fa0fbeeb8092b95e5748b1419a3b3af61f8ee86839da364532f3c0f862"
+        },
+        {
+          "id": "source-2-0-1",
+          "title": "SI Units, Definitions, and Prefixes",
+          "text": "SI Units, Definitions, and Prefixes: The International System of Units (SI) is a standardized system of measurement established in 1960, comprising seven base units for fundamental physical quantities and prefixes for multiples or submultiples.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_f3483dbb64",
+          "source_paragraph": 0,
+          "source_text_sha256": "ca9508fad0bc10f63e612266e975c08f7afa8665dc081c6804620caf37aa25aa"
+        },
+        {
+          "id": "source-2-1-1",
+          "title": "SI Units, Definitions, and Prefixes",
+          "text": "The SI system was established by the 11th General Conference on Weights and Measures (CGPM) to provide a common standard for scientific investigation. It defines seven base units: metre (length), kilogram (mass), second (time), ampere (electric current), kelvin (thermodynamic temperature), mole (amount of substance), and candela (luminous intensity). Modern definitions are based on fixed numerical values of fundamental constants, such as the speed of light for the metre and the Planck constant for the kilogram. The mole is defined by the Avogadro constant (6.02214076×10^23 entities). To handle very large or small quantities, the SI system uses prefixes like kilo (10^3), milli (10^-3), and micro (10^-6). National standards are maintained by institutions like the National Physical Laboratory (NPL) in India.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_f3483dbb64",
+          "source_paragraph": 1,
+          "source_text_sha256": "c8c2a74a005a5a61f893d1bab15ec199fd8cf87d3fc4ae8a37e0c3b1450b13a7"
+        },
+        {
+          "id": "source-2-2-1",
+          "title": "Mass, Weight, and Volume",
+          "text": "Mass, Weight, and Volume: Mass is the amount of matter in a substance and is constant, while weight is the gravitational force on an object and varies with location; volume is the space occupied by a substance.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_f3483dbb64",
+          "source_paragraph": 2,
+          "source_text_sha256": "b24efb665f99c30c6224781b3cf1664e4ca7c6a8f6bfa927124684409cdb813f"
+        },
+        {
+          "id": "source-2-3-1",
+          "title": "Mass, Weight, and Volume",
+          "text": "Mass and weight are distinct concepts often confused. Mass is the quantity of matter and remains constant regardless of location. Weight is the force exerted by gravity and changes depending on the gravitational field strength. In laboratories, mass is measured using an analytical balance, with the kilogram as the SI unit, though grams are more practical for chemical reactions. Volume represents the space occupied by a substance and has units of length cubed (m^3 in SI). In chemistry, smaller units like cm^3, dm^3, and litres (L) are preferred. The relationship between these units is defined as 1 L = 1000 mL = 1000 cm^3 = 1 dm^3.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_f3483dbb64",
+          "source_paragraph": 3,
+          "source_text_sha256": "6844b81890db44680c9e830f8e0a467761c935d57cb2565cf4d560c925b63996"
+        },
+        {
+          "id": "source-2-4-1",
+          "title": "Temperature Scales, Density, and Scientific Notation",
+          "text": "Temperature Scales, Density, and Scientific Notation: Temperature is measured in Celsius, Fahrenheit, or Kelvin; density is mass per unit volume; scientific notation represents large or small numbers as N × 10^n to simplify calculations.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_f3483dbb64",
+          "source_paragraph": 4,
+          "source_text_sha256": "1c567cf76f4b47c2562ec4109efa26119dd6bd8c19e6f9cc9c590f302ca606f2"
+        },
+        {
+          "id": "source-2-5-1",
+          "title": "Temperature Scales, Density, and Scientific Notation",
+          "text": "Temperature scales include Celsius (0°C to 100°C for water's freezing/boiling points), Fahrenheit (32°F to 212°F), and Kelvin (SI unit, no negative values). Conversions are °F = (9/5)°C + 32 and K = °C + 273.15. Density is defined as mass divided by volume, with SI units kg m⁻³, though g cm⁻³ is commonly used in chemistry to indicate particle packing. Scientific notation (N × 10^n) is essential for handling extreme values like atomic masses or Avogadro's number, where N ranges from 1.000 to 9.999 and n is an integer exponent.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_f3483dbb64",
+          "source_paragraph": 5,
+          "source_text_sha256": "42ba98b3aee2270c2670db82f83f6e333826cce87dec98880fc41e82ca83ac05"
+        },
+        {
+          "id": "source-3-0-1",
+          "title": "Significant Figures, Precision, Accuracy, and Rounding Rules",
+          "text": "Significant Figures, Precision, Accuracy, and Rounding Rules: Significant figures are meaningful digits known with certainty plus one estimated digit. Precision is the closeness of repeated measurements, while accuracy is the agreement with the true value.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_9a85991e10",
+          "source_paragraph": 0,
+          "source_text_sha256": "bdfa485868406c180fa553d31be304edf42fff22bc4d664dd6b21b1049a6459e"
+        },
+        {
+          "id": "source-3-1-1",
+          "title": "Significant Figures, Precision, Accuracy, and Rounding Rules",
+          "text": "Experimental measurements contain uncertainty due to instrument limitations and human skill. Significant figures indicate this uncertainty; for example, 11.2 mL implies 11 is certain and 2 is uncertain (±1). Rules for determining significant figures include: all non-zero digits are significant; leading zeros are not; zeros between non-zero digits are significant; trailing zeros are significant only if a decimal point is present; and exact counting numbers have infinite significant figures. In scientific notation, all digits are significant. Precision refers to how close multiple measurements are to each other, whereas accuracy refers to how close a measurement is to the true value. A result can be precise but not accurate, or both. When reporting results, addition/subtraction limits the result to the least number of decimal places among the operands, while multiplication/division limits the result to the least number of significant figures among the operands. Rounding off follows specific rules: if the digit to be removed is >5, increase the preceding digit; if <5, leave it unchanged; if exactly 5, round to the nearest even number.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_9a85991e10",
+          "source_paragraph": 1,
+          "source_text_sha256": "a00894ecd7d008b4770ed0c6e591e3276127db246e0ab503ff3ee59f2cae3281"
+        },
+        {
+          "id": "source-3-2-1",
+          "title": "Arithmetic Operations with Exponential Numbers and Dimensional Analysis",
+          "text": "Arithmetic Operations with Exponential Numbers and Dimensional Analysis: Arithmetic with exponential numbers involves combining coefficients and adding/subtracting exponents. Dimensional analysis (factor label method) converts units by multiplying by conversion factors.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_9a85991e10",
+          "source_paragraph": 2,
+          "source_text_sha256": "b63e81338c5b158df56f9612e0eb650f8e3cc429f2a3aaeec890f4823ce96824"
+        },
+        {
+          "id": "source-3-3-1",
+          "title": "Arithmetic Operations with Exponential Numbers and Dimensional Analysis",
+          "text": "For multiplication and division of exponential numbers, multiply or divide the coefficients and add or subtract the exponents respectively. For example, (5.6×10^5) × (6.9×10^8) = (5.6×6.9)×10^(5+8) = 3.864×10^14. For addition and subtraction, the numbers must first be expressed with the same exponent, and then the coefficients are added or subtracted. For instance, adding 6.65×10^4 and 8.95×10^3 requires converting the latter to 0.895×10^4, resulting in 7.545×10^4. Dimensional analysis, also known as the factor label method, is used to convert units from one system to another. It involves multiplying the given quantity by a conversion factor that cancels the original unit and introduces the desired unit. For example, to convert 3 inches to cm, one would use the appropriate conversion factor relating inches to centimeters.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_9a85991e10",
+          "source_paragraph": 3,
+          "source_text_sha256": "81b1b1638f81ff091244836dc54dc8d945e95e389f9b227a326ed44537a9fe81"
+        },
+        {
+          "id": "source-4-1-1",
+          "title": "Unit Conversion",
+          "text": "Unit conversion utilizes dimensionless unit factors (ratios equal to 1) to change units without altering the quantity's value, treating units algebraically. ",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_d700ba8a2b",
+          "source_paragraph": 1,
+          "source_text_sha256": "d4b481c1ce78d7f27d9e7b13160e1ed763e2dc965e0c3ab9d36f188964f3ab9f"
+        }
+      ]
+    },
+    {
+      "unit_id": "chem11_u01_lu05_laws_of_combination",
+      "subtopics": [
+        {
+          "id": "1.5",
+          "title": "Laws of Chemical Combinations",
+          "section_id": "1.5"
+        },
+        {
+          "id": "1.5.1",
+          "title": "Law of Conservation of Mass",
+          "section_id": "1.5.1"
+        },
+        {
+          "id": "1.5.2",
+          "title": "Law of Definite Proportions",
+          "section_id": "1.5.2"
+        },
+        {
+          "id": "1.5.3",
+          "title": "Law of Multiple Proportions",
+          "section_id": "1.5.3"
+        },
+        {
+          "id": "1.5.4",
+          "title": "Gay Lussac's Law of Gaseous Volumes",
+          "section_id": "1.5.4"
+        },
+        {
+          "id": "1.5.5",
+          "title": "Avogadro's Law",
+          "section_id": "1.5.5"
+        },
+        {
+          "id": "1.6",
+          "title": "Dalton's Atomic Theory",
+          "section_id": "1.6"
+        }
+      ],
+      "concept_ids": [
+        "law_of_conservation_of_mass",
+        "law_of_definite_proportions",
+        "law_of_multiple_proportions",
+        "gay_lussacs_law",
+        "avogadros_law",
+        "daltons_atomic_theory",
+        "dalton_postulates",
+        "dalton_explanatory_power_and_limits"
+      ],
+      "pages": [
+        {
+          "id": "source-4-1-2",
+          "title": "Laws of Chemical Combination, and Dalton's Atomic Theory",
+          "text": "The laws of chemical combination describe how elements combine: Lavoisier's Law of Conservation of Mass states mass is neither created nor destroyed; Proust's Law of Definite Proportions states compounds have fixed elemental mass ratios; Dalton's Law of Multiple Proportions states that when two elements form multiple compounds, the masses of one element combining with a fixed mass of the other are in small whole number ratios; Gay Lussac's Law of Gaseous Volumes states gases combine in simple volume ratios at constant T and P; and Avogadro's Law states equal volumes of gases at same T and P contain equal numbers of molecules. Dalton's Atomic Theory (1808) proposed that matter consists of indivisible atoms, atoms of an element are identical in mass, compounds form by fixed ratios of atoms, and atoms are reorganized but not created or destroyed in reactions. This theory explained the laws of combination but failed to explain gaseous volume laws.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_d700ba8a2b",
+          "source_paragraph": 1,
+          "source_text_sha256": "d4b481c1ce78d7f27d9e7b13160e1ed763e2dc965e0c3ab9d36f188964f3ab9f"
+        }
+      ]
+    },
+    {
+      "unit_id": "chem11_u01_lu07_atomic_and_molecular_masses",
+      "subtopics": [
+        {
+          "id": "1.7",
+          "title": "Atomic and Molecular Masses",
+          "section_id": "1.7"
+        },
+        {
+          "id": "1.7.1",
+          "title": "Atomic Mass",
+          "section_id": "1.7.1"
+        },
+        {
+          "id": "1.7.2",
+          "title": "Average Atomic Mass",
+          "section_id": "1.7.2"
+        },
+        {
+          "id": "1.7.3",
+          "title": "Molecular Mass",
+          "section_id": "1.7.3"
+        },
+        {
+          "id": "1.7.4",
+          "title": "Formula Mass",
+          "section_id": "1.7.4"
+        }
+      ],
+      "concept_ids": [
+        "atomic_mass",
+        "average_atomic_mass",
+        "molecular_mass",
+        "formula_mass"
+      ],
+      "pages": [
+        {
+          "id": "source-4-2-3",
+          "title": "Atomic Mass, Molecular Mass, and Formula Mass",
+          "text": "Atomic Mass, Molecular Mass, and Formula Mass: Atomic mass is the mass of an atom in unified mass units (u). Molecular mass is the sum of atomic masses in a molecule. Formula mass is the sum of atomic masses in an ionic compound's formula unit.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_d700ba8a2b",
+          "source_paragraph": 2,
+          "source_text_sha256": "948579aa6bc779dd002ac1e6c9129b89bc03cb3fb25a5d95b7ae21d275025065"
+        },
+        {
+          "id": "source-4-3-3",
+          "title": "Atomic Mass, Molecular Mass, and Formula Mass",
+          "text": "The unified mass unit (u) replaces amu, where 1 u is defined relative to carbon-12. Average atomic mass is calculated using isotopic abundances (e.g., Carbon is 12.011 u). Molecular mass is determined by summing the atomic masses of all atoms in a molecule, such as methane (CH4) or water (H2O). For ionic compounds like sodium chloride (NaCl), which form a 3D lattice rather than discrete molecules, the term 'formula mass' is used. It is calculated by adding the atomic masses of the ions in the empirical formula (e.g., NaCl = 23.0 u + 35.5 u = 58.5 u).",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_d700ba8a2b",
+          "source_paragraph": 3,
+          "source_text_sha256": "ee07696f2a61f599243e12f4c3418727926e878c32f7939da819965811c82bf2"
+        }
+      ]
+    },
+    {
+      "unit_id": "chem11_u01_lu08_mole_and_molar_mass",
+      "subtopics": [
+        {
+          "id": "1.8",
+          "title": "Mole Concept and Molar Masses",
+          "section_id": "1.8"
+        },
+        {
+          "id": "1.9",
+          "title": "Percentage Composition",
+          "section_id": "1.9"
+        },
+        {
+          "id": "1.9.1",
+          "title": "Empirical Formula for Molecular Formula",
+          "section_id": "1.9.1"
+        }
+      ],
+      "concept_ids": [
+        "mole_concept",
+        "avogadro_constant",
+        "entities_and_amount_of_substance",
+        "molar_mass",
+        "mole_mass_entity_conversions",
+        "percentage_composition",
+        "empirical_formula",
+        "molecular_formula"
+      ],
+      "pages": [
+        {
+          "id": "source-5-0-4",
+          "title": "Mole Concept, Molar Mass, and Percentage Composition",
+          "text": "Mole Concept, Molar Mass, and Percentage Composition: The mole is the SI unit for amount of substance, containing exactly 6.02214076 × 10²³ elementary entities. Molar mass is the mass of one mole in grams. Percentage composition is the mass percent of each element in a compound.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_6fb55ee05d",
+          "source_paragraph": 0,
+          "source_text_sha256": "183653b4d1edc65bbdf973fa5c703ed55bd2642f54ddd09c813b67443a2f39ac"
+        },
+        {
+          "id": "source-5-1-4",
+          "title": "Mole Concept, Molar Mass, and Percentage Composition",
+          "text": "The mole (mol) allows counting microscopic entities like atoms or molecules. The Avogadro constant (N_A) is 6.022 × 10²³ mol⁻¹. Molar mass in g/mol is numerically equal to the atomic or molecular mass in u. For example, the molar mass of water is 18.02 g/mol. Percentage composition is calculated by dividing the mass of an element in the compound by the molar mass of the compound and multiplying by 100. This data is used to determine the purity of samples and to derive empirical and molecular formulas. ",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_6fb55ee05d",
+          "source_paragraph": 1,
+          "source_text_sha256": "ad7f2df3065e68119827bd9b8488ce5bdfaad6017642adb109ffb5594fc4eccb"
+        }
+      ]
+    },
+    {
+      "unit_id": "chem11_u01_lu10_stoichiometry_and_solutions",
+      "subtopics": [
+        {
+          "id": "1.10",
+          "title": "Stoichiometry and Stoichiometric Calculations",
+          "section_id": "1.10"
+        },
+        {
+          "id": "1.10.box.balancing",
+          "title": "Balancing a Chemical Equation",
+          "section_id": "1.10.box.balancing"
+        },
+        {
+          "id": "1.10.1",
+          "title": "Limiting Reagent",
+          "section_id": "1.10.1"
+        },
+        {
+          "id": "1.10.2",
+          "title": "Reactions in Solutions",
+          "section_id": "1.10.2"
+        }
+      ],
+      "concept_ids": [
+        "balanced_chemical_equations",
+        "stoichiometric_coefficients",
+        "stoichiometric_relationships",
+        "limiting_reagent",
+        "solution_concentration",
+        "mass_percent_solution",
+        "mole_fraction",
+        "molarity_and_dilution",
+        "molality",
+        "density_concentration_conversions"
+      ],
+      "pages": [
+        {
+          "id": "source-5-2-5",
+          "title": "Stoichiometry, Balanced Equations, and Limiting Reagent",
+          "text": "Stoichiometry, Balanced Equations, and Limiting Reagent: Stoichiometry deals with the calculation of masses or volumes of reactants and products in a chemical reaction based on the stoichiometric coefficients of a balanced equation, which represent the molar ratios of species involved.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_6fb55ee05d",
+          "source_paragraph": 2,
+          "source_text_sha256": "1e0ed5b54b693dac69fe44a8c6c8b719dd3a715442184e083d052ccce312e5bd"
+        },
+        {
+          "id": "source-5-3-5",
+          "title": "Stoichiometry, Balanced Equations, and Limiting Reagent",
+          "text": "A balanced chemical equation ensures the conservation of mass, meaning the number of atoms of each element is equal on both sides. Coefficients indicate the number of molecules or moles reacting or formed. For example, in the combustion of methane (CH4 + 2O2 → CO2 + 2H2O), 1 mole of methane reacts with 2 moles of oxygen to produce 1 mole of carbon dioxide and 2 moles of water. These ratios allow interconversion between mass, volume, and moles. When reactants are not present in exact stoichiometric proportions, the reactant consumed first is the limiting reagent, which determines the maximum amount of product formed. The other reactant is in excess. To identify the limiting reagent, calculate the moles of each reactant and compare them with the stoichiometric ratio required by the balanced equation.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_6fb55ee05d",
+          "source_paragraph": 3,
+          "source_text_sha256": "6282cc5b51e906afd9cb9f46adb5de82cdb25dd1d320d654171c0eda134b93ca"
+        },
+        {
+          "id": "source-6-0-5",
+          "title": "Concentration Terms",
+          "text": "Concentration Terms: Molarity, Molality, and Dilution: Molarity is moles of solute per litre of solution; molality is moles of solute per kilogram of solvent. Molarity depends on temperature, while molality does not.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_564683616c",
+          "source_paragraph": 0,
+          "source_text_sha256": "59a72c52ee81f1cf20b83a76fd58d9b5c3d839423a7a46fd841fab8babc1990d"
+        },
+        {
+          "id": "source-6-1-5",
+          "title": "Concentration Terms",
+          "text": "Molarity (M) is defined as the number of moles of solute divided by the volume of the solution in litres. It is the most widely used unit but varies with temperature because solution volume changes with heat. Molality (m) is defined as the number of moles of solute per kilogram of solvent. Since mass is unaffected by temperature, molality is a temperature-independent measure. In laboratory settings, solutions of desired lower concentration are often prepared by diluting a higher concentration stock solution. The dilution process relies on the principle that the number of moles of solute remains constant before and after adding solvent. This relationship is expressed by the formula M1V1 = M2V2, where M represents molarity and V represents volume. For example, to prepare 1 litre of 0.2 M NaOH from 1 M NaOH, one calculates that 200 mL of the concentrated solution is required, which is then diluted with water to the 1 litre mark.",
+          "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_564683616c",
+          "source_paragraph": 1,
+          "source_text_sha256": "23477521a0ddb8c5648198f039e42545fb51492a57fc87d84953e3c479a8d715"
+        }
+      ]
+    }
+  ],
+  "review_required": [
+    {
+      "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_d700ba8a2b",
+      "paragraph": 0,
+      "reason": "Mixed measurement/laws overview"
+    },
+    {
+      "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_564683616c",
+      "paragraph": 2,
+      "reason": "Whole-chapter summary crosses all topic boundaries"
+    },
+    {
+      "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_564683616c",
+      "paragraph": 3,
+      "reason": "Whole-chapter summary crosses all topic boundaries"
+    },
+    {
+      "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_fc4070d4c3",
+      "paragraph": 0,
+      "reason": "Mixed exercises require separate source-level mapping"
+    },
+    {
+      "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_fc4070d4c3",
+      "paragraph": 1,
+      "reason": "Mixed exercises require separate source-level mapping"
+    },
+    {
+      "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_fc4070d4c3",
+      "paragraph": 2,
+      "reason": "Mixed exercises require separate source-level mapping"
+    },
+    {
+      "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_fc4070d4c3",
+      "paragraph": 3,
+      "reason": "Mixed exercises require separate source-level mapping"
+    },
+    {
+      "source_concept_id": "unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_6fb55ee05d",
+      "paragraph": 1,
+      "reason": "Water percentage example totals 99.97%; requires scientific review"
+    }
+  ]
+}

@@ -227,8 +227,8 @@
       "importance": "high",
       "difficulty": "foundation",
       "estimated_minutes": {
-        "min": 40,
-        "max": 55
+        "min": 30,
+        "max": 35
       },
       "prerequisite_unit_ids": [],
       "dependent_unit_ids": [
@@ -269,7 +269,8 @@
         "gaseous_state",
         "chem11_u01_lu02_nature_of_matter"
       ],
-      "default_status": "not_started"
+      "default_status": "not_started",
+      "duration_source": "manual"
     },
     {
       "id": "chem11_u01_lu03_measuring_matter",
@@ -609,8 +610,8 @@
       "importance": "very_high",
       "difficulty": "steady",
       "estimated_minutes": {
-        "min": 75,
-        "max": 90
+        "min": 45,
+        "max": 50
       },
       "prerequisite_unit_ids": [
         "chem11_u01_lu01_chemistry_and_its_importance"
@@ -652,7 +653,8 @@
       "legacy_topic_ids": [
         "chem11_u01_lu04_uncertainty_and_data"
       ],
-      "default_status": "not_started"
+      "default_status": "not_started",
+      "duration_source": "manual"
     },
     {
       "id": "chem11_u01_lu05_laws_of_combination",
@@ -863,8 +865,8 @@
       "importance": "high",
       "difficulty": "steady",
       "estimated_minutes": {
-        "min": 50,
-        "max": 65
+        "min": 45,
+        "max": 50
       },
       "prerequisite_unit_ids": [
         "chem11_u01_lu01_chemistry_and_its_importance",
@@ -901,7 +903,8 @@
       "legacy_topic_ids": [
         "chem11_u01_lu06_daltons_atomic_theory"
       ],
-      "default_status": "not_started"
+      "default_status": "not_started",
+      "duration_source": "manual"
     },
     {
       "id": "chem11_u01_lu07_atomic_and_molecular_masses",
@@ -1044,8 +1047,8 @@
       "importance": "very_high",
       "difficulty": "steady",
       "estimated_minutes": {
-        "min": 45,
-        "max": 60
+        "min": 40,
+        "max": 45
       },
       "prerequisite_unit_ids": [
         "chem11_u01_lu03_measuring_matter",
@@ -1077,7 +1080,8 @@
       ],
       "primary_topic_id": "atomic_mass",
       "legacy_topic_ids": [],
-      "default_status": "not_started"
+      "default_status": "not_started",
+      "duration_source": "manual"
     },
     {
       "id": "chem11_u01_lu08_mole_and_molar_mass",
@@ -1252,8 +1256,8 @@
       "importance": "very_high",
       "difficulty": "challenging",
       "estimated_minutes": {
-        "min": 75,
-        "max": 90
+        "min": 60,
+        "max": 75
       },
       "prerequisite_unit_ids": [
         "chem11_u01_lu03_measuring_matter",
@@ -1292,7 +1296,8 @@
       "legacy_topic_ids": [
         "chem11_u01_lu09_composition_and_formulae"
       ],
-      "default_status": "not_started"
+      "default_status": "not_started",
+      "duration_source": "manual"
     },
     {
       "id": "chem11_u01_lu10_stoichiometry_and_solutions",
@@ -1523,7 +1528,8 @@
       ],
       "primary_topic_id": "stoichiometric_relationships",
       "legacy_topic_ids": [],
-      "default_status": "not_started"
+      "default_status": "not_started",
+      "duration_source": "manual"
     }
   ]
 }

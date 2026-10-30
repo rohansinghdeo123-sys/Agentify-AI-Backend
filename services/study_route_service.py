@@ -115,6 +115,7 @@ def start_route(db: Session, *, user_id: str, class_level: str, subject: str,
         and state.session_duration_minutes == session_duration_minutes)
     if same and state.status != 'completed':
         return read_current_route(db, user_id=user_id)
+    previous_notes = dict((state.runtime_json or {}).get('notes_positions', {})) if state else {}
     previous_effective = dict(state.effective_proficiency_json or {}) if state else {}
     previous_review = list(state.needs_review_concept_ids_json or []) if state else []
     if state is None or state.route_date != _today():
@@ -132,7 +133,7 @@ def start_route(db: Session, *, user_id: str, class_level: str, subject: str,
     state.current_step_index = 0
     state.current_step_role = 'main_focus'
     state.runtime_json = {'today_route': portfolio['today_route'], 'unit_ids': _itinerary(portfolio),
-                          'completed_unit_ids': [], 'receipts': {}}
+                          'completed_unit_ids': [], 'receipts': {}, 'notes_positions': previous_notes}
     state.last_position_json = {}
     state.override_reason = state.override_until_unit_id = ''
     state.effective_proficiency_json = previous_effective
@@ -161,7 +162,29 @@ def read_current_route(db, *, user_id, portfolio=None):
         runtime.update(today_route=portfolio['today_route'], unit_ids=_itinerary(portfolio), completed_unit_ids=[], receipts={})
         state.runtime_json = runtime
         db.commit()
-    route = runtime['today_route']
+    # Reconcile persisted allocations after a manual-duration correction without
+    # moving the saved unit, curriculum order, branch or reading position.
+    import copy
+    route = copy.deepcopy(runtime['today_route'])
+    changed = False
+    curriculum = _curriculum(db, state)
+    for configured in (curriculum or {}).get('units', []):
+        if configured.get('duration_source') != 'manual':
+            continue
+        items = [i for i in route['items'] if i['unit_id'] == configured['id']]
+        excess = sum(i['minutes'] for i in items) - configured['estimated_minutes']['max']
+        if excess > 0:
+            for item in items:
+                reduction = min(excess, max(0, item['minutes'] - 1))
+                item['minutes'] -= reduction
+                excess -= reduction
+            changed = True
+    if changed:
+        route['total_minutes'] = sum(i['minutes'] for i in route['items'])
+        route['estimated_minutes'] = {'min': min(route['estimated_minutes']['min'], route['total_minutes']), 'max': route['total_minutes']}
+        runtime['today_route'] = route
+        state.runtime_json = runtime
+        db.commit()
     ids = runtime.get('unit_ids') or _itinerary(portfolio)
     total = max(1, len(ids))
     index = min(int(state.current_step_index or 0), total - 1)
@@ -432,6 +455,17 @@ def record_heartbeat(db, *, user_id, last_position=None):
         raise StudyRouteError('Position belongs to a different unit')
     if state.status == 'completed':
         return read_current_route(db, user_id=user_id)
+    if 'notes_page' in position:
+        page = position['notes_page']
+        if not isinstance(page, int) or page < 0 or page > 500:
+            raise StudyRouteError('Invalid notes page')
+        runtime = dict(state.runtime_json or {})
+        topic = str(position.get('notes_topic') or state.current_unit_id)
+        curriculum = _curriculum(db, state)
+        if not curriculum or topic not in {u['id'] for u in curriculum['units']}:
+            raise StudyRouteError('Notes topic is outside the saved plan chapter')
+        runtime['notes_positions'] = {**runtime.get('notes_positions', {}), topic: page}
+        state.runtime_json = runtime
     state.last_position_json = {**(state.last_position_json or {}), **position}
     state.status = 'in_progress'
     state.started_at = state.started_at or _now()

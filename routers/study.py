@@ -371,6 +371,11 @@ def get_chapter_notes(
 ):
     """Fetch the published master notes for a chapter. If topic_id is provided, filter to that topic."""
     
+    from services.topic_notes_service import mapped_notes
+    mapped = mapped_notes(chapter_slug, topic_id, db, str(current_user.get("uid") or ""))
+    if mapped is not None:
+        return mapped
+
     chapter = (
         db.query(ContentChapter)
         .filter(

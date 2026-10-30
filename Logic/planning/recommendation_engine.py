@@ -780,6 +780,9 @@ def build_planning_roadmap(
             "max": next_route_total,
         }
 
+    if not completed and next_unit.get("duration_source") == "manual":
+        next_step_estimate = dict(next_unit["estimated_minutes"])
+
     return {
         "roadmap_version": "planning_roadmap_v2",
         "chapter_proficiency": profile["chapter_proficiency"],
