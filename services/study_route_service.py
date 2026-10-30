@@ -446,7 +446,7 @@ def complete_today(db, *, user_id):
     return read_current_route(db, user_id=user_id)
 
 
-def record_heartbeat(db, *, user_id, last_position=None):
+def record_heartbeat(db, *, user_id, last_position=None, compact=False):
     state = _get_state(db, user_id, lock=True)
     if not state:
         raise StudyRouteError('No saved learning route')
@@ -454,7 +454,7 @@ def record_heartbeat(db, *, user_id, last_position=None):
     if position.get('unit_id') and position['unit_id'] != state.current_unit_id:
         raise StudyRouteError('Position belongs to a different unit')
     if state.status == 'completed':
-        return read_current_route(db, user_id=user_id)
+        return {'saved': True} if compact else read_current_route(db, user_id=user_id)
     if 'notes_page' in position:
         page = position['notes_page']
         if not isinstance(page, int) or page < 0 or page > 500:
@@ -471,4 +471,4 @@ def record_heartbeat(db, *, user_id, last_position=None):
     state.started_at = state.started_at or _now()
     state.last_active_at = _now()
     db.commit()
-    return read_current_route(db, user_id=user_id)
+    return {'saved': True} if compact else read_current_route(db, user_id=user_id)

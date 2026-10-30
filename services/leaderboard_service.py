@@ -11,7 +11,8 @@ from __future__ import annotations
 from hashlib import sha256
 from typing import Any, Dict, Optional
 
-from sqlalchemy.orm import Session
+from sqlalchemy import or_
+from sqlalchemy.orm import Session, load_only
 
 from app import security
 from models import UserProfile, UserProgress
@@ -41,19 +42,19 @@ def build_leaderboard(
     token_uid = str((decoded_token or {}).get("uid", "")).strip()
     admin_view = bool(decoded_token and security.is_backend_admin(decoded_token))
 
-    profiles_by_user = {
-        row.user_id: row
-        for row in db.query(UserProfile).all()
-        if row.user_id
-    }
-
+    # Rank exactly the same active field, but fetch only the eight needed
+    # profile/progress fields in one join rather than loading every account.
+    active = db.query(UserProgress, UserProfile).outerjoin(
+        UserProfile, UserProfile.user_id == UserProgress.user_id,
+    ).options(
+        load_only(UserProgress.user_id, UserProgress.xp, UserProgress.streak, UserProgress.total_tests),
+        load_only(UserProfile.user_id, UserProfile.display_name, UserProfile.email, UserProfile.class_level),
+    ).filter(or_(UserProgress.xp > 0, UserProgress.streak > 0, UserProgress.total_tests > 0))
     rows = []
-    for progress in db.query(UserProgress).all():
+    for progress, account_profile in active.all():
         user_id = progress.user_id
-        if not user_id or not _has_activity(progress):
+        if not user_id:
             continue
-
-        account_profile = profiles_by_user.get(user_id)
         display_name = str(
             (account_profile.display_name if account_profile else "") or ""
         ).strip()

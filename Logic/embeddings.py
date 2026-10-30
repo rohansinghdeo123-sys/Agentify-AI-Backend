@@ -26,12 +26,11 @@ import math
 import operator
 import os
 import re
-import threading
-from collections import OrderedDict
-from typing import List, Optional, Sequence, Tuple
+from typing import List, Optional, Sequence
 from urllib.parse import urlparse
 
 import requests
+from services.ttl_cache import TTLCache
 from tenacity import retry, retry_if_exception, stop_after_attempt, wait_exponential_jitter
 
 logger = logging.getLogger("ai_educator.embeddings")
@@ -40,8 +39,7 @@ _BATCH_SIZE = 96
 _MAX_INPUT_CHARS = 8000  # stay well inside embedding-model token limits
 _QUERY_CACHE_MAX = 256
 
-_query_cache: "OrderedDict[Tuple[str, str], List[float]]" = OrderedDict()
-_query_cache_lock = threading.Lock()
+_query_cache = TTLCache(max_entries=_QUERY_CACHE_MAX)
 
 
 def _model_key(value: str) -> str:
@@ -146,31 +144,18 @@ def embed_query(text: str) -> Optional[List[float]]:
     normalized_text = " ".join(str(text or "").split())[:_MAX_INPUT_CHARS]
     if not normalized_text:
         return None
-    key = (embedding_model(), normalized_text.lower())
-
-    with _query_cache_lock:
-        cached = _query_cache.get(key)
-        if cached is not None:
-            _query_cache.move_to_end(key)
-            return cached
-
+    key = (_base_url(), embedding_model(), normalized_text.lower())
     try:
-        vector = embed_texts([normalized_text])[0]
+        # Coalesce concurrent identical RAG queries without caching failures or
+        # altering the embedding model, content filter, or similarity scoring.
+        return _query_cache.get_or_build(key, 300.0, lambda: embed_texts([normalized_text])[0])
     except Exception as exc:
         logger.warning("Query embedding failed; retrieval continues lexical-only | error=%s", exc)
         return None
 
-    with _query_cache_lock:
-        _query_cache[key] = vector
-        _query_cache.move_to_end(key)
-        while len(_query_cache) > _QUERY_CACHE_MAX:
-            _query_cache.popitem(last=False)
-    return vector
-
 
 def clear_query_cache() -> None:
-    with _query_cache_lock:
-        _query_cache.clear()
+    _query_cache.clear()
 
 
 def normalize(vector: Sequence[float]) -> List[float]:

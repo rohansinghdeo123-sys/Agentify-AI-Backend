@@ -3,7 +3,7 @@
 from models import TopicPerformance, TestHistory, UserProgress
 from datetime import datetime, timedelta
 import math
-from sqlalchemy import func, select
+from sqlalchemy import func, select, or_
 
 
 def _average(values):
@@ -100,14 +100,17 @@ def update_topic_performance(db, user_id, topic, correct_answers, total_question
 # =====================================================
 # COGNITIVE METRICS CALCULATOR
 # =====================================================
-def calculate_cognitive_metrics(db, user_id, *, persist=True):
+_MISSING_USER = object()
+
+def calculate_cognitive_metrics(db, user_id, *, persist=True, sessions=None, user=_MISSING_USER):
     """
     Calculates advanced behavioral metrics:
     - Focus Score: Based on consistency of answer times
     - Consistency Index: Frequency of sessions
     - Learning Efficiency: Accuracy / Time spent
     """
-    sessions = db.query(TestHistory).filter(TestHistory.user_id == user_id).order_by(TestHistory.date.desc(), TestHistory.id.desc()).limit(10).all()
+    if sessions is None:
+        sessions = db.query(TestHistory).filter(TestHistory.user_id == user_id).order_by(TestHistory.date.desc(), TestHistory.id.desc()).limit(10).all()
     
     if not sessions:
         return {
@@ -133,8 +136,9 @@ def calculate_cognitive_metrics(db, user_id, *, persist=True):
     telemetry = summarize_learning_telemetry(sessions)
     
     # Update UserProgress
-    user = db.query(UserProgress).filter(UserProgress.user_id == user_id).first()
-    if user and persist:
+    if user is _MISSING_USER:
+        user = db.query(UserProgress).filter(UserProgress.user_id == user_id).first()
+    if user and persist and (user.focus_score, user.consistency_index, user.learning_efficiency) != (round(avg_focus, 2), round(consistency, 2), round(efficiency, 2)):
         user.focus_score = round(avg_focus, 2)
         user.consistency_index = round(consistency, 2)
         user.learning_efficiency = round(efficiency, 2)
@@ -162,7 +166,8 @@ def get_user_analytics(db, user_id, *, persist_metrics=True):
     learning_telemetry = summarize_learning_telemetry(sessions)
     
     # 2. Cognitive Metrics
-    cog_metrics = calculate_cognitive_metrics(db, user_id, persist=persist_metrics)
+    user = db.query(UserProgress).filter(UserProgress.user_id == user_id).first()
+    cog_metrics = calculate_cognitive_metrics(db, user_id, persist=False, sessions=sessions[:10], user=user)
     
     # 3. Topic Heatmap & Weak Areas
     heatmap = []
@@ -188,7 +193,14 @@ def get_user_analytics(db, user_id, *, persist_metrics=True):
     # Keep the latest observation per topic even after it leaves the recent-session window.
     recent_topics = {s.topic for s in sessions[:10]}
     latest_ids = select(func.max(TestHistory.id)).where(TestHistory.user_id == user_id).group_by(TestHistory.topic)
-    older_latest = db.query(TestHistory).filter(TestHistory.id.in_(latest_ids)).all()
+    # SQL NOT IN containing NULL would hide every older topic. Keep the
+    # original Python membership semantics for nullable legacy history rows.
+    older_topics = TestHistory.topic.notin_([topic for topic in recent_topics if topic is not None])
+    if None not in recent_topics:
+        older_topics = or_(older_topics, TestHistory.topic.is_(None))
+    else:
+        older_topics = older_topics & TestHistory.topic.is_not(None)
+    older_latest = db.query(TestHistory).filter(TestHistory.id.in_(latest_ids), older_topics).all()
     topic_evidence.extend({"topic": s.topic, "session_type": s.session_type or "assessment",
         "attempts": int(s.total_questions or 0), "accuracy": float(s.accuracy_rate or 0),
         "confidence_after": s.confidence_after} for s in older_latest
@@ -235,7 +247,6 @@ def get_user_analytics(db, user_id, *, persist_metrics=True):
         })
         
     # Predictive Insights
-    user = db.query(UserProgress).filter(UserProgress.user_id == user_id).first()
     if user and user.xp > 0:
         days_to_level = math.ceil((100 - (user.xp % 100)) / max(1, user.xp / max(1, user.total_tests)))
         insights.append({
@@ -244,7 +255,7 @@ def get_user_analytics(db, user_id, *, persist_metrics=True):
             "severity": "success"
         })
 
-    return {
+    result = {
         "summary": {
             "total_topics": len(topics),
             "avg_accuracy": round(sum(t.accuracy for t in topics) / len(topics), 1) if topics else 0.0,
@@ -263,3 +274,12 @@ def get_user_analytics(db, user_id, *, persist_metrics=True):
             "next_milestone": f"Level {user.level + 1}" if user else "N/A"
         }
     }
+
+    # Commit only after the payload is plain data. Committing earlier expires
+    # every loaded session/topic and turns serialization into dozens of reads.
+    if user and persist_metrics:
+        values = (cog_metrics['focus_score'], cog_metrics['consistency_index'], cog_metrics['learning_efficiency'])
+        if (user.focus_score, user.consistency_index, user.learning_efficiency) != values:
+            user.focus_score, user.consistency_index, user.learning_efficiency = values
+            db.commit()
+    return result

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict
+from typing import Any, Dict, Union
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
@@ -21,6 +21,7 @@ from schemas import (
     StudyRouteAdvanceResponse,
     StudyRouteBranchRequest,
     StudyRouteHeartbeatRequest,
+    StudyRouteHeartbeatAck,
     StudyRouteStartRequest,
     StudyRouteStateResponse,
 )
@@ -238,11 +239,12 @@ def planning_route_complete_today(
 
 @router.post(
     "/route/heartbeat/{user_id}",
-    response_model=StudyRouteStateResponse,
+    response_model=Union[StudyRouteStateResponse, StudyRouteHeartbeatAck],
 )
 def planning_route_heartbeat(
     user_id: str,
     payload: StudyRouteHeartbeatRequest,
+    compact: bool = False,
     db: Session = Depends(get_db),
     current_user: Dict[str, Any] = Depends(verify_firebase_user),
 ):
@@ -259,6 +261,7 @@ def planning_route_heartbeat(
             db,
             user_id=user_id,
             last_position=payload.last_position,
+            compact=compact,
         )
     except StudyRouteError as exc:
         raise HTTPException(

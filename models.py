@@ -88,6 +88,8 @@ class TestHistory(Base):
         # Rival rankings scan by date window; weekly stats scan (user, window).
         Index("ix_test_history_date", "date"),
         Index("ix_test_history_user_date", "user_id", "date"),
+        Index("ix_test_history_user_date_id", "user_id", "date", "id"),
+        Index("ix_test_history_user_topic_id", "user_id", "topic", "id"),
     )
 
     id = Column(Integer, primary_key=True, index=True)
@@ -123,6 +125,7 @@ class TestHistory(Base):
 # =========================================================
 class SessionDetail(Base):
     __tablename__ = "session_details"
+    __table_args__ = (Index("ix_session_details_test_id", "test_id"),)
 
     id = Column(Integer, primary_key=True, index=True)
     test_id = Column(Integer, ForeignKey("test_history.id"))
@@ -137,6 +140,7 @@ class SessionDetail(Base):
 # =========================================================
 class TopicPerformance(Base):
     __tablename__ = "topic_performance"
+    __table_args__ = (Index("ix_topic_performance_user_topic", "user_id", "topic"),)
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(String, index=True)

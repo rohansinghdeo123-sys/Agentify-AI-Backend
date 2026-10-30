@@ -226,6 +226,7 @@ def _planning_pdf_chunks(text: str, *, target_chars: int = 900) -> List[str]:
     return [chunk for chunk in chunks if chunk]
 
 
+@lru_cache(maxsize=256)
 def _anchor_index(text: str, anchor: str) -> Tuple[int, int]:
     """Locate one authored anchor despite PDF spacing and case artifacts."""
     normalized_text: List[str] = []

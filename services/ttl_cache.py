@@ -18,32 +18,47 @@ class TTLCache:
         self._clock = clock
         self._lock = threading.Lock()
         self._entries: Dict[Hashable, Tuple[float, Any]] = {}
+        self._pending: Dict[Hashable, threading.Event] = {}
+        self._generation = 0
 
     def get_or_build(self, key: Hashable, ttl_seconds: float, builder: Callable[[], Any]) -> Any:
-        now = self._clock()
-        with self._lock:
-            entry = self._entries.get(key)
-            if entry is not None and entry[0] > now:
-                return entry[1]
-
-        # Build outside the lock so a slow builder never blocks other keys.
-        # Concurrent misses on the same key may build twice; last write wins.
-        value = builder()
-        with self._lock:
-            if len(self._entries) >= self._max_entries:
-                self._evict_expired_locked(now)
-            if len(self._entries) >= self._max_entries:
-                oldest_key = min(self._entries, key=lambda item: self._entries[item][0])
-                self._entries.pop(oldest_key, None)
-            self._entries[key] = (now + ttl_seconds, value)
-        return value
+        while True:
+            with self._lock:
+                now = self._clock()
+                entry = self._entries.get(key)
+                if entry is not None and entry[0] > now:
+                    return entry[1]
+                pending = self._pending.get(key)
+                if pending is None:
+                    pending = threading.Event()
+                    self._pending[key] = pending
+                    generation = self._generation
+                    break
+            pending.wait()
+        try:
+            value = builder()
+            with self._lock:
+                now = self._clock()
+                if generation == self._generation:
+                    self._evict_expired_locked(now)
+                    if len(self._entries) >= self._max_entries:
+                        oldest_key = min(self._entries, key=lambda item: self._entries[item][0])
+                        self._entries.pop(oldest_key, None)
+                    self._entries[key] = (now + ttl_seconds, value)
+            return value
+        finally:
+            with self._lock:
+                self._pending.pop(key, None)
+                pending.set()
 
     def invalidate(self, key: Hashable) -> None:
         with self._lock:
+            self._generation += 1
             self._entries.pop(key, None)
 
     def clear(self) -> None:
         with self._lock:
+            self._generation += 1
             self._entries.clear()
 
     def _evict_expired_locked(self, now: float) -> None:

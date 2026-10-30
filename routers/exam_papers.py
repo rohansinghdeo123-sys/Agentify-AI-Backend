@@ -10,6 +10,7 @@ from __future__ import annotations
 import logging
 from typing import Any, Dict, Optional
 
+from starlette.concurrency import run_in_threadpool
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile, status
 from sqlalchemy.orm import Session
 
@@ -81,40 +82,45 @@ async def upload_paper(
     current_user: Dict[str, Any] = Depends(verify_firebase_user),
 ):
     user_id = require_authenticated_user_id(current_user)
-    enforce_user_quota(user_id, "exam_paper")
+    await run_in_threadpool(enforce_user_quota, user_id, "exam_paper")
 
     data = await _read_capped(file)
-    try:
-        paper = paper_service.create_paper_from_upload(
-            db,
-            user_id,
-            filename=file.filename or "",
-            content_type=file.content_type or "",
-            data=data,
-            class_level=class_level,
-            subject=subject,
-            chapter_name=chapter_name,
-            chapter_id=chapter_id,
-            exam_type=exam_type,
-            paper_title=paper_title,
-        )
-    except paper_service.PaperValidationError as exc:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
+    # PDF extraction, analysis and DB persistence are synchronous. Keep them
+    # together on a worker so a long upload cannot stall every learner's API.
+    def process_upload():
+        try:
+            paper = paper_service.create_paper_from_upload(
+                db,
+                user_id,
+                filename=file.filename or "",
+                content_type=file.content_type or "",
+                data=data,
+                class_level=class_level,
+                subject=subject,
+                chapter_name=chapter_name,
+                chapter_id=chapter_id,
+                exam_type=exam_type,
+                paper_title=paper_title,
+            )
+        except paper_service.PaperValidationError as exc:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
 
-    message = {
-        "analyzed": "Paper uploaded and analyzed.",
-        "analyzed_empty": "Paper uploaded, but no structured questions could be extracted.",
-        "needs_ocr": "Paper uploaded. It looks like a scanned image; OCR is required to read it.",
-        "failed": "Paper uploaded, but the text could not be read.",
-    }.get(paper.parse_status, "Paper uploaded.")
+        message = {
+            "analyzed": "Paper uploaded and analyzed.",
+            "analyzed_empty": "Paper uploaded, but no structured questions could be extracted.",
+            "needs_ocr": "Paper uploaded. It looks like a scanned image; OCR is required to read it.",
+            "failed": "Paper uploaded, but the text could not be read.",
+        }.get(paper.parse_status, "Paper uploaded.")
 
-    return {
-        "paper": paper_service.serialize_paper(paper),
-        "analysis": paper.analysis_json or {},
-        "questions_extracted": paper.extracted_question_count or 0,
-        "warnings": list(paper.warnings_json or []),
-        "message": message,
-    }
+        return {
+            "paper": paper_service.serialize_paper(paper),
+            "analysis": paper.analysis_json or {},
+            "questions_extracted": paper.extracted_question_count or 0,
+            "warnings": list(paper.warnings_json or []),
+            "message": message,
+        }
+
+    return await run_in_threadpool(process_upload)
 
 
 @router.get("/exam/papers", response_model=PaperListResponse)

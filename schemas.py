@@ -997,6 +997,10 @@ class StudyRouteBranchRequest(BaseModel):
     model_config = {"extra": "forbid"}
 
 
+class StudyRouteHeartbeatAck(BaseModel):
+    saved: bool
+
+
 class StudyRouteHeartbeatRequest(BaseModel):
     """Lightweight mid-step position save for Continue Learning."""
 

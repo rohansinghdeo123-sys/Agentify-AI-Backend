@@ -14,6 +14,7 @@ import uuid
 
 from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
 
 from app import config
@@ -45,6 +46,10 @@ app = FastAPI(
     title="AI Educator Backend - Agentic v2.0 + Secure Admin + Coach API",
     lifespan=lifespan,
 )
+
+# Compress large JSON payloads; Starlette excludes text/event-stream so tutor
+# tokens remain unbuffered. Tiny acknowledgements avoid compression overhead.
+app.add_middleware(GZipMiddleware, minimum_size=1024, compresslevel=5)
 
 # ================= CORS =================
 app.add_middleware(

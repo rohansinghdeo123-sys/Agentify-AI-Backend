@@ -18,7 +18,7 @@ from app.security import (
 from app.request_models import SubmitSessionRequest
 from app.serializers import format_test_session, normalize_topic, progress_payload
 from database import get_db
-from Logic.analytics_engine import get_user_analytics
+from Logic.analytics_engine import get_user_analytics, calculate_cognitive_metrics
 from models import TestHistory, TopicPerformance, UserProgress
 from schemas import (
     ProgressResponse,
@@ -340,6 +340,8 @@ def analytics(
 @router.get("/dashboard/{user_id}")
 def get_dashboard_data(
     user_id: str,
+    include_analytics: bool = True,
+    include_leaderboard: bool = True,
     db: Session = Depends(get_db),
     current_user: Dict[str, Any] = Depends(verify_firebase_user),
 ):
@@ -348,6 +350,14 @@ def get_dashboard_data(
     user = get_or_create_progress(db, user_id)
     class_level = profile_learning_context(db, user_id).get("class_level", "")
 
+    # The compact dashboard still computes/persists every metric its UI uses;
+    # only unused evidence assembly and the global leaderboard are skipped.
+    metrics_changed = False
+    if not include_analytics:
+        metrics = calculate_cognitive_metrics(db, user_id, persist=False, user=user)
+        values = (metrics['focus_score'], metrics['consistency_index'], metrics['learning_efficiency'])
+        metrics_changed = (user.focus_score, user.consistency_index, user.learning_efficiency) != values
+        user.focus_score, user.consistency_index, user.learning_efficiency = values
     tests = (
         db.query(TestHistory)
         .filter(TestHistory.user_id == user_id)
@@ -356,9 +366,13 @@ def get_dashboard_data(
         .all()
     )
 
-    return {
+    result = {
         "progress": progress_payload(user),
         "sessions": [format_test_session(test, class_level) for test in tests],
-        "analytics": get_user_analytics(db, user_id),
-        "leaderboard": build_leaderboard(db, current_user),
+        "analytics": get_user_analytics(db, user_id) if include_analytics else None,
+        "leaderboard": build_leaderboard(db, current_user) if include_leaderboard else None,
     }
+
+    if metrics_changed:
+        db.commit()
+    return result

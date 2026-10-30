@@ -442,7 +442,7 @@ def coach_chat(
 
 
 @router.post("/coach/chat/stream")
-async def coach_chat_stream(
+def coach_chat_stream(
     payload: CoachChatRequest,
     db: Session = Depends(get_db),
     current_user: Dict[str, Any] = Depends(verify_firebase_user),
@@ -458,6 +458,10 @@ async def coach_chat_stream(
     learner_profile = profile_learning_context(db, payload.user_id)
     resolved_topic = _resolve_selected_catalog_topic(db, payload, learner_profile)
     coach_request = CoachTurnRequest(payload, learner_profile, resolved_topic)
+    # All preflight data is now plain values; release the request connection
+    # before the potentially long model stream starts its own session.
+    db.rollback()
+    db.close()
 
     def make_event_stream() -> Iterator[str]:
         # The generator owns its session: it is opened only once streaming

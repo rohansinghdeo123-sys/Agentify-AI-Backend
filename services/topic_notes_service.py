@@ -26,6 +26,7 @@ def mapped_notes(chapter_slug, topic_id, db, user_id):
         if '\ufffd' in page['text']:
             raise ValueError('Unverified chemical notation in mapped notes')
     return {'chapter':{'slug':curriculum['chapter_slug'],'name':curriculum['chapter_title'],'class_level':curriculum['class_level'],'subject':curriculum['subject'],'chapter_number':1},
+        'active_unit_id':state.current_unit_id if state else None,
         'topic_id':unit['id'],'topic_title':unit['title'],'estimated_minutes':unit['estimated_minutes'],
         'subtopics':selected['subtopics'],'pages':selected['pages'],'saved_page':saved,
         'review_required':mapping['review_required'], 'source':mapping['source'],
