@@ -147,6 +147,7 @@ def record_study_answer_event(
     interaction_id: str,
     scope: Mapping[str, Any],
     source_session_id: str = "",
+    commit: bool = True,
 ) -> Optional[Dict[str, Any]]:
     """Idempotently record a server-completed, curriculum-grounded answer."""
     resolved = resolve_learning_event_scope(scope, db=db)
@@ -169,8 +170,10 @@ def record_study_answer_event(
     )
     db.add(event)
     try:
-        db.commit()
+        db.commit() if commit else db.flush()
     except IntegrityError:
+        if not commit:
+            raise
         db.rollback()
         existing = db.query(PlanningLearningEvent).filter_by(**identity).first()
         if existing is None:

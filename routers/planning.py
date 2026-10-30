@@ -30,6 +30,7 @@ from services.study_route_service import (
     branch_route,
     complete_today,
     read_current_route,
+    prepare_check,
     record_heartbeat,
     start_route,
 )
@@ -41,9 +42,7 @@ router = APIRouter(prefix="/planning", tags=["planning"])
 def _require_integration_enabled() -> None:
     """Return 404 when the shared route feature flag is disabled.
 
-    The integration is disabled by default, so this guard has zero effect on
-    the existing ``/planning/portfolio`` endpoint and on every other route in
-    the application.
+    Deployments may explicitly disable shared routes during rollout.
     """
     if not config.STUDY_LAB_PLANNING_INTEGRATION:
         raise HTTPException(
@@ -82,7 +81,7 @@ def planning_portfolio(
 # PLANNING <-> STUDY LAB — SHARED ROUTE ENDPOINTS
 # =========================================================
 # All endpoints below are additive.  When STUDY_LAB_PLANNING_INTEGRATION is
-# disabled (the default) they return 404 and the application behaves exactly
+# explicitly disabled they return 404 and the application behaves exactly
 # as before.  No existing endpoint, response shape, or error handler is
 # modified by this section.
 @router.post(
@@ -167,6 +166,7 @@ def planning_route_advance(
         return advance_route(
             db,
             user_id=user_id,
+            answers=payload.answers,
             completed_unit_id=payload.completed_unit_id,
             interaction_id=payload.interaction_id,
             correct_answers=payload.correct_answers,
@@ -265,6 +265,20 @@ def planning_route_heartbeat(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=str(exc),
         ) from exc
+
+@router.post("/route/check/{user_id}")
+def planning_route_check(
+    user_id: str,
+    db: Session = Depends(get_db),
+    current_user: Dict[str, Any] = Depends(verify_firebase_user),
+):
+    """Resume or create a grounded check without exposing its answer key."""
+    _require_integration_enabled()
+    require_same_user_or_admin(user_id, current_user)
+    try:
+        return prepare_check(db, user_id=user_id)
+    except StudyRouteError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
 
 
 __all__ = ["router"]

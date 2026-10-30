@@ -3,6 +3,7 @@
 from models import TopicPerformance, TestHistory, UserProgress
 from datetime import datetime, timedelta
 import math
+from sqlalchemy import func, select
 
 
 def _average(values):
@@ -52,7 +53,7 @@ def summarize_learning_telemetry(sessions):
 # =====================================================
 # UPDATE PERFORMANCE (ENHANCED)
 # =====================================================
-def update_topic_performance(db, user_id, topic, correct_answers, total_questions, time_spent=0):
+def update_topic_performance(db, user_id, topic, correct_answers, total_questions, time_spent=0, *, commit=True):
     record = db.query(TopicPerformance).filter(
         TopicPerformance.user_id == user_id,
         TopicPerformance.topic == topic
@@ -69,7 +70,7 @@ def update_topic_performance(db, user_id, topic, correct_answers, total_question
             trend_score=0.0
         )
         db.add(record)
-        db.commit()
+        db.flush()
         db.refresh(record)
 
     # Calculate new accuracy
@@ -93,20 +94,20 @@ def update_topic_performance(db, user_id, topic, correct_answers, total_question
     record.last_practiced = datetime.utcnow()
     record.weak = new_accuracy < 60.0
 
-    db.commit()
+    db.commit() if commit else db.flush()
     return record
 
 # =====================================================
 # COGNITIVE METRICS CALCULATOR
 # =====================================================
-def calculate_cognitive_metrics(db, user_id):
+def calculate_cognitive_metrics(db, user_id, *, persist=True):
     """
     Calculates advanced behavioral metrics:
     - Focus Score: Based on consistency of answer times
     - Consistency Index: Frequency of sessions
     - Learning Efficiency: Accuracy / Time spent
     """
-    sessions = db.query(TestHistory).filter(TestHistory.user_id == user_id).order_by(TestHistory.date.desc()).limit(10).all()
+    sessions = db.query(TestHistory).filter(TestHistory.user_id == user_id).order_by(TestHistory.date.desc(), TestHistory.id.desc()).limit(10).all()
     
     if not sessions:
         return {
@@ -133,7 +134,7 @@ def calculate_cognitive_metrics(db, user_id):
     
     # Update UserProgress
     user = db.query(UserProgress).filter(UserProgress.user_id == user_id).first()
-    if user:
+    if user and persist:
         user.focus_score = round(avg_focus, 2)
         user.consistency_index = round(consistency, 2)
         user.learning_efficiency = round(efficiency, 2)
@@ -151,17 +152,17 @@ def calculate_cognitive_metrics(db, user_id):
 # =====================================================
 # 🔥 BLOOMBERG INTELLIGENCE ENGINE
 # =====================================================
-def get_user_analytics(db, user_id):
+def get_user_analytics(db, user_id, *, persist_metrics=True):
     """
     Generates high-density, actionable insights.
     """
     # 1. Fetch Data
     topics = db.query(TopicPerformance).filter(TopicPerformance.user_id == user_id).all()
-    sessions = db.query(TestHistory).filter(TestHistory.user_id == user_id).order_by(TestHistory.date.desc()).limit(20).all()
+    sessions = db.query(TestHistory).filter(TestHistory.user_id == user_id).order_by(TestHistory.date.desc(), TestHistory.id.desc()).limit(20).all()
     learning_telemetry = summarize_learning_telemetry(sessions)
     
     # 2. Cognitive Metrics
-    cog_metrics = calculate_cognitive_metrics(db, user_id)
+    cog_metrics = calculate_cognitive_metrics(db, user_id, persist=persist_metrics)
     
     # 3. Topic Heatmap & Weak Areas
     heatmap = []
@@ -171,6 +172,7 @@ def get_user_analytics(db, user_id):
             "topic": t.topic,
             "value": round(t.accuracy, 1),
             "attempts": t.attempts,
+            "last_practiced": t.last_practiced.isoformat() if t.last_practiced else "",
             "trend": round(t.trend_score, 1)
         })
         if t.weak:
@@ -183,6 +185,14 @@ def get_user_analytics(db, user_id):
     # 4. Performance Trends (Last 10 sessions)
     trends = []
     topic_evidence = []
+    # Keep the latest observation per topic even after it leaves the recent-session window.
+    recent_topics = {s.topic for s in sessions[:10]}
+    latest_ids = select(func.max(TestHistory.id)).where(TestHistory.user_id == user_id).group_by(TestHistory.topic)
+    older_latest = db.query(TestHistory).filter(TestHistory.id.in_(latest_ids)).all()
+    topic_evidence.extend({"topic": s.topic, "session_type": s.session_type or "assessment",
+        "attempts": int(s.total_questions or 0), "accuracy": float(s.accuracy_rate or 0),
+        "confidence_after": s.confidence_after} for s in older_latest
+        if s.topic not in recent_topics and int(s.total_questions or 0) > 0)
     for s in reversed(sessions[:10]):
         trends.append({
             "date": s.date.isoformat(),

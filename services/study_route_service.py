@@ -1,782 +1,440 @@
-"""Shared Planning <-> Study Lab route state.
+"""One persistent route, backed by the existing curriculum and mastery engine.
 
-Planning is the navigator; Study Lab executes the route.  This service is the
-single place that reads the deterministic roadmap engine, persists the
-student's active route, and writes back the evidence Study Lab produces.
-
-Design rules enforced here:
-
-* The route is NEVER cached.  It is always recomputed from the curriculum
-  manifest + analytics + ``PlanningLearningEvent`` exposure via the existing
-  ``build_planning_portfolio`` engine, so Planning and Study Lab can never
-  display contradictory states.
-* Mastery is NEVER written by this service directly.  Study Lab completion
-  writes scored evidence through the existing ``TestHistory`` +
-  ``update_topic_performance`` writers, and exposure through the existing
-  ``record_study_answer_event`` writer.  The roadmap engine then decides
-  ``mastered`` / ``needs_review`` on the next read using the same rules it
-  already uses everywhere else.
-* Only two override reasons are permitted:
-  ``prerequisite_gap`` and ``revision_required``.  Any other value is
-  rejected.  The engine never reorders the curriculum; a branch temporarily
-  points Study Lab at an existing earlier unit and is cleared on completion.
+The itinerary is captured at start so refresh cannot move a learner mid-unit.
+Mastery remains derived from TestHistory, TopicPerformance and study exposure.
 """
-
 from __future__ import annotations
 
-import re
 from datetime import date, datetime, timezone
-from typing import Any, Dict, List, Mapping, Optional, Sequence
+from typing import Any, Mapping, Optional, Sequence
+from uuid import uuid4
 
 from sqlalchemy.orm import Session
 
 from Logic.analytics_engine import update_topic_performance
-from Logic.planning.portfolio_engine import (
-    PlanningPortfolioError,
-    build_planning_portfolio,
-)
-from models import AICoachProfile, StudyRouteState, TestHistory
-from services.planning_progress_service import (
-    record_study_answer_event,
-    resolve_learning_event_scope,
-)
-
-
-# Existing vocabularies — reused, never extended.
-_VALID_STUDY_TIME_TODAY = {"15", "30", "60", "120_plus", "no_limit"}
-_VALID_PROFICIENCY = {
-    "new_to_it",
-    "know_a_little",
-    "know_the_basics",
-    "mostly_confident",
-}
-_VALID_OVERRIDE_REASONS = {"prerequisite_gap", "revision_required"}
-_VALID_ROUTE_STATUS = {"not_started", "in_progress", "paused", "completed"}
-_VALID_UNIT_STATUS = {
-    "not_started",
-    "recommended",
-    "learning",
-    "practising",
-    "needs_review",
-    "mastered",
-}
+from Logic.planning.portfolio_engine import PlanningPortfolioError, build_planning_portfolio
+from Logic.planning.curriculum_registry import resolve_planning_curriculum
+from models import AICoachProfile, ContentChapter, ContentConcept, StudyRouteState, TestHistory
+from services.catalog_service import resolve_published_planning_curriculum, resolve_catalog_topic
+from services.planning_progress_service import record_study_answer_event
 
 
 class StudyRouteError(ValueError):
-    """Raised when a route operation cannot be honoured without breaking NCERT order."""
-
-
-# =========================================================
-# INTERNAL HELPERS
-# =========================================================
-def _normalized(value: Any) -> str:
-    return re.sub(r"[^a-z0-9]+", "_", str(value or "").strip().lower()).strip("_")
+    pass
 
 
 def _today() -> date:
     return datetime.now(timezone.utc).date()
 
 
-def _utcnow_naive() -> datetime:
+def _now():
     return datetime.now(timezone.utc).replace(tzinfo=None)
 
 
-def _get_state(db: Session, user_id: str) -> Optional[StudyRouteState]:
-    return (
-        db.query(StudyRouteState)
-        .filter(
-            StudyRouteState.user_id == user_id,
-            StudyRouteState.route_date == _today(),
-        )
-        .first()
-    )
+def _get_state(db, user_id, *, lock=False):
+    query = db.query(StudyRouteState).filter(StudyRouteState.user_id == user_id)
+    if lock:
+        query = query.with_for_update()
+    return query.order_by(StudyRouteState.route_date.desc(), StudyRouteState.id.desc()).first()
 
 
-def _build_portfolio_from_state(
-    db: Session,
-    state: StudyRouteState,
-) -> Dict[str, Any]:
-    """Recompute the deterministic route from the persisted selections.
-
-    This is the ONLY place Study Lab and Planning read the current route from,
-    which is what guarantees they can never disagree.
-    """
-    selections = list(state.selections_json or [])
-    if not selections:
-        raise StudyRouteError("Route has no selections to rebuild from")
+def _build_portfolio_from_state(db, state):
     try:
         return build_planning_portfolio(
-            db,
-            user_id=state.user_id,
-            class_level=state.class_level,
-            subject=state.subject,
-            selections=selections,
+            db, user_id=state.user_id, class_level=state.class_level,
+            subject=state.subject, selections=state.selections_json or [],
             study_time_today=state.study_time_today,
             session_duration_minutes=state.session_duration_minutes,
         )
     except PlanningPortfolioError as exc:
-        # Surface as a study-route error so the router can translate it
-        # consistently with /planning/portfolio's own error handling.
         raise StudyRouteError(str(exc)) from exc
 
 
-def _selected_chapter(
-    portfolio: Mapping[str, Any],
-) -> Mapping[str, Any]:
-    selected_key = str(portfolio.get("global_next_step", {}).get("curriculum_key") or "")
-    for chapter in portfolio.get("chapters") or []:
-        if str(chapter.get("curriculum_key")) == selected_key:
-            return chapter
-    # The engine guarantees one selected chapter; fall back defensively.
-    chapters = portfolio.get("chapters") or []
-    if not chapters:
-        raise StudyRouteError("Portfolio contains no chapters")
-    return chapters[0]
+def _chapter(portfolio, state):
+    return next((c for c in portfolio['chapters']
+                 if c['curriculum_key'] == state.active_curriculum_key), portfolio['chapters'][0])
 
 
-def _main_focus_items(
-    today_route: Mapping[str, Any],
-) -> List[Dict[str, Any]]:
-    return [
-        dict(item)
-        for item in today_route.get("items") or []
-        if str(item.get("role")) == "main_focus"
-    ]
+def _unit(chapter, unit_id):
+    found = next((u for u in chapter['learning_units'] if u['id'] == unit_id), None)
+    if found is None:
+        raise StudyRouteError('The requested unit is not in the active chapter')
+    return found
 
 
-def _current_step_block(
-    state: StudyRouteState,
-    chapter: Mapping[str, Any],
-) -> Dict[str, Any]:
-    """Build the Today's Route step block: Step X of Y + current unit details."""
-    today_route = chapter.get("roadmap_daily_route") or chapter.get("daily_route") or {}
-    # ``build_planning_portfolio`` exposes the route at the portfolio level;
-    # the chapter itself carries learning_units and next_step.  Callers pass
-    # the merged block via ``chapter``; fall back to next_step when absent.
-    focus_items = _main_focus_items(today_route)
-    total_steps = max(1, len(focus_items))
-    step_index = int(state.current_step_index or 0)
-    if step_index >= total_steps:
-        step_index = total_steps - 1
-    if step_index < 0:
-        step_index = 0
-    current_item: Dict[str, Any] = {}
-    if focus_items:
-        current_item = dict(focus_items[step_index])
-    next_step = chapter.get("next_step") or {}
-    current_unit_id = (
-        str(state.current_unit_id)
-        or str(current_item.get("unit_id") or "")
-        or str(next_step.get("unit_id") or "")
-    )
-    unit = next(
-        (
-            u for u in chapter.get("learning_units") or []
-            if str(u.get("id")) == current_unit_id
-        ),
-        None,
-    )
-    return {
-        "step_index": step_index,
-        "step_total": total_steps,
-        "step_label": f"Step {step_index + 1} of {total_steps}",
-        "current_unit_id": current_unit_id,
-        "current_unit_title": (
-            str(unit.get("title")) if unit else str(current_item.get("title") or "")
-        ),
-        "current_unit_role": "main_focus",
-        "current_unit_activity": str(current_item.get("activity") or ""),
-        "current_unit_minutes": int(current_item.get("minutes") or 0),
-        "current_unit_scope": str(current_item.get("scope") or ""),
-        "recommended_approach": list(next_step.get("approach") or []),
-        "why_now": str(next_step.get("reason") or ""),
-        "outcome": str(next_step.get("outcome") or ""),
-        "learning_types": list(next_step.get("learning_types") or []),
-        "unit_depth": str(unit.get("depth")) if unit else "",
-        "unit_difficulty": str(unit.get("difficulty")) if unit else "",
-        "unit_importance": str(unit.get("importance")) if unit else "",
-        "prerequisites": list(unit.get("prerequisite_unit_ids") or []) if unit else [],
-        "unit_status": str(unit.get("status")) if unit else "",
-        "last_position": dict(state.last_position_json or {}),
-    }
+def _curriculum(db, state):
+    args = dict(chapter_ref=state.active_chapter_slug, subject=state.subject, class_level=state.class_level)
+    return (resolve_planning_curriculum(**args)
+            or resolve_published_planning_curriculum(db, **args))
 
 
-def _goal_block(state: StudyRouteState) -> Dict[str, Any]:
-    return dict(state.goal_json or {})
+def learning_notes(db, state, unit):
+    """Replaceable notes adapter: approved concept key points, then unit skills.
 
-
-def _effective_proficiency(state: StudyRouteState) -> Dict[str, Any]:
-    return dict(state.effective_proficiency_json or {})
-
-
-def _needs_review_concepts(state: StudyRouteState) -> List[str]:
-    return list(state.needs_review_concept_ids_json or [])
-
-
-def _override_block(state: StudyRouteState) -> Dict[str, Any]:
-    reason = str(state.override_reason or "")
-    if not reason:
-        return {
-            "active": False,
-            "reason": "",
-            "reason_label": "",
-            "until_unit_id": "",
-        }
-    reason_labels = {
-        "prerequisite_gap": "Temporary prerequisite refresh",
-        "revision_required": "Targeted revision for this unit",
-    }
-    return {
-        "active": True,
-        "reason": reason,
-        "reason_label": reason_labels.get(reason, reason),
-        "until_unit_id": str(state.override_until_unit_id or ""),
-    }
-
-
-# =========================================================
-# PUBLIC API
-# =========================================================
-def start_route(
-    db: Session,
-    *,
-    user_id: str,
-    class_level: str,
-    subject: str,
-    selections: Sequence[Mapping[str, Any]],
-    study_time_today: Optional[str] = None,
-    session_duration_minutes: Optional[int] = None,
-) -> Dict[str, Any]:
-    """Create or replace today's route for ``user_id``.
-
-    Selections are persisted, the deterministic portfolio is computed once to
-    seed the initial step, and a ``study_route_states`` row is upserted.  Any
-    existing route for today is replaced in place — this is what lets the
-    student re-enter Planning and pick a different chapter the same day.
+    This intentionally returns plain bullets until Amit supplies the final format.
     """
-    if not str(user_id).strip():
-        raise StudyRouteError("user_id is required")
-    if not str(class_level).strip():
-        raise StudyRouteError("class_level is required")
-    if not str(subject).strip():
-        raise StudyRouteError("subject is required")
-    normalized_selections: List[Dict[str, str]] = []
-    for selection in selections or []:
-        chapter_ref = str(selection.get("chapter_ref") or "").strip()
-        proficiency = _normalized(selection.get("chapter_proficiency") or "know_a_little")
-        if not chapter_ref:
-            raise StudyRouteError("Every selection must include chapter_ref")
-        if proficiency not in _VALID_PROFICIENCY:
-            raise StudyRouteError(
-                f"Unsupported chapter_proficiency: {selection.get('chapter_proficiency')!r}"
-            )
-        normalized_selections.append(
-            {"chapter_ref": chapter_ref, "chapter_proficiency": proficiency}
-        )
-    if not normalized_selections:
-        raise StudyRouteError("At least one chapter selection is required")
+    ids = [c['id'] for c in unit.get('concepts', [])]
+    from Logic.content_pipeline import APPROVED_STATUSES
+    chapter = db.query(ContentChapter).filter(
+        ContentChapter.slug == state.active_chapter_slug,
+        ContentChapter.status.in_(APPROVED_STATUSES),
+    ).first()
+    points = []
+    if chapter and ids:
+        concepts = db.query(ContentConcept).filter(
+            ContentConcept.chapter_id == chapter.id, ContentConcept.concept_id.in_(ids),
+        ).order_by(ContentConcept.id).all()
+        points = [str(p).strip() for c in concepts for p in (c.key_points or []) if isinstance(p, str) and p.strip()]
+    return list(dict.fromkeys(points or unit.get('skills') or [unit['short_description']]))[:6]
 
-    normalized_time: Optional[str] = None
-    if study_time_today is not None:
-        candidate = _normalized(study_time_today)
-        if candidate not in _VALID_STUDY_TIME_TODAY:
-            raise StudyRouteError(
-                f"Unsupported study_time_today: {study_time_today!r}"
-            )
-        normalized_time = candidate
 
-    duration: Optional[int] = None
-    if session_duration_minutes is not None:
-        try:
-            duration = int(session_duration_minutes)
-        except (TypeError, ValueError) as exc:
-            raise StudyRouteError("session_duration_minutes must be an integer") from exc
-        if duration < 15 or duration > 120:
-            raise StudyRouteError("session_duration_minutes must be between 15 and 120")
+def _itinerary(portfolio):
+    return list(dict.fromkeys(i['unit_id'] for i in portfolio['today_route']['items']))
 
-    # Compute the fresh portfolio BEFORE touching the DB row so a curriculum
-    # error never leaves a partially-written state.
+
+def start_route(db: Session, *, user_id: str, class_level: str, subject: str,
+                selections: Sequence[Mapping[str, Any]], study_time_today=None,
+                session_duration_minutes=None):
+    if not user_id.strip() or not selections:
+        raise StudyRouteError('A student and chapter selections are required')
+    # Validate before writing; use the existing request/engine vocabulary.
+    from schemas import StudyRouteStartRequest
+    from pydantic import ValidationError
     try:
-        portfolio = build_planning_portfolio(
-            db,
-            user_id=user_id,
-            class_level=class_level,
-            subject=subject,
-            selections=normalized_selections,
-            study_time_today=normalized_time,
-            session_duration_minutes=duration,
-        )
-    except PlanningPortfolioError as exc:
+        payload = StudyRouteStartRequest(class_level=class_level, subject=subject,
+            chapters=list(selections), study_time_today=study_time_today,
+            session_duration_minutes=session_duration_minutes)
+    except ValidationError as exc:
         raise StudyRouteError(str(exc)) from exc
-
-    chapter = _selected_chapter(portfolio)
-    focus_items = _main_focus_items(chapter.get("roadmap_daily_route") or {})
-    if not focus_items and chapter.get("next_step"):
-        # Portfolio route lives at the top level; fall back to it.
-        focus_items = _main_focus_items(portfolio.get("today_route") or {})
-
-    first_unit_id = str(
-        (focus_items[0].get("unit_id") if focus_items else None)
-        or portfolio.get("global_next_step", {}).get("unit_id")
-        or ""
-    )
-    first_role = "main_focus" if first_unit_id else ""
-
-    state = _get_state(db, user_id)
-    now = _utcnow_naive()
-    if state is None:
-        state = StudyRouteState(
-            user_id=user_id,
-            route_date=_today(),
-            created_at=now,
-        )
+    selections = [c.model_dump() for c in payload.chapters]
+    state = _get_state(db, user_id, lock=True)
+    same = state is not None and (
+        state.class_level == class_level and state.subject == subject
+        and state.selections_json == selections
+        and state.study_time_today == payload.study_time_today
+        and state.session_duration_minutes == session_duration_minutes)
+    if same and state.status != 'completed':
+        return read_current_route(db, user_id=user_id)
+    previous_effective = dict(state.effective_proficiency_json or {}) if state else {}
+    previous_review = list(state.needs_review_concept_ids_json or []) if state else []
+    if state is None or state.route_date != _today():
+        state = StudyRouteState(user_id=user_id, route_date=_today())
         db.add(state)
-
-    # Optional student goal — never invented, only echoed from the coach.
-    goal_payload: Dict[str, Any] = {}
-    coach = (
-        db.query(AICoachProfile)
-        .filter(AICoachProfile.user_id == user_id)
-        .first()
-    )
-    if coach is not None:
-        active_goals = list(coach.active_goals or [])
-        if active_goals:
-            goal_payload = {"active_goals": active_goals}
-        if coach.target_exam:
-            goal_payload["target_exam"] = str(coach.target_exam)
-        if coach.target_exam_date:
-            goal_payload["target_exam_date"] = coach.target_exam_date.isoformat()
-
-    state.class_level = class_level
-    state.subject = subject
-    state.selections_json = normalized_selections
-    state.study_time_today = normalized_time
-    state.session_duration_minutes = duration
-    state.goal_json = goal_payload
-    state.active_curriculum_key = str(chapter.get("curriculum_key") or "")
-    state.active_chapter_slug = str(chapter.get("chapter_slug") or "")
-    state.current_unit_id = first_unit_id
+    state.class_level, state.subject = class_level, subject
+    state.selections_json = selections
+    state.study_time_today = payload.study_time_today
+    state.session_duration_minutes = session_duration_minutes
+    portfolio = _build_portfolio_from_state(db, state)
+    step = portfolio['global_next_step']
+    state.active_curriculum_key = step['curriculum_key']
+    state.active_chapter_slug = step['chapter_slug']
+    state.current_unit_id = step['unit_id']
     state.current_step_index = 0
-    state.current_step_role = first_role
-    state.last_position_json = dict(state.last_position_json or {})
-    # A fresh start clears any prior override so the student is back on-plan.
-    state.override_reason = ""
-    state.override_until_unit_id = ""
-    state.effective_proficiency_json = dict(state.effective_proficiency_json or {})
-    state.needs_review_concept_ids_json = list(
-        state.needs_review_concept_ids_json or []
-    )
-    state.status = "in_progress"
-    state.started_at = state.started_at or now
-    state.last_active_at = now
+    state.current_step_role = 'main_focus'
+    state.runtime_json = {'today_route': portfolio['today_route'], 'unit_ids': _itinerary(portfolio),
+                          'completed_unit_ids': [], 'receipts': {}}
+    state.last_position_json = {}
+    state.override_reason = state.override_until_unit_id = ''
+    state.effective_proficiency_json = previous_effective
+    state.needs_review_concept_ids_json = previous_review
+    coach = db.query(AICoachProfile).filter(AICoachProfile.user_id == user_id).first()
+    state.goal_json = ({'active_goals': coach.active_goals or [], 'target_exam': coach.target_exam,
+                        'target_exam_date': coach.target_exam_date.isoformat() if coach.target_exam_date else None}
+                       if coach else {})
+    state.status = 'not_started'
+    state.started_at = None
+    state.last_active_at = _now()
     state.completed_at = None
-    state.updated_at = now
-
     db.commit()
-    db.refresh(state)
-
     return read_current_route(db, user_id=user_id, portfolio=portfolio)
 
 
-def read_current_route(
-    db: Session,
-    *,
-    user_id: str,
-    portfolio: Optional[Mapping[str, Any]] = None,
-) -> Dict[str, Any]:
-    """Return today's persisted route merged with a fresh engine computation."""
+def read_current_route(db, *, user_id, portfolio=None):
     state = _get_state(db, user_id)
     if state is None:
-        raise StudyRouteError("No active route for today")
-    if portfolio is None:
-        portfolio = _build_portfolio_from_state(db, state)
-    chapter = _selected_chapter(portfolio)
-    # The portfolio route lives at the top level; give the step builder the
-    # right object without mutating the engine's output.
-    chapter_for_view = dict(chapter)
-    chapter_for_view["roadmap_daily_route"] = portfolio.get("today_route") or {}
-
-    step_block = _current_step_block(state, chapter_for_view)
-    return {
-        "user_id": state.user_id,
-        "route_date": state.route_date.isoformat(),
-        "class_level": state.class_level,
-        "subject": state.subject,
-        "status": state.status,
-        "study_time_today": state.study_time_today,
-        "session_duration_minutes": state.session_duration_minutes,
-        "goal": _goal_block(state),
-        "portfolio_version": portfolio.get("portfolio_version"),
-        "chapters": portfolio.get("chapters") or [],
-        "global_next_step": portfolio.get("global_next_step") or {},
-        "today_route": portfolio.get("today_route") or {},
-        "selection_factors": portfolio.get("selection_factors") or [],
-        "aggregate_progress": portfolio.get("aggregate_progress") or {},
-        "current_step": step_block,
-        "override": _override_block(state),
-        "effective_proficiency": _effective_proficiency(state),
-        "needs_review_concept_ids": _needs_review_concepts(state),
-        "started_at": state.started_at.isoformat() if state.started_at else None,
-        "last_active_at": state.last_active_at.isoformat() if state.last_active_at else None,
-        "completed_at": state.completed_at.isoformat() if state.completed_at else None,
-    }
-
-
-def build_study_lab_context(
-    db: Session,
-    *,
-    user_id: str,
-) -> Dict[str, Any]:
-    """Study Lab entry payload — same route, compact study-lab-specific shape."""
-    route = read_current_route(db, user_id=user_id)
-    step = route["current_step"]
-    override = route["override"]
-    return {
-        "user_id": user_id,
-        "route_date": route["route_date"],
-        "status": route["status"],
-        "current_topic": step["current_unit_title"],
-        "step_label": step["step_label"],
-        "step_index": step["step_index"],
-        "step_total": step["step_total"],
-        "why_now": step["why_now"],
-        "recommended_approach": step["recommended_approach"],
-        "recommended_depth": step["unit_depth"],
-        "learning_types": step["learning_types"],
-        "prerequisites": step["prerequisites"],
-        "current_unit_id": step["current_unit_id"],
-        "current_unit_status": step["unit_status"],
-        "progress": route["aggregate_progress"],
-        "goal": route["goal"],
-        "override": override,
-        "effective_proficiency": route["effective_proficiency"],
-        "needs_review_concept_ids": route["needs_review_concept_ids"],
-        "last_position": step["last_position"],
-        "next_step": route["global_next_step"],
-        "today_route": route["today_route"],
-        "chapters": route["chapters"],
-    }
+        raise StudyRouteError('No saved learning route')
+    portfolio = portfolio or _build_portfolio_from_state(db, state)
+    chapter = _chapter(portfolio, state)
+    unit = _unit(chapter, state.current_unit_id)
+    runtime = dict(state.runtime_json or {})
+    if not runtime.get('today_route'):
+        runtime.update(today_route=portfolio['today_route'], unit_ids=_itinerary(portfolio), completed_unit_ids=[], receipts={})
+        state.runtime_json = runtime
+        db.commit()
+    route = runtime['today_route']
+    ids = runtime.get('unit_ids') or _itinerary(portfolio)
+    total = max(1, len(ids))
+    index = min(int(state.current_step_index or 0), total - 1)
+    item = next((i for i in route['items'] if i['unit_id'] == unit['id'] and i['role'] == 'main_focus'), {})
+    position = dict(state.last_position_json or {})
+    check = runtime.get('check') or {}
+    answered = len(position.get('check_answers', {})) if check.get('unit_id') == unit['id'] else 0
+    progress = 100 if unit['status'] == 'mastered' else min(90, int(answered / max(1, len(check.get('questions', []))) * 90))
+    if position.get('conversation_id') and not progress:
+        progress = 10
+    override = {'active': bool(state.override_reason), 'reason': state.override_reason or '',
+        'reason_label': 'Temporary prerequisite refresh' if state.override_reason == 'prerequisite_gap' else 'Targeted revision',
+        'until_unit_id': state.override_until_unit_id or '',
+        'return_unit_id': (runtime.get('branch') or {}).get('unit_id', ''),
+        'explanation': (runtime.get('branch') or {}).get('reason', '')}
+    next_step = chapter['next_step']
+    why = override['explanation'] if override['active'] else (
+        item.get('reason') or (next_step['reason'] if next_step['unit_id'] == unit['id'] else unit['why_it_matters']))
+    return {'user_id': user_id, 'route_date': state.route_date.isoformat(),
+        'class_level': state.class_level, 'subject': state.subject, 'status': state.status,
+        'study_time_today': state.study_time_today, 'session_duration_minutes': state.session_duration_minutes,
+        'goal': state.goal_json or {}, 'portfolio': portfolio,
+        'completed_unit_ids': list(dict.fromkeys([*runtime.get('completed_unit_ids', []),
+            *(u['id'] for c in portfolio['chapters'] for u in c['learning_units'] if u['status'] == 'mastered')])),
+        'portfolio_version': portfolio['portfolio_version'], 'chapters': portfolio['chapters'],
+        'global_next_step': portfolio['global_next_step'], 'today_route': route,
+        'selection_factors': portfolio['selection_factors'], 'aggregate_progress': portfolio['aggregate_progress'],
+        'current_step': {'step_index': index, 'step_total': total, 'step_label': f'Step {index + 1} of {total}',
+            'current_unit_id': unit['id'], 'current_unit_title': unit['title'],
+            'current_unit_role': 'main_focus', 'current_unit_activity': item.get('activity', ''),
+            'current_unit_minutes': item.get('minutes', unit['estimated_minutes']['min']),
+            'current_unit_scope': item.get('scope', 'partial'),
+            'recommended_approach': unit['learning_route'], 'why_now': why,
+            'outcome': unit['mastery_criteria'][0] if unit['mastery_criteria'] else '',
+            'learning_types': unit['learning_types'], 'unit_depth': unit['depth'],
+            'unit_difficulty': unit['difficulty'], 'unit_importance': unit['importance'],
+            'prerequisites': unit['prerequisite_unit_ids'], 'unit_status': unit['status'],
+            'last_position': position, 'key_notes': learning_notes(db, state, unit),
+            'progress_percentage': progress},
+        'override': override, 'effective_proficiency': {c['curriculum_key']: c['effective_proficiency'] for c in portfolio['chapters']},
+        'needs_review_concept_ids': [u['primary_topic_id'] for c in portfolio['chapters'] for u in c['learning_units'] if u['status'] == 'needs_review'],
+        'started_at': state.started_at, 'last_active_at': state.last_active_at, 'completed_at': state.completed_at}
 
 
-def _write_study_evidence(
-    db: Session,
-    *,
-    state: StudyRouteState,
-    portfolio: Mapping[str, Any],
-    unit_id: str,
-    interaction_id: str,
-    correct_answers: int,
-    total_questions: int,
-    time_spent_seconds: int,
-    confidence_after: Optional[float],
-    xp_earned: Optional[int],
-) -> Dict[str, Any]:
-    """Persist Study Lab completion through the SAME writers Planning uses.
+def build_study_lab_context(db, *, user_id):
+    r = read_current_route(db, user_id=user_id)
+    s = r['current_step']
+    return {'user_id': user_id, 'route_date': r['route_date'], 'status': r['status'],
+        'class_level': r['class_level'], 'subject': r['subject'],
+        'study_time_today': r['study_time_today'], 'session_duration_minutes': r['session_duration_minutes'],
+        'current_topic': s['current_unit_title'], 'step_label': s['step_label'],
+        'step_index': s['step_index'], 'step_total': s['step_total'], 'why_now': s['why_now'],
+        'recommended_approach': s['recommended_approach'], 'recommended_depth': s['unit_depth'],
+        'recommended_minutes': s['current_unit_minutes'], 'key_notes': s['key_notes'],
+        'progress_percentage': s['progress_percentage'], 'learning_types': s['learning_types'],
+        'prerequisites': s['prerequisites'], 'current_unit_id': s['current_unit_id'],
+        'current_unit_status': s['unit_status'], 'progress': r['aggregate_progress'],
+        'goal': r['goal'], 'override': r['override'], 'effective_proficiency': r['effective_proficiency'],
+        'needs_review_concept_ids': r['needs_review_concept_ids'], 'last_position': s['last_position'],
+        'next_step': r['global_next_step'], 'today_route': r['today_route'], 'chapters': r['chapters']}
 
-    Order matters: ``TestHistory`` first (scored evidence the analytics engine
-    aggregates from), then ``update_topic_performance`` (weakness signal), then
-    ``record_study_answer_event`` (exposure proof).  No mastery is written
-    directly — the roadmap engine derives it on the next read.
-    """
-    if total_questions <= 0:
-        raise StudyRouteError("total_questions must be greater than zero")
-    if correct_answers < 0 or correct_answers > total_questions:
-        raise StudyRouteError("correct_answers must be between 0 and total_questions")
 
-    chapter = _selected_chapter(portfolio)
-    unit = next(
-        (
-            u for u in chapter.get("learning_units") or []
-            if str(u.get("id")) == str(unit_id)
-        ),
-        None,
-    )
-    if unit is None:
-        raise StudyRouteError(
-            f"Unit {unit_id!r} is not part of the current route"
-        )
-    unit_title = str(unit.get("title") or "")
-    primary_topic_id = str(unit.get("primary_topic_id") or unit_id)
-    unit_status = str(unit.get("status") or "")
+def prepare_check(db, *, user_id):
+    """Generate once and keep the answer key private, including across refresh."""
+    from Logic.section_doubt import generate_structured_mcqs
+    from app.security import enforce_user_quota
+    state = _get_state(db, user_id, lock=True)
+    if not state:
+        raise StudyRouteError('No saved learning route')
+    runtime = dict(state.runtime_json or {})
+    check = runtime.get('check') or {}
+    if check.get('unit_id') != state.current_unit_id:
+        enforce_user_quota(user_id, 'exam')
+        curriculum = _curriculum(db, state)
+        unit = next(u for u in curriculum['units'] if u['id'] == state.current_unit_id)
+        count = min(10, max(3, int(unit.get('practice', {}).get('minimum_items') or 3)))
+        source = 'published' if curriculum.get('source', {}).get('authority') == 'approved_content_pipeline' else 'planning_manifest'
+        scope = dict(catalog_source=source, chapter_slug=state.active_chapter_slug,
+            chapter=state.active_chapter_slug, subject=state.subject, class_level=state.class_level,
+            planning_unit_id=unit['id'], selected_topic_id=unit['primary_topic_id'])
+        resolved = resolve_catalog_topic(db, unit['id'], subject=state.subject,
+            chapter=state.active_chapter_slug, topic=unit['primary_topic_id'],
+            class_level=state.class_level, catalog_source=source)
+        if resolved:
+            scope.update(resolved)
+        pack = generate_structured_mcqs(topic=unit['title'], section_id=unit['primary_topic_id'],
+            session_id=f'{user_id}_study_check', count=count, strict_grounding=True,
+            class_level=state.class_level, content_scope=scope)
+        questions = pack.get('questions') or []
+        if not questions:
+            raise StudyRouteError(pack.get('error') or 'No approved questions available for this unit')
+        check = {'id': str(uuid4()), 'unit_id': unit['id'], 'questions': questions, 'started_at': _now().isoformat()}
+        runtime['check'] = check
+        state.runtime_json = runtime
+        db.commit()
+    return {'id': check['id'], 'unit_id': check['unit_id'], 'questions': [
+        {k: q[k] for k in ('id', 'question', 'options')} for q in check['questions']]}
 
-    accuracy_rate = (correct_answers / total_questions) * 100.0
-    now = _utcnow_naive()
-    session_type = "revision" if unit_status == "needs_review" else "practice"
 
-    history = TestHistory(
-        user_id=state.user_id,
-        date=now.date(),
-        topic=primary_topic_id,
-        score=int(correct_answers),
-        total_questions=int(total_questions),
-        xp_earned=int(xp_earned) if xp_earned is not None else int(correct_answers),
-        time_spent_seconds=int(max(0, time_spent_seconds)),
-        accuracy_rate=float(accuracy_rate),
-        focus_score=0.0,
-        session_type=session_type,
-        started_at=None,
-        completed_at=now,
-        response_latency_ms=0,
-        hint_count=0,
-        retry_count=0,
-        confidence_before=None,
-        confidence_after=(
-            float(confidence_after) if confidence_after is not None else None
-        ),
-    )
+def _response(db, state, completion):
+    route = read_current_route(db, user_id=state.user_id)
+    chapter = _chapter(route['portfolio'], state)
+    unit = _unit(chapter, state.current_unit_id)
+    return {'completion': completion, 'route': route, 'next_action': {
+        'title': unit['title'], 'reason': route['current_step']['why_now'],
+        'estimated_minutes': unit['estimated_minutes'], 'approach': unit['learning_route'],
+        'outcome': unit['mastery_criteria'][0] if unit['mastery_criteria'] else '',
+        'done_for_today': state.status == 'completed'}}
+
+
+def advance_route(db, *, user_id, completed_unit_id, interaction_id, answers=None,
+                  correct_answers=0, total_questions=1, time_spent_seconds=0,
+                  confidence_after=None, xp_earned=None, last_position=None):
+    state = _get_state(db, user_id, lock=True)
+    if not state:
+        raise StudyRouteError('No saved learning route')
+    runtime = dict(state.runtime_json or {})
+    receipt = (runtime.get('receipts') or {}).get(interaction_id)
+    if receipt:
+        if receipt['unit_id'] != completed_unit_id:
+            raise StudyRouteError('This assessment receipt belongs to a different unit')
+        return _response(db, state, receipt)
+    if completed_unit_id != state.current_unit_id:
+        raise StudyRouteError('Only the current unit can be assessed; refresh your route')
+    check = runtime.get('check') or {}
+    if check.get('id') != interaction_id or check.get('unit_id') != completed_unit_id:
+        raise StudyRouteError('Complete the current quick check before saving progress')
+    questions = check['questions']
+    answers = answers or {}
+    if set(answers) != {q['id'] for q in questions}:
+        raise StudyRouteError('Answer every question before submitting the check')
+    for q in questions:
+        valid = {o[:1] for o in q['options']}
+        if answers[q['id']] not in valid:
+            raise StudyRouteError('Invalid answer option')
+    correct = sum(answers[q['id']] == q['correct'] for q in questions)
+    total = len(questions)
+    accuracy = correct / total * 100
+    portfolio = _build_portfolio_from_state(db, state)
+    chapter = _chapter(portfolio, state)
+    unit = _unit(chapter, completed_unit_id)
+    now = _now()
+    elapsed = max(0, int((now - datetime.fromisoformat(check['started_at'])).total_seconds()))
+    history = TestHistory(user_id=user_id, date=now.date(), topic=unit['primary_topic_id'],
+        score=correct, total_questions=total, accuracy_rate=accuracy, xp_earned=correct,
+        time_spent_seconds=min(elapsed, 86400), session_type='practice', completed_at=now,
+        confidence_after=confidence_after)
     db.add(history)
-    db.commit()
-
-    # Aggregate into TopicPerformance so weak_areas / topic_heatmap reflect it.
-    update_topic_performance(
-        db,
-        user_id=state.user_id,
-        topic=primary_topic_id,
-        correct_answers=int(correct_answers),
-        total_questions=int(total_questions),
-        time_spent=int(max(0, time_spent_seconds)),
-    )
-
-    # Record exposure through the existing idempotent writer.
-    scope = {
-        "catalog_source": "planning_manifest",
-        "chapter_slug": state.active_chapter_slug,
-        "subject": state.subject,
-        "class_level": state.class_level,
-        "planning_unit_id": unit_id,
-    }
-    resolved_scope = resolve_learning_event_scope(scope, db=db)
-    if resolved_scope is None:
-        # Fall back to the published catalog path.
-        scope["catalog_source"] = "published"
-        resolved_scope = resolve_learning_event_scope(scope, db=db)
-    event_result: Optional[Dict[str, Any]] = None
-    if resolved_scope is not None:
-        event_result = record_study_answer_event(
-            db,
-            user_id=state.user_id,
-            interaction_id=str(interaction_id or "").strip() or f"studylab-{now.timestamp()}",
-            scope=resolved_scope,
-            source_session_id=f"studylab-{state.user_id}",
-        )
-
-    return {
-        "unit_id": unit_id,
-        "unit_title": unit_title,
-        "primary_topic_id": primary_topic_id,
-        "session_type": session_type,
-        "accuracy_rate": round(accuracy_rate, 2),
-        "correct_answers": int(correct_answers),
-        "total_questions": int(total_questions),
-        "exposure_event": event_result,
-    }
-
-
-def advance_route(
-    db: Session,
-    *,
-    user_id: str,
-    completed_unit_id: str,
-    interaction_id: str,
-    correct_answers: int,
-    total_questions: int,
-    time_spent_seconds: int = 0,
-    confidence_after: Optional[float] = None,
-    xp_earned: Optional[int] = None,
-    last_position: Optional[Mapping[str, Any]] = None,
-) -> Dict[str, Any]:
-    """Record Study Lab completion, advance the step, and return the next action.
-
-    The route itself is not stored — it is recomputed after the evidence write,
-    so the returned ``next_action`` reflects the engine's deterministic
-    decision, not a cached one.
-    """
-    state = _get_state(db, user_id)
-    if state is None:
-        raise StudyRouteError("No active route for today")
-    if str(completed_unit_id or "").strip() != str(state.current_unit_id or ""):
-        # Allow completion of any unit that the current portfolio considers
-        # the student's next step; the engine is authoritative.
-        pass
-
-    portfolio = _build_portfolio_from_state(db, state)
-    evidence = _write_study_evidence(
-        db,
-        state=state,
-        portfolio=portfolio,
-        unit_id=str(completed_unit_id),
-        interaction_id=str(interaction_id or ""),
-        correct_answers=int(correct_answers),
-        total_questions=int(total_questions),
-        time_spent_seconds=int(time_spent_seconds or 0),
-        confidence_after=confidence_after,
-        xp_earned=xp_earned,
-    )
-
-    # Effective proficiency updates from demonstrated performance.
-    effective = dict(state.effective_proficiency_json or {})
-    curriculum_key = str(state.active_curriculum_key or "")
-    if curriculum_key:
-        current = effective.get(curriculum_key)
-        if not isinstance(current, dict):
-            current = {
-                "self_reported": "",
-                "demonstrated_accuracy": 0.0,
-                "evidence_count": 0,
-                "last_updated": "",
-            }
-        prev_count = int(current.get("evidence_count") or 0)
-        prev_acc = float(current.get("demonstrated_accuracy") or 0.0)
-        new_count = prev_count + 1
-        new_acc = (
-            (prev_acc * prev_count + evidence["accuracy_rate"]) / new_count
-            if new_count
-            else evidence["accuracy_rate"]
-        )
-        current["demonstrated_accuracy"] = round(new_acc, 2)
-        current["evidence_count"] = new_count
-        current["last_updated"] = _utcnow_naive().isoformat()
-        effective[curriculum_key] = current
-        state.effective_proficiency_json = effective
-
-    # Concept-level Needs Review tracking — never invented, only observed.
-    needs_review = set(state.needs_review_concept_ids_json or [])
-    if evidence["accuracy_rate"] < 60.0:
-        needs_review.add(str(evidence["primary_topic_id"]))
+    update_topic_performance(db, user_id, unit['primary_topic_id'], correct, total, elapsed, commit=False)
+    scope = {'catalog_source': 'planning_manifest', 'chapter_slug': state.active_chapter_slug,
+             'class_level': state.class_level, 'subject': state.subject, 'planning_unit_id': unit['id']}
+    event = record_study_answer_event(db, user_id=user_id, interaction_id=interaction_id,
+        scope=scope, source_session_id=str((state.last_position_json or {}).get('conversation_id', '')), commit=False)
+    if event is None:
+        scope['catalog_source'] = 'published'
+        event = record_study_answer_event(db, user_id=user_id, interaction_id=interaction_id, scope=scope, commit=False)
+    if event is None:
+        db.rollback()
+        raise StudyRouteError('This assessment could not be mapped to the curriculum')
+    db.flush()
+    fresh = _build_portfolio_from_state(db, state)
+    refreshed_unit = _unit(_chapter(fresh, state), completed_unit_id)
+    mastered = refreshed_unit['status'] == 'mastered'
+    completion = {'unit_id': unit['id'], 'unit_title': unit['title'], 'accuracy_rate': round(accuracy, 2),
+        'correct_answers': correct, 'total_questions': total, 'mastered': mastered,
+        'feedback': [{'id': q['id'], 'correct': q['correct'], 'explanation': q['explanation'],
+                      'is_correct': answers[q['id']] == q['correct']} for q in questions]}
+    runtime['receipts'] = {**runtime.get('receipts', {}), interaction_id: completion}
+    runtime.pop('check', None)
+    branch = runtime.get('branch')
+    if mastered:
+        completed = list(runtime.get('completed_unit_ids', []))
+        if unit['id'] not in completed:
+            completed.append(unit['id'])
+        runtime['completed_unit_ids'] = completed
+        if branch:
+            state.current_unit_id = branch['unit_id']
+            state.current_step_index = branch['step_index']
+            state.last_position_json = branch['position']
+            runtime.pop('branch', None)
+            state.override_reason = state.override_until_unit_id = ''
+        else:
+            step = fresh['global_next_step']
+            state.active_curriculum_key, state.active_chapter_slug = step['curriculum_key'], step['chapter_slug']
+            state.current_unit_id = step['unit_id']
+            state.current_step_index = int(state.current_step_index or 0) + 1
+            state.last_position_json = {}
     else:
-        needs_review.discard(str(evidence["primary_topic_id"]))
-    state.needs_review_concept_ids_json = sorted(needs_review)
-
-    # Advance the step index within the CURRENT portfolio route.
-    chapter = _selected_chapter(portfolio)
-    chapter_for_view = dict(chapter)
-    chapter_for_view["roadmap_daily_route"] = portfolio.get("today_route") or {}
-    focus_items = _main_focus_items(chapter_for_view.get("roadmap_daily_route") or {})
-    total_steps = max(1, len(focus_items))
-    next_index = int(state.current_step_index or 0) + 1
-    if next_index >= total_steps:
-        next_index = total_steps  # signals "route exhausted for today"
-    state.current_step_index = next_index
-    state.last_position_json = dict(last_position or {})
-    state.last_active_at = _utcnow_naive()
-    state.status = "in_progress"
-    if state.started_at is None:
-        state.started_at = state.last_active_at
-
-    # Clear the override if we just completed the unit it pointed at.
-    if (
-        state.override_reason
-        and str(state.override_until_unit_id or "")
-        and str(state.override_until_unit_id) == str(completed_unit_id)
-    ):
-        state.override_reason = ""
-        state.override_until_unit_id = ""
-
-    # If we've run past the last step in today's route, close the day.
-    if next_index >= total_steps:
-        state.status = "completed"
-        state.completed_at = _utcnow_naive()
-
-    db.commit()
-    db.refresh(state)
-
-    # Recompute so we can return the engine's fresh next step.
-    refreshed = read_current_route(db, user_id=user_id)
-    next_step = refreshed.get("global_next_step") or {}
-    return {
-        "completion": evidence,
-        "next_action": {
-            "title": str(next_step.get("title") or ""),
-            "reason": str(next_step.get("reason") or ""),
-            "estimated_minutes": dict(next_step.get("estimated_minutes") or {}),
-            "approach": list(next_step.get("approach") or []),
-            "outcome": str(next_step.get("outcome") or ""),
-            "done_for_today": state.status == "completed",
-        },
-        "route": refreshed,
-    }
-
-
-def branch_route(
-    db: Session,
-    *,
-    user_id: str,
-    reason: str,
-    target_unit_id: str,
-) -> Dict[str, Any]:
-    """Temporarily point Study Lab at a prerequisite or revision unit.
-
-    Only ``prerequisite_gap`` and ``revision_required`` are accepted.  The
-    curriculum order is never reordered — the branch routes to an existing
-    earlier unit and is cleared when its evidence is recorded.
-    """
-    normalized_reason = _normalized(reason)
-    if normalized_reason not in _VALID_OVERRIDE_REASONS:
-        raise StudyRouteError(
-            "override reason must be one of: " + ", ".join(sorted(_VALID_OVERRIDE_REASONS))
-        )
-    target = str(target_unit_id or "").strip()
-    if not target:
-        raise StudyRouteError("target_unit_id is required")
-
-    state = _get_state(db, user_id)
-    if state is None:
-        raise StudyRouteError("No active route for today")
-
-    portfolio = _build_portfolio_from_state(db, state)
-    chapter = _selected_chapter(portfolio)
-    known_ids = {
-        str(u.get("id")) for u in chapter.get("learning_units") or []
-    }
-    if target not in known_ids:
-        raise StudyRouteError(
-            f"Unit {target!r} is not part of the current chapter"
-        )
-
-    state.override_reason = normalized_reason
-    state.override_until_unit_id = target
-    state.current_unit_id = target
-    state.current_step_role = "main_focus"
-    state.last_active_at = _utcnow_naive()
-    if state.status == "not_started":
-        state.status = "in_progress"
-    db.commit()
-    db.refresh(state)
-    return read_current_route(db, user_id=user_id)
-
-
-def complete_today(db: Session, *, user_id: str) -> Dict[str, Any]:
-    """Mark today's route as completed on the student's behalf."""
-    state = _get_state(db, user_id)
-    if state is None:
-        raise StudyRouteError("No active route for today")
-    now = _utcnow_naive()
-    state.status = "completed"
-    state.completed_at = now
+        state.last_position_json = {k: v for k, v in (state.last_position_json or {}).items() if k != 'check_answers'}
+    state.status = 'in_progress'
+    state.completed_at = None
     state.last_active_at = now
+    state.runtime_json = runtime
+    # Weak prerequisite evidence prompts a temporary, explained branch.
+    if accuracy < 60 and not branch and unit['prerequisite_unit_ids']:
+        _set_branch(state, chapter, 'prerequisite_gap', unit['prerequisite_unit_ids'][0],
+                    'Your last check showed a gap. Review this prerequisite, then return to ' + unit['title'] + '.')
+    if mastered and not branch:
+        remaining = set(runtime.get('unit_ids', [])) - set(runtime.get('completed_unit_ids', []))
+        if not remaining:
+            state.status = 'completed'
+            state.completed_at = now
     db.commit()
-    db.refresh(state)
+    return _response(db, state, completion)
+
+
+def _set_branch(state, chapter, reason, target, explanation):
+    unit = _unit(chapter, state.current_unit_id)
+    target_unit = _unit(chapter, target)
+    by_id = {u['id']: u for u in chapter['learning_units']}
+    prerequisites = set()
+    def visit(u):
+        for dep in u['prerequisite_unit_ids']:
+            if dep not in prerequisites:
+                prerequisites.add(dep)
+                visit(by_id[dep])
+    visit(unit)
+    if reason == 'prerequisite_gap' and target not in prerequisites:
+        raise StudyRouteError('Branch target must be a prerequisite of the current unit')
+    if reason == 'revision_required' and (target != unit['id'] or unit['status'] != 'needs_review'):
+        raise StudyRouteError('Revision must target the current unit with demonstrated review needs')
+    if target_unit['order'] > unit['order']:
+        raise StudyRouteError('A branch cannot skip forward in NCERT order')
+    runtime = dict(state.runtime_json or {})
+    if runtime.get('branch'):
+        raise StudyRouteError('Finish the active intervention before branching again')
+    runtime['branch'] = {'unit_id': state.current_unit_id, 'step_index': state.current_step_index,
+                         'position': state.last_position_json or {}, 'reason': explanation}
+    runtime.pop('check', None)
+    state.runtime_json = runtime
+    state.override_reason, state.override_until_unit_id = reason, target
+    state.current_unit_id = target
+    state.last_position_json = {}
+    state.status = 'in_progress'
+
+
+def branch_route(db, *, user_id, reason, target_unit_id):
+    if reason not in {'prerequisite_gap', 'revision_required'}:
+        raise StudyRouteError('Unsupported intervention reason')
+    state = _get_state(db, user_id, lock=True)
+    if not state:
+        raise StudyRouteError('No saved learning route')
+    portfolio = _build_portfolio_from_state(db, state)
+    _set_branch(state, _chapter(portfolio, state), reason, target_unit_id,
+                'Review this unit before returning to the original learning route.')
+    db.commit()
     return read_current_route(db, user_id=user_id)
 
 
-def record_heartbeat(
-    db: Session,
-    *,
-    user_id: str,
-    last_position: Optional[Mapping[str, Any]] = None,
-) -> Dict[str, Any]:
-    """Persist a lightweight position marker without changing step or status.
-
-    Used for page navigation / refresh / background save so "Continue Learning"
-    can resume mid-step.
-    """
-    state = _get_state(db, user_id)
-    if state is None:
-        raise StudyRouteError("No active route for today")
-    if last_position is not None:
-        state.last_position_json = dict(last_position)
-    state.last_active_at = _utcnow_naive()
+def complete_today(db, *, user_id):
+    state = _get_state(db, user_id, lock=True)
+    if not state:
+        raise StudyRouteError('No saved learning route')
+    # Stopping for the day never claims that unfinished units are mastered.
+    if state.status != 'completed':
+        state.status = 'paused'
+    state.last_active_at = _now()
     db.commit()
-    db.refresh(state)
+    return read_current_route(db, user_id=user_id)
+
+
+def record_heartbeat(db, *, user_id, last_position=None):
+    state = _get_state(db, user_id, lock=True)
+    if not state:
+        raise StudyRouteError('No saved learning route')
+    position = dict(last_position or {})
+    if position.get('unit_id') and position['unit_id'] != state.current_unit_id:
+        raise StudyRouteError('Position belongs to a different unit')
+    if state.status == 'completed':
+        return read_current_route(db, user_id=user_id)
+    state.last_position_json = {**(state.last_position_json or {}), **position}
+    state.status = 'in_progress'
+    state.started_at = state.started_at or _now()
+    state.last_active_at = _now()
+    db.commit()
     return read_current_route(db, user_id=user_id)

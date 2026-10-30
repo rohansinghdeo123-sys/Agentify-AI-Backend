@@ -28,7 +28,7 @@ PROFICIENCY_VALUES = {
 
 
 def _proficiency(profile: Mapping[str, Any]) -> str:
-    value = _normalized(profile.get("chapter_proficiency"))
+    value = _normalized(profile.get("effective_chapter_proficiency") or profile.get("chapter_proficiency"))
     if value in PROFICIENCY_VALUES:
         return value
     # Compatibility for server-side callers that still pass the retired
@@ -252,6 +252,11 @@ def derive_unit_statuses(
             if canonical_attempts
             else 0.0
         )
+        recent = [row for row in analytics.get("topic_evidence", [])
+                  if _normalized(row.get("topic")) in canonical_keys and _analytics_attempts(row) > 0]
+        if recent and _analytics_accuracy(recent[-1]) < 60:
+            statuses[unit_id] = "needs_review"
+            continue
         dimensions = _canonical_evidence_dimensions(analytics, canonical_keys)
         study_exposure = int(
             getattr(persisted_by_unit.get(unit_id), "evidence_count", 0) or 0

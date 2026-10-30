@@ -241,11 +241,21 @@ def build_planning_portfolio(
         subject=subject,
         class_level=class_level,
     )
-    analytics = get_user_analytics(db, user_id)
+    analytics = get_user_analytics(db, user_id, persist_metrics=False)
 
     candidates: list[Dict[str, Any]] = []
     for item in resolved:
         curriculum = item["curriculum"]
+        canonical = {str(u['primary_topic_id']) for u in curriculum['units']}
+        evidence = [r for r in analytics.get('topic_heatmap', [])
+                    if r.get('topic') in canonical and int(r.get('attempts') or 0) > 0]
+        attempts = sum(int(r['attempts']) for r in evidence)
+        accuracy = 0.0
+        effective = item['chapter_proficiency']
+        if attempts:
+            accuracy = sum(float(r.get('accuracy', r.get('value', 0))) * int(r['attempts']) for r in evidence) / attempts
+            effective = ('mostly_confident' if accuracy >= 85 else 'know_the_basics' if accuracy >= 70
+                         else 'know_a_little' if accuracy >= 40 else 'new_to_it')
         roadmap = build_planning_roadmap(
             curriculum,
             chapter_proficiency=item["chapter_proficiency"],
@@ -257,7 +267,7 @@ def build_planning_portfolio(
                 user_id=user_id,
                 curriculum=curriculum,
             ),
-            profile={"chapter_proficiency": item["chapter_proficiency"]},
+            profile={"chapter_proficiency": item["chapter_proficiency"], "effective_chapter_proficiency": effective},
         )
         score, factors, selection_reason = _selection_factors(
             roadmap,
@@ -266,6 +276,9 @@ def build_planning_portfolio(
         candidates.append(
             {
                 **item,
+                "effective_proficiency": {"self_reported": item['chapter_proficiency'], "effective": effective,
+                    "demonstrated_accuracy": round(accuracy, 2), "evidence_count": attempts,
+                    "last_updated": max((r.get('last_practiced', '') for r in evidence), default='')},
                 "roadmap": roadmap,
                 "candidate_score": score,
                 "selection_factors": factors,
@@ -289,6 +302,7 @@ def build_planning_portfolio(
                 "chapter_slug": curriculum["chapter_slug"],
                 "chapter": curriculum["chapter_title"],
                 "chapter_proficiency": item["chapter_proficiency"],
+                "effective_proficiency": item["effective_proficiency"],
                 "roadmap_version": roadmap["roadmap_version"],
                 "curriculum": roadmap["curriculum"],
                 "learning_units": roadmap["learning_units"],

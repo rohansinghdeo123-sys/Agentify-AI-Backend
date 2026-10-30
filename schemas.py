@@ -691,6 +691,7 @@ class PlanningPortfolioSelectionFactor(BaseModel):
 
 
 class PlanningPortfolioChapterRoadmap(BaseModel):
+    effective_proficiency: Dict[str, Any] = Field(default_factory=dict)
     curriculum_key: str = Field(min_length=1, max_length=180)
     chapter_slug: str = Field(min_length=1, max_length=180)
     chapter: str = Field(min_length=1, max_length=240)
@@ -970,8 +971,9 @@ class StudyRouteAdvanceRequest(BaseModel):
 
     completed_unit_id: str = Field(min_length=1, max_length=240)
     interaction_id: str = Field(min_length=1, max_length=240)
-    correct_answers: int = Field(ge=0, le=500)
-    total_questions: int = Field(ge=1, le=500)
+    correct_answers: int = Field(default=0, ge=0, le=500)
+    total_questions: int = Field(default=1, ge=1, le=500)
+    answers: Dict[str, str] = Field(default_factory=dict, max_length=10)
     time_spent_seconds: int = Field(default=0, ge=0, le=86_400)
     confidence_after: Optional[float] = Field(default=None, ge=0, le=100)
     xp_earned: Optional[int] = Field(default=None, ge=0, le=10_000)
@@ -1008,6 +1010,8 @@ class StudyRouteOverride(BaseModel):
     reason: str = ""
     reason_label: str = ""
     until_unit_id: str = ""
+    return_unit_id: str = ""
+    explanation: str = ""
 
 
 class StudyRouteCurrentStep(BaseModel):
@@ -1029,11 +1033,14 @@ class StudyRouteCurrentStep(BaseModel):
     unit_importance: str = ""
     prerequisites: List[str] = Field(default_factory=list)
     unit_status: str = ""
+    key_notes: List[str] = Field(default_factory=list)
+    progress_percentage: int = 0
     last_position: Dict[str, Any] = Field(default_factory=dict)
 
 
 class StudyRouteEffectiveProficiency(BaseModel):
     self_reported: str = ""
+    effective: str = ""
     demonstrated_accuracy: float = 0.0
     evidence_count: int = 0
     last_updated: str = ""
@@ -1057,6 +1064,8 @@ class StudyRouteStateResponse(BaseModel):
     ] = None
     session_duration_minutes: Optional[int] = None
     goal: Dict[str, Any] = Field(default_factory=dict)
+    portfolio: Dict[str, Any] = Field(default_factory=dict)
+    completed_unit_ids: List[str] = Field(default_factory=list)
     portfolio_version: Optional[str] = None
     chapters: List[PlanningPortfolioChapterRoadmap] = Field(default_factory=list)
     global_next_step: Optional[PlanningPortfolioGlobalNextStep] = None
@@ -1099,6 +1108,13 @@ class StudyLabContextResponse(BaseModel):
     user_id: str
     route_date: date
     status: Literal["not_started", "in_progress", "paused", "completed"]
+    study_time_today: Optional[str] = None
+    session_duration_minutes: Optional[int] = None
+    class_level: str = ""
+    subject: str = ""
+    key_notes: List[str] = Field(default_factory=list)
+    recommended_minutes: int = 0
+    progress_percentage: int = 0
     current_topic: str
     step_label: str
     step_index: int = Field(ge=0)

@@ -112,7 +112,7 @@ def test_migration_entrypoint_bootstraps_and_reopens_a_clean_database(tmp_path: 
         }
         assert "published_source_hash" in columns
         version = connection.execute(sa.text("SELECT version_num FROM alembic_version")).scalar_one()
-        assert version == "20260826_0014"
+        assert version == "20261030_0016"
 
 
 def test_deployment_commands_run_schema_entrypoint_before_server() -> None:
@@ -141,7 +141,7 @@ def test_migration_entrypoint_accepts_empty_local_database_url(tmp_path: Path) -
     engine = sa.create_engine(f"sqlite:///{(tmp_path / 'ai_educator.db').as_posix()}")
     with engine.connect() as connection:
         version = connection.execute(sa.text("SELECT version_num FROM alembic_version")).scalar_one()
-        assert version == "20260826_0014"
+        assert version == "20261030_0016"
 
 
 def test_migration_entrypoint_upgrades_an_unversioned_legacy_database(tmp_path: Path) -> None:
@@ -176,4 +176,4 @@ def test_migration_entrypoint_upgrades_an_unversioned_legacy_database(tmp_path: 
         }
         assert "published_source_hash" in columns
         version = connection.execute(sa.text("SELECT version_num FROM alembic_version")).scalar_one()
-        assert version == "20260826_0014"
+        assert version == "20261030_0016"

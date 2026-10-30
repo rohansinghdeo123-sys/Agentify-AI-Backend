@@ -118,11 +118,8 @@ BACKEND_FOUNDER_ADMIN_EMAILS = (
 )
 
 # ================= PLANNING <-> STUDY LAB INTEGRATION =================
-# Additive feature flag. When disabled (the default), every new Planning-route
-# and Study Lab context endpoint returns 404 and the rest of the application
-# behaves exactly as before. Flip to "1" in a deployed environment to expose
-# the shared route state without any code change.
+# Shared Planning and Study Lab routes; deployments may explicitly opt out.
 STUDY_LAB_PLANNING_INTEGRATION = env_bool(
     "STUDY_LAB_PLANNING_INTEGRATION",
-    False,
+    True,
 )

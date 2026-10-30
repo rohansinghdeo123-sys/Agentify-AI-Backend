@@ -196,19 +196,11 @@ class PlanningLearningEvent(Base):
 # PLANNING ↔ STUDY LAB — SHARED ROUTE STATE
 # =========================================================
 class StudyRouteState(Base):
-    """Persistent single source of truth for a student's active Study route.
+    """Persistent learning route, reused across calendar dates until finished.
 
-    One row per ``(user_id, route_date)``.  Planning writes the starting
-    selections here; Study Lab reads them to render Today's Route and writes
-    the current position back here on every advance.  The route itself is
-    never stored — it is always recomputed deterministically from the
-    curriculum manifest + analytics + PlanningLearningEvent exposure, so
-    Planning and Study Lab can never display contradictory states.
-
-    ``override_reason`` is the ONLY permitted way to deviate from NCERT order.
-    It is set when Study Lab temporarily branches to a prerequisite or a
-    targeted revision and is surfaced by both surfaces until the branch is
-    resolved.
+    runtime_json captures the itinerary, assessment receipts and branch return
+    position. Mastery and proficiency are projected from existing analytics and
+    study exposure. override_reason explains temporary prerequisite/review work.
     """
 
     __tablename__ = "study_route_states"
@@ -233,6 +225,7 @@ class StudyRouteState(Base):
     class_level = Column(String, nullable=False, default="")
     subject = Column(String, nullable=False, default="")
     selections_json = Column(JSON, default=list)
+    runtime_json = Column(JSON, default=dict)
     study_time_today = Column(String, nullable=True)
     session_duration_minutes = Column(Integer, nullable=True)
 
@@ -248,7 +241,7 @@ class StudyRouteState(Base):
     current_step_role = Column(String, nullable=False, default="")
 
     # Free-form position marker for "Continue Learning" (e.g. last sub-step
-    # within a unit, last question index). Server-owned, never client-writable.
+    # within a unit, last question index). Heartbeats validate the active unit.
     last_position_json = Column(JSON, default=dict)
 
     # Temporary deviation from the planned NCERT route. Empty when on-plan.

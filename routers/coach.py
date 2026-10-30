@@ -603,6 +603,7 @@ def coach_study_lab_complete_unit(
         return advance_route(
             db,
             user_id=user_id,
+            answers=payload.answers,
             completed_unit_id=payload.completed_unit_id,
             interaction_id=payload.interaction_id,
             correct_answers=payload.correct_answers,
