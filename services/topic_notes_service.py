@@ -12,15 +12,19 @@ def chapter_one_mapping():
 
 def mapped_notes(chapter_slug, topic_id, db, user_id):
     curriculum = resolve_planning_curriculum(chapter_ref=chapter_slug, subject='Chemistry', class_level='Class 11')
-    if not curriculum or curriculum['chapter_number'] != 1 or not topic_id:
+    if not curriculum or curriculum['chapter_number'] != 1:
         return None
-    unit = next((u for u in curriculum['units'] if topic_id in {u['id'],u['primary_topic_id'],*u.get('legacy_topic_ids', [])}),None)
-    if not unit:
-        return None
-    mapping = chapter_one_mapping()
-    selected = next(u for u in mapping['units'] if u['unit_id'] == unit['id'])
     from services.study_route_service import _get_state
     state = _get_state(db,user_id)
+    from services.master_notes_service import resolve_unit
+    resolved = resolve_unit(chapter_slug, topic_id, state.current_unit_id if state else None)
+    if not resolved:
+        from fastapi import HTTPException
+        raise HTTPException(status_code=404, detail="This legacy topic is not mapped to verified Master Notes. Open this chapter from Planning.")
+    _,unit = resolved
+    topic_id = unit['id']
+    mapping = chapter_one_mapping()
+    selected = next(u for u in mapping['units'] if u['unit_id'] == unit['id'])
     saved = ((state.runtime_json or {}).get('notes_positions', {}).get(unit['id'], 0)) if state else 0
     from services.master_notes_service import retrieve_notes, lesson_pages
     retrieval = retrieve_notes(db, chapter_slug, topic_id)

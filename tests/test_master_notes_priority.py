@@ -111,3 +111,22 @@ def test_supplement_does_not_repeat_existing_master_sentences(db):
         result=retrieve_notes(db,CHAPTER,unit(0))
     supplement=[s for s in result["sections"] if s["source"]=="Supplementary NCERT"]
     assert supplement and all(duplicate not in s["text"] for s in supplement)
+
+
+def test_legacy_screenshot_url_uses_amit_measuring_matter(db):
+    legacy="unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_9a85991e10"
+    result=mapped_notes("ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry",legacy,db,"reader")
+    assert result["topic_id"]==unit(1)
+    assert all(p["source"]=="Amit Master Notes" for p in result["pages"])
+    text=" ".join(p["text"] for p in result["pages"])
+    assert "kilo (k) = 10^3" in text
+    assert "National standards are maintained" not in text
+    assert mapped_notes(CHAPTER,None,db,"reader")["pages"]
+    from fastapi import HTTPException
+    with pytest.raises(HTTPException):mapped_notes(CHAPTER,"unknown-outdated-topic",db,"reader")
+
+def test_every_archived_concept_link_resolves_to_master_notes(db):
+    from services.topic_notes_service import chapter_one_mapping
+    for old_id in {p["source_concept_id"] for u in chapter_one_mapping()["units"] for p in u["pages"]}:
+        result=mapped_notes(CHAPTER,old_id,db,"reader")
+        assert result["pages"] and result["topic_id"].startswith("chem11_u01_")
