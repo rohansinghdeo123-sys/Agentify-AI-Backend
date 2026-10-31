@@ -1089,6 +1089,17 @@ def _build_adaptive_context_from_request(request) -> Dict[str, Any]:
 
     if grounding_context_prompt:
         learning_context["grounding_context_prompt"] = grounding_context_prompt
+        if "Amit Master Notes" in grounding_context_prompt:
+            learning_context["grounding_context_prompt"] += (
+                "\nTeach in small, logically ordered bullet points. Explain technical terms on first use. "
+                "Use examples from the supplied Master Notes and explain why/how each demonstrates the concept. "
+                "For concepts use definition, simple explanation, sourced examples and takeaway; add everyday connections only when grounded. "
+                "For laws use statement, explanation, application and takeaway. For classifications use categories, characteristics and examples. "
+                "For numerical/formula material retain formula, symbols/units, step-by-step worked example and practice. "
+                "Preserve all notation, numerical values, charges and units. Label any NCERT supplement distinctly. "
+                "Flag source conflicts; never silently merge them or invent missing source content. "
+                "Keep the existing proficiency adaptation and selected topic boundaries."
+            )
     if getattr(request, "required_not_found_response", None):
         learning_context["required_not_found_response"] = getattr(request, "required_not_found_response")
     if getattr(request, "strict_grounding", False):

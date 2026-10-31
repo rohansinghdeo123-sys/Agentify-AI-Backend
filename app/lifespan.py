@@ -161,6 +161,10 @@ async def lifespan(app):
     else:
         logger.info("AUTO_CREATE_TABLES disabled; relying on Alembic migrations.")
     _restore_bundled_content_release()
+    from services.master_notes_service import install_master_notes
+    from database import SessionLocal
+    with SessionLocal() as master_db:
+        install_master_notes(master_db)
     event_bus.set_sink(persist_event_from_bus)
 
     from database import SessionLocal

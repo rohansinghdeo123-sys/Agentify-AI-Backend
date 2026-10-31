@@ -11,6 +11,8 @@ from Logic.planning.recommendation_engine import build_planning_roadmap
 class TopicNotesTests(unittest.TestCase):
  def setUp(self):
   self.engine=create_engine('sqlite://');Base.metadata.create_all(self.engine);self.db=Session(self.engine)
+  from services.master_notes_service import install_master_notes
+  install_master_notes(self.db)
   self.c=resolve_planning_curriculum(chapter_ref='some_basic_concepts_of_chemistry',subject='Chemistry',class_level='Class 11')
  def tearDown(self):self.db.close();self.engine.dispose()
  def test_manual_ranges_and_order(self):

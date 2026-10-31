@@ -466,6 +466,19 @@ def search_knowledge_base(
     section_id = re.sub(r"[^a-z0-9]+", "_", (section_id or "").strip().lower()).strip("_")
     catalog_source = str((scope or {}).get("catalog_source") or "").strip().lower()
     if catalog_source == "planning_manifest":
+        from services.master_notes_service import resolve_unit, retrieve_notes
+        chapter_ref = (scope or {}).get("chapter_slug") or (scope or {}).get("chapter")
+        if resolve_unit(chapter_ref, section_id) and str((scope or {}).get("class_level") or "") in {"", "11", "Class 11"} and str((scope or {}).get("subject") or "").lower() in {"", "chemistry"}:
+            from database import SessionLocal
+            with SessionLocal() as db:
+                result = retrieve_notes(db, chapter_ref, section_id, (scope or {}).get("subtopic_ids"), question=question)
+            sections = result["sections"]
+            return {"context": "\n\n".join(f"[{s['source']}; pages {s['source_pages']}; {s['title']}]\n{s['text']}" for s in sections),
+                "section_id":section_id,"source":"amit_master_first","paragraphs_found":len(sections),"keywords_used":[],
+                "matched_sections":[s["id"] for s in sections],"conflicts":result["conflicts"],"retrieval_mode":"master_sections_then_missing_ncert",
+                "unit_id":result["unit"]["id"],"source_pages":sorted({p for s in sections for p in s["source_pages"]}),
+                "provenance":[{"source":s["source"],"section_id":s["id"],"subtopic_ids":s["subtopic_ids"],"pages":s["source_pages"]} for s in sections],"content_order_locked":True}
+    if catalog_source == "planning_manifest":
         return _search_registered_planning_pdf(
             section_id=section_id,
             question=question,

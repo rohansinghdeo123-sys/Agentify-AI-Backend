@@ -675,7 +675,13 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
                     allowed_pages = {segment["page"] for segment in unit["source_segments"]}
                     self.assertNotIn("error", result)
                     self.assertEqual(result["unit_id"], unit["id"])
-                    self.assertTrue(set(result["source_pages"]).issubset(allowed_pages))
+                    if curriculum["chapter_number"] == 1:
+                        self.assertEqual(result["source"], "amit_master_first")
+                        for citation in result["provenance"]:
+                            expected_pages = set(range(1,8)) if citation["source"] == "Amit Master Notes" else allowed_pages
+                            self.assertTrue(set(citation["pages"]).issubset(expected_pages))
+                    else:
+                        self.assertTrue(set(result["source_pages"]).issubset(allowed_pages))
                     self.assertGreater(result["paragraphs_found"], 0)
 
     def test_study_evidence_is_idempotent_and_legacy_unit_events_migrate(self):

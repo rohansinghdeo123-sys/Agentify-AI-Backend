@@ -74,6 +74,20 @@ class GroundedRetriever:
         return candidates
 
     def _retrieve_section(self, section_id: str, question: str, scope: Dict[str, Any]) -> RetrievalResult:
+        from services.master_notes_service import resolve_unit, retrieve_notes
+        resolved = resolve_unit(scope.get("chapter_slug") or scope.get("chapter"), section_id)
+        if resolved and _scope_value(scope, "catalog_source").lower() == "planning_manifest" and _scope_value(scope, "class_level") in {"", "11", "Class 11"} and _scope_value(scope, "subject").lower() in {"", "chemistry"}:
+            from database import SessionLocal
+            with SessionLocal() as db:
+                notes = retrieve_notes(db, scope.get("chapter_slug") or scope.get("chapter"), section_id,
+                    scope.get("subtopic_ids"), question=question)
+            sections = notes["sections"]
+            context = "\n\n".join(f"[{s['source']}; PDF pages {s['source_pages']}; {s['title']}]\n{s['text']}" for s in sections)
+            if notes["conflicts"]:
+                context += "\nSOURCE CONFLICT: " + str(notes["conflicts"])
+            return RetrievalResult(context=context, section_id=section_id, source="amit_master_first",
+                paragraphs_found=len(sections), keywords_used=[], scope=dict(scope), supported=bool(context),
+                retrieval_mode="master_sections_then_missing_ncert", matched_sections=[s["id"] for s in sections])
         planning_scope = _scope_value(scope, "catalog_source").lower() == "planning_manifest"
         if not planning_scope:
             try:
