@@ -272,6 +272,8 @@ def _selected_material_scope(request, adaptive_context: Optional[Dict[str, Any]]
             if str(concept_id).strip()
         ],
         "planning_unit_id": str(learning_context.get("planning_unit_id") or "").strip(),
+        "subtopic_ids": learning_context.get("notes_subtopic_ids") if learning_context.get("notes_content_version") == "ncert_teacher_v1" else None,
+        "notes_page_number": learning_context.get("notes_page_number") if learning_context.get("notes_content_version") == "ncert_teacher_v1" else None,
     }
 
 
@@ -1089,14 +1091,14 @@ def _build_adaptive_context_from_request(request) -> Dict[str, Any]:
 
     if grounding_context_prompt:
         learning_context["grounding_context_prompt"] = grounding_context_prompt
-        if "Amit Master Notes" in grounding_context_prompt:
+        if "NCERT" in grounding_context_prompt:
             learning_context["grounding_context_prompt"] += (
                 "\nTeach in small, logically ordered bullet points. Explain technical terms on first use. "
-                "Use examples from the supplied Master Notes and explain why/how each demonstrates the concept. "
-                "For concepts use definition, simple explanation, sourced examples and takeaway; add everyday connections only when grounded. "
+                "Use examples from the supplied NCERT teaching page and explain why/how each demonstrates the concept. "
+                "Begin concepts with an observation, explain why the idea is needed, then build the intuition before its formal definition. "
                 "For laws use statement, explanation, application and takeaway. For classifications use categories, characteristics and examples. "
                 "For numerical/formula material retain formula, symbols/units, step-by-step worked example and practice. "
-                "Preserve all notation, numerical values, charges and units. Label any NCERT supplement distinctly. "
+                "Preserve all notation, numerical values, charges and units. Label additional clarifications distinctly. "
                 "Flag source conflicts; never silently merge them or invent missing source content. "
                 "Keep the existing proficiency adaptation and selected topic boundaries."
             )

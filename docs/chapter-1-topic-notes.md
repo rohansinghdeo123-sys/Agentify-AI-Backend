@@ -1,3 +1,5 @@
+> Historical implementation: the current November 4 NCERT teaching-page contract is documented in [ncert-teacher-notes.md](ncert-teacher-notes.md).
+
 # Chemistry Chapter 1: fixed durations and scoped notes
 
 - The six existing stable unit IDs, NCERT sequence, prerequisites, statuses and initial proficiency remain unchanged. Their authored min/max durations are now 30–35, 45–50, 45–50, 40–45, 60–75 and 75–90 minutes. `duration_source=manual` keeps the full topic estimate separate from shorter scheduled sessions. Existing saved allocations above the corrected maximum are reconciled without resetting unit/branch/reading state.

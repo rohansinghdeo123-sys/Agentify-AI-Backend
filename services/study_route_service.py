@@ -114,8 +114,10 @@ def start_route(db: Session, *, user_id: str, class_level: str, subject: str,
         and state.study_time_today == payload.study_time_today
         and state.session_duration_minutes == session_duration_minutes)
     if same and state.status != 'completed':
+        refresh_notes_session_anchor(db, state)
         return read_current_route(db, user_id=user_id)
     previous_notes = dict((state.runtime_json or {}).get('notes_positions', {})) if state else {}
+    previous_notes_versions = dict((state.runtime_json or {}).get('notes_positions_by_version', {})) if state else {}
     previous_effective = dict(state.effective_proficiency_json or {}) if state else {}
     previous_review = list(state.needs_review_concept_ids_json or []) if state else []
     if state is None or state.route_date != _today():
@@ -133,7 +135,7 @@ def start_route(db: Session, *, user_id: str, class_level: str, subject: str,
     state.current_step_index = 0
     state.current_step_role = 'main_focus'
     state.runtime_json = {'today_route': portfolio['today_route'], 'unit_ids': _itinerary(portfolio),
-                          'completed_unit_ids': [], 'receipts': {}, 'notes_positions': previous_notes}
+                          'completed_unit_ids': [], 'receipts': {}, 'notes_positions': previous_notes, 'notes_positions_by_version': previous_notes_versions, 'notes_session_start_positions': previous_notes_versions, 'notes_session_date': _today().isoformat()}
     state.last_position_json = {}
     state.override_reason = state.override_until_unit_id = ''
     state.effective_proficiency_json = previous_effective
@@ -148,6 +150,18 @@ def start_route(db: Session, *, user_id: str, class_level: str, subject: str,
     state.completed_at = None
     db.commit()
     return read_current_route(db, user_id=user_id, portfolio=portfolio)
+
+
+def refresh_notes_session_anchor(db, state):
+    """A fresh notes-time window must not reset the persistent route or quiz."""
+    runtime = dict(state.runtime_json or {})
+    today = _today().isoformat()
+    if runtime.get('notes_session_date') != today:
+        from copy import deepcopy
+        runtime['notes_session_date'] = today
+        runtime['notes_session_start_positions'] = deepcopy(runtime.get('notes_positions_by_version', {}))
+        state.runtime_json = runtime
+        db.commit()
 
 
 def read_current_route(db, *, user_id, portfolio=None):
@@ -464,7 +478,16 @@ def record_heartbeat(db, *, user_id, last_position=None, compact=False):
         curriculum = _curriculum(db, state)
         if not curriculum or topic not in {u['id'] for u in curriculum['units']}:
             raise StudyRouteError('Notes topic is outside the saved plan chapter')
-        runtime['notes_positions'] = {**runtime.get('notes_positions', {}), topic: page}
+        version = position.get('notes_version')
+        if version:
+            from services.teacher_notes_service import VERSION
+            if version != VERSION or page > 9:
+                raise StudyRouteError('Invalid teaching-notes edition or page')
+            versions = dict(runtime.get('notes_positions_by_version', {}))
+            versions[version] = {**versions.get(version, {}), topic: page}
+            runtime['notes_positions_by_version'] = versions
+        else:
+            runtime['notes_positions'] = {**runtime.get('notes_positions', {}), topic: page}
         state.runtime_json = runtime
     state.last_position_json = {**(state.last_position_json or {}), **position}
     state.status = 'in_progress'

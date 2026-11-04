@@ -71,15 +71,15 @@ def test_content_dependent_structure_and_worked_examples(db):
     assert "Why this example works" in concept[0]["text"]
     assert "copper" in concept[0]["text"]
 
-def test_real_coach_and_tool_share_master_first_pipeline(db):
+def test_real_coach_and_tool_share_latest_ncert_teaching_pipeline(db):
     from Logic.coach.retriever import GroundedRetriever
     from Logic.tools.knowledge_search import search_knowledge_base
     # Real persistent DB retrieval through both public entry points.
     with patch("database.SessionLocal",return_value=db),patch("services.master_notes_service.ncert_gap",side_effect=AssertionError("NCERT queried")):
         result=GroundedRetriever().retrieve("Explain molecular mass",{"chapter":CHAPTER,"topic":unit(3),"catalog_source":"planning_manifest"})
-        assert result.source=="amit_master_first" and "18 u" in result.context
+        assert result.source=="ncert_teacher_notes" and "NCERT" in result.context
         result=search_knowledge_base(unit(3),"molecular mass",scope={"chapter":CHAPTER,"catalog_source":"planning_manifest"})
-        assert result["source"]=="amit_master_first"
+        assert result["source"]=="ncert_teacher_notes"
 
 
 def test_every_indexed_section_matches_the_actual_pdf():
@@ -117,9 +117,9 @@ def test_legacy_screenshot_url_uses_amit_measuring_matter(db):
     legacy="unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_9a85991e10"
     result=mapped_notes("ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry",legacy,db,"reader")
     assert result["topic_id"]==unit(1)
-    assert all(p["source"]=="Amit Master Notes" for p in result["pages"])
+    assert all(p["source"].startswith("NCERT") for p in result["pages"])
     text=" ".join(p["text"] for p in result["pages"])
-    assert "kilo (k) = 10^3" in text
+    assert "10^3" in text or "10³" in text
     assert "National standards are maintained" not in text
     assert mapped_notes(CHAPTER,None,db,"reader")["pages"]
     from fastapi import HTTPException

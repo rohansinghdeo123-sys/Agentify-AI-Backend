@@ -1,3 +1,5 @@
+> Historical implementation: the current November 4 NCERT teaching-page contract is documented in [ncert-teacher-notes.md](ncert-teacher-notes.md).
+
 # Chapter 1: Amit-first Notes and tutoring
 
 The supplied seven-page PDF (SHA-256 recorded in the artifact) is retained unchanged in data/notes/amit_chapter1.pdf. It supersedes the abbreviated seed_chapter_1.py teaching summaries and placeholder pages for this reader; the destructive legacy seed is not executed.

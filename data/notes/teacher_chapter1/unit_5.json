@@ -1,0 +1,433 @@
+{
+  "unit_id": "chem11_u01_lu10_stoichiometry_and_solutions",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "u05-page-01",
+      "title": "A chemical equation is an amount map",
+      "source_section_ids": [
+        "1.10"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A recipe tells you how much of each ingredient belongs in a batch. A chemical equation also gives an amount relationship, but its numbers follow conservation of atoms rather than a cook’s preference. How could we predict the water formed when a known mass of methane burns?",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Stoichiometry deals with calculating the amounts of reactants used and products formed in a chemical reaction. Reactants are the starting substances; products are the substances formed. A balanced equation is the starting point for every such calculation.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "For methane combustion: CH₄(g) + 2O₂(g) → CO₂(g) + 2H₂O(g). The numbers before formulas are stoichiometric coefficients. The unwritten coefficient before CH₄ and CO₂ is 1. The labels (g), (l) and (s) mean gas, liquid and solid.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The equation means 1 mol CH₄ reacts with 2 mol O₂ to form 1 mol CO₂ and 2 mol H₂O. It also gives the molecule-number ratio 1:2:1:2. The coefficient ratio is not a gram ratio: the particles have different masses.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "You already know how to turn grams into moles. That conversion lets a balance measurement enter the mole relationships written in an equation.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Before using these amount relationships, we must check that the equation really conserves every element."
+    },
+    {
+      "page_number": 2,
+      "id": "u05-page-02",
+      "title": "Balance atoms without changing substances",
+      "source_section_ids": [
+        "1.10.box.balancing"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A subscript is part of a substance’s identity. H₂O and H₂O₂ are different compounds. A coefficient tells us how many molecules or moles of the same substance are involved. Balancing changes coefficients, never the formula subscripts.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "NCERT balancing example: balance C₃H₈(g) + O₂(g) → CO₂(g) + H₂O(l).\n1. Carbon: propane contains 3 C atoms, so put 3 before CO₂.\n2. Hydrogen: propane contains 8 H atoms. Each H₂O has 2 H atoms, so put 4 before H₂O.\n3. Oxygen on the product side: 3CO₂ supplies 6 O atoms and 4H₂O supplies 4, making 10 O atoms in total.\n4. Each O₂ provides 2 O atoms, so the oxygen coefficient is 10/2 = 5.\n5. Final equation: C₃H₈(g) + 5O₂(g) → 3CO₂(g) + 4H₂O(l).\n6. Verify C = 3, H = 8 and O = 10 on both sides.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "The same check gives P₄(s) + 5O₂(g) → P₄O₁₀(s). Four P atoms were already balanced, but ten O atoms were needed on each side. Changing the product to a different phosphorus oxide would not be balancing the original reaction.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "A balanced equation does not require equal numbers of molecules on the two sides. It requires equal numbers of atoms of each element. Count each element separately.",
+          "level": "essential"
+        }
+      ],
+      "transition": "With a balanced equation, we can now follow a numerical route from a measured mass to a product amount."
+    },
+    {
+      "page_number": 3,
+      "id": "u05-page-03",
+      "title": "Worked conversions: grams → moles → mole ratio",
+      "source_section_ids": [
+        "1.10"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "NCERT Problem 1.3: find the water produced when 16 g CH₄ burns completely with enough oxygen. For this calculation use the rounded molar masses CH₄ = 16 g mol^(-1) and H₂O = 18 g mol^(-1).\n1. Given: 16 g CH₄. Required: mass of H₂O. Equation: CH₄ + 2O₂ → CO₂ + 2H₂O.\n2. n(CH₄) = m/M = 16 g / (16 g mol^(-1)) = 1 mol.\n3. The equation gives 2 mol H₂O per 1 mol CH₄. Therefore n(H₂O) = 1 × 2/1 = 2 mol.\n4. m(H₂O) = n × M = 2 mol × 18 g mol^(-1) = 36 g.\n5. Meaning: 36 g water can form because the water also contains oxygen supplied by the other reactant; its mass need not equal the methane mass alone.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "NCERT Problem 1.4 asks how many moles of methane are needed for 22 g CO₂. Given M(CO₂) = 44 g mol^(-1), n(CO₂) = 22/44 = 0.5 mol. The CH₄:CO₂ mole ratio is 1:1, so the required amount is 0.5 mol CH₄. The requested answer is in mol, so no final conversion to grams is necessary.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "For a reactant A and product B with coefficients a and b, n(B) = n(A) × b/a, provided the other reactants are available in sufficient amounts. n is in mol; the coefficient ratio has no unit. For gases compared at the same temperature and pressure, coefficients also give gas-volume ratios when all the substances being compared are gases.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "The mass ratio for methane combustion is 16 g CH₄ : 64 g O₂ : 44 g CO₂ : 36 g H₂O with these rounded masses. Do not replace this by 1 g : 2 g : 1 g : 2 g.",
+          "level": "essential"
+        }
+      ],
+      "transition": "What changes if a second reactant is not available in a sufficient amount?"
+    },
+    {
+      "page_number": 4,
+      "id": "u05-page-04",
+      "title": "The reactant that runs out sets the limit",
+      "source_section_ids": [
+        "1.10.1"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Suppose each sandwich needs two bread slices and one filling portion. Extra filling cannot make another sandwich after the bread has run out. Likewise, adding plenty of one reactant cannot compensate for a shortage of another in a reaction’s required ratio.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "The limiting reagent is the reactant consumed first; it limits the maximum amount of product. An excess reagent is present beyond the amount required to react with the limiting reagent. Identify the limit using the balanced equation, not just the smallest mass or the smallest number of moles.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Teacher-worked example: an ideal mixture contains 1 mol N₂ and 2 mol H₂. Find the maximum NH₃ and the limiting reagent for N₂ + 3H₂ → 2NH₃.\n1. Given: n(N₂) = 1 mol and n(H₂) = 2 mol. Required: limiting reactant and n(NH₃).\n2. One mole N₂ would require 3 mol H₂, but only 2 mol H₂ is available. H₂ therefore runs out first.\n3. Use the limiting amount: n(NH₃) = 2 mol H₂ × (2 mol NH₃ / 3 mol H₂) = 4/3 mol NH₃.\n4. N₂ consumed = 2 × 1/3 = 2/3 mol, leaving 1 − 2/3 = 1/3 mol N₂.\n5. Meaning: N₂ remains even though fewer moles of it were supplied. H₂ is limiting because of the required 1:3 reaction ratio.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "A useful comparison is n(reactant)/its coefficient. These quotients measure how many reaction batches each reactant could support; the smallest quotient identifies the limiting reagent. This is a convenient way of applying the balanced mole ratio, not a comparison of grams.",
+          "level": "extension"
+        },
+        {
+          "kind": "misconception",
+          "text": "Maximum product assumes the stated reaction proceeds completely with no competing reaction or losses. It is not a promise that every real experiment collects that mass of pure product.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Many laboratory reactants are dissolved in liquids, so the next step is to express the amount present in a solution."
+    },
+    {
+      "page_number": 5,
+      "id": "u05-page-05",
+      "title": "Solutions and mass percentage",
+      "source_section_ids": [
+        "1.10.2"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Two glasses can contain the same amount of water but different amounts of dissolved salt. A solution’s volume alone does not tell us how much solute is available for reaction. We need a concentration: a measure of how much solute is present in a specified amount of solution or solvent.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "A solution is a homogeneous mixture, uniform throughout. The solute is the dissolved substance and the solvent is the substance in which it dissolves. In the salt-water example, salt is the solute and water is the solvent. Solution means the complete mixture.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Mass per cent of solute = (mass of solute / mass of solution) × 100. Mass of solution = mass of solute + mass of solvent. Use the same mass unit in numerator and denominator. Mass per cent is also called weight per cent or w/w % in this context.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "NCERT Problem 1.6: 2 g of substance A is added to 18 g water. Find its mass percentage.\n1. Given: solute mass 2 g and solvent mass 18 g. Required: mass per cent A.\n2. Solution mass = 2 + 18 = 20 g.\n3. Mass per cent A = (2 g / 20 g) × 100 = 10%.\n4. Meaning: the solution contains 10 g A per 100 g solution at this composition; the actual sample weighs 20 g.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Using 18 g in the denominator would compare solute with solvent. Mass percentage instead compares solute with the whole solution.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Mass percentage compares masses. Mole fraction compares the numbers of moles contributed by the components."
+    },
+    {
+      "page_number": 6,
+      "id": "u05-page-06",
+      "title": "Mole fraction: each component’s share of the moles",
+      "source_section_ids": [
+        "1.10.2"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "The mole fraction of a component is its number of moles divided by the total moles of all components. A component is one of the substances making up the mixture. Mole fraction has no unit because mol cancels against mol.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "For a two-component solution, X_A = n_A/(n_A + n_B) and X_B = n_B/(n_A + n_B). Here n_A and n_B are the moles of components A and B; X_A and X_B are their mole fractions. Adding them gives X_A + X_B = 1 because their numerators together equal the common denominator.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Teacher-worked example: a mixture has 2 mol A and 3 mol B. Find both mole fractions.\n1. Given: n_A = 2 mol, n_B = 3 mol. Required: X_A and X_B.\n2. Total amount = 2 + 3 = 5 mol.\n3. X_A = 2/5 = 0.4; X_B = 3/5 = 0.6.\n4. Check: 0.4 + 0.6 = 1.\n5. Meaning: A supplies 40% of the component moles and B supplies 60%; these values do not necessarily equal their mass percentages.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "If the data are in grams, first divide each component mass by its own molar mass. Adding grams and calling the result total moles mixes different quantities.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "The reason mole fractions can describe a particle-number share is that equal mole amounts contain equal numbers of their specified entities. Their masses can still differ.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "To find how much solute is present in a measured solution volume, we use molarity."
+    },
+    {
+      "page_number": 7,
+      "id": "u05-page-07",
+      "title": "Molarity uses the final solution volume",
+      "source_section_ids": [
+        "1.10.2"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Molarity is the number of moles of solute per litre of solution. Its unit is mol L^(-1), commonly written M. Thus, a 1 M NaOH solution contains 1 mol NaOH in each litre of the complete solution.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "M = n / V, where M is molarity in mol L^(-1), n is solute amount in mol and V is solution volume in L. Rearranging gives n = M × V. Use it when a measured solution volume must be translated into the solute amount available for a reaction.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "NCERT Problem 1.7: 4 g NaOH is dissolved in enough water to form 250 mL solution. Find its molarity, using a NaOH molar mass of 40 g mol^(-1).\n1. Given: mass NaOH = 4 g; final solution volume = 250 mL. Required: molarity.\n2. n(NaOH) = mass / molar mass = 4/40 = 0.10 mol.\n3. Convert the volume: 250 mL × (1 L / 1000 mL) = 0.250 L.\n4. M = 0.10 mol / 0.250 L = 0.4 mol L^(-1), or 0.4 M.\n5. Meaning: one litre of a solution at this concentration would contain 0.4 mol NaOH.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Use final solution volume, not the volume of water initially taken. Also convert mL to L before substituting into a formula whose concentration is in mol L^(-1).",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For a fixed composition, solution volume can change with temperature. Its molarity can therefore change even when the solute amount stays the same.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Dilution provides a useful example of changing concentration while keeping the amount of solute fixed."
+    },
+    {
+      "page_number": 8,
+      "id": "u05-page-08",
+      "title": "Dilution changes concentration, not solute amount",
+      "source_section_ids": [
+        "1.10.2"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Imagine adding water to a measured portion of a NaOH solution. More solvent spreads the same amount of solute through a larger final volume. The initial concentrated solution is often called the stock solution.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "When only solvent is added and no solute is lost or reacts, initial moles = final moles. Since n = M × V, M_initial × V_initial = M_final × V_final. M denotes molarity and V denotes solution volume. Use matching volume units on both sides; using litres on both sides gives the mole amounts directly.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "NCERT dilution example: prepare 1.0 L of 0.2 M NaOH from 1.0 M NaOH.\n1. Given: M_initial = 1.0 mol L^(-1), M_final = 0.2 mol L^(-1), V_final = 1.0 L. Required: volume of stock solution.\n2. V_initial = (M_final × V_final) / M_initial.\n3. Substitute: V_initial = (0.2 × 1.0) / 1.0 = 0.2 L = 200 mL.\n4. Take 200 mL stock solution and add enough water to bring the final solution volume to 1.0 L.\n5. Check: initial NaOH = 1.0 × 0.2 = 0.2 mol; final NaOH = 0.2 × 1.0 = 0.2 mol. The solute amount agrees.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "The instruction is to make the solution up to the stated final volume, not to assume that adding a calculated volume of water gives an exactly additive volume. The dilution equation also cannot be applied blindly when the solute reacts.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "The concentration decreased because the denominator, solution volume, increased. No NaOH was removed in the ideal dilution described here.",
+          "level": "essential"
+        }
+      ],
+      "transition": "A concentration defined using solvent mass avoids the temperature dependence associated with solution volume."
+    },
+    {
+      "page_number": 9,
+      "id": "u05-page-09",
+      "title": "Molality and a density-based conversion",
+      "source_section_ids": [
+        "1.10.2"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Molality is the number of moles of solute per kilogram of solvent. Its unit is mol kg^(-1), sometimes denoted by lower-case m. Molarity uses litres of solution; molality uses kilograms of solvent. They are different quantities even when their numerical values happen to match.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Molality = n(solute) / mass(solvent in kg). For fixed amounts of solute and solvent, molality does not change with temperature because their masses do not change. Density, ρ = mass of solution / volume of solution, lets us convert a known solution volume into its total mass.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "NCERT Problem 1.8, with the subtraction verified: find the molality of a 3 M NaCl solution of density 1.25 g mL^(-1). Use molar mass NaCl = 58.5 g mol^(-1).\n1. Choose 1 L = 1000 mL solution. Given molarity then means n(NaCl) = 3 mol. Required: moles of NaCl per kg water.\n2. NaCl mass = 3 mol × 58.5 g mol^(-1) = 175.5 g.\n3. Total solution mass = density × volume = 1.25 g mL^(-1) × 1000 mL = 1250 g.\n4. Solvent mass = solution mass − solute mass = 1250 − 175.5 = 1074.5 g = 1.0745 kg.\n5. Molality = 3 mol / 1.0745 kg = 2.79 mol kg^(-1).\n6. Meaning: this solution has approximately 2.79 mol NaCl per kilogram of its water, although it has 3 mol NaCl per litre of solution.",
+          "level": "essential"
+        },
+        {
+          "kind": "clarification",
+          "text": "The supplied extracted NCERT line shows 1250 − 75.5 while retaining the result 1074.5. The verified solute mass is 175.5 g, so the consistent subtraction is 1250 − 175.5. This correction is stated explicitly rather than copying the inconsistent line.",
+          "level": "essential",
+          "source_section_ids": [
+            "1.10.2"
+          ]
+        },
+        {
+          "kind": "misconception",
+          "text": "Using 1.250 kg as the solvent mass would include the dissolved NaCl. Subtract solute mass before using a solution mass in the molality denominator.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The final page brings together the reaction ratios and the four concentration definitions."
+    },
+    {
+      "page_number": 10,
+      "id": "u05-page-10",
+      "title": "Revision: select the quantity before calculating",
+      "source_section_ids": [
+        "1.10",
+        "1.10.box.balancing",
+        "1.10.1",
+        "1.10.2"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "A balanced equation conserves atoms and gives mole ratios. Stoichiometry uses those ratios to calculate reactants and products. The limiting reagent is consumed first and determines maximum product, regardless of which reactant has the smallest mass.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Reaction route: grams A → n(A) = mass/molar mass → n(B) = n(A) × coefficient(B)/coefficient(A) → mass B if requested. Check the limiting reagent when more than one reactant amount is supplied.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Concentration choices: mass % = (mass solute / mass solution) × 100; X_A = n_A / total moles; molarity = moles solute / litres solution; molality = moles solute / kilograms solvent. Mole fractions sum to 1.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "For dilution without solute loss, M_initial V_initial = M_final V_final. For density conversions, solution mass = density × solution volume, and solvent mass = solution mass − solute mass. These are connected applications of the earlier mass, mole and volume ideas.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "text": "For each question, state the required quantity and formula before calculating. If you confuse solution volume with solvent mass, revise the definitions before attempting mixed concentration problems. Longer limiting-reagent and density problems may need another practice session even after the central ideas are clear.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "Balance P₄ + O₂ → P₄O₁₀ and explain why changing the subscript in O₂ is not allowed.",
+      "answer": "P₄ + 5O₂ → P₄O₁₀. There are four P and ten O atoms on each side. Changing a formula subscript changes the substance rather than the amount of it.",
+      "source_section_ids": [
+        "1.10.box.balancing"
+      ]
+    },
+    {
+      "question": "In CH₄ + 2O₂ → CO₂ + 2H₂O, what do the coefficients say about moles, and why are they not a gram ratio?",
+      "answer": "They give CH₄:O₂:CO₂:H₂O = 1:2:1:2 in mol. Each substance has a different molar mass, so those numbers do not describe equal gram portions.",
+      "source_section_ids": [
+        "1.10"
+      ]
+    },
+    {
+      "question": "With sufficient oxygen, what mass of water forms from 8 g methane? Use molar masses CH₄ = 16 and H₂O = 18 g mol^(-1).",
+      "answer": "n(CH₄) = 8/16 = 0.5 mol; n(H₂O) = 0.5 × 2 = 1 mol; mass H₂O = 1 × 18 = 18 g.",
+      "source_section_ids": [
+        "1.10"
+      ]
+    },
+    {
+      "question": "For N₂ + 3H₂ → 2NH₃, an ideal mixture contains 1 mol N₂ and 2 mol H₂. Which is limiting although it has more moles, and why?",
+      "answer": "H₂ is limiting. One mole N₂ would require 3 mol H₂, but only 2 mol H₂ is available. Product NH₃ = 2 × 2/3 = 4/3 mol; 1/3 mol N₂ remains.",
+      "source_section_ids": [
+        "1.10.1"
+      ]
+    },
+    {
+      "question": "A solution contains 2 g solute and 18 g solvent. Why is its mass percentage 10% rather than 11.1%?",
+      "answer": "The denominator is solution mass, 2 + 18 = 20 g. The percentage is (2/20) × 100 = 10%. Using 18 g would incorrectly use solvent mass.",
+      "source_section_ids": [
+        "1.10.2"
+      ]
+    },
+    {
+      "question": "A binary mixture has 0.20 mol A and 0.80 mol B. Find the mole fractions and give a check on the answers.",
+      "answer": "Total = 1.00 mol; X_A = 0.20 and X_B = 0.80. Both are unitless and their sum is 1.",
+      "source_section_ids": [
+        "1.10.2"
+      ]
+    },
+    {
+      "question": "Find the molarity of 0.10 mol solute in 250 mL solution. Explain the volume conversion.",
+      "answer": "250 mL = 0.250 L; molarity = 0.10/0.250 = 0.40 mol L^(-1). The unit mol L^(-1) requires litres of the complete solution.",
+      "source_section_ids": [
+        "1.10.2"
+      ]
+    },
+    {
+      "question": "What volume of 1.0 M stock solution is needed to make 1.0 L of 0.2 M solution, and what quantity stays fixed during ideal dilution?",
+      "answer": "V_stock = (0.2 × 1.0)/1.0 = 0.2 L = 200 mL. Make the final volume up to 1.0 L. Solute amount stays at 0.2 mol.",
+      "source_section_ids": [
+        "1.10.2"
+      ]
+    },
+    {
+      "question": "A sample contains 0.50 mol solute dissolved in 0.250 kg solvent. Find its molality and explain how its denominator differs from molarity.",
+      "answer": "Molality = 0.50/0.250 = 2.0 mol kg^(-1). Its denominator is solvent mass in kg; molarity instead uses solution volume in L.",
+      "source_section_ids": [
+        "1.10.2"
+      ]
+    },
+    {
+      "question": "For a fixed-composition solution, which may change on heating: molarity or molality? Why would density be needed to convert between them?",
+      "answer": "Molarity may change because solution volume depends on temperature; molality remains unchanged when solute and solvent masses are unchanged. Density converts a chosen solution volume to total solution mass; subtracting solute mass then gives the solvent mass needed for molality.",
+      "source_section_ids": [
+        "1.10.2"
+      ]
+    }
+  ]
+}

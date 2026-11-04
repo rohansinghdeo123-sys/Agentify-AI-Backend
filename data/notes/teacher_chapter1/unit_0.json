@@ -1,0 +1,447 @@
+{
+  "unit_id": "chem11_u01_lu01_chemistry_and_its_importance",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch1-opening-01",
+      "title": "What is changing around you?",
+      "source_section_ids": [
+        "intro.development_of_chemistry"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Think about milk turning into curd or an iron object developing rust. Something about the material changes. Simply noticing the change is a beginning; chemistry asks what the material contains, what has changed and how we can explain it.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "We need a way to study substances systematically instead of treating each observation as a separate mystery. We compare how substances are prepared, how they behave and how they react with other substances.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Chemistry is the branch of science that studies the preparation, properties, structure and reactions of material substances. Composition means what a substance contains; structure means how its constituents are arranged; properties describe its characteristics.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "The curd and rust examples matter because chemistry connects familiar observations with explanations about substances. You do not need to know the detailed reactions yet to ask a useful chemical question.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A substance is a kind of material. A reaction is a change in which substances form new substances. These words will become more precise as you study the chapter.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Before modern explanations developed, people were already learning how to work with materials."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch1-opening-02",
+      "title": "From practical skills to modern chemistry",
+      "source_section_ids": [
+        "intro.development_of_chemistry"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Imagine a craftsperson turning clay into a durable pot or extracting a metal for tools. Useful chemical practices existed long before people could explain them using modern atomic ideas.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "NCERT describes early searches for a philosopher’s stone, thought to turn base metals into gold, and an elixir of life, thought to grant immortality. These were historical aims, not established scientific achievements. Alchemy was early work with materials that combined practical techniques with aims such as metal transmutation. Iatrochemistry connected chemical work with medicine. Both helped shape chemistry’s development.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "In ancient India, chemical knowledge included metallurgy, medicine, dyes, glass and cosmetics. Metallurgy means obtaining and working with metals. Archaeological pottery and metal objects show practical skill in selecting materials and controlling processes.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "NCERT discusses Nagarjuna’s work on metal extraction, the preparation of materials described in traditional texts, and Acharya Kanda’s idea of very small particles called Paramānu. These are contributions to the history of ideas and techniques; historical particle ideas should not be confused with the complete modern atomic theory.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Modern chemistry took shape in eighteenth-century Europe, drawing on earlier traditions. The useful connection is the growing effort to understand materials systematically, rather than a long list of dates to memorise.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "Ask of a historical example: what material was used, what process changed it, and what useful product resulted? That turns a historical fact into a chemical question.",
+          "level": "extension"
+        }
+      ],
+      "transition": "The same wish to understand and improve materials makes chemistry useful today."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch1-opening-03",
+      "title": "Why chemistry matters in everyday life",
+      "source_section_ids": [
+        "1.1"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "A farmer needs suitable fertilisers, a patient needs a medicine, and an engineer needs a material with useful properties. These situations look different, but each involves choosing or making substances for a purpose.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Chemistry supports food production through fertilisers and crop-protection chemicals. It helps isolate useful substances from natural sources and prepare medicines. NCERT gives cisplatin and taxol as cancer-treatment examples and AZT as a medicine used in the treatment of AIDS; the important point is chemistry’s role in isolating or synthesising useful compounds.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Understanding composition and structure also helps scientists design materials with useful magnetic, electrical or optical properties. Optical properties concern how a material interacts with light. NCERT examples include conducting polymers and optical fibres. A polymer contains many repeating structural units; a conducting polymer can carry electric current. Optical fibres guide light through thin strands.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "Chemistry also studies environmental problems. Developing alternatives to ozone-depleting chlorofluorocarbons (CFCs), once widely used as refrigerants in cooling equipment, shows how understanding a substance’s behaviour can guide a better choice. Managing greenhouse gases remains another important challenge.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Chemistry contributes to health, agriculture, industry, employment and environmental work. The common task is to connect what a substance is like with what it can do.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A property is useful only in context: an electrical property matters for a conducting material, while interaction with light matters for an optical material.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "To make those connections, we first need a clear meaning for matter."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch1-opening-04",
+      "title": "What counts as matter?",
+      "source_section_ids": [
+        "1.2"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "A book is easy to point to, but what about the air around it? Air is less easy to see, yet it occupies space. Being visible is not the test for whether something is matter.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Matter is anything that has mass and occupies space. Both conditions matter. Books, water, air and living things are examples because they have mass and take up space.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "We can describe a sample at two levels. At the bulk, or macroscopic, level we observe the whole sample. At the particle level we think about its tiny constituents, or building units. Macroscopic simply means the larger scale of the sample rather than individual particles.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "Chemistry links these levels: what we observe in a whole sample is connected to the nature and arrangement of its particles. We will use this idea to understand why a solid keeps its shape while a gas fills a container.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A particle model is a simplified picture used to explain observations. The dots in a diagram stand for constituents; they are not a claim that real particles are large visible balls.",
+          "level": "foundation"
+        },
+        {
+          "kind": "practice",
+          "text": "Try explaining why air qualifies as matter without using “I can see it” as a reason.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Now compare how the particles are arranged in the three familiar physical states."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch1-opening-05",
+      "title": "Why solids, liquids and gases behave differently",
+      "source_section_ids": [
+        "1.2.1"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Place a solid in a container and it keeps its own shape. Pour a liquid into a differently shaped container and its outline changes. A gas spreads to occupy the available container space. What could explain these differences?",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "In a solid, particles are close together in an orderly arrangement and have little freedom to move from place to place. A solid therefore has a definite shape and a definite volume. Definite means fixed under the conditions being considered.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "In a liquid, particles remain close but can move around one another. A liquid has a definite volume but takes the shape of its container. Changing its shape does not mean that it automatically fills every part of the container.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "In a gas, particles are much farther apart and move easily and rapidly. A gas has neither a definite shape nor a definite volume; it occupies the available container space.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "The difference is not simply that one state has particles and another does not. All three contain particles. Their arrangement and freedom of movement differ.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "When comparing two states, explain both the observable behaviour and the particle-level reason. That is more useful than memorising a table alone.",
+          "level": "extension"
+        }
+      ],
+      "transition": "A substance can change its physical state when its conditions change."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch1-opening-06",
+      "title": "Changing state without changing the substance",
+      "source_section_ids": [
+        "1.2.1"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Follow the familiar sequence from ice to liquid water to water vapour on heating. The visible forms differ, but this sequence illustrates changes of physical state rather than the creation of a different chemical substance.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The three familiar states are interconvertible. Heating a solid usually changes it to a liquid; further heating can change the liquid to gas or vapour. On cooling, a gas can become a liquid, and further cooling can produce a solid.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Melting is the change from solid to liquid; freezing is liquid to solid. Vaporisation is liquid to gas; condensation is gas to liquid. These names describe the direction of the state change.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "The particle arrangement and movement change during these processes. Do not describe melting as the disappearance of the particles. The sample is still matter, although its shape, volume or freedom of particle movement may change.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Temperature and pressure are conditions that can change the physical state. A sample’s present state does not by itself tell us whether it is a pure substance or a mixture.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A change of state and a chemical reaction answer different questions: “Which physical state is present?” and “Which chemical substances are present?”",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Next, classify matter by its composition rather than by its physical state."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch1-opening-07",
+      "title": "Pure substance or mixture: ask what is present",
+      "source_section_ids": [
+        "1.2.2"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Water can dissolve different amounts of sugar. Each preparation is a sugar solution, but the amount of sugar need not be the same. This is a clue that a solution is a mixture rather than a pure substance.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "A mixture contains two or more pure substances in variable proportions. Its components are the pure substances mixed together. Variable composition means the proportion of one component can change from sample to sample.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "A pure substance has a fixed composition, and its constituent particles have the same chemical nature. NCERT examples include copper, silver, gold, water and glucose.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Glucose contains carbon, hydrogen and oxygen in a fixed ratio. Dissolving glucose in water is a different situation: the amount added can vary, so the resulting solution is a mixture even when it looks uniform.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Pure does not mean “contains only one chemical element”, and mixture does not mean “looks dirty”. A pure compound can contain different elements in a fixed combination. A clear-looking sample can still be a mixture.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "text": "Use composition, not appearance, to explain the difference between a sample of pure water and a sugar solution.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Mixtures themselves can be uniform or non-uniform throughout the sample."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch1-opening-08",
+      "title": "Uniform and non-uniform mixtures",
+      "source_section_ids": [
+        "1.2.2"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Compare sugar dissolved in water with a mixture of salt and sugar crystals. In the solution the components are distributed uniformly; in the crystal mixture, different components remain distinguishable in different parts.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "A homogeneous mixture has uniform composition throughout the bulk. Sugar solution and air are NCERT examples. Homogeneous means that the composition is the same from one representative part of the mixture to another.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "A heterogeneous mixture has non-uniform composition. NCERT examples include salt mixed with sugar and grains mixed with pulses and small stones. The prefix hetero points to difference rather than uniformity.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Components of a mixture can be separated by suitable physical methods. Hand-picking works when visible pieces can be selected; filtration, crystallisation and distillation are other methods. The appropriate method depends on the components and their physical properties.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Uniformity does not make a mixture a pure substance. Sugar solution is uniform, yet it contains sugar and water in proportions that can vary. Test both uniformity and composition before deciding the class.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "Classification helps choose an action: you would not select the same separation method for visible stones in grains and for dissolved sugar in water.",
+          "level": "extension"
+        }
+      ],
+      "transition": "The remaining branch of the classification is pure substances: elements and compounds."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch1-opening-09",
+      "title": "Elements, compounds and the meaning of formulas",
+      "source_section_ids": [
+        "1.2.2"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "An atom is a tiny unit of a chemical element. An element contains only one type of atom. Copper, sodium, hydrogen and oxygen are elements. Its particles may be individual atoms or bonded groups of atoms of that same element.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "A molecule is a group of two or more chemically bonded atoms that can exist as a separate unit. Hydrogen gas contains H₂ molecules: each has two hydrogen atoms. Oxygen gas contains O₂ molecules. More than one atom in a particle does not make it a compound; the types of atoms matter.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "A compound contains different elements chemically combined in a fixed, definite ratio. Its constituents cannot be separated by simple physical methods; separation into simpler substances requires chemical methods.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "A water molecule, H₂O, contains two hydrogen atoms and one oxygen atom. A carbon dioxide molecule, CO₂, contains one carbon atom and two oxygen atoms. The subscript counts atoms of the preceding element; no written subscript means one.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "A compound can have properties quite different from its constituent elements. Under ordinary conditions hydrogen and oxygen are gases, whereas water is a liquid. The combination is a new substance, not simply the two gases physically mixed.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Do not classify a substance by counting letters in its name or atoms in one particle. Ask whether it contains one element or different elements chemically combined, and whether its composition is fixed.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Use the final page to connect the classification and particle ideas without looking ahead to new topics."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch1-opening-10",
+      "title": "Bring the particle picture and classification together",
+      "source_section_ids": [
+        "intro.development_of_chemistry",
+        "1.1",
+        "1.2",
+        "1.2.1",
+        "1.2.2"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "Chemistry studies the preparation, properties, structure and reactions of substances. Its history connects practical work with materials to more systematic explanations; its applications address human needs and environmental challenges.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Matter has mass and occupies space. A solid has definite shape and volume; a liquid has definite volume but takes its container’s shape; a gas has neither definite shape nor definite volume.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Classify composition separately from physical state: matter may be a mixture or a pure substance. Mixtures may be homogeneous or heterogeneous; pure substances may be elements or compounds.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "For an element, every atom belongs to one element even when atoms form molecules. In a compound, different elements combine in a fixed ratio. H₂ is an element; H₂O is a compound, with two H atoms for each O atom.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "text": "Answer the five questions below by giving a reason, not just a class name. If you can recall a definition but cannot explain the example, revisit the relevant explanation before taking a mastery check.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why can air be matter even though it is not easy to see?",
+      "answer": "Air has mass and occupies space. Visibility is not part of the definition of matter.",
+      "source_section_ids": [
+        "1.2"
+      ]
+    },
+    {
+      "question": "A liquid changes shape when transferred to another container. Why does that not make it a gas?",
+      "answer": "A liquid retains a definite volume and takes the container’s shape. A gas also occupies the available volume of the container.",
+      "source_section_ids": [
+        "1.2.1"
+      ]
+    },
+    {
+      "question": "A sugar solution looks uniform. Explain why it is still a mixture.",
+      "answer": "It contains sugar and water, and their proportions can vary. Uniform composition throughout makes it homogeneous, not a pure substance.",
+      "source_section_ids": [
+        "1.2.2"
+      ]
+    },
+    {
+      "question": "H₂ has two atoms per molecule. Why is it an element, while H₂O is a compound?",
+      "answer": "H₂ contains only hydrogen atoms. H₂O contains hydrogen and oxygen chemically combined in a fixed ratio.",
+      "source_section_ids": [
+        "1.2.2"
+      ]
+    },
+    {
+      "question": "What links ancient pottery-making with modern design of useful materials?",
+      "answer": "Both involve selecting and changing materials for a purpose. Chemistry develops systematic explanations of composition, structure, properties and changes to improve such processes. Historical practices and ideas contributed to that development, without every historical belief being scientifically correct.",
+      "source_section_ids": [
+        "intro.development_of_chemistry",
+        "1.1"
+      ]
+    }
+  ]
+}

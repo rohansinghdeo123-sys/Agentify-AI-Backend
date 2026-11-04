@@ -1,0 +1,419 @@
+{
+  "unit_id": "chem11_u01_lu08_mole_and_molar_mass",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "u04-page-01",
+      "title": "How can we count particles we cannot see?",
+      "source_section_ids": [
+        "1.8"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Imagine buying eggs one by one when you need thousands of them. Counting in dozens makes the job easier: one dozen always means 12 eggs, whatever their size. Chemists face a much bigger counting problem because even a small sample contains an enormous number of atoms or molecules.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "A spoonful of water contains water molecules that are far too small and numerous to count individually. We can weigh the water, however. We therefore need a bridge between a measurable mass and the number of particles in it.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The mole provides that bridge. Think of it first as a counting unit, just as a dozen is a counting unit. Its group size is much larger because atoms and molecules are extremely small. Equal numbers of different particles need not have equal masses.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "You already learned that one water molecule and one carbon dioxide molecule have different masses. A counting unit tells us how many particles there are; it does not make those particles equally heavy.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Let us now attach a precise scientific meaning to this very large counting unit."
+    },
+    {
+      "page_number": 2,
+      "id": "u04-page-02",
+      "title": "A mole counts specified entities",
+      "source_section_ids": [
+        "1.8"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "The mole, symbol mol, is the SI unit of amount of substance. One mole contains exactly 6.02214076 × 10^23 specified elementary entities. An entity is the particular particle or group being counted: an atom, molecule, ion, electron or formula unit.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "N = n × N_A. Here N is the number of specified entities, n is the amount of substance in mol, and N_A is the Avogadro constant, exactly 6.02214076 × 10^23 mol^(-1). For routine calculations in these notes, N_A is rounded to 6.022 × 10^23 mol^(-1) when stated.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "One mole of H atoms contains one Avogadro number of hydrogen atoms. One mole of H₂O contains the same number of water molecules. One mole of NaCl contains that number of formula units, because solid NaCl is an ionic arrangement rather than a collection of separate NaCl molecules.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Always say what you are counting. One mole of O₂ molecules contains two moles of oxygen atoms because each O₂ molecule has two O atoms. The number of molecules and the number of constituent atoms are different quantities.",
+          "level": "essential"
+        },
+        {
+          "kind": "clarification",
+          "text": "Teacher clarification: an ion is an electrically charged atom or group of atoms. In an ionic solid such as NaCl, a formula unit records the simplest ratio of its constituent ions; it is not a separate NaCl molecule. This is why the counted entity must be named.",
+          "level": "foundation",
+          "source_section_ids": [
+            "1.8"
+          ]
+        },
+        {
+          "kind": "clarification",
+          "text": "NCERT also illustrates an older carbon-12 mass calculation giving an experimental approximation to the Avogadro constant. That approximate calculation is not a replacement for the exact modern SI value stated above.",
+          "level": "essential",
+          "source_section_ids": [
+            "1.8"
+          ]
+        }
+      ],
+      "transition": "Counting particles is useful; next we connect that count to a mass we can measure."
+    },
+    {
+      "page_number": 3,
+      "id": "u04-page-03",
+      "title": "Molar mass turns a particle count into grams",
+      "source_section_ids": [
+        "1.8"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A dozen small beads and a dozen large beads contain equal numbers of beads but have different masses. Similarly, a mole of water and a mole of sodium chloride contain equal numbers of specified entities but have different masses.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "The molar mass of a substance is the mass per mole of that substance. Its usual chemistry unit is g mol^(-1). A molecular mass describes the mass of one molecule in u; a molar mass describes the mass per mole in g mol^(-1). Do not interchange the units.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "NCERT gives water a molecular mass of approximately 18.02 u and a molar mass of approximately 18.02 g mol^(-1). Sodium chloride has a formula mass of approximately 58.5 u and a molar mass of approximately 58.5 g mol^(-1). The numerical correspondence lets us use atomic-mass data with a laboratory balance.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "m = n × M, so n = m / M. Here m is the sample mass in g, n is the amount in mol and M is its molar mass in g mol^(-1). Dividing g by g mol^(-1) leaves mol. Use n = m / M when a mass is given and moles are required.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "A value such as 18.02 g alone is a mass, while 18.02 g mol^(-1) is a molar mass. Keeping the full unit tells you which quantity is being used.",
+          "level": "essential"
+        }
+      ],
+      "transition": "We can now combine the mass-to-mole bridge with the mole-to-particle bridge."
+    },
+    {
+      "page_number": 4,
+      "id": "u04-page-04",
+      "title": "A complete mass-to-particle calculation",
+      "source_section_ids": [
+        "1.8"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Teacher-worked example: How many water molecules are present in 36.04 g of water? Use M(H₂O) = 18.02 g mol^(-1) and N_A = 6.022 × 10^23 mol^(-1).\n1. Given: mass m = 36.04 g; molar mass M = 18.02 g mol^(-1). Required: number N of H₂O molecules.\n2. Find moles first: n = m / M = 36.04 g / (18.02 g mol^(-1)) = 2.000 mol.\n3. Convert moles to molecules: N = n × N_A = 2.000 mol × 6.022 × 10^23 mol^(-1).\n4. Multiply: the unrounded result is 1.2044 × 10^24 molecules. To four significant figures, N = 1.204 × 10^24 H₂O molecules.\n5. Meaning: the sample contains two moles of water molecules; it does not contain only two molecules.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "The complete route is mass → moles → entities. In reverse, n = N / N_A and then m = n × M. Choose the route from the quantity given, rather than searching for a formula containing every number in the question.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Count molecules before counting atoms within them. If oxygen atoms are requested for this water sample, each H₂O molecule contributes one O atom. If hydrogen atoms are requested, each molecule contributes two H atoms.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "Notice how units check the reasoning: mol cancels against mol^(-1) in the final multiplication, leaving a count of molecules. An answer labelled g at this point would reveal a wrong conversion.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "A formula also tells us how the total mass is shared among the elements in a compound."
+    },
+    {
+      "page_number": 5,
+      "id": "u04-page-05",
+      "title": "Why percentage composition matters",
+      "source_section_ids": [
+        "1.9"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Suppose two samples are both labelled as the same pure compound. Their sizes may be different, so comparing the grams of one element alone is not useful. Comparing the fraction of the total mass supplied by that element is more informative.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Percentage composition gives the mass percentage of each element in a compound. A mass percentage tells us how many grams of that element are present in 100 g of the compound; it does not tell us the percentage of atoms.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Mass percentage of an element = (mass of that element in a chosen sample / total mass of that compound sample) × 100. On a one-mole basis, divide the element’s mass contribution by the mass of one mole of the compound. Use g in both numerator and denominator; the mass units cancel. Multiply the atomic mass by the number of atoms of that element in the formula before forming the ratio.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "In ethanol, C₂H₅OH, the final OH contributes another H atom. The formula therefore contains two C atoms, six H atoms and one O atom. Forgetting the hydrogen in OH gives the wrong molar mass and every percentage that follows.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For a pure compound, these proportions are fixed. Composition data can therefore help check whether a sample is consistent with the expected compound, as NCERT explains. Agreement with composition alone does not identify every possible substance uniquely.",
+          "level": "extension"
+        }
+      ],
+      "transition": "Let us calculate all three percentages for ethanol using one consistent set of atomic masses."
+    },
+    {
+      "page_number": 6,
+      "id": "u04-page-06",
+      "title": "Worked example: the composition of ethanol",
+      "source_section_ids": [
+        "1.9"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "NCERT example: Find the mass percentages of C, H and O in ethanol, C₂H₅OH.\n1. Given: atomic masses C = 12.01, H = 1.008 and O = 16.00; required: the percentage by mass of each element.\n2. For one mole of ethanol, carbon contributes 2 × 12.01 = 24.02 g, hydrogen contributes 6 × 1.008 = 6.048 g, and oxygen contributes 16.00 g.\n3. Add them: M(ethanol) = 24.02 + 6.048 + 16.00 = 46.068 g mol^(-1).\n4. Carbon percentage = (24.02 / 46.068) × 100 = 52.14%.\n5. Hydrogen percentage = (6.048 / 46.068) × 100 = 13.13%.\n6. Oxygen percentage = (16.00 / 46.068) × 100 = 34.73%.\n7. Check: 52.14 + 13.13 + 34.73 = 100.00%. The answer means about 52.14 g C, 13.13 g H and 34.73 g O per 100 g of ethanol.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Use the whole compound mass in every denominator. Dividing oxygen mass by carbon mass compares two elements; it does not give oxygen as a percentage of the compound.",
+          "level": "essential"
+        },
+        {
+          "kind": "clarification",
+          "text": "Scientific accuracy check: the supplied NCERT water example prints percentages that do not total 100%. This lesson uses the internally consistent ethanol calculation above rather than presenting the inconsistent water figures as a verified answer.",
+          "level": "essential",
+          "source_section_ids": [
+            "1.9"
+          ]
+        },
+        {
+          "kind": "practice",
+          "text": "Before moving on, explain why carbon contributes 24.02 g rather than 12.01 g to one mole of ethanol. The key is the two carbon atoms specified by the formula.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Can we work backwards from mass percentages to the ratio of atoms in a compound?"
+    },
+    {
+      "page_number": 7,
+      "id": "u04-page-07",
+      "title": "Mass percentages are not atom ratios",
+      "source_section_ids": [
+        "1.9.1"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Imagine being told how much carbon, hydrogen and chlorine a compound contains, but not its formula. A formula counts atoms, so comparing their masses directly will not answer the question. Different kinds of atoms have different masses.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "An empirical formula gives the simplest whole-number ratio of the atoms of the elements in a compound. A molecular formula gives the actual number of each kind of atom in one molecule. The empirical ratio may therefore describe several possible molecular formulas.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "To move from mass data to an atom ratio, convert each element mass to moles of its atoms. A mole always contains the same number of entities, so the ratio of moles of atoms is also their atom-number ratio.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "For each element, n(element atoms) = mass of element / molar mass of its atoms. Then divide every mole value by the smallest. This removes the size of the chosen sample and leaves the simplest relative counts.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Do not round a ratio such as 1:1.5 directly to 1:2. Multiply every ratio by the same small integer: 1:1.5 becomes 2:3. Changing only one number changes the composition.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "If mass percentages are supplied, choosing a 100 g sample turns each percentage into a convenient number of grams. This is a calculation choice; it does not mean every real sample weighs 100 g.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Now follow that mass → moles → ratio route using NCERT’s carbon–hydrogen–chlorine data."
+    },
+    {
+      "page_number": 8,
+      "id": "u04-page-08",
+      "title": "Worked example: finding an empirical formula",
+      "source_section_ids": [
+        "1.9.1"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "NCERT Problem 1.2, empirical-formula stage: A compound contains 4.07% H, 24.27% C and 71.65% Cl. Find its simplest atom ratio.\n1. Given: mass percentages. Required: the empirical formula. Choose a 100 g sample: H = 4.07 g, C = 24.27 g, Cl = 71.65 g. The printed percentages total 99.99% because they are rounded.\n2. Use atomic molar masses H = 1.008, C = 12.01 and Cl = 35.453 g mol^(-1).\n3. n(H) = 4.07 / 1.008 ≈ 4.04 mol; n(C) = 24.27 / 12.01 ≈ 2.021 mol; n(Cl) = 71.65 / 35.453 ≈ 2.021 mol.\n4. Divide all three values by approximately 2.021: H:C:Cl ≈ 2:1:1.\n5. Write the atom counts in the conventional formula order C, H, Cl: empirical formula = CH₂Cl.\n6. Meaning: the compound contains C, H and Cl atoms in the simplest ratio 1:2:1. These steps do not yet tell us the size of one molecule.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Write the result in the usual formula order, CH₂Cl; hydrogen being listed first in the data does not determine the order of symbols. More importantly, do not copy percentages into subscripts: percentages compare mass, while subscripts compare numbers of atoms.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Keep enough digits in the mole calculation to recognise the ratio. Round to a justified whole-number ratio after comparison, rather than rounding each starting mole value to a whole number.",
+          "level": "essential"
+        }
+      ],
+      "transition": "To determine the actual molecular formula, we need one more piece of information: the compound’s molar mass."
+    },
+    {
+      "page_number": 9,
+      "id": "u04-page-09",
+      "title": "From the simplest ratio to the molecular formula",
+      "source_section_ids": [
+        "1.9.1"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "CH₂Cl tells us the relative atom counts. A molecule could contain one such ratio, two such ratios or another whole-number multiple. Its measured molar mass decides which multiple fits.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Multiplier k = molecular molar mass / empirical-formula molar mass. Both masses must be expressed per mole in the same units, so k has no unit. Multiply every subscript of the empirical formula by k. Here k is a positive whole-number multiplier, not the amount of substance n in mol.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Continue NCERT Problem 1.2. Given: empirical formula CH₂Cl and molecular molar mass 98.96 g mol^(-1). Required: molecular formula.\n1. Empirical-formula molar mass = 12.01 + (2 × 1.008) + 35.453 = 49.479 g mol^(-1), approximately 49.48 g mol^(-1).\n2. k = 98.96 / 49.48 = 2.\n3. Multiply every empirical subscript by 2: C₁H₂Cl₁ becomes C₂H₄Cl₂.\n4. Final answer: C₂H₄Cl₂. Meaning: each molecule contains two carbon, four hydrogen and two chlorine atoms, while its simplest ratio remains 1:2:1.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Multiply the subscripts, not the symbols or only the first element. If the molar-mass ratio is far from a positive whole number, check the empirical ratio, units and arithmetic before forcing a result.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "This calculation links the earlier idea of molecular mass with experimentally obtained composition. It is why percentage analysis and molar-mass data answer different parts of the formula question.",
+          "level": "extension"
+        }
+      ],
+      "transition": "Use the final page to choose the right conversion route without relying on memorised steps alone."
+    },
+    {
+      "page_number": 10,
+      "id": "u04-page-10",
+      "title": "Revision: connect particles, mass and composition",
+      "source_section_ids": [
+        "1.8",
+        "1.9",
+        "1.9.1"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "A mole is a counting unit for specified entities; molar mass is mass per mole. Molecular mass in u describes one molecule, while molar mass in g mol^(-1) links the substance to measurable grams.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Mass and count: n = m / M; m = n × M; N = n × N_A; n = N / N_A. Use N_A = 6.02214076 × 10^23 mol^(-1) exactly, or a clearly stated rounded value for a calculation.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Composition: element mass percentage = (its mass contribution / total compound mass) × 100. Empirical formula: element masses → moles → smallest whole-number ratio. Molecular formula: multiply all empirical subscripts by the whole-number molar-mass ratio.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Entity counts are not masses, mass ratios are not atom ratios, and empirical formulas need not show actual molecular counts. Choose the requested quantity and its unit before substituting numbers.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "text": "Answer the questions below without looking at the worked examples first. Explain the reason for each conversion. If mass-to-mole conversion or whole-number ratios are still uncertain, revisit those worked pages before attempting longer problems.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "A mole of water and a mole of sodium chloride have the same number of what, and why can their masses differ?",
+      "answer": "They have the same number of specified entities: H₂O molecules and NaCl formula units. Their entity masses differ, so their molar masses differ.",
+      "source_section_ids": [
+        "1.8"
+      ]
+    },
+    {
+      "question": "How many moles of O atoms are present in 0.50 mol of O₂ molecules? Explain the factor used.",
+      "answer": "1.0 mol O atoms. Each O₂ molecule contains two O atoms, so 0.50 × 2 = 1.0 mol.",
+      "source_section_ids": [
+        "1.8"
+      ]
+    },
+    {
+      "question": "Using M(H₂O) = 18.02 g mol^(-1), find the moles in 9.010 g of water.",
+      "answer": "n = m / M = 9.010 / 18.02 = 0.5000 mol H₂O.",
+      "source_section_ids": [
+        "1.8"
+      ]
+    },
+    {
+      "question": "How many CO₂ molecules are in 0.250 mol CO₂? Use N_A = 6.022 × 10^23 mol^(-1).",
+      "answer": "N = 0.250 × 6.022 × 10^23 = 1.5055 × 10^23, or 1.51 × 10^23 CO₂ molecules to three significant figures.",
+      "source_section_ids": [
+        "1.8"
+      ]
+    },
+    {
+      "question": "Why must ethanol C₂H₅OH be counted as having six hydrogen atoms when calculating percentage composition?",
+      "answer": "Five H atoms are written in C₂H₅ and one additional H is in OH. Their combined mass contribution belongs in the hydrogen numerator and total molar mass.",
+      "source_section_ids": [
+        "1.9"
+      ]
+    },
+    {
+      "question": "A hypothetical compound contains equal masses of carbon and oxygen. Using atomic molar masses 12 and 16 g mol^(-1), are their atom counts equal? Find the simplest C:O ratio.",
+      "answer": "No. In 12 g of each: n(C) = 12/12 = 1 mol and n(O) = 12/16 = 0.75 mol. C:O = 1:0.75 = 4:3, so the simplest atom ratio is 4:3.",
+      "source_section_ids": [
+        "1.9.1"
+      ]
+    },
+    {
+      "question": "An empirical ratio is 1:1.5. Why is rounding it to 1:2 wrong, and what should be done instead?",
+      "answer": "Direct rounding changes the composition. Multiply every value by 2 to obtain the whole-number ratio 2:3.",
+      "source_section_ids": [
+        "1.9.1"
+      ]
+    },
+    {
+      "question": "A compound has empirical formula CH₂Cl and empirical-formula molar mass 49.48 g mol^(-1). Its molecular molar mass is 98.96 g mol^(-1). Find its molecular formula and state the distinction between the two formulas.",
+      "answer": "The multiplier is 98.96/49.48 = 2; multiplying every subscript gives C₂H₄Cl₂. CH₂Cl gives the simplest atom ratio, while C₂H₄Cl₂ gives the actual atom counts in a molecule.",
+      "source_section_ids": [
+        "1.9.1"
+      ]
+    }
+  ]
+}

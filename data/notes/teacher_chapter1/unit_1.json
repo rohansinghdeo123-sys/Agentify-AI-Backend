@@ -1,0 +1,477 @@
+{
+  "unit_id": "chem11_u01_lu03_measuring_matter",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch1-measurement-01",
+      "title": "From “a little” to a useful measurement",
+      "source_section_ids": [
+        "1.3",
+        "1.3.1",
+        "1.3.2"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Imagine two people preparing a sample: one says “take a little”, while the other reports a measured quantity with its unit. Which instruction could another student repeat reliably? Chemistry needs observations that people can compare and reproduce.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "We first decide which property we are describing. Physical properties can be observed or measured without changing the substance’s chemical identity. Colour, melting point, boiling point and density are examples. Chemical properties describe the changes a substance can undergo in forming other substances, such as its characteristic reactions.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "A measurement of a physical quantity has two parts: a numerical value and a unit. In 6.0 cm, 6.0 tells us how many units and cm identifies the unit. A number without its unit may not tell us what was measured.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Measuring a property and observing a reaction answer different questions. Measuring a melting point does not by itself mean that the sample has become a different chemical substance.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A unit is an agreed standard used for comparison. Specifying it lets someone interpret the numerical value instead of guessing what “6.0” means.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Agreed units make measurements comparable across laboratories and countries."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch1-measurement-02",
+      "title": "SI units and prefixes: keep the quantity clear",
+      "source_section_ids": [
+        "1.3.3"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "If one person measures length in centimetres and another in metres, their numbers can differ even when they measure the same length. The International System of Units, abbreviated SI, provides internationally agreed units and definitions.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "The seven SI base quantities and units are length: metre (m); mass: kilogram (kg); time: second (s); electric current: ampere (A); thermodynamic temperature: kelvin (K); amount of substance: mole (mol); luminous intensity: candela (cd). A base unit is one of the units from which other units can be built.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For these unit names, thermodynamic temperature is the temperature described on the kelvin scale. Electric current concerns the flow of electric charge. Luminous intensity describes the strength of light emitted in a particular direction. These are different physical quantities, so their units cannot be exchanged.",
+          "level": "foundation"
+        },
+        {
+          "kind": "explanation",
+          "text": "Derived units combine base units. Area uses m², volume uses m³, and speed uses m s⁻¹. The superscript −1 means “per”: m s⁻¹ means metres per second. Modern SI definitions use fixed values of physical constants; the important skill here is choosing and using the correct unit.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Prefixes change the size of a unit: kilo (k) = 10³, centi (c) = 10⁻², milli (m) = 10⁻³, micro (µ) = 10⁻⁶, nano (n) = 10⁻⁹. Thus 1 km = 1000 m, while 1 mm = 0.001 m. The unit is smaller for a negative power, not a negative physical length.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "The mole is the SI unit of amount of substance. Its SI definition specifies exactly 6.02214076 × 10²³ elementary entities in one mole; the entity must be identified, such as atoms or molecules. Keep this definition distinct from a mass measurement.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Other NCERT prefixes include deci (10⁻¹), deca (10¹), hecto (10²), mega (10⁶), giga (10⁹), tera (10¹²), peta (10¹⁵), exa (10¹⁸), zetta (10²¹), yotta (10²⁴), pico (10⁻¹²), femto (10⁻¹⁵), atto (10⁻¹⁸), zepto (10⁻²¹) and yocto (10⁻²⁴). Use the prefix as a conversion factor rather than memorising an isolated decimal.",
+          "level": "extension"
+        }
+      ],
+      "transition": "Let us apply units to two quantities that are often confused, then to occupied space."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch1-measurement-03",
+      "title": "Mass, weight and volume are different quantities",
+      "source_section_ids": [
+        "1.3.4",
+        "1.3.5"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Moving an object to a place with different gravity changes the gravitational force on it. It does not, by that movement alone, change the amount of matter in the object. This is why mass and weight need different meanings.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Mass is the amount of matter present in a substance; weight is the force exerted by gravity on an object. For a given object, mass remains constant on changing location, while weight can vary with gravity. An analytical balance is used for accurate mass measurements in the laboratory.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "The SI unit of mass is kilogram (kg), although laboratory amounts are commonly reported in grams: 1 kg = 1000 g. Write the unit with the value, and convert both quantities to compatible units before calculating.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Volume is the space occupied by a substance. Its dimension is length cubed, so its SI unit is m³. Smaller laboratory volumes are commonly expressed in cm³ or dm³. A litre (L) is a commonly used volume unit, while the SI unit of volume is m³.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "1 L = 1000 mL = 1000 cm³ = 1 dm³; therefore 1 mL = 1 cm³. Do not treat a cubic unit as a simple length unit: the exponent belongs to the entire length conversion.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "Graduated cylinders, burettes and pipettes measure liquid volumes. A volumetric flask prepares a specified volume of solution. The name of the apparatus tells us its purpose; it does not remove the need to read and report a value with units.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Mass and volume together let us compare how much matter occupies a particular space."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch1-measurement-04",
+      "title": "Density: how much mass fits in a volume?",
+      "source_section_ids": [
+        "1.3.6"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Two samples can occupy the same volume and still have different masses. Comparing mass alone is not enough when sample sizes differ. We need mass for each unit of volume.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Density is mass per unit volume. “Per unit volume” means the mass associated with one chosen unit of volume. Dividing mass by volume removes the effect of simply taking a larger sample of the same uniform material under the same conditions.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Density ρ = m/V, where ρ is density, m is mass and V is volume. With m in kg and V in m³, density is in kg m⁻³. With m in g and V in cm³, it is in g cm⁻³. Rearranging gives m = ρV and V = m/ρ.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Teacher-created example: a sample has mass 60 g and volume 20 cm³. Find its density. Given: m = 60 g and V = 20 cm³. Required: ρ. Choose ρ = m/V because both mass and volume are known. Substitute: ρ = 60 g / 20 cm³. Divide 60 by 20: ρ = 3 g cm⁻³. This means that each cubic centimetre of this uniform sample has a mass of 3 g.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Density is not the same as mass. A larger piece can have more mass without having greater density. Always check the units: a density answer must express mass divided by volume.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The Greek letter ρ, called rho, is just a symbol for density. Using the word density in the equation represents the same relationship.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Measurements also need a clear temperature scale, since a bare temperature number is ambiguous."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch1-measurement-05",
+      "title": "Temperature scales and meaningful conversions",
+      "source_section_ids": [
+        "1.3.7"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "A reading of 27 means different temperatures on different scales. Before comparing two thermometer readings, ask which scale each uses. The scale is part of the measurement, not an optional label.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The common scales are Celsius (°C), Fahrenheit (°F) and kelvin (K). Kelvin is the SI unit of thermodynamic temperature. Write K without a degree sign. At ordinary atmospheric pressure, water freezes at 0 °C and boils at 100 °C; the corresponding Fahrenheit values are 32 °F and 212 °F.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "T(K) = t(°C) + 273.15. Here T is the temperature expressed in kelvin and t is the temperature expressed in degrees Celsius. Reverse the conversion with t(°C) = T(K) − 273.15. The scale intervals have equal size; their zero points differ.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "The Celsius–Fahrenheit relationship is t(°F) = (9/5)t(°C) + 32. Multiply the Celsius value by 9/5 before adding 32. To reverse it, subtract 32 first, then multiply by 5/9.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Teacher-created example: convert 27 °C to kelvin and Fahrenheit. Given: t = 27 °C. Required: T in K and the reading in °F. Kelvin: T = 27 + 273.15 = 300.15 K. Fahrenheit: t(°F) = (9/5) × 27 + 32 = 48.6 + 32 = 80.6 °F. These are different numerical descriptions of the same temperature.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "A negative Celsius temperature does not imply a negative kelvin value. For the temperatures considered here, the kelvin scale begins at absolute zero. Do not replace the exact offset 273.15 with 273 unless an approximate answer is explicitly intended.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Even a correctly stated unit cannot make an instrument infinitely precise; we now need to handle the numbers carefully."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch1-measurement-06",
+      "title": "Uncertainty and a manageable way to write numbers",
+      "source_section_ids": [
+        "1.4",
+        "1.4.1"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "A balance reading of 9.4 g gives less detail than 9.4213 g. Instruments and the person reading them have limitations. Reporting more digits than a measurement supports creates a misleading impression of certainty.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Experimental measurements have uncertainty: the reported value cannot be treated as perfectly exact. Scientific notation, also called exponential notation, makes very large and very small numbers easier to write and calculate with.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Write a positive quantity’s numerical value as N × 10ⁿ, with 1 ≤ N < 10. N is the coefficient and n is the exponent. For example, 232.508 = 2.32508 × 10²; 0.00016 = 1.6 × 10⁻⁴. Moving the decimal changes N, so the power compensates to preserve the value.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "For multiplication, multiply coefficients and add exponents: (5.6 × 10⁵)(6.9 × 10⁸) = (5.6 × 6.9) × 10^(5+8) = 38.64 × 10¹³ = 3.864 × 10¹⁴. This is the arithmetic result; measured significant figures determine its final reporting precision.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Teacher-created division example: divide 8.0 × 10⁷ by 2.0 × 10³. Divide the coefficients: 8.0/2.0 = 4.0. Subtract the exponents: 7 − 3 = 4. The result is 4.0 × 10⁴. We subtracted exponents because powers of ten were divided, not because either number was negative.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "For addition, first match the exponents. Given 6.65 × 10⁴ + 8.95 × 10³, rewrite the second number as 0.895 × 10⁴. Now add the coefficients: (6.65 + 0.895) × 10⁴ = 7.545 × 10⁴. Adding the exponents here would change the problem instead of adding the two quantities.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A negative exponent means a reciprocal: 10⁻³ = 1/1000. It does not mean that the measured quantity is negative.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Scientific notation organises a number; significant figures tell us how much precision its digits represent."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch1-measurement-07",
+      "title": "Which digits are significant?",
+      "source_section_ids": [
+        "1.4.2"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Significant figures are the meaningful digits known with certainty together with the first estimated or uncertain digit. They communicate the precision of a measurement, not simply the number of characters written.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "All non-zero digits count: 285 has three significant figures. Zeros before the first non-zero digit do not count: 0.0052 has two. Zeros between non-zero digits do count: 2.005 has four.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Trailing zeros after a decimal point count when they follow a significant digit: 0.200 g has three significant figures. The leading zeros only locate the decimal; the two final zeros communicate precision.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "A whole number with terminal zeros can be ambiguous. Use scientific notation to show the intended precision: 1 × 10² has one significant figure, 1.0 × 10² has two, and 1.00 × 10² has three. The numerical value is the same, but the stated precision differs.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Exact counts, such as 2 balls or 20 eggs, are not measurements with an uncertain last digit. Such counts are treated as having unlimited significant figures, so they do not limit a calculation in the same way as measured values.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "text": "Explain why 0.200 g and 0.2 g describe the same numerical mass but do not express the same measurement precision.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Next, distinguish precision from accuracy and apply the correct reporting rules to calculations."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch1-measurement-08",
+      "title": "Accuracy, precision and honest calculated answers",
+      "source_section_ids": [
+        "1.4.2"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Precision means closeness of repeated measurements to one another. Accuracy means closeness to the true or accepted value. Repeated readings can agree closely and still be wrong in the same direction.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "NCERT compares a true value of 2.00 g with readings 1.95 g and 1.93 g: they are close together but displaced from the true value. Readings 2.01 g and 1.99 g are close together and close to 2.00 g. Judge both the spread and the position of the measurements.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Addition example: given 12.11, 18.0 and 1.012, find their properly reported sum. First calculate 12.11 + 18.0 + 1.012 = 31.122. For addition or subtraction, report to the least precise decimal place. Here 18.0 reaches only tenths, so the result is 31.1. Keeping 31.122 would claim unsupported decimal precision.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Multiplication example: given measured factors 2.5 and 1.25, find their properly reported product. Calculate 2.5 × 1.25 = 3.125. For multiplication or division, use the fewest significant figures among the measured inputs. The factor 2.5 has two, so report 3.1. Do not use the addition rule of matching decimal places.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Round once at the end, keeping extra digits in intermediate steps. If the first discarded digit is above 5, round up; below 5, leave the retained digit. If it is 5 with a later non-zero discarded digit, round up. For an exact halfway case—5 with no later non-zero digit—NCERT rounds the retained digit to even: 6.35 becomes 6.4, while 6.25 becomes 6.2 to one decimal place.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "A long calculator display is not permission to report all its digits. Choose the reporting rule from the operation and the precision of the measurements.",
+          "level": "essential"
+        }
+      ],
+      "transition": "We have controlled digits; the remaining check is whether the units themselves lead to the required answer."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch1-measurement-09",
+      "title": "Let the units choose the conversion factor",
+      "source_section_ids": [
+        "1.4.3"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Suppose a metal piece is 3 inches long but the required answer is in centimetres. Dimensional analysis, also called the unit factor or factor label method, arranges a conversion so the unwanted unit cancels.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Because 1 in = 2.54 cm, both (2.54 cm)/(1 in) and (1 in)/(2.54 cm) equal 1. Multiplying by either factor preserves the physical length. Choose the orientation that leaves the required unit.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Question: convert 3 in to cm. Given: length = 3 in and 1 in = 2.54 cm. Required: length in cm. Use length in cm = length in in × (2.54 cm/1 in). Substitute: 3 in × (2.54 cm/1 in). Cancel in, then calculate 3 × 2.54 = 7.62 cm. The object has not become longer; its length is expressed in a different unit. This illustrates the conversion; for a measured length with specified precision, the reported answer must also respect that precision.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Question: how many seconds are in 2 days? Given: 1 day = 24 h, 1 h = 60 min, 1 min = 60 s. Required: time in seconds. Arrange 2 day × (24 h/1 day) × (60 min/1 h) × (60 s/1 min). Day, h and min cancel. Calculate 2 × 24 × 60 × 60 = 172800 s. The remaining unit confirms that the conversion answers the question.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "For cubic units, cube the length conversion: 1 m = 100 cm gives 1 m³ = (100 cm)³ = 10⁶ cm³. Multiplying a volume by only 100 would be a length conversion used incorrectly.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "Keep units visible through the calculation. If unwanted units remain, change the orientation of the conversion factor before calculating the number.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Finish by checking that you can choose a property, a unit, a numerical method and an appropriate final precision."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch1-measurement-10",
+      "title": "A compact measurement toolkit",
+      "source_section_ids": [
+        "1.3",
+        "1.3.1",
+        "1.3.2",
+        "1.3.3",
+        "1.3.4",
+        "1.3.5",
+        "1.3.6",
+        "1.3.7",
+        "1.4",
+        "1.4.1",
+        "1.4.2",
+        "1.4.3"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "A useful measurement identifies a physical quantity, its numerical value and its unit. Mass and weight are different; volume is occupied space; density compares mass per volume. A unit or scale is part of the meaning of the answer.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Keep these relationships available: ρ = m/V; T(K) = t(°C) + 273.15; t(°F) = (9/5)t(°C) + 32; 1 L = 1000 mL = 1000 cm³; 1 m³ = 10⁶ cm³. Check that the symbols and units fit the quantity you need.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Scientific notation controls powers of ten. Significant figures express precision. Addition/subtraction follow decimal-place limits; multiplication/division follow significant-figure limits. Precision concerns agreement between readings; accuracy concerns agreement with the true value.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "text": "Use the seven questions below to decide which relationship or rule applies before calculating. If your reasoning is sound but a calculation goes wrong, practise that calculation separately; if you cannot choose the rule, revisit the relevant concept first.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "A sample is moved to a place where gravity differs. Which quantity can change: mass, weight or both? Explain.",
+      "answer": "Its weight can change because weight is gravitational force. Moving it does not, by itself, change its mass, the amount of matter.",
+      "source_section_ids": [
+        "1.3.4"
+      ]
+    },
+    {
+      "question": "A sample has mass 60 g and volume 20 cm³. Calculate its density and interpret the unit.",
+      "answer": "ρ = m/V = 60 g / 20 cm³ = 3 g cm⁻³. Each cubic centimetre of this uniform sample has mass 3 g.",
+      "source_section_ids": [
+        "1.3.6"
+      ]
+    },
+    {
+      "question": "Convert 27 °C to kelvin. Why should the final unit be K rather than °K?",
+      "answer": "T = 27 + 273.15 = 300.15 K. Kelvin is the unit name and its symbol K is written without a degree sign.",
+      "source_section_ids": [
+        "1.3.7"
+      ]
+    },
+    {
+      "question": "Explain why 0.00016 = 1.6 × 10⁻⁴, and why the negative exponent does not make the number negative.",
+      "answer": "The coefficient must be between 1 and 10. Multiplying 1.6 by 10⁻⁴ divides it by 10000, giving 0.00016, a positive quantity.",
+      "source_section_ids": [
+        "1.4.1"
+      ]
+    },
+    {
+      "question": "How many significant figures are in 0.200 g, and why are its first and last zeros treated differently?",
+      "answer": "There are three: 2 and the two trailing zeros. The leading zeros only position the decimal; trailing zeros after a significant digit and decimal point indicate precision.",
+      "source_section_ids": [
+        "1.4.2"
+      ]
+    },
+    {
+      "question": "A balance gives closely grouped values near 1.94 g when the true value is 2.00 g. Can those readings be precise without being accurate?",
+      "answer": "Yes. They are precise if they lie close to one another, but inaccurate because they are displaced from the true value.",
+      "source_section_ids": [
+        "1.4.2"
+      ]
+    },
+    {
+      "question": "Convert 2 L to m³ and explain why a cubic conversion needs a cubed length factor.",
+      "answer": "2 L = 2000 cm³. Since 1 m³ = 10⁶ cm³, 2000 cm³ × (1 m³/10⁶ cm³) = 0.002 m³ = 2 × 10⁻³ m³. A cubic metre contains 100 × 100 × 100 cubic centimetres.",
+      "source_section_ids": [
+        "1.3.5",
+        "1.4.3"
+      ]
+    }
+  ]
+}

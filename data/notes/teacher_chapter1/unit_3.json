@@ -1,0 +1,424 @@
+{
+  "unit_id": "chem11_u01_lu07_atomic_and_molecular_masses",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "masses-01",
+      "title": "How could we weigh just one atom?",
+      "source_section_ids": [
+        "1.7",
+        "1.7.1"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "You can put a piece of metal on a balance, but imagine trying to place just one atom on it. The mass of one atom is so small that ordinary gram measurements become awkward to write and compare.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Chemists need a convenient way to compare these tiny masses. Instead of writing a long string of decimal zeroes every time, we compare atomic masses with an agreed tiny reference mass.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "This is the same reason a small length is easier to discuss in millimetres than in fractions of a kilometre. Choosing a useful unit changes the number we write, not the physical quantity itself.",
+          "level": "foundation"
+        },
+        {
+          "kind": "explanation",
+          "text": "NCERT notes that modern techniques, such as mass spectrometry, can determine atomic masses accurately. The important idea here is the reference scale, not the operation of that instrument.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Let’s construct the reference unit before using atomic-mass numbers."
+    },
+    {
+      "page_number": 2,
+      "id": "masses-02",
+      "title": "Build the atomic-mass scale from carbon-12",
+      "source_section_ids": [
+        "1.7.1"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Take one carbon-12 atom as the reference. Imagine its mass divided into twelve equal portions. One such portion defines the unit used to express atomic masses; we are dividing the mass mathematically, not cutting an atom into pieces.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "One unified atomic mass unit, symbol u, is a mass exactly equal to one-twelfth of the mass of one carbon-12 atom. NCERT also uses the older name atomic mass unit, amu; u is the present symbol.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "1 u = mass of one carbon-12 atom / 12. Therefore, the mass of one carbon-12 atom is exactly 12 u. The reference atom fixes the scale; another atom’s mass is expressed in multiples of this unit.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Carbon-12 names a particular form of carbon. For now, use it as the specified reference; the meaning of different forms of an element will become important when we discuss average atomic mass.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "An atomic mass written as 16 u does not mean 16 g. The unit u represents an extremely small mass. Always attach the correct unit when reporting the mass of an atom.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Atomic mass is the mass of an atom expressed in the unified atomic mass unit, u. The numerical value tells us how many units of u make up that atom’s mass.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Now use this tiny reference unit to turn an awkward gram value into a manageable number."
+    },
+    {
+      "page_number": 3,
+      "id": "masses-03",
+      "title": "Convert a hydrogen atom’s mass into u",
+      "source_section_ids": [
+        "1.7.1"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The textbook gives 1 u ≈ 1.66056 × 10^(-24) g and the mass of a hydrogen atom ≈ 1.6736 × 10^(-24) g. Both masses are tiny, but they are of nearly the same size.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "To find how many u fit into an atom’s mass, divide its mass in grams by the gram value of 1 u. Atomic-mass value = mass of atom in g / gram value of 1 u. The gram units cancel; express the atom’s mass using the resulting number of u.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Question: express the supplied hydrogen-atom mass in u. Given: 1.6736 × 10^(-24) g and 1 u ≈ 1.66056 × 10^(-24) g. Find: the atom’s mass in u. Divide: 1.6736 / 1.66056 × 10^(-24) / 10^(-24) ≈ 1.008. Therefore, the hydrogen atom’s mass is approximately 1.008 u. Its mass is just slightly larger than one reference unit.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "The powers of ten cancel because they are equal in numerator and denominator. Do not subtract 24 from the final atomic-mass number or leave a gram unit attached to an answer expressed in u.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "Teacher clarification: a relative atomic mass is a ratio to the reference mass and has no unit. Saying an atom has a mass of 1.008 u expresses a mass. The same numerical comparison underlies both descriptions.",
+          "level": "extension"
+        }
+      ],
+      "transition": "A sample of an element may contain atoms with more than one mass, so one representative value needs care."
+    },
+    {
+      "page_number": 4,
+      "id": "masses-04",
+      "title": "Why an element can need an average mass",
+      "source_section_ids": [
+        "1.7.2"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Imagine two kinds of the same item, one slightly heavier than the other. If nearly all the items are the lighter kind, their average mass should be close to the lighter mass—not halfway between the two.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Isotopes are forms of the same element whose atoms have different masses. Many naturally occurring elements contain a mixture of isotopes. Relative abundance tells us how common each isotope is, usually as a percentage.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Average atomic mass accounts for both the isotope masses and their abundances. A very common isotope contributes much more to the average than a rare isotope. That is why simply adding isotope masses and dividing by the number of isotope types is usually wrong.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Average atomic mass = Σ(isotope mass × fractional abundance). The symbol Σ means add the contributions from all the isotopes. Fractional abundance = percentage abundance / 100. Each mass contribution and the final average have unit u.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "For example, 98.892% means 98.892 out of every hundred, or a fraction of 0.98892. Converting the percentage to a fraction prevents the weighted result from being one hundred times too large.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Use the actual carbon-isotope data to see how a weighted average is calculated."
+    },
+    {
+      "page_number": 5,
+      "id": "masses-05",
+      "title": "Calculate carbon’s average atomic mass",
+      "source_section_ids": [
+        "1.7.2"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Question: find carbon’s average atomic mass from NCERT’s isotope data. Given: carbon-12 has mass 12 u and abundance 98.892%; carbon-13 has mass 13.00335 u and abundance 1.108%; carbon-14 has mass 14.00317 u and abundance 2 × 10^(-10)%.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Find: the abundance-weighted mass in u. Choose the weighted-average formula. First convert the percentages to fractions: 98.892/100 = 0.98892; 1.108/100 = 0.01108; (2 × 10^(-10))/100 = 2 × 10^(-12).",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Substitute: average mass = (12 × 0.98892) u + (13.00335 × 0.01108) u + (14.00317 × 2 × 10^(-12)) u. The first two contributions are 11.86704 u and 0.144077118 u; the third is approximately 0.000000000028 u.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Add the contributions: approximately 12.011117118 u. Using the textbook’s reported precision, the average atomic mass is 12.011 u. It lies close to 12 u because carbon-12 makes up almost all the natural carbon sample.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "An average of 12.011 u does not mean every carbon atom has that mass. It represents a mixture. The masses and abundance percentages supplied in a calculation are measured or rounded values, so retain working digits and round the final answer.",
+          "level": "essential"
+        }
+      ],
+      "transition": "These average atomic masses are the values used to calculate the mass associated with a chemical formula."
+    },
+    {
+      "page_number": 6,
+      "id": "masses-06",
+      "title": "Read a formula before adding masses",
+      "source_section_ids": [
+        "1.7.3"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A molecular formula is a compact inventory of the atoms in one molecule. In CH₄, C has no written subscript, so there is one carbon atom. H has subscript 4, so there are four hydrogen atoms. Counting first prevents the most common mass-calculation error.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Molecular mass is the sum of the atomic masses of all atoms present in a molecule. Multiply each element’s atomic mass by its atom count and add the contributions. The molecular mass is expressed in u.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Question: calculate the molecular mass of CH₄. Given atomic masses: C = 12.011 u and H = 1.008 u. Find: the mass of one methane molecule in u. Use molecular mass = carbon contribution + hydrogen contribution. Substitute: 1 × 12.011 u + 4 × 1.008 u = 12.011 u + 4.032 u = 16.043 u.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "The 4 multiplies only the hydrogen contribution. The answer 16.043 u accounts for one carbon atom and all four hydrogen atoms in one molecule.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Do not add only 12.011 + 1.008: that would count just one hydrogen atom. Equally, do not multiply the carbon mass by 4; a subscript belongs to the element immediately before it.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Water gives another chance to connect atom counts, units and final-answer precision."
+    },
+    {
+      "page_number": 7,
+      "id": "masses-07",
+      "title": "Work through the molecular mass of water",
+      "source_section_ids": [
+        "1.7.3"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "One water molecule contains two hydrogen atoms and one oxygen atom. Notice how the formula H₂O tells us exactly which masses to combine, even though it does not show the molecule’s shape.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Question: calculate the molecular mass of H₂O using H = 1.008 u and O = 16.00 u. Given: two H atoms and one O atom. Find: the mass associated with one H₂O molecule. Choose molecular mass = 2 × atomic mass of H + atomic mass of O.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Substitute the values with their units: 2 × 1.008 u + 16.00 u. Multiply first: 2.016 u + 16.00 u = 18.016 u. Report 18.02 u, as NCERT does for these input values. The oxygen mass is given to two decimal places, so the final sum is rounded to two decimal places.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The coefficients 2 and 1 here are exact atom counts from the formula. They are not measured masses with limited precision. The rounding depends on the supplied atomic masses.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Keep 2.016 u during the calculation. Rounding this intermediate contribution too early can change the final result. Round once, after adding all the contributions.",
+          "level": "essential"
+        }
+      ],
+      "transition": "A larger formula uses the same method; it simply has more contributions to keep organised."
+    },
+    {
+      "page_number": 8,
+      "id": "masses-08",
+      "title": "A larger formula: glucose",
+      "source_section_ids": [
+        "1.7.3"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The formula C₆H₁₂O₆ has three kinds of atoms, but it needs no new mass rule. Write a separate contribution for each element so that none is missed or counted twice.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Question, NCERT Problem 1.1: calculate the molecular mass of C₆H₁₂O₆. Given: six C atoms, twelve H atoms and six O atoms; C = 12.011 u, H = 1.008 u and O = 16.00 u. Find: the molecular mass in u.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Select the formula: molecular mass = 6 × mass of C + 12 × mass of H + 6 × mass of O. Substitute: 6(12.011 u) + 12(1.008 u) + 6(16.00 u). Calculate each contribution: 72.066 u + 12.096 u + 96.00 u.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Add: 72.066 + 12.096 = 84.162; then 84.162 + 96.00 = 180.162. The arithmetic molecular mass is 180.162 u, the value shown in the textbook’s worked solution. Keep these intermediate digits until the final addition; the precision note below explains how to report the rounded answer.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "The result represents the combined atomic masses within one glucose molecule. A large subscript changes the number of atoms counted; it does not change the atomic mass assigned to an individual atom.",
+          "level": "essential"
+        },
+        {
+          "kind": "clarification",
+          "text": "NCERT prints the unrounded arithmetic result 180.162 u. Applying the addition rule from significant figures to the supplied masses, including 16.00 u for oxygen, gives 180.16 u. The formula and counting steps are the same; the final displayed precision changes.",
+          "level": "essential",
+          "source_section_ids": [
+            "1.7.3"
+          ]
+        }
+      ],
+      "transition": "Some solids do not contain separate molecules. We must choose the correct description for their formulas."
+    },
+    {
+      "page_number": 9,
+      "id": "masses-09",
+      "title": "Ionic solids: use formula mass",
+      "source_section_ids": [
+        "1.7.4"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "A sodium chloride crystal is not a collection of separate NaCl molecules. Its sodium and chloride ions form a repeating three-dimensional arrangement. An ion is a charged particle; Na⁺ is positive and Cl⁻ is negative.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "For such a substance, use formula mass: add the atomic masses represented by the formula unit. A formula unit gives the simplest whole-number ratio of ions; NaCl expresses one sodium ion for each chloride ion.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Question: find the formula mass of NaCl. Given NCERT values: Na = 23.0 u, Cl = 35.5 u; the formula contains one of each. Find: the formula mass in u. Use formula mass = sodium contribution + chlorine contribution. Substitute and add: 1 × 23.0 u + 1 × 35.5 u = 58.5 u.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The 58.5 u answer is obtained by the same addition process used for molecular mass. The name changes because an ionic solid has no separate NaCl molecules. It is not the mass of the whole crystal.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "NCERT’s structural picture shows each Na⁺ surrounded by six Cl⁻ ions and each Cl⁻ surrounded by six Na⁺ ions. These neighbouring ions are shared throughout the arrangement; this does not change the overall Na:Cl ratio of 1:1.",
+          "level": "extension"
+        }
+      ],
+      "transition": "Now practise choosing the reference unit, the right average and the right kind of formula calculation."
+    },
+    {
+      "page_number": 10,
+      "id": "masses-10",
+      "title": "Revision: choose the right mass calculation",
+      "source_section_ids": [
+        "1.7",
+        "1.7.1",
+        "1.7.2",
+        "1.7.3",
+        "1.7.4"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "The carbon-12 reference defines 1 u as one-twelfth of the mass of one carbon-12 atom. Atomic mass describes an atom’s mass; do not confuse u with grams.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "For an element containing isotopes, average atomic mass = Σ(isotope mass × fractional abundance). Convert percentages to fractions before multiplying. The most abundant isotope usually has the strongest influence on the result.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "For a molecule, count every atom and add its atomic-mass contribution. For a non-molecular ionic solid, use the formula unit and call the result formula mass. Keep working digits and state u in the final answer.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "text": "Use the questions below to explain your choices as well as calculate. If atom counting or percentage weighting remains difficult, practise one additional formula or isotope data set during revision before moving on.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "A carbon-12 atom has mass exactly 12 u. What mass defines 1 u, and does the definition describe physically splitting the atom?",
+      "answer": "1 u is exactly one-twelfth of one carbon-12 atom’s mass. It divides the reference mass mathematically; it does not claim the atom is physically split.",
+      "source_section_ids": [
+        "1.7.1"
+      ]
+    },
+    {
+      "question": "Why is the average atomic mass of natural carbon close to 12 u rather than halfway between 12 u and 13.00335 u?",
+      "answer": "The average is weighted by abundance. Carbon-12 has abundance 98.892%, so it contributes far more than carbon-13 at 1.108%; the tiny carbon-14 contribution is also included.",
+      "source_section_ids": [
+        "1.7.2"
+      ]
+    },
+    {
+      "question": "Before weighting a carbon-isotope mass, how should 1.108% be written as a fraction? Why?",
+      "answer": "1.108/100 = 0.01108. Percent means per hundred; using 1.108 directly would make that weighted contribution 100 times too large.",
+      "source_section_ids": [
+        "1.7.2"
+      ]
+    },
+    {
+      "question": "A student calculates CH₄ mass as 12.011 u + 1.008 u. Identify and correct the error.",
+      "answer": "Four H atoms must be counted. Molecular mass = 12.011 u + 4(1.008 u) = 16.043 u.",
+      "source_section_ids": [
+        "1.7.3"
+      ]
+    },
+    {
+      "question": "Use H = 1.008 u and O = 16.00 u to calculate H₂O mass. Explain why NCERT reports 18.02 u.",
+      "answer": "2(1.008 u) + 16.00 u = 18.016 u. The sum is rounded to two decimal places, matching the least precise decimal place of the given oxygen mass, to give 18.02 u.",
+      "source_section_ids": [
+        "1.7.3"
+      ]
+    },
+    {
+      "question": "For C₆H₁₂O₆, explain what the three contributions 72.066 u, 12.096 u and 96.00 u represent.",
+      "answer": "They are the contributions of 6 C atoms, 12 H atoms and 6 O atoms using C = 12.011 u, H = 1.008 u and O = 16.00 u. Their arithmetic sum is 180.162 u.",
+      "source_section_ids": [
+        "1.7.3"
+      ]
+    },
+    {
+      "question": "Why should 23.0 u + 35.5 u = 58.5 u for NaCl be called formula mass rather than molecular mass?",
+      "answer": "Solid NaCl forms a repeating ionic arrangement, not separate NaCl molecules. NaCl specifies the simplest 1:1 ion ratio, so adding those contributions gives its formula mass.",
+      "source_section_ids": [
+        "1.7.4"
+      ]
+    }
+  ]
+}

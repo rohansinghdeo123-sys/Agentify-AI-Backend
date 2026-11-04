@@ -1,0 +1,416 @@
+{
+  "unit_id": "chem11_u01_lu05_laws_of_combination",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "laws-01",
+      "title": "What can measurements tell us about a reaction?",
+      "source_section_ids": [
+        "1.5",
+        "1.5.1"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Imagine mixing two substances inside a sealed flask and weighing the whole flask before and after they react. The colour may change, or a gas may appear. But what should happen to the total mass?",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "To answer that question, chemists compared measurements rather than relying only on appearances. A reactant is a starting substance; a product is a substance formed. Measuring both reveals patterns that repeated experiments can test.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The laws of chemical combination describe five such patterns. Some compare masses; others compare gas volumes. First ask what quantity is being measured. That one decision prevents many mix-ups.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "You have already learnt that measurements need units. Here, grams help compare masses and millilitres help compare gas volumes. Keep those two kinds of evidence separate.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Start with the simplest question: can a reaction change the total mass?"
+    },
+    {
+      "page_number": 2,
+      "id": "laws-02",
+      "title": "Track all the matter: conservation of mass",
+      "source_section_ids": [
+        "1.5.1"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "In the sealed-flask situation, a gas formed during the reaction stays inside the flask. Nothing crosses the boundary. Such an arrangement is called a closed system: the matter being compared cannot enter or leave.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "The law of conservation of mass states that matter can neither be created nor destroyed in a chemical reaction. In a closed system, the total mass of reactants equals the total mass of products. Lavoisier established this through careful measurements.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Use the water data supplied later in NCERT: 2 g hydrogen reacts completely with 16 g oxygen. Given: the two reactant masses. Find: the product mass when water is the only product. Choose conservation of mass: product mass = 2 g + 16 g = 18 g. The 18 g accounts for all the starting matter; it is not extra mass created by the reaction.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "An open container may seem to lose mass if gas escapes. Weighing only what remains leaves out part of the system. This observation does not show that matter has been destroyed.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Total mass is conserved. Now ask whether one particular compound can have any composition we choose."
+    },
+    {
+      "page_number": 3,
+      "id": "laws-03",
+      "title": "A pure compound has a fixed recipe",
+      "source_section_ids": [
+        "1.5.2"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Would a natural sample of a pure compound and a laboratory-made sample have different proportions of elements? Proust compared natural and synthetic cupric carbonate to investigate exactly this question.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "The law of definite proportions, also called the law of definite composition, states that a given compound always contains exactly the same proportion of elements by mass, irrespective of its source.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "Both NCERT samples contain 51.35% copper, 9.74% carbon and 38.91% oxygen. Percent means per hundred: in a 100 g sample, these are 51.35 g copper, 9.74 g carbon and 38.91 g oxygen. Their sum is 100.00 g.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The matching percentages are the evidence. Making more of the same pure compound changes the amounts of all elements together; it does not change their mass proportions.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Do not apply the fixed-composition rule to a mixture. Adding more water to a salt solution changes the mixture’s composition without producing a new pure compound.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Fixed composition describes one compound. Two elements can also form more than one compound."
+    },
+    {
+      "page_number": 4,
+      "id": "laws-04",
+      "title": "Same elements, different compounds",
+      "source_section_ids": [
+        "1.5.3"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Water and hydrogen peroxide both contain hydrogen and oxygen. Their existence raises a new question: how do their compositions differ while each compound still has a fixed composition?",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "The law of multiple proportions states that when two elements form more than one compound, the masses of one element that combine with a fixed mass of the other are in the ratio of small whole numbers.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Question: use NCERT’s water and hydrogen-peroxide data to compare oxygen masses. Given: water contains 2 g hydrogen with 16 g oxygen; hydrogen peroxide contains 2 g hydrogen with 32 g oxygen. The hydrogen mass is already fixed at 2 g. Compare only oxygen: 16:32. Divide both numbers by 16 to obtain 1:2. Thus twice as much oxygen combines with the same hydrogen mass in the second compound.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "The word fixed is essential. Comparing oxygen masses while the hydrogen masses are different would mix two changes together. First put the samples on the same hydrogen-mass basis.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "The law compares two different compounds made from the same two elements. It does not say that every compound has the same composition.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Let’s check that the three mass-based laws answer different questions."
+    },
+    {
+      "page_number": 5,
+      "id": "laws-05",
+      "title": "Choose a mass law from the evidence",
+      "source_section_ids": [
+        "1.5.1",
+        "1.5.2",
+        "1.5.3"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "If the evidence compares total reactant mass with total product mass, ask about conservation of mass. It concerns the entire reaction, not the percentage of one element.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "If two samples of the same pure compound have the same element percentages, ask about definite proportions. It concerns a compound’s fixed composition.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "If the same two elements form different compounds, fix one element’s mass and compare the other element’s masses. A small whole-number ratio illustrates multiple proportions.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "text": "Try explaining why the 2 g hydrogen, 16 g oxygen and 18 g water data can illustrate conservation, while comparing that water with hydrogen peroxide answers a different question. The same numbers can support different conclusions only when you state what you are comparing.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "A ratio such as 16 g:32 g has no remaining unit because both quantities use grams. Simplify only after their units and the fixed reference mass match.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Gas experiments reveal another pattern, this time involving volume rather than mass."
+    },
+    {
+      "page_number": 6,
+      "id": "laws-06",
+      "title": "Gas volumes combine in simple ratios",
+      "source_section_ids": [
+        "1.5.4"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Suppose measured hydrogen and oxygen gases react to form water vapour. NCERT gives 100 mL hydrogen, 50 mL oxygen and 100 mL water vapour. Why are these volumes useful only under matching conditions?",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Gay Lussac’s law of gaseous volumes states that gases combine, and gaseous products are formed, in simple whole-number ratios by volume, provided all gas volumes are measured at the same temperature and pressure.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Given volumes: hydrogen 100 mL, oxygen 50 mL, water vapour 100 mL. Find their simplest volume ratio. Write 100:50:100 and divide each term by 50. The result is 2:1:2. It compares volumes of the three gases, not their masses.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "The product here is water vapour, not liquid water. Also, 100 mL + 50 mL need not produce 150 mL of gaseous product. Conservation of mass does not require conservation of gas volume.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Temperature and pressure affect a gas’s volume. If they differ between measurements, a volume comparison can hide the chemical relationship we are trying to observe.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Avogadro supplied the particle-level idea needed to understand this volume pattern."
+    },
+    {
+      "page_number": 7,
+      "id": "laws-07",
+      "title": "Equal gas volumes: count molecules, not atoms",
+      "source_section_ids": [
+        "1.5.5"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Imagine equal-sized boxes containing different gases at the same temperature and pressure. Could one box contain more molecules simply because its gas is a different substance?",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Avogadro’s law states that equal volumes of all gases at the same temperature and pressure contain equal numbers of molecules. Molecules are groups of chemically bonded atoms that act as separate units.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Hydrogen gas and oxygen gas contain diatomic molecules: each molecule has two atoms. The reaction 2H₂(g) + O₂(g) → 2H₂O(g) has molecule-number ratio 2:1:2. At the same temperature and pressure, Avogadro’s idea connects this to the observed gas-volume ratio.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Equal molecule counts do not mean equal masses. Nor do they always mean equal atom counts: molecules of different substances can contain different numbers of atoms.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "Notice how the two gas laws differ: Gay Lussac describes the measured volume ratio in a reaction; Avogadro explains how equal gas volumes relate to molecule numbers.",
+          "level": "essential"
+        }
+      ],
+      "transition": "These experimental laws encouraged Dalton to propose a model of matter made of atoms."
+    },
+    {
+      "page_number": 8,
+      "id": "laws-08",
+      "title": "Dalton’s atomic model: four connected ideas",
+      "source_section_ids": [
+        "1.6"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A law summarises a repeated observation. A theory tries to explain observations through a connected model. Dalton’s historical atomic theory offered a particle picture behind the combination laws.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Postulate 1: matter consists of indivisible atoms. Here, indivisible is Dalton’s original description of the particles in his model, not a complete modern account of atomic structure.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Postulate 2: all atoms of a given element have identical properties, including identical mass; atoms of different elements differ in mass. Keep this wording identifiable as a postulate of the historical model.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Postulate 3: compounds form when atoms of different elements combine in a fixed ratio. A compound therefore has an organised composition rather than an arbitrary mixture of atoms.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Postulate 4: chemical reactions reorganise atoms. Atoms are neither created nor destroyed in a chemical reaction. The same building units are rearranged into products.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "A postulate is a basic statement on which a model is built. Learn the statements together, then ask which experimental pattern each one helps explain.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Now test what this model explains—and what it leaves unanswered."
+    },
+    {
+      "page_number": 9,
+      "id": "laws-09",
+      "title": "What Dalton’s theory explains—and its limits",
+      "source_section_ids": [
+        "1.6"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Reorganisation without creating or destroying atoms explains conservation of mass: the matter in the starting atoms is still present after rearrangement.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Fixed kinds of atoms combining in fixed ratios explain definite proportions. Repeating the same atom combination gives the same compound composition.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Different simple atom combinations also make the small whole-number ratios in multiple proportions understandable. The model connects separate measurements instead of treating each law as an unrelated fact.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "NCERT identifies two limits: Dalton’s theory could not explain gaseous-volume relationships, and it did not explain why atoms combine. Do not claim that the historical model answered every question about chemical bonding or gases.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "text": "Compare two explanations: “The masses match because atoms are rearranged” and “The gas volumes match because equal gas volumes contain equal molecule numbers.” Identify which uses Dalton’s model and which uses Avogadro’s idea.",
+          "level": "extension"
+        }
+      ],
+      "transition": "Use the final page to identify laws from evidence rather than memorising names alone."
+    },
+    {
+      "page_number": 10,
+      "id": "laws-10",
+      "title": "Revision: connect each law to its evidence",
+      "source_section_ids": [
+        "1.5",
+        "1.5.1",
+        "1.5.2",
+        "1.5.3",
+        "1.5.4",
+        "1.5.5",
+        "1.6"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "For masses: conserve the total in a reaction; keep the composition of one pure compound fixed; compare different compounds using a fixed mass of one common element.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "For gases: simple reaction-volume ratios require the same temperature and pressure. Equal gas volumes under those conditions contain equal molecule numbers, not necessarily equal atom numbers or masses.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Dalton’s four postulates concern atoms, element identity, fixed compound ratios and atom rearrangement. They explain mass-combination patterns but leave the gas-volume explanation and the reason atoms combine incomplete.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "text": "Answer the questions below with a reason or calculation. If the mass-law comparisons or gas conditions still cause confusion, revisit those pages and attempt another data comparison during revision.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "A sealed flask has the same total mass before and after a visible reaction. Which law does this illustrate, and why is the seal useful?",
+      "answer": "Conservation of mass. The seal keeps matter, including any gas, from entering or leaving the measured system.",
+      "source_section_ids": [
+        "1.5.1"
+      ]
+    },
+    {
+      "question": "Natural and synthetic samples of a pure compound have identical element percentages. What conclusion follows?",
+      "answer": "Definite proportions: a given pure compound has the same elemental mass proportions irrespective of source.",
+      "source_section_ids": [
+        "1.5.2"
+      ]
+    },
+    {
+      "question": "Water uses 16 g oxygen with 2 g hydrogen; hydrogen peroxide uses 32 g oxygen with 2 g hydrogen. Find and interpret the comparison ratio.",
+      "answer": "The hydrogen mass is fixed. Oxygen masses 16:32 simplify to 1:2, illustrating multiple proportions for two different compounds.",
+      "source_section_ids": [
+        "1.5.3"
+      ]
+    },
+    {
+      "question": "Why can gas-volume data measured at different temperatures not directly test Gay Lussac’s law?",
+      "answer": "The law compares volumes at the same temperature and pressure. Changed conditions alter gas volumes independently of the reaction ratio.",
+      "source_section_ids": [
+        "1.5.4"
+      ]
+    },
+    {
+      "question": "Explain why 100 mL hydrogen plus 50 mL oxygen can form 100 mL water vapour without breaking conservation of mass.",
+      "answer": "The gas-volume ratio is 2:1:2 at matching temperature and pressure. Gas volume is not the conserved quantity; the total mass of all reactants and products is conserved.",
+      "source_section_ids": [
+        "1.5.1",
+        "1.5.4"
+      ]
+    },
+    {
+      "question": "Do equal volumes of two gases at the same temperature and pressure always contain equal numbers of atoms?",
+      "answer": "They contain equal numbers of molecules. Atom counts can differ if the molecules have different numbers of atoms.",
+      "source_section_ids": [
+        "1.5.5"
+      ]
+    },
+    {
+      "question": "Which Dalton postulate supports conservation of mass? Name one question the model could not answer.",
+      "answer": "The postulate that reactions rearrange atoms without creating or destroying them supports conservation. The model could not explain gaseous-volume relationships or why atoms combine.",
+      "source_section_ids": [
+        "1.6"
+      ]
+    }
+  ]
+}
