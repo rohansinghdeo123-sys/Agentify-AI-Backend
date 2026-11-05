@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_6_equilibrium_5be83987b9",
+  "pages": [
+    {
+      "title": "Different starting mixtures obey one relationship",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " A reversible reaction can settle at different concentrations after different starting amounts. Yet at one temperature those equilibrium compositions obey a common ratio. That relationship lets us compare mixtures without demanding identical starting recipes."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " K(c) is an equilibrium constant written using equilibrium molar concentrations. Its numerical value belongs to a specified balanced equation and temperature."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_5be83987b9"
+      ],
+      "transition": "The balanced coefficients determine how to build the ratio.",
+      "id": "chem11-ch06-u02-p01",
+      "page_number": 1
+    },
+    {
+      "title": "Coefficients become concentration powers",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " For aA + bB ⇌ cC + dD in an appropriate single phase, K(c) = [C]^c[D]^d/([A]^a[B]^b). Brackets mean equilibrium molar concentrations, usually in mol L⁻¹."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " For N₂(g) + 3H₂(g) ⇌ 2NH₃(g), K(c) = [NH₃]²/([N₂][H₂]³). Hydrogen concentration is cubed; it is not simply multiplied by three."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " A coefficient counts stoichiometric amounts. As an exponent it tells us how many times to multiply that concentration by itself."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_5be83987b9"
+      ],
+      "transition": "Use equilibrium measurements in the expression.",
+      "id": "chem11-ch06-u02-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Worked constant from measured composition",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created data for H₂ + I₂ ⇌ 2HI: equilibrium [H₂] = 0.20 M, [I₂] = 0.20 M and [HI] = 0.80 M. Find K(c). Substitute K(c) = 0.80²/(0.20 × 0.20) = 0.64/0.040 = 16."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " A different starting mixture can give different equilibrium concentrations but the same ratio at the same temperature. Initial concentrations must not be substituted without accounting for reaction first."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_5be83987b9"
+      ],
+      "transition": "Reversing the equation reverses the ratio.",
+      "id": "chem11-ch06-u02-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Reverse a reaction, invert K",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Reversing the balanced equation swaps products and reactants, so K(reverse) = 1/K. The equilibrium mixture itself has not changed."
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " If H₂ + I₂ ⇌ 2HI has K = 16, then 2HI ⇌ H₂ + I₂ has K = 1/16 = 0.0625. Comparing constants without their equations can therefore be misleading."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_5be83987b9"
+      ],
+      "transition": "Scaling coefficients changes the concentration powers.",
+      "id": "chem11-ch06-u02-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Scale coefficients, raise K to a power",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Multiplying every coefficient by n gives K(new) = K^n. Halving coefficients gives the square root of K; doubling them squares K."
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " For K = 16 in H₂ + I₂ ⇌ 2HI, the equation ½H₂ + ½I₂ ⇌ HI has K = 4, while doubling the original gives K = 256. Do not multiply K by two; the algebra acts on its exponents."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_5be83987b9"
+      ],
+      "transition": "Adding reaction equations combines their equilibrium ratios.",
+      "id": "chem11-ch06-u02-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Add equations, multiply constants",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " For A ⇌ B, K₁ = [B]/[A]. For B ⇌ C, K₂ = [C]/[B]. Multiplying cancels the intermediate B, giving [C]/[A] for the net A ⇌ C."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Therefore K(net) = K₁K₂ when the adjusted equations add to the net reaction. If K₁ = 2 and K₂ = 3, K(net) = 6. Reverse or scale each equation before multiplying if the target requires it."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_5be83987b9"
+      ],
+      "transition": "Now describe the phase condition behind a homogeneous expression.",
+      "id": "chem11-ch06-u02-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Homogeneous means one phase",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " In homogeneous equilibrium all participating reactants and products are in the same phase. A gas mixture or suitable uniform solution can satisfy this condition."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " H₂(g), I₂(g) and HI(g) form one gaseous phase at appropriate temperature. Homogeneous does not mean gas only. Pure solid and liquid phases require the special equilibrium treatment introduced in the next topic."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_5be83987b9"
+      ],
+      "transition": "For gases we can measure composition through partial pressure.",
+      "id": "chem11-ch06-u02-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Write K(p) using individual gas pressures",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " K(p) uses equilibrium partial pressures raised to balanced coefficients. For N₂ + 3H₂ ⇌ 2NH₃, K(p) = p(NH₃)²/[p(N₂)p(H₂)³]."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Partial pressure is one gas component’s pressure contribution. Total pressure cannot replace every partial pressure because the component mole fractions differ. Keep all pressure measurements in the same stated unit convention."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_5be83987b9"
+      ],
+      "transition": "The ideal-gas equation connects each pressure to concentration.",
+      "id": "chem11-ch06-u02-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Convert concentration to partial pressure",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " For an ideal gas component, pV = nRT gives p = (n/V)RT = cRT. Use T in K and R matching the pressure and volume units. For L and bar, R = 0.08314 L bar mol⁻¹ K⁻¹."
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created check: c = 0.100 mol L⁻¹ at 300 K gives p = 0.100 × 0.08314 × 300 = 2.49 bar. The same conversion applies separately to each gas component."
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": " In rigorous thermodynamics, K uses dimensionless activities. Textbook concentration or pressure numerical forms require their unit convention to be stated."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_5be83987b9"
+      ],
+      "transition": "Revise the equation transformations before combining K(p) and K(c).",
+      "id": "chem11-ch06-u02-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: every constant belongs to an equation",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " K(c) uses equilibrium concentrations, K(p) uses equilibrium gas partial pressures, and coefficients become powers. Reverse → reciprocal; scale by n → K^n; add reactions → multiply constants."
+        },
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Homogeneous means one phase. K stays constant at fixed temperature for the specified equation, even though different starting amounts can produce different equilibrium concentrations. Use the stated units and equilibrium values."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_5be83987b9"
+      ],
+      "transition": "",
+      "id": "chem11-ch06-u02-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "Write K(c) for 2SO₂ + O₂ ⇌ 2SO₃.",
+      "answer": "K(c) = [SO₃]²/([SO₂]²[O₂]) using equilibrium concentrations.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_5be83987b9"
+      ]
+    },
+    {
+      "question": "If K = 9, what is the reversed constant?",
+      "answer": "1/9, because numerator and denominator exchange positions.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_5be83987b9"
+      ]
+    },
+    {
+      "question": "If K = 9 and all coefficients are halved, what is the new value?",
+      "answer": "√9 = 3, because all concentration powers are halved.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_5be83987b9"
+      ]
+    },
+    {
+      "question": "May initial concentrations be inserted directly?",
+      "answer": "Only if they already represent equilibrium; otherwise account for reaction changes first.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_5be83987b9"
+      ]
+    },
+    {
+      "question": "Is every homogeneous equilibrium gaseous?",
+      "answer": "No. A uniform solution equilibrium can also have all species in one phase.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_5be83987b9"
+      ]
+    },
+    {
+      "question": "Why not use total pressure in every K(p) term?",
+      "answer": "Each term requires the individual component’s partial pressure, not the combined pressure.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_5be83987b9"
+      ]
+    }
+  ],
+  "title": "Equilibrium Constants and Reaction Equations"
+}

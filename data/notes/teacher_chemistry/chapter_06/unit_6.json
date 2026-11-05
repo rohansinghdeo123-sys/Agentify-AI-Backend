@@ -1,0 +1,280 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_6_equilibrium_029c7f7606",
+  "pages": [
+    {
+      "title": "pH changes on a logarithmic scale",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " A pH difference of one unit is not a tiny linear change in acid concentration. It represents a factor of ten in hydrogen-ion activity. This scale makes a very wide concentration range manageable."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " In dilute solutions, pH ≈ −log₁₀[H₃O⁺] and pOH ≈ −log₁₀[OH⁻], with concentrations used numerically relative to 1 M. Therefore [H₃O⁺] ≈ 10^(−pH) M."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_029c7f7606"
+      ],
+      "transition": "The ion product links pH and pOH at a specified temperature.",
+      "id": "chem11-ch06-u07-p01",
+      "page_number": 1
+    },
+    {
+      "title": "pH plus pOH equals pK(w)",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Taking negative logarithms of K(w) = [H₃O⁺][OH⁻] gives pH + pOH = pK(w). At 298 K, pK(w) = 14.00. Neutral pH is pK(w)/2, so it changes when K(w) changes with temperature."
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created example at 298 K: [OH⁻] = 2.0 × 10⁻³ M. pOH = −log(2.0 × 10⁻³) = 3 − log 2.0 = 2.70. Hence pH = 14.00 − 2.70 = 11.30. The solution is basic."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_029c7f7606"
+      ],
+      "transition": "For a weak acid, the main challenge is first finding the ion concentration.",
+      "id": "chem11-ch06-u07-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Set up a weak-acid equilibrium",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " HA + H₂O ⇌ H₃O⁺ + A⁻. In the dilute concentration treatment, K(a) = [H₃O⁺][A⁻]/[HA]. Larger K(a) at the same temperature means more favourable acid ionisation. pK(a) = −log K(a), so stronger acids have smaller pK(a)."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Starting with acid concentration c and negligible added ions, let x ionise. Equilibrium gives [H₃O⁺] ≈ x, [A⁻] = x and [HA] = c − x, so K(a) = x²/(c − x)."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " The acid concentration c is the analytical starting concentration; c − x is the remaining unionised acid concentration at equilibrium."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_029c7f7606"
+      ],
+      "transition": "Use an approximation only after stating when it can be checked.",
+      "id": "chem11-ch06-u07-p03",
+      "page_number": 3
+    },
+    {
+      "title": "The small-ionisation approximation",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " If x is much smaller than c, then c − x ≈ c and x ≈ √[K(a)c]. The degree of ionisation is α = x/c, giving K(a) = cα²/(1 − α) ≈ cα²."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Check the resulting x/c before trusting the shortcut. If ionisation is not small, solve x² + K(a)x − K(a)c = 0. The positive physical root must also satisfy x ≤ c."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Diluting a weak acid increases its fraction ionised in this simple regime, even though its absolute hydrogen-ion concentration usually decreases."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_029c7f7606"
+      ],
+      "transition": "Follow the complete numerical chain from K(a) to pH.",
+      "id": "chem11-ch06-u07-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Worked weak-acid pH",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created data: c = 0.100 M and K(a) = 1.8 × 10⁻⁵ at 298 K. Find pH and α. Assume x ≪ c: x ≈ √(1.8 × 10⁻⁵ × 0.100) = √(1.8 × 10⁻⁶) = 1.34 × 10⁻³ M. Check α = x/c = 0.0134, or 1.34%, so the approximation is suitable. pH ≈ −log(1.34 × 10⁻³) = 2.87."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Only a small fraction ionises, yet the solution is clearly acidic. Weak does not mean neutral. The calculation neglects water’s contribution because 1.34 × 10⁻³ M is far above 10⁻⁷ M."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_029c7f7606"
+      ],
+      "transition": "A weak base uses the same reasoning to find hydroxide concentration.",
+      "id": "chem11-ch06-u07-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Weak-base equilibrium produces OH⁻",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " B + H₂O ⇌ BH⁺ + OH⁻, with K(b) = [BH⁺][OH⁻]/[B]. For concentration c and small ionisation, [OH⁻] ≈ √[K(b)c]. Find pOH first, then pH using pK(w)."
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created data for a weak base: c = 0.100 M, K(b) = 1.8 × 10⁻⁵ at 298 K. [OH⁻] ≈ 1.34 × 10⁻³ M; pOH ≈ 2.87 and pH ≈ 14.00 − 2.87 = 11.13. The ionised fraction is about 1.34%."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_029c7f7606"
+      ],
+      "transition": "Conjugate acid and base constants are linked through water.",
+      "id": "chem11-ch06-u07-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Conjugate constants multiply to K(w)",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " For a conjugate pair HA/A⁻, K(a)(HA)K(b)(A⁻) = K(w). Adding the acid-ionisation and base-hydrolysis equations leaves the water-ionisation reaction; multiplying their constants cancels the conjugate species."
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " At 298 K, if K(a) = 1.8 × 10⁻⁵, then K(b) of its conjugate base is 10⁻¹⁴/(1.8 × 10⁻⁵) = 5.6 × 10⁻¹⁰. Equivalently pK(a) + pK(b) = 14.00."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Pair the acid with its actual conjugate base. Multiplying unrelated acid and base constants does not give K(w)."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_029c7f7606"
+      ],
+      "transition": "Acids with several ionisable protons require separate steps.",
+      "id": "chem11-ch06-u07-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Polybasic acids ionise stepwise",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " For H₂A: first H₂A ⇌ H⁺ + HA⁻ with K(a1); then HA⁻ ⇌ H⁺ + A²⁻ with K(a2). Each expression has its own reactant and product concentrations. Usually K(a1) > K(a2), because removing a proton from an already negative ion is harder."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " H₃PO₄ ionises in three steps through H₂PO₄⁻ and HPO₄²⁻ to PO₄³⁻. Having three ionisable protons does not mean every solution has [H⁺] = 3c; the extent of each step matters."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_029c7f7606"
+      ],
+      "transition": "Extremely dilute strong acids also need more than a single shortcut.",
+      "id": "chem11-ch06-u07-p08",
+      "page_number": 8
+    },
+    {
+      "title": "When water can no longer be neglected",
+      "blocks": [
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " For a very dilute strong acid, setting [H⁺] equal to the added acid concentration can predict an impossible basic result. Water still contributes ions and K(w) must hold."
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created ideal dilute example: strong monoprotic acid concentration c = 1.0 × 10⁻⁸ M at 298 K. Charge balance gives h = c + [OH⁻], and K(w) gives [OH⁻] = K(w)/h. Thus h² − ch − K(w) = 0; h = [c + √(c² + 4K(w))]/2 ≈ 1.05 × 10⁻⁷ M. pH ≈ 6.98, slightly acidic, not 8."
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": " The charge-balance check helps identify missing ions when a simplified concentration formula fails."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_029c7f7606"
+      ],
+      "transition": "Revise the approximation and pairing checks before solving independently.",
+      "id": "chem11-ch06-u07-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: ionisation before logarithms",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Weak acid: K(a) = x²/(c − x); weak base: K(b) = x²/(c − x) for its OH⁻ change. When ionisation is small, x ≈ √(Kc). Then calculate pH or pOH and use pH + pOH = pK(w)."
+        },
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Check α = x/c, temperature, conjugate pairing and the contribution of water. Polybasic acids ionise stepwise. A lower pK(a) means a stronger acid, while strength and concentration remain different ideas."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_029c7f7606"
+      ],
+      "transition": "",
+      "id": "chem11-ch06-u07-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "If pH = 4.30, estimate [H₃O⁺].",
+      "answer": "10^(−4.30) ≈ 5.0 × 10⁻⁵ M in the dilute approximation.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_029c7f7606"
+      ]
+    },
+    {
+      "question": "Why check x/c after using √(K(a)c)?",
+      "answer": "The approximation replaces c − x by c and is valid only when x is small relative to c.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_029c7f7606"
+      ]
+    },
+    {
+      "question": "For c = 0.010 M and K(a) = 10⁻⁶, estimate α.",
+      "answer": "x ≈ √(10⁻⁶ × 0.010) = 10⁻⁴ M, so α = 10⁻⁴/0.010 = 0.010, or 1%.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_029c7f7606"
+      ]
+    },
+    {
+      "question": "If K(b)(NH₃) = 1.8 × 10⁻⁵, find K(a)(NH₄⁺) at 298 K.",
+      "answer": "K(a) = K(w)/K(b) = 10⁻¹⁴/(1.8 × 10⁻⁵) ≈ 5.6 × 10⁻¹⁰.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_029c7f7606"
+      ]
+    },
+    {
+      "question": "Why does a dibasic acid not always produce [H⁺] = 2c?",
+      "answer": "Its two ionisation steps have separate equilibrium constants and may be far from complete.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_029c7f7606"
+      ]
+    },
+    {
+      "question": "Why is pH 8 wrong for 10⁻⁸ M strong acid at 298 K?",
+      "answer": "It neglects water ionisation. Charge balance plus K(w) gives a slightly acidic solution near pH 7, not a basic one.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_029c7f7606"
+      ]
+    }
+  ],
+  "title": "Weak Acid and Base Ionisation Calculations"
+}

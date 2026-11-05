@@ -1,0 +1,344 @@
+{
+  "unit_id": "chem11_u02_lu01_subatomic_particles",
+  "title": "Discovering Sub-atomic Particles",
+  "pages": [
+    {
+      "title": "Can an atom have smaller pieces?",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Rub a plastic comb through dry hair and it can attract tiny paper pieces. Electrical behaviour asks a question that an indivisible, featureless atom cannot answer: what inside matter carries electric charge?",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Scientists investigated this through controlled experiments. Our task is to connect each observation to the particle it reveals, rather than memorising discovery names.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch2_unit0_page1",
+      "source_section_ids": [
+        "2.1"
+      ],
+      "transition": "Electrical discharge gives us a controlled way to investigate charge inside matter."
+    },
+    {
+      "title": "Follow a beam through a discharge tube",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "In a discharge tube, a high voltage is applied between electrodes in gas at very low pressure. The negative electrode is the cathode; the positive electrode is the anode. A beam travels from cathode towards anode.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A fluorescent coating glows where the beam strikes. The beam travels in straight lines without fields and can cast a shadow. These observations establish a moving beam, but do not yet identify its charge.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": "Low pressure reduces collisions between beam particles and gas particles, making their path easier to study. High voltage provides the electric conditions for the discharge. The experimental arrangement is designed to reveal motion, rather than imitate conditions inside an ordinary room."
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch2_unit0_page2",
+      "source_section_ids": [
+        "2.1.1"
+      ],
+      "transition": "Now use the beam’s response to electric fields to identify its charge."
+    },
+    {
+      "title": "Why cathode rays mean electrons",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Cathode rays bend towards a positive plate and away from a negative plate. Opposite charges attract, so their particles carry negative charge. These particles are electrons.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Their properties do not depend on gas or electrode material. This repeated result matters: electrons are constituents of atoms generally, rather than an unusual substance released by one metal.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "The shadow establishes approximately straight travel; deflection towards the positive plate establishes negative charge. Different observations answer different questions.",
+          "level": "foundation"
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": "A magnetic field can also deflect the moving beam. Combining the electric and magnetic observations links the beam with moving charged particles. Fluorescence alone would not have established its charge: visible effects must be interpreted alongside the field response."
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch2_unit0_page3",
+      "source_section_ids": [
+        "2.1.1"
+      ],
+      "transition": "Knowing the charge sign is the first step; the next experiment compares charge with mass."
+    },
+    {
+      "title": "Measure charge relative to mass",
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "Thomson studied electron-beam deflection by electric and magnetic fields. His measurement gave the magnitude of the electron charge-to-mass ratio: e/mₑ = 1.758820 × 10¹¹ C kg⁻¹.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Here e is elementary charge magnitude and mₑ electron mass. A large ratio can mean large charge, small mass, or both. The ratio alone cannot determine the two separately.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "Compare ratios before separating quantities. If two objects have the same charge magnitude but one has much smaller mass, that object changes motion more readily in the same electric field. This makes deflection a useful clue to charge relative to mass."
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch2_unit0_page4",
+      "source_section_ids": [
+        "2.1.2"
+      ],
+      "transition": "A separate charge measurement will let us disentangle the ratio."
+    },
+    {
+      "title": "Oil drops reveal charge magnitude",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Millikan measured charged oil drops moving in an electric field. Their charge magnitudes were whole-number multiples of one small charge: |q| = ne, where n is an integer and e ≈ 1.602 × 10⁻¹⁹ C.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "This is charge quantisation: isolated ordinary charges occur in integral steps. An electron carries −e. A drop with three extra electrons has q=−3e, not an arbitrary fraction of e.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "A measured drop charge magnitude of 4.806 × 10⁻¹⁹ C corresponds to n=|q|/e=(4.806 × 10⁻¹⁹)/(1.602 × 10⁻¹⁹)=3. If the drop is negative, it carries three excess electrons. The sign identifies excess negative charge; the integer gives the count."
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch2_unit0_page5",
+      "source_section_ids": [
+        "2.1.3"
+      ],
+      "transition": "With both measurements available, we can calculate the electron mass."
+    },
+    {
+      "title": "Calculate an electron mass",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Teacher-worked application: given e=1.602 × 10⁻¹⁹ C and e/mₑ=1.758820 × 10¹¹ C kg⁻¹, find mₑ. Rearrange: mₑ=e÷(e/mₑ).",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Substitute: mₑ=(1.602 × 10⁻¹⁹)/(1.758820 × 10¹¹) kg=(1.602/1.758820) × 10⁻³⁰ kg≈9.108 × 10⁻³¹ kg. Rounded inputs explain the slight difference from tabulated 9.1094 × 10⁻³¹ kg.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "level": "foundation",
+          "text": "In the mass calculation, dividing powers means subtracting exponents: 10⁻¹⁹/10¹¹=10⁻³⁰. Since 1.602/1.758820 is less than 1, rewrite approximately 0.9108 × 10⁻³⁰ as 9.108 × 10⁻³¹. The C units cancel, leaving kg."
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch2_unit0_page6",
+      "source_section_ids": [
+        "2.1.2",
+        "2.1.3"
+      ],
+      "transition": "The negatively charged beam leaves a complementary question: what carries positive charge?"
+    },
+    {
+      "title": "Positive rays tell a different story",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "In a modified discharge tube, a perforated cathode lets positive particles pass through its holes. These canal rays bend oppositely to electrons in an electric field. They are positive ions of the gas.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Unlike electron properties, their charge-to-mass ratios depend on the gas. The lightest positive ion comes from hydrogen and is the proton. Not every canal-ray particle is a proton.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": "Hydrogen gas produces the lightest positive ion because removing its sole electron leaves one proton. A heavier gas produces heavier positive ions. This explains why canal-ray measurements vary with gas while the cathode-ray electron measurements remain the same."
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch2_unit0_page7",
+      "source_section_ids": [
+        "2.1.4"
+      ],
+      "transition": "Positive ions do not account for every nuclear particle; neutrality needs its own investigation."
+    },
+    {
+      "title": "Find an electrically neutral particle",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "In 1932 Chadwick bombarded beryllium with α-particles and identified penetrating electrically neutral particles called neutrons. Their existence helped account for nuclear mass beyond the proton contribution.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A neutron has no charge and slightly greater mass than a proton. An electric field therefore does not deflect it as it deflects a charged particle. Neutral does not mean massless.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "A ball can have no net electric charge but still have mass. Neutrality describes electric charge, a different property from mass.",
+          "level": "foundation"
+        },
+        {
+          "kind": "connection",
+          "level": "foundation",
+          "text": "The neutron discovery addresses a different question from Millikan’s work. Millikan measures electric charge; Chadwick identifies a neutral massive particle. Neither result can replace the other, because knowing charge alone cannot account for all atomic mass."
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch2_unit0_page8",
+      "source_section_ids": [
+        "2.1.4"
+      ],
+      "transition": "We can now compare the three particles without confusing charge and mass."
+    },
+    {
+      "title": "Compare charge and mass separately",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "An electron has charge −e and mass about 9.1094 × 10⁻³¹ kg. A proton has charge +e and mass about 1.6726 × 10⁻²⁷ kg. A neutron has zero charge and mass about 1.6749 × 10⁻²⁷ kg.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The proton and electron have equal charge magnitudes but very unequal masses: the proton is roughly 1836 times heavier. Equal and opposite charges do not imply equal masses.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "text": "A drop has charge −6.408 × 10⁻¹⁹ C. Divide its magnitude by 1.602 × 10⁻¹⁹ C: four excess electrons are present.",
+          "level": "extension"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "Test a fictional claim: “a particle has charge +e, so it must have the electron’s mass.” The conclusion fails because equal charge magnitude does not fix mass. A positron would require separate evidence; the positive particle identified in the hydrogen canal-ray discussion is the much heavier proton."
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch2_unit0_page9",
+      "source_section_ids": [
+        "2.1.3",
+        "2.1.4"
+      ],
+      "transition": "Revisit each discovery through the evidence that supports it."
+    },
+    {
+      "title": "Reconstruct the discoveries",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Cathode-ray deflection identifies negative particles; independence from gas and electrodes establishes their universal presence. Thomson measured e/mₑ, while Millikan separately measured e. Combining them gives electron mass.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Canal rays reveal positive gas ions; hydrogen yields the proton. Chadwick established the neutron. Keep each experiment connected to its actual evidence: charge sign, charge magnitude, mass and universality are distinct conclusions.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch2_unit0_page10",
+      "source_section_ids": [
+        "2.1",
+        "2.1.1",
+        "2.1.2",
+        "2.1.3",
+        "2.1.4"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why does deflection towards a positive plate identify negative charge?",
+      "answer": "Opposite charges attract, so the direction of deflection establishes the beam particles’ negative charge.",
+      "source_section_ids": [
+        "2.1",
+        "2.1.1",
+        "2.1.2",
+        "2.1.3",
+        "2.1.4"
+      ]
+    },
+    {
+      "question": "Why repeat cathode-ray experiments with different gases?",
+      "answer": "The unchanged particle properties show that electrons are common constituents of different atoms.",
+      "source_section_ids": [
+        "2.1",
+        "2.1.1",
+        "2.1.2",
+        "2.1.3",
+        "2.1.4"
+      ]
+    },
+    {
+      "question": "Can e/mₑ alone give electron mass?",
+      "answer": "No. A separate charge measurement is necessary; then mₑ=e/(e/mₑ).",
+      "source_section_ids": [
+        "2.1",
+        "2.1.1",
+        "2.1.2",
+        "2.1.3",
+        "2.1.4"
+      ]
+    },
+    {
+      "question": "What does q=ne tell us about an oil drop?",
+      "answer": "Its charge is an integral multiple of elementary charge, rather than any arbitrary value.",
+      "source_section_ids": [
+        "2.1",
+        "2.1.1",
+        "2.1.2",
+        "2.1.3",
+        "2.1.4"
+      ]
+    },
+    {
+      "question": "Are canal rays identical for every gas?",
+      "answer": "No. They contain gas-derived positive ions with different masses and charge-to-mass ratios.",
+      "source_section_ids": [
+        "2.1",
+        "2.1.1",
+        "2.1.2",
+        "2.1.3",
+        "2.1.4"
+      ]
+    },
+    {
+      "question": "How can a neutron be neutral but massive?",
+      "answer": "Charge and mass are different properties. Zero charge does not imply zero mass.",
+      "source_section_ids": [
+        "2.1",
+        "2.1.1",
+        "2.1.2",
+        "2.1.3",
+        "2.1.4"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_5157e65ddf",
+  "pages": [
+    {
+      "title": "A thermodynamics problem begins with its boundary",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " A warm calorimeter, an expanding gas and a dissolving salt may all involve energy changes, but they do not use the same shortcut. This application sequence starts by deciding what is measured and which constraints apply."
+        },
+        {
+          "kind": "practice",
+          "level": "essential",
+          "text": " Teacher-created case: gas in a sealed piston absorbs 800 J while expanding against 1.0 bar from 1.0 L to 4.0 L. The gas is the closed system. Heat can enter and the boundary can move; it is neither isolated nor constant-volume."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_5157e65ddf"
+      ],
+      "transition": "Translate the description into signed energy quantities.",
+      "id": "chem11-ch05-u08-p01",
+      "page_number": 1
+    },
+    {
+      "title": "Case one: combine heat and piston work",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Given q = +800 J, p(ex) = 1.0 bar and ΔV = 4.0 − 1.0 = 3.0 L. Find ΔU. Work is w = −p(ex)ΔV = −3.0 L bar = −300 J. The first law gives ΔU = q + w = 800 − 300 = +500 J."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " The answer is not +1100 J: expansion work leaves the system. It is also not +800 J, because the measured heat is divided between increased internal energy and energy transferred as work."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_5157e65ddf"
+      ],
+      "transition": "A rigid calorimeter removes one of those transfers.",
+      "id": "chem11-ch05-u08-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Case two: infer reaction energy from warming",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created bomb-calorimeter data: C(cal) = 8.0 kJ K⁻¹, ΔT = +0.75 K. q(cal) = 8.0 × 0.75 = +6.0 kJ. Neglecting heat loss, q(reaction) = −6.0 kJ. Constant volume and no other work give ΔU = −6.0 kJ for the reacted amount."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The temperature rise belongs to the surroundings being measured. Its sign must be reversed to obtain reaction heat. If twice as much fuel were burned under otherwise comparable conditions, the total reaction energy would scale with the amount."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_5157e65ddf"
+      ],
+      "transition": "A gas-mole correction connects this internal-energy change to constant-pressure enthalpy.",
+      "id": "chem11-ch05-u08-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Case three: calculate the gas-mole correction",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created example: for C(s) + O₂(g) → CO₂(g), Δn(g) = 1 − 1 = 0. Hence ΔH = ΔU + Δn(g)RT = ΔU. For H₂(g) + ½O₂(g) → H₂O(l), Δn(g) = 0 − 1.5 = −1.5, so the ideal-gas correction is negative."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Count only gaseous coefficients, including fractional coefficients, and match the reaction amount to the supplied ΔU. A solid or liquid coefficient changes stoichiometry but not Δn(g)."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": "Fractional coefficients are permitted in thermochemical equations because the energy is quoted for a specified mole amount. They do not mean an individual molecule is physically cut into a fraction."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_5157e65ddf"
+      ],
+      "transition": "When energy data come from separate reactions, combine equations instead.",
+      "id": "chem11-ch05-u08-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Case four: use formation data with coefficients",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created data for 2SO₂(g) + O₂(g) → 2SO₃(g): ΔfH°(SO₂) = −297 and ΔfH°(SO₃) = −396 kJ mol⁻¹. Find ΔrH°. Products = 2(−396) = −792 kJ; reactants = 2(−297) + 0 = −594 kJ. ΔrH° = −792 − (−594) = −198 kJ per written reaction."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The written equation consumes two moles of SO₂. Per mole of SO₂ consumed the heat is half, −99 kJ. State the reaction basis before quoting a molar value."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_5157e65ddf"
+      ],
+      "transition": "A bond estimate reaches the same type of answer using a different dataset.",
+      "id": "chem11-ch05-u08-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Case five: count bonds rather than substances",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created data for H₂(g) + Br₂(g) → 2HBr(g): D(H–H) = 436, D(Br–Br) = 193, D(H–Br) = 366 kJ mol⁻¹. Bonds broken cost 436 + 193 = 629 kJ. Bonds formed release 2 × 366 = 732 kJ. ΔrH ≈ 629 − 732 = −103 kJ per written equation."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " This is a gas-phase estimate using mean values, not the enthalpy for starting with liquid bromine. Changing the physical state requires an additional phase-change enthalpy."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_5157e65ddf"
+      ],
+      "transition": "Heat release alone still does not complete the direction test.",
+      "id": "chem11-ch05-u08-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Case six: an unfavourable entropy contribution",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created data: ΔH = −50.0 kJ mol⁻¹, ΔS = −100 J mol⁻¹ K⁻¹ at 600 K. Convert ΔS to −0.100 kJ mol⁻¹ K⁻¹. ΔG = −50.0 − 600(−0.100) = +10.0 kJ mol⁻¹. The forward change is not favoured at this temperature despite being exothermic."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The negative entropy contribution opposes the change and becomes more important as temperature rises. Assuming constant ΔH and ΔS, the crossover is 500 K. Below that value ΔG is negative."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_5157e65ddf"
+      ],
+      "transition": "Check the equilibrium relation rather than guessing from heat alone.",
+      "id": "chem11-ch05-u08-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Case seven: translate free energy into K",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created data: ΔrG° = −5.74 kJ mol⁻¹ at 300 K. Find K. Convert to −5740 J mol⁻¹. From ln K = −ΔrG°/(RT), ln K = 5740/(8.314 × 300) = 2.30. Therefore K = e^(2.30) ≈ 10.0. Use the exponential because the equation contains the natural logarithm."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " A negative standard Gibbs change does not mean every possible mixture reacts forward. The actual composition determines the reaction quotient; at equilibrium the actual Gibbs change is zero."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_5157e65ddf"
+      ],
+      "transition": "A final units audit catches many mistakes before any new calculation is needed.",
+      "id": "chem11-ch05-u08-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Audit signs, units and conditions",
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Check whether the system absorbs or releases heat; whether it receives or delivers work; whether the vessel is rigid; and whether the pressure is constant. These observations select ΔU = q + w, q(v) = ΔU or q(p) = ΔH."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Convert L bar to J, entropy J to kJ when necessary, and temperature to K. Match every energy to its written equation and amount. Use ln in ΔrG° = −RT ln K; log₁₀ needs the factor 2.303."
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": " If the available session time is short, complete the core calculations first and return to mixed cases later. Reading a worked solution should lead to an independent attempt, rather than replacing it."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_5157e65ddf"
+      ],
+      "transition": "Use the final questions to decide whether you can select the method independently.",
+      "id": "chem11-ch05-u08-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: one connected energy toolkit",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Closed-system energy: ΔU = q + w. Pressure work: w = −p(ex)ΔV. Enthalpy: ΔH = ΔU + Δn(g)RT for the ideal-gas reaction treatment. Reaction data: products minus reactants for formation values; bonds broken minus bonds formed for a gas-phase estimate."
+        },
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Direction at constant T and p: ΔG = ΔH − TΔS. Equilibrium link: ΔrG° = −RT ln K. These relations answer different questions; the wording and conditions determine which is appropriate. A favourable reaction can still be slow."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_5157e65ddf"
+      ],
+      "transition": "",
+      "id": "chem11-ch05-u08-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "A system absorbs 200 J and receives 50 J work. Find ΔU.",
+      "answer": "ΔU = 200 + 50 = +250 J. Both transfers enter the system.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_5157e65ddf"
+      ]
+    },
+    {
+      "question": "When does ΔH = ΔU for the ideal-gas reaction relation?",
+      "answer": "When Δn(g) = 0 at the same temperature, so the Δn(g)RT correction vanishes.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_5157e65ddf"
+      ]
+    },
+    {
+      "question": "Why is a bomb-calorimeter temperature rise assigned a negative reaction heat?",
+      "answer": "The calorimeter gains the energy released by the reaction; the two transfers have opposite signs if heat loss is neglected.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_5157e65ddf"
+      ]
+    },
+    {
+      "question": "If ΔH = −20 kJ mol⁻¹ and ΔS = −50 J mol⁻¹ K⁻¹, find ΔG at 300 K.",
+      "answer": "ΔS = −0.050 kJ mol⁻¹ K⁻¹, so ΔG = −20 − 300(−0.050) = −5 kJ mol⁻¹.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_5157e65ddf"
+      ]
+    },
+    {
+      "question": "How does reversing an equation change K and ΔrG°?",
+      "answer": "K becomes 1/K and ΔrG° changes sign, consistent with −RT ln(1/K) = +RT ln K.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_5157e65ddf"
+      ]
+    },
+    {
+      "question": "Why must a bond-enthalpy calculation specify gas states?",
+      "answer": "Bond enthalpies describe gaseous bond cleavage. Other physical states need additional phase-change energy contributions.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_5157e65ddf"
+      ]
+    }
+  ],
+  "title": "Thermodynamics: Connected Applications"
+}

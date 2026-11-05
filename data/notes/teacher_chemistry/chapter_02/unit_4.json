@@ -1,0 +1,325 @@
+{
+  "unit_id": "chem11_u02_lu05_wave_particle_quantum_transition",
+  "title": "From Orbits to Quantum Mechanics",
+  "pages": [
+    {
+      "title": "Can matter behave like a wave?",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Light diffracts like a wave but exchanges energy as photons. De Broglie asked the reverse question: could material particles, including electrons, also have an associated wavelength?",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "If an electron has wave behaviour, a tiny planet-like ball following an exact path cannot be its complete description. Experiments must decide whether the new idea works.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch2_unit4_page1",
+      "source_section_ids": [
+        "2.5"
+      ],
+      "transition": "Reverse the light-wave question and relate a material particle to momentum."
+    },
+    {
+      "title": "Associate wavelength with momentum",
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "De Broglie proposed λ=h/p. For a non-relativistic particle, momentum p=mv, giving λ=h/(mv). Use λ in metres, h in J s, mass in kg and speed in m s⁻¹.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Greater momentum means shorter wavelength. The relation does not say the electron expands into a water wave. Electron diffraction confirms measurable matter-wave behaviour.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": "Momentum combines mass with velocity. Two objects travelling at the same speed can have very different momenta if their masses differ. In λ=h/p, it is momentum, not speed alone, that sets the wavelength. Always put mass in kilograms before substitution."
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch2_unit4_page2",
+      "source_section_ids": [
+        "2.5.1"
+      ],
+      "transition": "Apply the relation to an electron on an atomic length scale."
+    },
+    {
+      "title": "Calculate an electron wavelength",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "An electron has mass 9.109 × 10⁻³¹ kg and speed 2.00 × 10⁶ m s⁻¹. Its momentum is p=mv=1.8218 × 10⁻²⁴ kg m s⁻¹.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "To find wavelength, λ=h/p=(6.626 × 10⁻³⁴)/(1.8218 × 10⁻²⁴) m=3.64 × 10⁻¹⁰ m. This atomic-scale length explains why wave behaviour matters in atoms.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "If the same electron moves at 4.00 × 10⁶ m s⁻¹ instead, its momentum doubles. Without repeating every arithmetic step, λ halves to 1.82 × 10⁻¹⁰ m. The comparison is valid in the non-relativistic regime; the simple p=mv expression is not appropriate close to light speed."
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch2_unit4_page3",
+      "source_section_ids": [
+        "2.5.1"
+      ],
+      "transition": "Compare that microscopic case with an everyday object."
+    },
+    {
+      "title": "Why a ball looks classical",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "A 0.100 kg ball moving at 20.0 m s⁻¹ has momentum 2.00 kg m s⁻¹. Its wavelength is λ=6.626 × 10⁻³⁴/2.00=3.31 × 10⁻³⁴ m.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The relation still applies, but this wavelength is too small to notice in everyday motion. The difference is scale, not a rule that only electrons possess associated wavelengths.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "Diffraction becomes appreciable when a wave interacts with structures of comparable spacing. An electron’s atomic-scale wavelength can be comparable to crystal spacings, whereas the calculated ball wavelength is utterly smaller than any ordinary obstacle or opening."
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch2_unit4_page4",
+      "source_section_ids": [
+        "2.5.1"
+      ],
+      "transition": "The wavelength comparison exposes a deeper problem with exact trajectories."
+    },
+    {
+      "title": "An exact trajectory asks for too much",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A classical trajectory requires simultaneously exact position and momentum. Heisenberg’s uncertainty principle says these cannot both be specified with arbitrary precision for a microscopic particle.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "This is a fundamental property of quantum states, not merely a limitation of poor instruments. An electron therefore cannot have the fully definite classical orbit assumed by Bohr.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": "Precision in a position measurement alone is not forbidden, nor is precision in momentum alone. The restriction concerns their simultaneous uncertainties for the same state. This is why a broad statement such as “we cannot know anything about an electron” misrepresents the principle."
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch2_unit4_page5",
+      "source_section_ids": [
+        "2.5.2"
+      ],
+      "transition": "Write the quantitative restriction on simultaneous precision."
+    },
+    {
+      "title": "State the uncertainty relation",
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "In one direction, ΔxΔpₓ≥h/(4π). Here Δx is position uncertainty and Δpₓ momentum uncertainty along that same direction. For fixed mass, Δpₓ=mΔvₓ.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Making position more precise raises the lower bound on momentum uncertainty. The inequality does not say actual uncertainties always equal the minimum, or that uncertainty means the electron has no measurable properties.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "Suppose momentum uncertainty is 1.00 × 10⁻²⁴ kg m s⁻¹. The minimum position uncertainty is Δx≥h/(4πΔp)=6.626 × 10⁻³⁴/(4π × 1.00 × 10⁻²⁴)≈5.27 × 10⁻¹¹ m. Rearrangement can answer either uncertainty question, provided directions and units match."
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch2_unit4_page6",
+      "source_section_ids": [
+        "2.5.2"
+      ],
+      "transition": "Use the inequality to estimate a physically significant uncertainty."
+    },
+    {
+      "title": "Estimate a speed uncertainty",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "For an electron with Δx=1.00 × 10⁻¹⁰ m, rearrange: Δvₓ≥h/(4πmΔx). Insert h=6.626 × 10⁻³⁴ J s and m=9.109 × 10⁻³¹ kg.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Δvₓ≥6.626 × 10⁻³⁴/(4π × 9.109 × 10⁻³¹ × 1.00 × 10⁻¹⁰)≈5.79 × 10⁵ m s⁻¹. This large minimum makes a precisely defined atomic orbit inappropriate.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "Compare an object of mass 1.00 × 10⁻⁶ kg localised to Δx=1.00 × 10⁻⁶ m. Its minimum speed uncertainty is 6.626 × 10⁻³⁴/(4π × 1.00 × 10⁻⁶ × 1.00 × 10⁻⁶)≈5.27 × 10⁻²³ m s⁻¹. The principle remains valid but has negligible everyday impact."
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch2_unit4_page7",
+      "source_section_ids": [
+        "2.5.2"
+      ],
+      "transition": "Interpret the mathematical limit without reducing it to poor observation."
+    },
+    {
+      "title": "Distinguish uncertainty from missing information",
+      "blocks": [
+        {
+          "kind": "misconception",
+          "text": "Not knowing a hidden ball’s route may simply mean we lack information. Quantum uncertainty is stronger: a state cannot have arbitrarily narrow position and momentum distributions simultaneously.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The observation-and-disturbance analogy motivates this idea, but a gentler microscope cannot remove the principle. The wave description itself imposes the trade-off.",
+          "level": "essential"
+        },
+        {
+          "kind": "clarification",
+          "level": "essential",
+          "text": "The measurement-disturbance picture is a useful introduction, but quantum uncertainty is not merely an accidental collision caused by observation. A localised wave state necessarily contains a spread of momenta. This clarification keeps the intuitive story consistent with the fundamental principle."
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch2_unit4_page8",
+      "source_section_ids": [
+        "2.5.2"
+      ],
+      "transition": "Replace the failed orbit assumption while retaining the atom’s established properties."
+    },
+    {
+      "title": "Keep the nucleus and change the electron picture",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Nuclear charge, electron charge and quantised energies remain essential. What fails is the claim of a known circular electron path with exact position and momentum.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The replacement describes allowed states and probabilities. Probability does not abolish prediction; it changes predictions from classical tracks to measurable distributions of possible outcomes.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "A probability map answers where a measurement is likely to find an electron. It is not a photograph of a fuzzy circular track.",
+          "level": "foundation"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "A particle of the same mass has wavelength twice as large. Its momentum is half as large, so its non-relativistic speed is half. This inference concerns a de Broglie wavelength; it does not say the particle has become physically twice as wide."
+        },
+        {
+          "kind": "connection",
+          "level": "foundation",
+          "text": "The next model still predicts definite allowed energies. Giving up exact trajectories does not give up energy quantisation. It replaces a classical path with a wave function that yields probabilities for measurement outcomes."
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch2_unit4_page9",
+      "source_section_ids": [
+        "2.5",
+        "2.5.1",
+        "2.5.2"
+      ],
+      "transition": "Collect the two ideas that motivate the quantum description."
+    },
+    {
+      "title": "Connect the two quantum clues",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "De Broglie’s λ=h/p connects moving matter with wavelength. Heisenberg’s ΔxΔpₓ≥h/(4π) limits simultaneous precision. Both are especially significant at microscopic scales.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Use SI units, distinguish momentum from speed and retain the inequality. These ideas motivate quantum mechanics without requiring a full mathematical solution of the wave equation here.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch2_unit4_page10",
+      "source_section_ids": [
+        "2.5",
+        "2.5.1",
+        "2.5.2"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "What happens to wavelength when momentum doubles?",
+      "answer": "It halves, because λ=h/p.",
+      "source_section_ids": [
+        "2.5",
+        "2.5.1",
+        "2.5.2"
+      ]
+    },
+    {
+      "question": "Why is wave behaviour unnoticed for an ordinary ball?",
+      "answer": "Its comparatively large momentum makes its associated wavelength extremely small.",
+      "source_section_ids": [
+        "2.5",
+        "2.5.1",
+        "2.5.2"
+      ]
+    },
+    {
+      "question": "How do we convert Δp to Δv?",
+      "answer": "For fixed non-relativistic mass, use Δp=mΔv.",
+      "source_section_ids": [
+        "2.5",
+        "2.5.1",
+        "2.5.2"
+      ]
+    },
+    {
+      "question": "Can perfect instruments remove quantum uncertainty?",
+      "answer": "No. The relation constrains quantum states, not simply instrumental errors.",
+      "source_section_ids": [
+        "2.5",
+        "2.5.1",
+        "2.5.2"
+      ]
+    },
+    {
+      "question": "Why is a classical electron trajectory unsuitable?",
+      "answer": "A trajectory requires simultaneously precise position and momentum, excluded by the uncertainty relation.",
+      "source_section_ids": [
+        "2.5",
+        "2.5.1",
+        "2.5.2"
+      ]
+    },
+    {
+      "question": "If Δx increases tenfold, how does the minimum Δp change?",
+      "answer": "The lower bound becomes one-tenth as large. The actual spread need not equal the minimum.",
+      "source_section_ids": [
+        "2.5",
+        "2.5.1",
+        "2.5.2"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,276 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_100b2ef3e7",
+  "title": "From Element Families to the Modern Periodic Table",
+  "pages": [
+    {
+      "title": "Organise a growing collection of elements",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Imagine learning every element as an unrelated list of facts. A classification system helps us find similarities and predict behaviour, much as arranging books by subject helps locate related ideas.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The periodic table is powerful because it organises chemical evidence. Its historical development shows how scientists tested possible patterns and refined the quantity used for ordering.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "A family classification makes an unfamiliar item less unfamiliar: knowing it belongs to a set suggests properties to test. In chemistry, those predictions must be checked experimentally. Family membership suggests behaviour; it does not make all members identical."
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch3_unit0_page1",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_100b2ef3e7"
+      ],
+      "transition": "Begin with an early attempt to recognise small chemical families."
+    },
+    {
+      "title": "Recognise Döbereiner’s triads",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Döbereiner found groups of three chemically similar elements. In some triads, the middle element’s atomic mass was approximately the average of the other two. Lithium, sodium and potassium supplied a useful example.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Using approximate masses 7, 23, 39: (7+39)/2=23, matching sodium. This arithmetic is a pattern in selected families, not a rule that groups every element into a successful triad.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch3_unit0_page2",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_100b2ef3e7"
+      ],
+      "transition": "Test whether a broader repeating pattern can classify more elements."
+    },
+    {
+      "title": "Test Newlands’ octaves",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Newlands arranged elements in increasing atomic mass and observed that every eighth resembled the first, analogous to repeating musical notes. His law of octaves worked reasonably for lighter elements up to calcium.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Beyond that region, unlike elements could be forced together and similar ones separated. The failure matters: an appealing pattern must agree with chemistry rather than control it.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch3_unit0_page3",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_100b2ef3e7"
+      ],
+      "transition": "Mendeleev used chemical properties to improve on a rigid sequence."
+    },
+    {
+      "title": "Understand Mendeleev’s periodic law",
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Mendeleev related elemental properties periodically to atomic masses. He placed chemically similar elements in groups and used compounds’ formulas as evidence for family membership.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "He did not insist on mass order when strong chemical evidence disagreed. Tellurium and iodine illustrate why chemical similarity could be more informative than a strictly increasing mass list.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch3_unit0_page4",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_100b2ef3e7"
+      ],
+      "transition": "His empty positions made predictions that experiments could challenge."
+    },
+    {
+      "title": "Use a gap as a scientific prediction",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Mendeleev left gaps where properties suggested missing elements. Predictions for eka-aluminium and eka-silicon were later compared with gallium and germanium. A gap therefore became a testable claim, not merely an empty box.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For eka-aluminium he predicted an atomic mass near 68 and density near 5.9 g cm⁻³; gallium’s measured properties were close. Agreement across several properties made the prediction convincing.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch3_unit0_page5",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_100b2ef3e7"
+      ],
+      "transition": "The ordering principle itself changed when nuclear charge became clear."
+    },
+    {
+      "title": "Replace atomic mass with atomic number",
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Moseley’s work established atomic number, or nuclear proton number Z, as the fundamental ordering quantity. Modern periodic law states that physical and chemical properties are periodic functions of atomic number.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Atomic mass can vary among isotopes without changing the element. Atomic number does not: it fixes the nuclear identity. Increasing Z provides a consistent ordering principle.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch3_unit0_page6",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_100b2ef3e7"
+      ],
+      "transition": "Use atomic-number order to read the layout of the modern table."
+    },
+    {
+      "title": "Read periods and groups",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The long-form periodic table has seven horizontal periods and eighteen vertical groups. Elements in a group often have similar outer electronic configurations, which explains many chemical similarities.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A period tracks a sequence of electron filling. The first period has 2 elements; the next two 8 each; the fourth and fifth 18 each; the sixth and seventh 32 each in the complete table.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch3_unit0_page7",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_100b2ef3e7"
+      ],
+      "transition": "Electronic structure explains why related properties recur."
+    },
+    {
+      "title": "Explain why properties repeat",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "As atomic number increases, electron configurations change in an ordered way. Similar valence-shell arrangements recur, so certain chemical properties recur. Periodicity is an electronic pattern, not a magical repetition after a fixed count in every row.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Lithium and sodium each have one electron outside a noble-gas core. That similarity helps explain their family relationship even though their masses and total electron counts differ.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "Compare Li 1s²2s¹ with Na[Ne]3s¹. Both have one outer s electron, but the highest n differs. The configurations explain both family similarity and a size difference, showing why periodicity involves repetition with systematic change."
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch3_unit0_page8",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_100b2ef3e7"
+      ],
+      "transition": "Separate the permanent organising law from historical textbook details."
+    },
+    {
+      "title": "Read an older textbook historically",
+      "blocks": [
+        {
+          "kind": "clarification",
+          "text": "The supplied textbook’s introductory count of known elements reflects its historical text. It is not the basis of periodic law, which depends on Z and electronic structure rather than the number discovered at one time.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Clarification: do not learn a time-dependent discovery count as a chemical law. Focus on how the table accommodates new elements while preserving its ordering principle.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch3_unit0_page9",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_100b2ef3e7"
+      ],
+      "transition": "Compare the evidence and limits of the successive schemes."
+    },
+    {
+      "title": "Compare the classification ideas",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Triads identified selected three-element families; octaves proposed an early repetition pattern; Mendeleev organised atomic masses with chemical judgement and predicted missing elements. Modern law orders by atomic number.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The shared lesson is evidence-based prediction. Learn what each scheme explained and where it failed, then use electronic configurations to explain the modern recurrence of properties.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch3_unit0_page10",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_100b2ef3e7"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why is classification more useful than a list of element facts?",
+      "answer": "It exposes relationships and supports predictions for unfamiliar elements or compounds.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_100b2ef3e7"
+      ]
+    },
+    {
+      "question": "Check the Li–Na–K triad with masses 7, 23, 39.",
+      "answer": "(7+39)/2=23, matching the middle value approximately.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_100b2ef3e7"
+      ]
+    },
+    {
+      "question": "Why did the law of octaves need revision?",
+      "answer": "It failed beyond lighter elements and sometimes grouped dissimilar elements together.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_100b2ef3e7"
+      ]
+    },
+    {
+      "question": "Why were Mendeleev’s gaps useful?",
+      "answer": "They predicted properties of undiscovered elements, which later measurements could test.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_100b2ef3e7"
+      ]
+    },
+    {
+      "question": "What is the basis of modern periodic law?",
+      "answer": "Atomic number, reflecting proton count and recurring electronic configurations.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_100b2ef3e7"
+      ]
+    },
+    {
+      "question": "Why do isotopes occupy one table position?",
+      "answer": "They share Z and essentially the same neutral electronic configuration, despite different neutron counts.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_100b2ef3e7"
+      ]
+    },
+    {
+      "question": "Why do period lengths vary?",
+      "answer": "Different sets of subshells become involved in successive electron-filling sequences.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_100b2ef3e7"
+      ]
+    }
+  ]
+}

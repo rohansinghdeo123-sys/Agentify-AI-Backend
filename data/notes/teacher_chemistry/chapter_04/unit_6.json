@@ -1,0 +1,276 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_ab83358e30",
+  "title": "Expanded Geometries and the Molecular Orbital Idea",
+  "pages": [
+    {
+      "title": "Why do some central atoms have five or six neighbours?",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Methane’s four bonds are familiar, but PCl₅ and SF₆ require descriptions with five and six directions. Their observed geometries extend the simple examples without changing the need for consistent electron accounting.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The textbook labels these patterns sp³d and sp³d². We will learn the geometries, then introduce a molecular-orbital approach that describes electrons over an entire molecule.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch4_unit6_page1",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_ab83358e30"
+      ],
+      "transition": "Describe the five-direction geometry using axial and equatorial sites."
+    },
+    {
+      "title": "Describe five directions in PCl₅",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The textbook’s sp³d scheme combines one s, three p and one d orbital to describe five directions in a trigonal bipyramid. Three equatorial bonds lie 120° apart; two axial bonds are perpendicular to that plane.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The axial and equatorial environments differ. Axial pairs experience three 90° interactions with equatorial pairs, so the axial P–Cl bonds are longer and weaker in the simple account.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "Equatorial means around the central plane, like three points around a horizontal triangle. Axial means along the line through the centre above and below that plane. These labels distinguish positions within one trigonal bipyramid, not different molecules."
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch4_unit6_page2",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_ab83358e30"
+      ],
+      "transition": "Contrast it with six equivalent directions in an octahedron."
+    },
+    {
+      "title": "Describe six directions in SF₆",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The sp³d² label describes six directions to the corners of an octahedron. In SF₆, six equivalent S–F bond directions give adjacent angles 90° and opposite angles 180°.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Octahedral means six vertices, not eight bonded atoms: the name refers to the eight faces of the geometric solid. Distinguish the number of faces from the number of bond directions.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch4_unit6_page3",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_ab83358e30"
+      ],
+      "transition": "State what the traditional hybridisation labels do and do not establish."
+    },
+    {
+      "title": "Keep the textbook label and its limits clear",
+      "blocks": [
+        {
+          "kind": "clarification",
+          "text": "For this course, associate PCl₅ with trigonal bipyramidal geometry and the textbook sp³d label; associate SF₆ with octahedral geometry and sp³d². These labels summarise a model of direction.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Clarification: modern explanations of hypervalent main-group bonding do not require literal extensive occupation of low-energy d hybrids. The observed shapes are reliable; the historical orbital-mixing explanation should not be treated as a direct measurement.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch4_unit6_page4",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_ab83358e30"
+      ],
+      "transition": "A molecule-wide orbital picture addresses different electronic questions."
+    },
+    {
+      "title": "Ask whether electrons belong only to one bond",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A local overlap picture is useful, but some observations require a molecule-wide description. Molecular orbital theory places electrons in orbitals associated with the whole molecule rather than only one atom.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "An atomic orbital is centred on one atom; a molecular orbital can extend over several nuclei. It is still a wave function, and electron occupation obeys quantum rules.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch4_unit6_page5",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_ab83358e30"
+      ],
+      "transition": "Construct the new states from compatible atomic functions."
+    },
+    {
+      "title": "Combine two atomic wave functions",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "In the Linear Combination of Atomic Orbitals approach, LCAO, two suitable atomic orbitals generate two molecular orbitals. Addition of matching phases increases density between nuclei; subtraction creates a node between them.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The two combinations are bonding and antibonding orbitals. The total number of orbitals is conserved. A star, as in σ*, marks an antibonding orbital; it is not an electron charge.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch4_unit6_page6",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_ab83358e30"
+      ],
+      "transition": "Interpret how the two combinations change energy and density."
+    },
+    {
+      "title": "Interpret bonding and antibonding energies",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A bonding molecular orbital lies lower in energy than the combining atomic orbitals and favours holding the nuclei together. An antibonding orbital lies higher and reduces the stabilisation when occupied.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Do not picture antibonding as a separate chemical bond with negative length. It is an allowed electronic state with a different density distribution and energy.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch4_unit6_page7",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_ab83358e30"
+      ],
+      "transition": "Identify which atomic functions can combine effectively."
+    },
+    {
+      "title": "Choose atomic orbitals that can combine",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Effective combinations require compatible energies, suitable symmetry about the molecular axis and significant overlap. An H 1s orbital combines effectively with another H 1s in H₂.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Orbitals of very different energy or incompatible symmetry do not mix strongly in the simple construction. Being drawn near each other on an energy diagram is not sufficient.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch4_unit6_page8",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_ab83358e30"
+      ],
+      "transition": "Fill the simplest molecule to connect the construction with bonding."
+    },
+    {
+      "title": "Fill the H₂ molecular orbitals",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Two H atoms contribute two electrons. They occupy the lower σ1s bonding orbital with opposite spins, leaving σ*1s empty. Bonding electrons therefore outweigh antibonding electrons.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The molecule is stabilised and all electrons are paired. This elementary example connects molecular occupation with bonding before more complicated second-period diagrams are considered.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "Place a third electron into the H₂-derived MO scheme to make H₂⁻ in the simple model. It must enterσ*1s afterσ1s is filled, so net stabilisation is smaller and one electron is unpaired. The example illustrates occupation, not a claim of ordinary bulk stability."
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch4_unit6_page9",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_ab83358e30"
+      ],
+      "transition": "Keep the geometry model distinct from molecular electron occupation."
+    },
+    {
+      "title": "Distinguish geometry labels from molecule-wide states",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The five- and six-domain geometries describe PCl₅ and SF₆; the traditional hybrid labels are course models. Molecular orbitals instead describe delocalised electronic states formed from compatible atomic functions.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Keep orbital count, electron count and energy occupation consistent. The next step is to use molecular occupations to predict bond order and magnetic behaviour.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch4_unit6_page10",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_ab83358e30"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "How many axial bonds are in trigonal bipyramidal PCl₅?",
+      "answer": "Two axial bonds; the other three are equatorial.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_ab83358e30"
+      ]
+    },
+    {
+      "question": "Why are axial P–Cl bonds different from equatorial ones?",
+      "answer": "Their electron regions have more 90° interactions, giving a less favourable environment and longer, weaker axial bonds in the simple model.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_ab83358e30"
+      ]
+    },
+    {
+      "question": "How many bond directions does an octahedron have?",
+      "answer": "Six, corresponding to its vertices.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_ab83358e30"
+      ]
+    },
+    {
+      "question": "How many MOs arise from two combining AOs?",
+      "answer": "Two; orbital number is conserved.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_ab83358e30"
+      ]
+    },
+    {
+      "question": "What does the star in σ* mean?",
+      "answer": "Antibonding character, not ionic charge.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_ab83358e30"
+      ]
+    },
+    {
+      "question": "What conditions favour effective orbital mixing?",
+      "answer": "Comparable energy, compatible symmetry and appreciable overlap.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_ab83358e30"
+      ]
+    },
+    {
+      "question": "Why does H₂ have net bonding?",
+      "answer": "Its two electrons occupy the bondingσ1s orbital while antibondingσ*1s remains empty.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_ab83358e30"
+      ]
+    }
+  ]
+}

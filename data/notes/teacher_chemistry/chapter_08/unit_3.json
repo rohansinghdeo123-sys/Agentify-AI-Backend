@@ -1,0 +1,263 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_42ad8d2759",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch8-unit4-page01",
+      "title": "Where will a reaction begin?",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_42ad8d2759"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "An organic molecule can contain electron-rich and electron-poor regions even when its total charge is zero. A reagent often reacts at one particular atom rather than anywhere on the skeleton. Following electron density helps us predict this first encounter.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Electron-pair donation and acceptance provide a useful language for polar reactions. We then distinguish three ideas: local bond polarity, its transmission through σ bonds, and delocalisation through adjacent p orbitals. These describe different ways in which structure controls reactivity.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Begin with the species that can supply an electron pair."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch8-unit4-page02",
+      "title": "Electron-pair donors: nucleophiles",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_42ad8d2759"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "A nucleophile is a species that donates an electron pair to form a new bond. HO⁻ and CN⁻ have available electron pairs; neutral H2O and NH3 can also act as nucleophiles because oxygen and nitrogen possess lone pairs.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "When NH3 bonds to an electron-deficient carbon, nitrogen supplies its lone pair. Its lack of an initial negative charge does not prevent donation. Decide whether a pair is available and where it can be donated, rather than defining every nucleophile simply as a negative ion.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Electronegativity measures an atom’s attraction for shared electrons. A lone pair is a pair not used in an ordinary bond; electron deficiency means a centre can benefit from accepting a pair.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "The partner must provide a place that can accept that pair."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch8-unit4-page03",
+      "title": "Electron-pair acceptors: electrophiles",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_42ad8d2759"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "An electrophile accepts an electron pair in forming a bond. CH3⁺ is electron deficient. An uncharged molecule may also have an electrophilic centre: in CH3I, the polar C–I bond leaves carbon partially positive; in a carbonyl group, oxygen withdraws electron density from carbon.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "In CH3I + HO⁻ → CH3OH + I⁻, the hydroxide oxygen donates a lone pair to carbon, while the C–I bond pair moves to iodine. Both arrows are necessary to preserve carbon’s allowed bonding: a new bond does not simply accumulate alongside all its original bonds.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Curved arrows let us record both donation and bond breaking."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch8-unit4-page04",
+      "title": "Curved arrows follow actual electrons",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_42ad8d2759"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Start a full curved arrow at the electron source: a lone pair or a bond. End it where the pair is used, at an atom or in a new bond region. A full arrow follows two electrons; a fish-hook arrow follows one in a radical process.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "The arrow does not start at a positive charge or show an atom flying across the page. In a bond-breaking arrow, start at the bond being broken and point towards the atom receiving its pair. Check charges before and after the step as well as the atom counts.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Before a reagent arrives, polar bonds can already create unequal electron density."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch8-unit4-page05",
+      "title": "Induction: a pull along sigma bonds",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_42ad8d2759"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "The inductive effect is permanent polarisation of σ bonds caused by electronegativity differences. In CH3CH2Cl, chlorine attracts the C–Cl pair, leaving Cl δ− and the adjacent carbon δ+. This polarisation influences neighbouring bonds, with an effect that decreases rapidly with distance.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Partial charges, δ+ and δ−, describe unequal sharing; they are smaller than full ionic charges. Electrons have not simply transferred completely to chlorine in chloroethane. A permanent effect means it exists without an attacking reagent, not that the molecule can never react.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The direction of that permanent influence gives the +I and −I labels."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch8-unit4-page06",
+      "title": "Donating and withdrawing groups",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_42ad8d2759"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Relative to hydrogen, electron-withdrawing groups show a −I effect and electron-donating groups a +I effect. Halogens, –NO2 and –CN withdraw inductively; alkyl groups commonly donate. The sign identifies the direction of influence on the attached carbon framework.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "Chlorine near a carboxyl group helps stabilise the negative charge of the carboxylate formed after H⁺ is lost. This explains why chloroacetic acid is stronger than acetic acid. Moving chlorine farther away weakens its inductive influence; the number and position of substituents both matter.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Some electronic distributions need more than local σ-bond polarisation to describe them."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch8-unit4-page07",
+      "title": "One drawing may not describe the electrons",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_42ad8d2759"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Resonance is needed when one Lewis structure cannot adequately represent a species. Contributing structures keep the same positions and connections of nuclei but change the placement of electrons. The real species is a resonance hybrid, with electrons delocalised across the relevant orbitals.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "Benzene’s two familiar alternating-bond drawings do not represent molecules switching back and forth. Its actual carbon framework has equivalent C–C bonds and delocalised π electrons. The hybrid is more stable than an individual localised contributor; resonance is a model of that one structure.",
+          "level": "essential"
+        }
+      ],
+      "transition": "We should compare valid contributors without mistaking them for separate substances."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch8-unit4-page08",
+      "title": "Which contributors matter more?",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_42ad8d2759"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Contributors with complete octets, more covalent bonds and less unnecessary charge separation generally contribute more. If charges occur, a negative charge is better accommodated on a more electronegative atom. These are guides for comparing drawings of the same species.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "For a carbonyl group, a neutral C=O contributor and a charge-separated C+–O− contributor help explain its polarisation. They have identical atom connections. The charge-separated contributor does not mean the sample contains a separate bottle of carbocation–oxide molecules.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Connected p orbitals also let substituents donate or withdraw by resonance."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch8-unit4-page09",
+      "title": "Resonance donation and withdrawal",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_42ad8d2759"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "A +R effect donates electron density from a substituent into a conjugated system; lone-pair groups such as –OH or –NH2 can do this when correctly connected. A −R effect withdraws electron density through conjugation; –NO2 and –CN are common examples.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "Conjugation requires adjacent orbitals capable of overlap; resonance is not transmitted unchanged through an arbitrary saturated chain. A group may withdraw by induction yet donate by resonance. State the effect and the bonding environment rather than labelling a group universally “donating”.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "Compare the same –OH group attached directly to a conjugated ring with one separated from it by a saturated CH2. Its lone pair cannot be conjugated directly into the ring through that intervening sp3 carbon. Always inspect the actual orbital connections before claiming resonance donation."
+        }
+      ],
+      "transition": "The donor, acceptor and bonding network now tell us which explanation to use."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch8-unit4-page10",
+      "title": "Choose the right electron explanation",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_42ad8d2759"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "Identify the donor pair and the accepting centre before drawing arrows. Nucleophile/electrophile labels describe a reaction role; either partner may be neutral or charged. Full arrows move pairs, and fish-hook arrows move single electrons.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Induction polarises σ bonds and fades with distance. Resonance delocalises electrons through connected orbitals without moving nuclei. Use correct contributors to explain where electron density lies; never interpret them as separate isomers or rapidly interconverting structures.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "Can water be a nucleophile despite having no charge?",
+      "answer": "Yes. Oxygen has lone pairs that can be donated to an electron-pair acceptor.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_42ad8d2759"
+      ]
+    },
+    {
+      "question": "Where do the two curved arrows start in hydroxide substitution on CH3I?",
+      "answer": "One starts at an oxygen lone pair and ends at carbon; the other starts at the C–I bond and ends at iodine.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_42ad8d2759"
+      ]
+    },
+    {
+      "question": "Why does a chlorine substituent have a weaker acid-strength effect farther from –COOH?",
+      "answer": "Its inductive withdrawal is transmitted through σ bonds and decreases rapidly with distance.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_42ad8d2759"
+      ]
+    },
+    {
+      "question": "Do nuclei move between resonance contributors?",
+      "answer": "No. Their positions and connectivity remain fixed; only electron placement changes.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_42ad8d2759"
+      ]
+    },
+    {
+      "question": "Can –OH show both electron withdrawal and donation?",
+      "answer": "Yes. It withdraws inductively through a σ bond and can donate a lone pair by resonance when conjugated with the attached system.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_42ad8d2759"
+      ]
+    }
+  ],
+  "title": "Nucleophiles, Electrophiles and Electronic Effects"
+}

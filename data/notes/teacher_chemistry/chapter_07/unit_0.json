@@ -1,0 +1,272 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_5e91d09a63",
+  "pages": [
+    {
+      "title": "The copper coating tells a transfer story",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Put zinc into a suitable copper(II) salt solution and copper deposits while zinc enters solution. No oxygen gas is required. We need an idea of oxidation and reduction broader than simply adding or removing oxygen."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Redox reactions couple oxidation with reduction. One species supplies electrons while another accepts them, so the changes must occur together."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_2f5781f864"
+      ],
+      "transition": "Start with the older oxygen and hydrogen descriptions before broadening them.",
+      "id": "chem11-ch07-u01-p01",
+      "page_number": 1
+    },
+    {
+      "title": "The classical definitions describe familiar reactions",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Classically, oxidation includes addition of oxygen or removal of hydrogen; reduction includes removal of oxygen or addition of hydrogen. These ideas explain many familiar conversions but do not cover every redox process directly."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " In CuO + H₂ → Cu + H₂O, copper oxide loses oxygen and is reduced; hydrogen gains oxygen and is oxidised. Both changes occur in the same balanced reaction. In 2Mg + O₂ → 2MgO, magnesium gains oxygen."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_2f5781f864"
+      ],
+      "transition": "Electron bookkeeping gives a more general explanation.",
+      "id": "chem11-ch07-u01-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Oxidation loses electrons; reduction gains them",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Oxidation: electron loss. Reduction: electron gain. For zinc, Zn(s) → Zn²⁺(aq) + 2e⁻. For copper ions, Cu²⁺(aq) + 2e⁻ → Cu(s). Each equation is a half-reaction describing one side of the coupled process."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The lost and gained electron counts must agree because the overall reaction conserves electric charge."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " An electron has negative charge. Losing electrons makes a species more positive; gaining electrons makes it less positive or more negative."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_2f5781f864"
+      ],
+      "transition": "Add half-reactions only after matching their electron numbers.",
+      "id": "chem11-ch07-u01-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Combine electron-balanced halves",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " For zinc and copper ions, add Zn → Zn²⁺ + 2e⁻ and Cu²⁺ + 2e⁻ → Cu. The two electrons cancel, giving Zn(s) + Cu²⁺(aq) → Zn²⁺(aq) + Cu(s). Atoms and total charge, +2 on each side, are conserved."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Electrons may appear in half-reactions, but should cancel from the overall chemical equation. Free electrons are not a leftover aqueous product of this displacement."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_2f5781f864"
+      ],
+      "transition": "The names oxidising agent and reducing agent refer to what each species causes.",
+      "id": "chem11-ch07-u01-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Agents do the opposite to their own change",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " An oxidising agent accepts electrons and is itself reduced. A reducing agent donates electrons and is itself oxidised. In the zinc–copper reaction, Cu²⁺ is the oxidising agent and Zn is the reducing agent."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " In 2Na + Cl₂ → 2NaCl, sodium donates electrons and chlorine accepts them. Sodium is oxidised despite oxygen being absent. Chlorine is reduced, even though its name contains no clue about the electron transfer."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_2f5781f864"
+      ],
+      "transition": "Different species compete to donate or accept electrons.",
+      "id": "chem11-ch07-u01-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Displacement shows relative electron-transfer tendencies",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Copper can displace silver from an appropriate silver-ion solution: Cu + 2Ag⁺ → Cu²⁺ + 2Ag. Copper supplies two electrons; two silver ions accept one each. Zinc can similarly displace copper ions."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The direction depends on the relative tendencies of the reacting species under the conditions. A strong reducing agent donates electrons more readily. Reversing a written displacement is not automatically favourable."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_2f5781f864"
+      ],
+      "transition": "Covalent molecules require a bookkeeping extension because shared electrons are not fully transferred.",
+      "id": "chem11-ch07-u01-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Shared electrons can be assigned for bookkeeping",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " In water, electrons are shared unequally rather than hydrogen atoms literally becoming isolated H⁺ ions inside the molecule. To track redox changes, we formally assign bonding electrons to the more electronegative atom."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Oxidation number is the resulting formal oxidation-state assignment. It helps recognise electron redistribution in covalent compounds, but it is not automatically the real charge on an atom."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_8676062806"
+      ],
+      "transition": "Use consistent rules before solving a charge-balance equation.",
+      "id": "chem11-ch07-u01-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Rules and important exceptions",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Free elements have oxidation number 0; a monatomic ion has its ionic charge. Fluorine is −1 in compounds. Oxygen is usually −2, but −1 in peroxides and −½ on average in superoxides. Hydrogen is usually +1 but −1 in metal hydrides."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " In H₂O₂, two H at +1 require the two O to total −2, so each O is −1. In NaH, Na is +1 and H is −1. Oxygen bonded to fluorine can be positive, so the usual oxygen rule has exceptions."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_8676062806"
+      ],
+      "transition": "The algebraic sum must reproduce the total species charge.",
+      "id": "chem11-ch07-u01-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Worked oxidation-number assignment",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Find Cr in Cr₂O₇²⁻. Let each Cr have oxidation number x and each O be −2. Charge balance gives 2x + 7(−2) = −2. Thus 2x − 14 = −2; 2x = 12; x = +6. For a neutral compound the corresponding sum would be zero."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " The −2 charge belongs to the whole ion, not to each chromium. Multiplying the unknown by the number of atoms is essential. A formal average also need not identify every atom’s individual state in a complex structure."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_8676062806"
+      ],
+      "transition": "Revise electron transfer, agent names and oxidation-number rules together.",
+      "id": "chem11-ch07-u01-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: redox is coupled electron bookkeeping",
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Oxidation loses electrons and reduction gains them. The reducing agent is oxidised; the oxidising agent is reduced. Match electron counts when adding half-reactions and verify atoms plus charge."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Oxidation numbers extend bookkeeping to covalent compounds. Their sum equals total charge; elements are zero, monatomic ions match charge, and O/H rules have specific exceptions. Formal oxidation number is not always an actual atomic charge."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_2f5781f864",
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_8676062806"
+      ],
+      "transition": "",
+      "id": "chem11-ch07-u01-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why is Zn + Cu²⁺ a redox reaction without oxygen?",
+      "answer": "Zn loses two electrons and Cu²⁺ gains them; electron transfer defines the coupled oxidation and reduction.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_2f5781f864",
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_8676062806"
+      ]
+    },
+    {
+      "question": "Which is the reducing agent in Zn + Cu²⁺ → Zn²⁺ + Cu?",
+      "answer": "Zn, because it donates electrons and is itself oxidised.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_2f5781f864",
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_8676062806"
+      ]
+    },
+    {
+      "question": "Why are two Ag⁺ needed when Cu forms Cu²⁺?",
+      "answer": "Copper releases two electrons, and each Ag⁺ accepts one, so two silver ions balance the transfer.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_2f5781f864",
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_8676062806"
+      ]
+    },
+    {
+      "question": "Find Mn in MnO₄⁻.",
+      "answer": "x + 4(−2) = −1 gives x = +7.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_2f5781f864",
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_8676062806"
+      ]
+    },
+    {
+      "question": "What is oxygen’s oxidation number in H₂O₂?",
+      "answer": "−1, because two +1 hydrogens require the two oxygens to total −2.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_2f5781f864",
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_8676062806"
+      ]
+    },
+    {
+      "question": "Does an oxidation number always equal the atom’s actual charge?",
+      "answer": "No. In covalent compounds it is a formal electron-assignment bookkeeping value.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_2f5781f864",
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_8676062806"
+      ]
+    }
+  ],
+  "title": "Electron Transfer and Oxidation Numbers"
+}

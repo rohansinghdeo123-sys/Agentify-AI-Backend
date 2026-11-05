@@ -1,0 +1,302 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_b0c3239b69",
+  "pages": [
+    {
+      "title": "The way a gas expands changes its work",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Imagine letting a piston move against a fixed weight, then letting it move through many tiny pressure adjustments. The initial and final volumes may match, but the external resistance along the way differs. Work must therefore account for the path."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " The general pressure–volume expression is w = −∫p(ex)dV. For a constant resisting pressure it becomes w = −p(ex)ΔV. The area under the pressure–volume path represents the magnitude of work."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_f3a2e89b97"
+      ],
+      "transition": "One special path stays extremely close to mechanical balance throughout.",
+      "id": "chem11-ch05-u03-p01",
+      "page_number": 1
+    },
+    {
+      "title": "Reversible is an ideal limiting path",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " A thermodynamically reversible process proceeds through equilibrium states and can reverse direction after an infinitesimal change in the opposing conditions. The external pressure differs only infinitesimally from the gas pressure."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " For isothermal reversible expansion of an ideal gas, p = nRT/V. Substitution into the work integral gives w(rev) = −nRT ln[V(final)/V(initial)]. n is in mol, T in K, and R = 8.314 J mol⁻¹ K⁻¹ gives work in J."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Slow motion alone is not sufficient to establish reversibility; finite temperature gradients, friction or finite pressure differences can make a process irreversible."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_f3a2e89b97"
+      ],
+      "transition": "Calculate the logarithm using a dimensionless volume ratio.",
+      "id": "chem11-ch05-u03-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Worked reversible expansion",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created example: 1.00 mol ideal gas expands reversibly and isothermally at 300 K from 2.00 L to 4.00 L. Given n = 1.00 mol, T = 300 K and V(final)/V(initial) = 2.00. Find w. Substitute w = −1.00 × 8.314 × 300 × ln 2.00 = −1729 J ≈ −1.73 kJ."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The negative sign means work leaves the gas. For an ideal gas, internal energy depends only on temperature, so an isothermal change has ΔU = 0. The first law then requires q = −w = +1.73 kJ."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " In free expansion into a vacuum, p(ex) = 0 and w = 0. A volume change alone is not enough to imply nonzero expansion work."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_f3a2e89b97"
+      ],
+      "transition": "Most laboratory reactions occur at constant external pressure, motivating a different state function.",
+      "id": "chem11-ch05-u03-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Enthalpy packages the constant-pressure account",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Enthalpy is defined by H = U + pV. Since U, p and V describe states, H is also a state function. At constant pressure, ΔH = ΔU + pΔV."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " For a closed system doing only pressure–volume work at constant pressure, ΔU = q(p) − pΔV. Rearranging gives q(p) = ΔU + pΔV = ΔH. At constant volume, q(v) = ΔU when no other work occurs."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Enthalpy is not simply heat stored in matter. Its change equals transferred heat only under the specified constant-pressure, pressure–volume-work conditions."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_f3a2e89b97"
+      ],
+      "transition": "The ideal-gas equation connects the two energy changes for gas reactions.",
+      "id": "chem11-ch05-u03-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Count gaseous coefficients in ΔH − ΔU",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " For an ideal-gas reaction at the same temperature, ΔH = ΔU + Δn(g)RT. Δn(g) is the sum of gaseous-product coefficients minus the sum of gaseous-reactant coefficients. Solids and liquids do not enter this gas count."
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created example: N₂(g) + 3H₂(g) → 2NH₃(g) at 300 K has ΔU = −90.0 kJ for the equation as written. Δn(g) = 2 − 4 = −2. Thus ΔH = −90.0 + (−2)(8.314)(300)/1000 = −94.99 kJ ≈ −95.0 kJ."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " R was converted from J to kJ in the correction. The difference exists because constant-pressure formation of fewer gas moles changes the pressure–volume term."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_f3a2e89b97"
+      ],
+      "transition": "Before measuring these changes, distinguish properties of the whole sample from properties per unit amount.",
+      "id": "chem11-ch05-u03-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Amount-dependent properties and heat capacity",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Extensive properties depend on sample amount, such as U, H, volume and heat capacity C. Intensive properties do not scale with amount, such as temperature, pressure and density. Molar and specific heat capacities are also intensive."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " q = CΔT = mcΔT = nC(m)ΔT when heat capacity is approximately constant over the range. C has units J K⁻¹; specific heat c has J g⁻¹ K⁻¹ if mass m is in g; molar heat capacity C(m) has J mol⁻¹ K⁻¹."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Splitting a uniform cup of water into equal halves halves its total heat capacity, but leaves the specific heat and temperature unchanged."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e0cda36361"
+      ],
+      "transition": "Heating at constant pressure requires more energy than at constant volume for an ideal gas.",
+      "id": "chem11-ch05-u03-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Why the two ideal-gas heat capacities differ",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " At constant volume an ideal gas does no expansion work, while at constant pressure it expands during heating. For n mol, ΔH − ΔU = nRΔT. With ΔH = C(p)ΔT and ΔU = C(v)ΔT, the total heat capacities satisfy C(p) − C(v) = nR."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " For molar heat capacities, C(p,m) − C(v,m) = R. The units on both sides are J mol⁻¹ K⁻¹. The familiar abbreviated equation C(p) − C(v) = R assumes the symbols mean molar capacities."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " The extra constant-pressure heat is not wasted: it supplies the expansion work in addition to the internal-energy increase."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e0cda36361"
+      ],
+      "transition": "Calorimeters infer reaction energy by measuring a temperature change.",
+      "id": "chem11-ch05-u03-p07",
+      "page_number": 7
+    },
+    {
+      "title": "A calorimeter measures the surroundings response",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created constant-volume example: a bomb calorimeter has heat capacity 10.0 kJ K⁻¹ and warms by 0.500 K during a reaction. Find the reaction energy for the amount burned. q(cal) = CΔT = 10.0 × 0.500 = +5.00 kJ. Neglecting heat loss, q(reaction) = −5.00 kJ. With no volume or other work, ΔU(reaction) = −5.00 kJ."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The calorimeter gains energy while the reacting system loses it. In a constant-pressure calorimeter with only pressure–volume work, the measured reaction heat instead gives ΔH. A positive temperature rise of the surroundings signals an exothermic reaction."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e0cda36361"
+      ],
+      "transition": "A quoted reaction enthalpy must also identify the states and reference conditions.",
+      "id": "chem11-ch05-u03-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Standard states and phase changes",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Standard reaction enthalpy ΔrH° refers to all reactants and products in their standard states at a specified temperature. The standard pressure is 1 bar; 298 K is commonly used but is not built into the meaning of standard."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Fusion is solid → liquid; vaporisation is liquid → gas; sublimation is solid → gas. Each corresponding molar enthalpy is for one mole undergoing that change at the stated conditions. Melting and vaporisation require energy; reversing the change reverses the enthalpy sign."
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created phase-change example: if ΔvapH = 40.7 kJ mol⁻¹ at the stated temperature, vaporising 0.250 mol requires q = nΔvapH = 0.250 × 40.7 = +10.2 kJ. Condensing the same amount releases 10.2 kJ under the same conditions."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e0cda36361"
+      ],
+      "transition": "Revise the conditions attached to each useful shortcut.",
+      "id": "chem11-ch05-u03-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: each energy equation has conditions",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Work: −p(ex)ΔV for constant external pressure; −nRT ln[V(final)/V(initial)] for reversible isothermal ideal-gas work. Enthalpy: H = U + pV; q(p) = ΔH and q(v) = ΔU require the stated constraints and absence of other work."
+        },
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Use Δn(g)RT to relate ΔH and ΔU for ideal-gas reactions. Distinguish total, specific and molar heat capacities; C(p,m) − C(v,m) = R. A calorimeter gains the heat lost by the reaction. Standard pressure is 1 bar, while the temperature must be specified."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_f3a2e89b97",
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e0cda36361"
+      ],
+      "transition": "",
+      "id": "chem11-ch05-u03-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why does free expansion have zero pressure–volume work?",
+      "answer": "The opposing external pressure is zero, so −∫p(ex)dV = 0 despite the volume increase.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_f3a2e89b97",
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e0cda36361"
+      ]
+    },
+    {
+      "question": "When may q be identified with ΔH?",
+      "answer": "At constant pressure for a closed system doing only pressure–volume work.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_f3a2e89b97",
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e0cda36361"
+      ]
+    },
+    {
+      "question": "For 2H₂(g) + O₂(g) → 2H₂O(l), what is Δn(g)?",
+      "answer": "There are zero gaseous-product moles and three gaseous-reactant moles, so Δn(g) = −3; liquid water is excluded.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_f3a2e89b97",
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e0cda36361"
+      ]
+    },
+    {
+      "question": "Does halving a sample halve its specific heat?",
+      "answer": "No. Total heat capacity halves, but specific heat is per unit mass and remains unchanged for the same substance and state.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_f3a2e89b97",
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e0cda36361"
+      ]
+    },
+    {
+      "question": "A calorimeter warms. What sign has reaction heat?",
+      "answer": "The calorimeter receives positive heat, so the reaction transfers heat out and q(reaction) is negative.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_f3a2e89b97",
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e0cda36361"
+      ]
+    },
+    {
+      "question": "Is standard reaction enthalpy always quoted at 298 K?",
+      "answer": "No. Standard describes reference states at 1 bar; temperature must be specified, though 298 K is common.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_f3a2e89b97",
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e0cda36361"
+      ]
+    }
+  ],
+  "title": "Work, Enthalpy, Heat Capacity and Calorimetry"
+}

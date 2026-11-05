@@ -1,0 +1,276 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0f7bfe2fbe",
+  "title": "Apply Periodic Trends to Unfamiliar Elements",
+  "pages": [
+    {
+      "title": "Solve a periodic-table puzzle",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "An unfamiliar symbol need not stop you. Atomic number, electron configuration and a stated property often contain enough information to predict a location or compare behaviour.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "This application unit combines configuration, size and energy trends already studied. Each problem begins by identifying which comparison is valid, rather than guessing an arrow.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "When an unfamiliar element is given as Z, use that number to count electrons in the neutral atom. When an ion is given, adjust the count for its charge before comparing sizes. These two starting conditions lead to different first steps."
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch3_unit6_page1",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0f7bfe2fbe"
+      ],
+      "transition": "Start by extracting a table position from a configuration."
+    },
+    {
+      "title": "Locate an unknown main-group element",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "For Z=16, distribute sixteen electrons: 1s²2s²2p⁶3s²3p⁴. The highest occupied n is 3, the final filling is p, and the valence count is 2+4=6.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Therefore the element lies in period 3, p block, group 16. Writing the configuration first separates the three questions and prevents confusing group number with atomic number.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch3_unit6_page2",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0f7bfe2fbe"
+      ],
+      "transition": "With the period known, compare neutral-atom sizes on a common basis."
+    },
+    {
+      "title": "Rank atoms within one period",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Compare Na, Mg and Al atomic sizes using the same radius definition. They share period 3, while Z increases from 11 to 13. Increasing effective nuclear attraction generally contracts the valence region.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The expected order is Na>Mg>Al. The important condition is the same main-group period; this explanation would be incomplete for arbitrary species from different shells.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch3_unit6_page3",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0f7bfe2fbe"
+      ],
+      "transition": "Ion comparisons need a fresh electron-count check."
+    },
+    {
+      "title": "Rank an isoelectronic set",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "For O²⁻, F⁻, Na⁺, Mg²⁺, count electrons first: 8+2=10, 9+1=10, 11−1=10, 12−2=10. Now compare proton counts.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "With equal electron populations, stronger nuclear attraction gives smaller radius. Thus O²⁻>F⁻>Na⁺>Mg²⁺. The charge sign alone is not the ranking rule.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch3_unit6_page4",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0f7bfe2fbe"
+      ],
+      "transition": "Large ionisation jumps offer a different route to valence information."
+    },
+    {
+      "title": "Detect valence electrons from an energy jump",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Suppose successive ionisation enthalpies rise moderately for the first two removals and jump dramatically at the third. Two electrons were relatively accessible before a core electron had to be removed.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For a main-group atom this suggests two valence electrons and often a group 2 pattern. The reasoning uses the discontinuity, not an invented universal numerical threshold.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch3_unit6_page5",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0f7bfe2fbe"
+      ],
+      "transition": "Test the general trends against known subshell exceptions."
+    },
+    {
+      "title": "Explain an exception in a comparison",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Which is easier to ionise, Be or B? Compare their outer electrons: Be ends 2s²; B ends 2s²2p¹. B loses a higher-energy 2p electron, so its first ionisation enthalpy is smaller.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For N versus O, use pairing instead: O’s 2p⁴ has paired-electron repulsion, unlike half-filled N 2p³. Different exceptions need different structural explanations.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch3_unit6_page6",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0f7bfe2fbe"
+      ],
+      "transition": "Choose the correct property by writing its physical process."
+    },
+    {
+      "title": "Choose the correct electron-attraction quantity",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A question asks whether X(g)+e⁻→X⁻(g) releases energy. This is electron gain enthalpy. A question asks which bonded atom pulls a shared pair more strongly. This is electronegativity.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "If the process is X(g)→X⁺(g)+e⁻, use ionisation enthalpy. Writing the actual process prevents swapping three quantities that can have related but non-identical trends.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch3_unit6_page7",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0f7bfe2fbe"
+      ],
+      "transition": "Use the predicted ion charges to obtain a neutral formula."
+    },
+    {
+      "title": "Connect a formula with an outer configuration",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "An element X ends ns² and a halogen Y ends ns²np⁵. The simple ionic model predicts X²⁺ and Y⁻, so charge neutrality gives XY₂.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "This uses common main-group ions, not a claim that every compound must be ionic. If a question specifies covalent bonding or unusual oxidation states, its additional evidence must also be used.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch3_unit6_page8",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0f7bfe2fbe"
+      ],
+      "transition": "Challenge absolute statements that ignore competing effects."
+    },
+    {
+      "title": "Reject an overgeneralised statement",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The statement “ionisation enthalpy always rises across a period” fails at Be/B and N/O. The more accurate statement is a general increase with identifiable subshell and pairing exceptions.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Similarly, increasing nuclear charge alone cannot explain down-group size because additional shells and shielding matter. A sound explanation weighs the effects that actually change in the comparison.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "Correct the statement “chlorine is smaller than chloride because it has fewer protons.” Both species have 17 protons. Cl⁻ has an extra electron, increasing electron repulsion and expanding its valence distribution relative to Cl."
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch3_unit6_page9",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0f7bfe2fbe"
+      ],
+      "transition": "Assemble these checks into a compact method for new problems."
+    },
+    {
+      "title": "Use a three-step reasoning routine",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "First write the relevant configuration or electron count. Then decide whether the comparison concerns a period, a group, isoelectronic ions or a defined gas-phase process. Finally apply attraction, shielding, shell size and repulsion.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Check the answer against known exceptions and the quantity’s definition. A short justified prediction is more reliable than a long list of remembered trends.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch3_unit6_page10",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0f7bfe2fbe"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "Locate[Ne]3s²3p².",
+      "answer": "Period 3, p block, group 14: highest n=3 and four main-group valence electrons.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0f7bfe2fbe"
+      ]
+    },
+    {
+      "question": "Order Na⁺, Mg²⁺ and Al³⁺ by increasing radius.",
+      "answer": "Al³⁺<Mg²⁺<Na⁺. Each has ten electrons; greater Z contracts the distribution.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0f7bfe2fbe"
+      ]
+    },
+    {
+      "question": "A large jump follows the first ionisation. What does this suggest?",
+      "answer": "One accessible valence electron before reaching a stable inner configuration, often a group 1 main-group pattern.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0f7bfe2fbe"
+      ]
+    },
+    {
+      "question": "Why is boron easier to ionise than beryllium?",
+      "answer": "B loses a less penetrating, higher-energy 2p electron rather than a 2s electron.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0f7bfe2fbe"
+      ]
+    },
+    {
+      "question": "Which quantity concerns a shared electron pair?",
+      "answer": "Electronegativity, defined in a chemical bond.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0f7bfe2fbe"
+      ]
+    },
+    {
+      "question": "Predict the neutral formula from X²⁺ and Y⁻.",
+      "answer": "XY₂, because 2+ balances two 1− charges.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0f7bfe2fbe"
+      ]
+    },
+    {
+      "question": "Why must radius definitions match when comparing sizes?",
+      "answer": "Covalent, metallic and non-bonded radii describe different measured environments.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0f7bfe2fbe"
+      ]
+    }
+  ]
+}

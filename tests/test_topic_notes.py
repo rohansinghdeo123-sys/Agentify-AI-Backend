@@ -43,4 +43,7 @@ class TopicNotesTests(unittest.TestCase):
   record_heartbeat(self.db,user_id='reader',last_position={'notes_topic':mass['id'],'notes_page':1,'notes_version':'ncert_teacher_v1'})
   self.db.expire_all();self.assertEqual(mapped_notes(self.c['chapter_slug'],mass['id'],self.db,'reader')['saved_page'],1)
  def test_other_chapters_do_not_use_chapter_one_mapping(self):
-  self.assertIsNone(mapped_notes('structure_of_atom','any',self.db,'reader'))
+  from fastapi import HTTPException
+  with self.assertRaises(HTTPException):
+   mapped_notes('structure_of_atom',self.c['units'][0]['id'],self.db,'reader')
+  self.assertIsNone(mapped_notes('unregistered_chapter','any',self.db,'reader'))

@@ -1,0 +1,265 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_6_equilibrium_3ce2e05aac",
+  "pages": [
+    {
+      "title": "Acid–base behaviour can occur without a proton",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " BF₃ and NH₃ can combine even though no proton is transferred. A broader acid–base idea follows an electron pair instead. This describes a bond-forming interaction beyond the proton-transfer definition."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " A Lewis acid accepts an electron pair; a Lewis base donates an electron pair. The donated pair is used in forming a bond, rather than transferred as two separate redox electrons."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_3ce2e05aac"
+      ],
+      "transition": "Identify the electron-pair donor and acceptor in a concrete example.",
+      "id": "chem11-ch06-u06-p01",
+      "page_number": 1
+    },
+    {
+      "title": "The BF₃–NH₃ adduct",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Nitrogen in NH₃ has a lone pair available for bonding. Boron in BF₃ has an incomplete octet and accepts that pair. NH₃ is the Lewis base and BF₃ the Lewis acid; the resulting joined species is an adduct."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " H⁺ and suitable metal cations can act as Lewis acids. H₂O, OH⁻ and F⁻ can donate available electron pairs and act as Lewis bases. The role depends on the interaction being considered."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " A lone pair is a pair of valence electrons not shared in a bond in the starting structure."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_3ce2e05aac"
+      ],
+      "transition": "In water, acid and base strength still concerns their ionisation equilibria.",
+      "id": "chem11-ch06-u06-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Strong and weak describe an equilibrium extent",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " A strong acid transfers protons to water to a very large extent; a weak acid leaves appreciable unionised acid. These descriptions depend on solvent and conditions."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " HCl + H₂O → H₃O⁺ + Cl⁻ lies strongly toward products. Ethanoic acid, CH₃COOH + H₂O ⇌ H₃O⁺ + CH₃COO⁻, establishes a partial-ionisation equilibrium. A weak acid is not necessarily present at low concentration."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_3ce2e05aac"
+      ],
+      "transition": "The reverse partner helps explain relative acid–base strength.",
+      "id": "chem11-ch06-u06-p03",
+      "page_number": 3
+    },
+    {
+      "title": "A strong acid has a weak conjugate base",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " If an acid readily donates its proton to water, its conjugate base has little tendency to reclaim that proton in the reverse reaction. Acid–base equilibrium favours the weaker acid and weaker base pair."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " A weak acid’s conjugate base is stronger than a strong acid’s conjugate base, but is not automatically a strong aqueous base. Acetate is still a weak base in water."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_3ce2e05aac"
+      ],
+      "transition": "Water itself can participate on both sides of a proton transfer.",
+      "id": "chem11-ch06-u06-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Water self-ionises",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " 2H₂O(l) ⇌ H₃O⁺(aq) + OH⁻(aq). One water molecule donates H⁺ and another accepts it. Pure water therefore contains small, equal concentrations of both ions."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Omitting the nearly constant pure-water activity gives the dilute-solution ionic-product form K(w) = [H₃O⁺][OH⁻]. The rigorous thermodynamic form uses dimensionless activities; textbook concentration calculations use a consistent molar convention."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_3ce2e05aac"
+      ],
+      "transition": "At 298 K, this product gives the familiar neutral concentrations.",
+      "id": "chem11-ch06-u06-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Neutral means equal ion concentrations",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " At 298 K the dilute concentration form is K(w) = 1.0 × 10⁻¹⁴. In pure water let both concentrations be x: x² = 1.0 × 10⁻¹⁴, so x = 1.0 × 10⁻⁷ mol L⁻¹."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Acidic means [H₃O⁺] > [OH⁻]; basic means [H₃O⁺] < [OH⁻]; neutral means equality. K(w) depends on temperature, so the neutral concentration and neutral pH need not have their 298 K values."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_3ce2e05aac"
+      ],
+      "transition": "Adding one ion changes the equilibrium concentration of the other.",
+      "id": "chem11-ch06-u06-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Worked complementary ion concentration",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created example at 298 K: [H₃O⁺] = 1.0 × 10⁻³ mol L⁻¹. Find [OH⁻]. Use [OH⁻] = K(w)/[H₃O⁺] = 10⁻¹⁴/10⁻³ = 10⁻¹¹ mol L⁻¹. The solution is acidic because hydronium concentration is larger."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Acidic water still contains hydroxide ions. Adding acid suppresses their equilibrium concentration; it does not make it identically zero."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_3ce2e05aac"
+      ],
+      "transition": "The logarithmic pH scale makes these small concentrations easier to compare.",
+      "id": "chem11-ch06-u06-p07",
+      "page_number": 7
+    },
+    {
+      "title": "pH compresses a large numerical range",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " pH is the negative base-ten logarithm of hydrogen-ion activity. In sufficiently dilute solutions, the textbook approximation is pH ≈ −log₁₀[H₃O⁺], using concentration numerically relative to 1 mol L⁻¹."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " A hydronium concentration of 10⁻³ M gives pH 3, while 10⁻⁷ M gives pH 7. A decrease by one pH unit corresponds to a tenfold increase in hydronium activity."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_3ce2e05aac"
+      ],
+      "transition": "Calculate an inverse concentration and keep the temperature condition explicit.",
+      "id": "chem11-ch06-u06-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Worked pH and ion product",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created example at 298 K: pH = 4.00. Find both ion concentrations in the dilute approximation. [H₃O⁺] = 10^(−4.00) = 1.00 × 10⁻⁴ M. Then [OH⁻] = 1.0 × 10⁻¹⁴/(1.00 × 10⁻⁴) = 1.0 × 10⁻¹⁰ M."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " pH paper estimates a range; a calibrated pH meter measures a pH-dependent electrical response more precisely. The number of displayed decimals alone does not establish measurement accuracy."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_3ce2e05aac"
+      ],
+      "transition": "Consolidate electron-pair behaviour, water equilibrium and pH.",
+      "id": "chem11-ch06-u06-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: related theories, different bookkeeping",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Lewis acids accept electron pairs and Lewis bases donate them. Brønsted–Lowry acids donate protons. A Lewis adduct does not require proton transfer, and acid–base pair donation is distinct from redox bookkeeping."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Water: 2H₂O ⇌ H₃O⁺ + OH⁻; K(w) = [H₃O⁺][OH⁻] in the dilute convention. Neutral means equal ion concentrations. At 298 K each is 10⁻⁷ M and pH is 7; temperature changes K(w)."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_3ce2e05aac"
+      ],
+      "transition": "",
+      "id": "chem11-ch06-u06-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why is BF₃ a Lewis acid?",
+      "answer": "It accepts a lone electron pair into a bond-forming interaction, for example from NH₃.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_3ce2e05aac"
+      ]
+    },
+    {
+      "question": "Must a Lewis acid contain hydrogen?",
+      "answer": "No. BF₃ and suitable metal cations illustrate proton-free electron-pair acceptors.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_3ce2e05aac"
+      ]
+    },
+    {
+      "question": "Is acetate automatically a strong base because ethanoic acid is weak?",
+      "answer": "No. It is stronger than a strong acid’s conjugate base but remains a weak base in water.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_3ce2e05aac"
+      ]
+    },
+    {
+      "question": "At 298 K, if [OH⁻] = 10⁻⁴ M, find [H₃O⁺].",
+      "answer": "10⁻¹⁴/10⁻⁴ = 10⁻¹⁰ M; the solution is basic.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_3ce2e05aac"
+      ]
+    },
+    {
+      "question": "Does neutral always mean pH 7 at every temperature?",
+      "answer": "No. Neutral means equal hydronium and hydroxide concentrations; K(w) changes with temperature.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_3ce2e05aac"
+      ]
+    },
+    {
+      "question": "A solution changes from pH 5 to pH 3. How does hydronium activity change?",
+      "answer": "It increases by 10² = 100 times.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_3ce2e05aac"
+      ]
+    }
+  ],
+  "title": "Lewis Acids, Water Ionisation and pH"
+}

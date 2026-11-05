@@ -1,0 +1,263 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_269ed2ce74",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch9-unit1-page01",
+      "title": "From cooking fuel to carbon skeletons",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_269ed2ce74"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "LPG in a kitchen and petrol in a vehicle are familiar uses of hydrocarbons. These fuels contain compounds made only of carbon and hydrogen. Their structures also make hydrocarbons useful starting materials for polymers and many other chemicals, so the chapter is about more than burning fuels.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "A hydrocarbon contains only C and H. Carbon–carbon bond types separate saturated compounds, containing only single bonds, from unsaturated compounds with multiple bonds. Aromatic hydrocarbons form a special class of cyclic structures with characteristic stability and reactions.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The carbon–carbon bonds and skeleton give a useful first classification."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch9-unit1-page02",
+      "title": "Classify the bonds and the skeleton",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_269ed2ce74"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Open-chain saturated hydrocarbons are alkanes; saturated carbon rings are cycloalkanes. Alkenes contain C=C and alkynes C≡C. Benzene is aromatic rather than an ordinary alkene, despite being drawn with multiple bonds in familiar structural representations.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "Ethane, CH3CH3, is an alkane; ethene, CH2=CH2, an alkene; ethyne, HC≡CH, an alkyne. Cyclohexane is saturated but cyclic. These classifications come from the actual connectivity and bond order, not simply from whether a formula contains fewer hydrogens.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Saturated describes the absence of carbon–carbon multiple bonds in this classification. A carbon skeleton is the network of carbon-to-carbon connections, with hydrogens added to satisfy carbon’s usual valence.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "These structural families occur in the mixtures obtained from natural sources."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch9-unit1-page03",
+      "title": "Where hydrocarbon mixtures come from",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_269ed2ce74"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Petroleum and natural gas are major hydrocarbon sources. Fractional distillation separates petroleum into fractions such as petrol, kerosene and diesel according to boiling ranges. A fraction is a mixture, so petrol should not be assigned one molecular formula as though it were a pure substance.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "CNG means compressed natural gas; LNG means liquefied natural gas; LPG means liquefied petroleum gas. These terms describe fuel sources or physical handling, not new chemical bond types. Hydrocarbons also supply feedstocks for polymers and solvents, linking their structures to useful products.",
+          "level": "essential"
+        }
+      ],
+      "transition": "For open-chain saturated molecules, carbon valence gives a simple hydrogen-count rule."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch9-unit1-page04",
+      "title": "The alkane formula has a boundary",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_269ed2ce74"
+      ],
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "An open-chain saturated hydrocarbon has the general formula CₙH₂ₙ₊₂, with n the number of carbon atoms. Thus n = 1 gives CH4, n = 2 gives C2H6 and n = 3 gives C3H8. The formula assumes no ring or multiple bond.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Successive members differ by CH2, forming a homologous series. Closing a ring removes two hydrogens compared with the corresponding open chain, so cycloalkanes do not follow CₙH₂ₙ₊₂. State the structural assumptions before using a general formula to classify an unknown.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The formula fixes atom counts, while bonding explains the local three-dimensional shape."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch9-unit1-page05",
+      "title": "Why methane is not flat",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_269ed2ce74"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Each carbon in an alkane is sp3 hybridised with approximately tetrahedral bond directions. In methane the H–C–H angle is about 109.5°. C–H σ bonds arise from head-on overlap with hydrogen 1s orbitals; C–C σ bonds arise from overlap of carbon hybrid orbitals.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "The zigzag used to draw a chain is a representation, not a claim that every atom lies in one flat straight arrangement. Carbon still has four bonds and its local geometry must be respected. Single bonds permit conformational changes without changing atom connectivity.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Different connections can nevertheless satisfy the same formula."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch9-unit1-page06",
+      "title": "One formula can describe different chains",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_269ed2ce74"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "C4H10 has two chain structures: CH3CH2CH2CH3, butane, and (CH3)3CH, 2-methylpropane. Both contain four carbons and ten hydrogens, but their connections differ. These distinct compounds are structural isomers, specifically chain isomers.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Changing the direction of a drawing does not create another isomer. To compare two structures, trace which carbon is attached to which and count hydrogens from valence four. The first three alkanes have no alternative carbon skeleton; branching first becomes possible with four carbons.",
+          "level": "essential"
+        }
+      ],
+      "transition": "A five-carbon example shows how to find genuine alternatives without counting duplicates."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch9-unit1-page07",
+      "title": "Find the three C5H12 skeletons",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_269ed2ce74"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Start with a five-carbon chain: pentane. Shorten the longest chain to four and add a methyl branch at its internal carbon: 2-methylbutane. A three-carbon parent with two methyl branches at its middle carbon gives 2,2-dimethylpropane. Each structure contains five carbons and twelve hydrogens.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Moving the branch from carbon 2 to carbon 3 of a four-carbon chain merely renumbers the same 2-methylbutane skeleton. Duplicate drawings disappear when connectivity is checked. This systematic approach is more reliable than counting every sketch as a different compound.",
+          "level": "essential"
+        }
+      ],
+      "transition": "We can describe individual carbon positions by their carbon neighbours."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch9-unit1-page08",
+      "title": "Describe each carbon by its neighbours",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_269ed2ce74"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "A primary carbon is directly attached to one other carbon, a secondary carbon to two, a tertiary carbon to three and a quaternary carbon to four. This classification counts carbon neighbours, not hydrogens or total bonds. Methane is a special zero-carbon-neighbour case.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "In 2-methylpropane, the central CH is attached to three carbons, so it is tertiary. Each outer CH3 is primary. In 2,2-dimethylpropane the central carbon has four carbon neighbours and no hydrogens, making it quaternary; its four methyl carbons are primary.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Those different skeletons help explain measurable property differences."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch9-unit1-page09",
+      "title": "Structure predicts useful differences",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_269ed2ce74"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Chain isomers have the same molecular mass yet can have different physical properties because their shapes change intermolecular contact. Formula is therefore only part of a chemical description. The carbon skeleton and the type of bonds supply the missing structural information.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "For now, distinguish classification from reactivity: a saturated molecule has only single carbon–carbon bonds, but that does not mean it can never react. Combustion and substitution are still possible under suitable conditions. We will connect those reactions to structure in the following units.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "Try distinguishing a molecular formula from a classification: C6H12 could be an acyclic monoalkene or a saturated monocycle. Both have two fewer H than C6H14. A structural drawing, not the hydrogen count alone, decides whether the missing H pair represents a ring or a double bond."
+        }
+      ],
+      "transition": "Let us collect the structural information needed to identify a hydrocarbon."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch9-unit1-page10",
+      "title": "A hydrocarbon identity card",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_269ed2ce74"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "Record the elements, skeleton and carbon–carbon bond types. Hydrocarbons contain only C/H; alkanes are open-chain saturated compounds with CₙH₂ₙ₊₂, while cycloalkanes, alkenes, alkynes and arenes require different structural descriptions.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Preserve carbon’s tetravalence when drawing isomers. Compare connections rather than drawing direction, and classify a carbon by the number of carbon atoms directly attached to it. Petroleum fractions are mixtures, and their everyday use does not give them a single formula.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "Does C4H8 by itself prove the compound is an alkene?",
+      "answer": "No. The formula also fits a cycloalkane; bond types and connectivity are needed.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_269ed2ce74"
+      ]
+    },
+    {
+      "question": "Why are butane and 2-methylpropane isomers?",
+      "answer": "They share C4H10 but have different carbon connectivity, an unbranched and a branched skeleton.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_269ed2ce74"
+      ]
+    },
+    {
+      "question": "Classify the central carbon in (CH3)4C.",
+      "answer": "Quaternary: it is directly attached to four other carbons and bears no hydrogen.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_269ed2ce74"
+      ]
+    },
+    {
+      "question": "How many hydrogens are expected for an open-chain saturated six-carbon hydrocarbon?",
+      "answer": "2n+2 = 14, giving C6H14. The formula assumes no ring or multiple bond.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_269ed2ce74"
+      ]
+    },
+    {
+      "question": "Why should petrol not be given a single molecular formula?",
+      "answer": "It is a petroleum fraction containing a mixture of hydrocarbons, rather than a pure single compound.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_269ed2ce74"
+      ]
+    }
+  ],
+  "title": "Hydrocarbon Classification, Alkane Structures and Chain Isomerism"
+}

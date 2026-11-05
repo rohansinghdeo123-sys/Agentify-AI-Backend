@@ -1,0 +1,339 @@
+{
+  "unit_id": "chem11_u02_lu02_atomic_models_and_identity",
+  "title": "Atomic Models and Nuclear Identity",
+  "pages": [
+    {
+      "title": "What should an atomic model explain?",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A neutral atom contains negative electrons. Something positive must balance their charge. But where is that positive charge, and how are the particles arranged? A model offers a testable answer.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A useful model explains observations and predicts new ones. When predictions fail, scientists revise the arrangement rather than ignore experimental evidence.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch2_unit1_page1",
+      "source_section_ids": [
+        "2.2"
+      ],
+      "transition": "Start with the arrangement proposed immediately after electrons were discovered."
+    },
+    {
+      "title": "Thomson spreads out positive charge",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Thomson pictured an atom as a sphere of uniformly distributed positive charge with electrons embedded in it. Total positive and negative charges balance, explaining a neutral atom.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Seeds embedded in fruit give a limited analogy for the electrons’ placement. The analogy does not mean atoms contain a solid fruity material; it represents the proposed distribution of charges.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "A neutral atom with six electrons needs total positive charge +6e. Thomson’s model distributes that positive charge through a sphere. It does not contain the concentrated nucleus inferred later: neutrality and spatial arrangement are separate issues."
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch2_unit1_page2",
+      "source_section_ids": [
+        "2.2.1"
+      ],
+      "transition": "A scattering experiment can distinguish diffuse charge from concentrated charge."
+    },
+    {
+      "title": "Test the arrangement with alpha particles",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Rutherford and colleagues directed fast, positive α-particles at thin gold foil. Most passed through without noticeable deflection; some changed direction; a tiny fraction suffered very large deflections or returned.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The foil was thin to limit repeated encounters. A model with diffuse positive charge could not explain the rare, very large deflections of these fast particles.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": "An α-particle is positively charged and much more massive than an electron. A few light electrons cannot readily turn a fast α-particle almost backwards. The rare backward events therefore provide especially strong evidence for concentrated positive mass, not a uniformly spread positive sphere."
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch2_unit1_page3",
+      "source_section_ids": [
+        "2.2.2"
+      ],
+      "transition": "Match each type of deflection with the part of the atom it reveals."
+    },
+    {
+      "title": "Read each observation as evidence",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Most projectiles passing straight through means most atomic volume is empty space. Rare strong repulsions mean positive charge and most mass concentrate in a tiny region, the nucleus.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Nuclear size is of order 10⁻¹⁵ m, compared with atomic size of order 10⁻¹⁰ m. These are useful orders of magnitude, not exact universal radii for all elements.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "A small hard target inside a large empty room is missed by most projectiles. The few that encounter it closely can change direction sharply.",
+          "level": "foundation"
+        },
+        {
+          "kind": "worked_example",
+          "level": "extension",
+          "text": "Using the order-of-magnitude radii, r_atom/r_nucleus≈10⁻¹⁰/10⁻¹⁵=10⁵. The radius ratio is about 100, 000, while the volume ratio scales as its cube, about 10¹⁵. This illustrates why “tiny nucleus” implies an enormously small fraction of atomic volume."
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch2_unit1_page4",
+      "source_section_ids": [
+        "2.2.2"
+      ],
+      "transition": "The nucleus also gives us a reliable way to identify an element."
+    },
+    {
+      "title": "Atomic number fixes the element",
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Atomic number Z is the number of protons in a nucleus. A neutral atom has Z electrons because positive and negative charges balance. Changing the proton number changes the element.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Mass number A counts protons plus neutrons, collectively called nucleons: A=Z+N. Thus neutron number N=A−Z. Mass number is a particle count, not an exact measured atomic mass in u.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": "In isotope notation, the mass number is written as an upper-left label and atomic number as a lower-left label beside the element symbol. If the symbol and Z disagree, the notation is inconsistent. The symbol names the element and must correspond to its proton count."
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch2_unit1_page5",
+      "source_section_ids": [
+        "2.2.3"
+      ],
+      "transition": "Apply the nuclear definitions before adjusting an ion’s electron count."
+    },
+    {
+      "title": "Count particles in an ion",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Teacher-worked application: aluminium has A=27, Z=13 and ionic charge 3+. Protons=13; neutrons=A−Z=27−13=14. A neutral aluminium atom would contain thirteen electrons.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Charge 3+ means three electrons were removed, so electrons=13−3=10. Ion formation changes electron count; it does not change the nucleus or turn aluminium into another element.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "For ³⁵Cl⁻ with Z=17, protons=17 and neutrons=35−17=18. Its 1− charge means one extra electron compared with the neutral atom: electrons=17+1=18. Compare with aluminium: positive ions subtract electrons; negative ions add electrons."
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch2_unit1_page6",
+      "source_section_ids": [
+        "2.2.3"
+      ],
+      "transition": "Now keep proton number fixed and vary neutron number."
+    },
+    {
+      "title": "Same element, different neutron counts",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Isotopes have equal atomic number but different mass numbers. Protium, deuterium and tritium all have Z=1 and mass numbers 1, 2, 3, so they contain 0, 1, 2 neutrons respectively.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Their neutral atoms have equal electron counts and broadly similar chemistry. Masses and some physical properties differ. Similar chemistry does not mean isotopes are identical in every property.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "Carbon-12 and carbon-14 have the same six protons but six and eight neutrons. Their neutral atoms both contain six electrons. This shows why changing neutron count changes isotope while adding or removing electrons instead produces an ion."
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch2_unit1_page7",
+      "source_section_ids": [
+        "2.2.4"
+      ],
+      "transition": "A different comparison fixes the total nucleons instead of the proton number."
+    },
+    {
+      "title": "Same mass number, different elements",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Isobars have equal mass number but different atomic number. Carbon-14 contains six protons and eight neutrons; nitrogen-14 contains seven protons and seven neutrons. Both have A=14, but they are different elements.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Check the equality explicitly: isotopes share Z; isobars share A. Equal mass number does not imply identical chemistry or exactly equal measured isotopic masses.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "Compare ⁴⁰Ar and ⁴⁰Ca, with Z=18 and 20. They are isobars, since both have A=40. Their neutron counts are 22 and 20. Their neutral electron configurations differ, so equal A does not give identical chemistry."
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch2_unit1_page8",
+      "source_section_ids": [
+        "2.2.4"
+      ],
+      "transition": "Correct nuclear identity does not yet solve the electron’s stability problem."
+    },
+    {
+      "title": "Why Rutherford’s model was incomplete",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "An electron moving in a circular path accelerates because its direction changes. Classical electromagnetic theory predicts that an accelerating charge emits radiation, losing energy.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Rutherford’s orbiting electron should spiral into the nucleus, contradicting stable atoms. The model also does not supply discrete electron energies to explain line spectra. The nucleus was established; the electron description still needed revision.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": "Speed can remain constant in a circular orbit while velocity changes because velocity includes direction. That changing velocity is acceleration. Thus the stability problem cannot be avoided by saying the electron circles at a constant speed."
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch2_unit1_page9",
+      "source_section_ids": [
+        "2.2.5"
+      ],
+      "transition": "Separate the model’s lasting experimental conclusions from its failed orbit assumption."
+    },
+    {
+      "title": "Combine evidence with nuclear identity",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Thomson explains neutrality through diffuse positive charge and embedded electrons. Rutherford establishes a tiny positive nucleus through scattering. That nuclear evidence survives even though classical electron orbits fail.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For particle counts, write protons=Z, neutrons=A−Z, then adjust electrons for ionic charge. Distinguish isotope pairs by Z and isobar pairs by A before comparing their properties.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch2_unit1_page10",
+      "source_section_ids": [
+        "2.2",
+        "2.2.1",
+        "2.2.2",
+        "2.2.3",
+        "2.2.4",
+        "2.2.5"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "Which scattering observation indicates mostly empty space?",
+      "answer": "Most α-particles traverse the foil without noticeable deflection.",
+      "source_section_ids": [
+        "2.2",
+        "2.2.1",
+        "2.2.2",
+        "2.2.3",
+        "2.2.4",
+        "2.2.5"
+      ]
+    },
+    {
+      "question": "Why do rare backward deflections suggest a concentrated nucleus?",
+      "answer": "A strong change in a fast positive particle’s direction requires a compact region producing strong repulsion.",
+      "source_section_ids": [
+        "2.2",
+        "2.2.1",
+        "2.2.2",
+        "2.2.3",
+        "2.2.4",
+        "2.2.5"
+      ]
+    },
+    {
+      "question": "How many neutrons and electrons has ²³Na⁺, Z=11?",
+      "answer": "Neutrons=23−11=12; electrons=11−1=10. It remains sodium because proton number stays eleven.",
+      "source_section_ids": [
+        "2.2",
+        "2.2.1",
+        "2.2.2",
+        "2.2.3",
+        "2.2.4",
+        "2.2.5"
+      ]
+    },
+    {
+      "question": "Are carbon-12 and carbon-14 isotopes?",
+      "answer": "Yes. Both have Z=6 but different mass numbers.",
+      "source_section_ids": [
+        "2.2",
+        "2.2.1",
+        "2.2.2",
+        "2.2.3",
+        "2.2.4",
+        "2.2.5"
+      ]
+    },
+    {
+      "question": "Are carbon-14 and nitrogen-14 the same element?",
+      "answer": "No. They are isobars with A=14 but different proton numbers.",
+      "source_section_ids": [
+        "2.2",
+        "2.2.1",
+        "2.2.2",
+        "2.2.3",
+        "2.2.4",
+        "2.2.5"
+      ]
+    },
+    {
+      "question": "Which classical prediction contradicts stable Rutherford atoms?",
+      "answer": "An accelerating orbital electron should radiate, lose energy and collapse towards the nucleus.",
+      "source_section_ids": [
+        "2.2",
+        "2.2.1",
+        "2.2.2",
+        "2.2.3",
+        "2.2.4",
+        "2.2.5"
+      ]
+    }
+  ]
+}

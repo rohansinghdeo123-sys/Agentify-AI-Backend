@@ -1,0 +1,279 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_867b774968",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch9-unit9-page01",
+      "title": "Why does benzene preserve its ring?",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_ece0f0ec2f"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "An alkene commonly adds reagents across C=C, but benzene usually replaces a ring hydrogen while retaining its carbon framework. A count of three drawn double bonds cannot explain this contrast. Benzene’s actual delocalised electron structure supplies the missing reason.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "This combined final unit connects resonance and aromaticity with preparation, electrophilic substitution, directive effects and structure-deduction applications. The central question is how a stable π system responds to a reagent without losing its characteristic stability permanently.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The first clue is the equal bonding around benzene’s planar ring."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch9-unit9-page02",
+      "title": "Six equivalent carbons, six equivalent bonds",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_ece0f0ec2f"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Every benzene carbon is sp2 hybridised. Three σ-bond directions lie in the ring plane; one remaining p orbital stands perpendicular to it. Sideways overlap continues around the ring, delocalising six π electrons above and below the plane.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "All six C–C bonds have the same length, about 139 pm, intermediate between an ordinary C–C single bond and C=C double bond. The two Kekulé drawings are contributors to one resonance hybrid, not distinct substances that rapidly alternate. A circle in the hexagon represents the delocalised system.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Conjugation means a continuous sequence of neighbouring orbitals capable of sharing π electron density. Aromaticity additionally requires the cyclic, planar and electron-count conditions; conjugation by itself is not enough.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "That orbital network lets us state the conditions for aromaticity."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch9-unit9-page03",
+      "title": "Aromaticity needs more than a ring",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_ece0f0ec2f"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "In the elementary Hückel description, an aromatic system is cyclic, planar and continuously conjugated, with (4n+2) π electrons, where n is a non-negative integer. Benzene has six: 4(1)+2 = 6. The overlap must continue around the entire ring.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "A hexagonal shape alone does not establish aromaticity; cyclohexane has no continuous π system. Nor is electron counting alone enough without planarity and suitable connected orbitals. Aromaticity describes electronic structure and special stability, not simply a pleasant smell.",
+          "level": "essential"
+        }
+      ],
+      "transition": "We can then recognise preparation routes that preserve or create the six-carbon ring."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch9-unit9-page04",
+      "title": "Prepare benzene with carbon accounting",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_ece0f0ec2f"
+      ],
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "C6H5COONa + NaOH → C6H6 + Na2CO3 on heating with soda lime. The benzoate carboxyl carbon becomes carbonate while the six-carbon ring remains. Reduction of phenol with heated zinc gives C6H5OH + Zn → C6H6 + ZnO.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "Cyclic trimerisation also gives 3C2H2 → C6H6 under the stated heated iron-tube conditions. These routes use different starting structures, so verify carbon and hydrogen rather than assuming every benzene preparation is a coupling. They describe supervised laboratory chemistry, not activities for unsupervised handling of benzene.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The ring’s stability explains the key stages of electrophilic substitution."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch9-unit9-page05",
+      "title": "Substitution temporarily loses and then restores aromaticity",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_ece0f0ec2f"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "In electrophilic aromatic substitution, first generate a suitable electrophile. Ring π electrons form a bond to it, creating a resonance-stabilised carbocation intermediate in which aromaticity is temporarily disrupted. Loss of H⁺ then restores the continuous aromatic π system.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "The overall pattern is Ar–H + E+ → Ar–E + H⁺, with the actual reagents supplying and removing the charged species. The proton lost comes from the carbon that acquired E. Substitution recovers aromatic stabilisation; simple addition would leave the ring without its original continuous system.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Different reagents generate different electrophiles and installed groups."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch9-unit9-page06",
+      "title": "Recognise the reagents and their products",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_ece0f0ec2f"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Nitration uses concentrated HNO3/H2SO4 to generate NO2+ and gives nitrobenzene. Chlorination with a suitable Lewis-acid catalyst such as FeCl3 gives chlorobenzene. Sulphonation with fuming H2SO4 introduces –SO3H. Each replaces one ring H under the stated conditions.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "C6H6 + HNO3 → C6H5NO2 + H2O with H2SO4 catalysis. Friedel–Crafts alkylation uses RCl/anhydrous AlCl3 to introduce R; acylation uses RCOCl/anhydrous AlCl3 to introduce –COR. Identify the actual introduced group: alkylation and acylation do not give the same substituent.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Changed conditions can favour addition or combustion instead of substitution."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch9-unit9-page07",
+      "title": "Addition remains possible under different conditions",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_ece0f0ec2f"
+      ],
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "Benzene hydrogenation is C6H6 + 3H2 → C6H12 with suitable heated catalytic conditions. Photochemical chlorine addition is C6H6 + 3Cl2 → C6H6Cl6. Chlorination with a Lewis-acid catalyst instead gives ring substitution, so the conditions distinguish these transformations.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Complete combustion: 2C6H6 + 15O2 → 12CO2 + 6H2O. A carbon-rich fuel can burn with a sooty flame when combustion is incomplete. Benzene is toxic and carcinogenic; its industrial usefulness does not justify unsupervised exposure or attempts to identify it by smell.",
+          "level": "essential"
+        }
+      ],
+      "transition": "An existing substituent changes both the rate and preferred position of another substitution."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch9-unit9-page08",
+      "title": "An existing group directs the next substitution",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_ece0f0ec2f",
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_92903dca06"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Electron-donating groups such as –OH, –NH2 and alkyl commonly activate a benzene ring and direct further substitution mainly to ortho/para positions. Strong withdrawing groups such as –NO2, –CN and –CHO generally deactivate the ring and direct meta in the simple comparisons.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Halogens are the important exception: they deactivate by strong induction yet direct ortho/para through resonance donation. Activation describes the overall reaction rate relative to benzene; direction describes preferred positions. These are separate questions. Some fused polycyclic hydrocarbons formed in incomplete combustion are carcinogenic, but ring count alone is not a universal toxicity rule.",
+          "level": "essential"
+        }
+      ],
+      "transition": "A final structure problem uses alkene cleavage rather than aromatic substitution."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch9-unit9-page09",
+      "title": "Use fragments to locate an alkene",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_92903dca06"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Suppose reductive ozonolysis of an unknown alkene gives ethanal, CH3CHO, and pentan-3-one, CH3CH2COCH2CH3. Join their carbonyl carbons to reconstruct CH3CH=C(CH2CH3)2. The longest chain containing C=C has five carbons: 3-ethylpent-2-ene, with seven carbons in total.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Each original double-bond carbon becomes one carbonyl carbon, so retain its attached groups during reconstruction. Number the reconstructed chain to give C=C the lower locant. This deduction concerns an alkene; it should not be replaced by unsupported claims about one exclusive ozonolysis product from substituted benzene.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "Compare nitration of toluene and nitrobenzene. A methyl substituent generally activates and favours ortho/para positions; a nitro group deactivates and favours meta. Predict the relative ease of reaction and the preferred positions separately, then explain both through their effects on ring electron density."
+        }
+      ],
+      "transition": "Let us collect the structural reasoning, condition checks and source corrections."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch9-unit9-page10",
+      "title": "Structure explains patterns and their limits",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_ece0f0ec2f",
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_92903dca06"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "Benzene’s planar, continuously conjugated six-π-electron ring has equivalent bonds and aromatic stabilisation. Electrophilic substitution restores that system after an intermediate; reagent and conditions identify nitration, halogenation, sulphonation and Friedel–Crafts products. More forcing or photochemical conditions can permit addition.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Distinguish activation from orientation, especially for halogens. Use ozonolysis fragments by preserving their attached groups and joining carbonyl carbons, then check the correct name and atom count. Toxicity statements need specific evidence: benzene and certain fused hydrocarbons are hazardous, not useful substances to smell or handle casually.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why are benzene’s C–C bond lengths equal?",
+      "answer": "Its π electrons are delocalised around a resonance hybrid; the real structure does not contain permanently alternating single and double bonds.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_ece0f0ec2f"
+      ]
+    },
+    {
+      "question": "Why is cyclohexane not aromatic?",
+      "answer": "It lacks a continuous ring of overlapping p orbitals and π electrons, despite having a six-carbon ring.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_ece0f0ec2f"
+      ]
+    },
+    {
+      "question": "What restores aromaticity in electrophilic substitution?",
+      "answer": "Loss of H⁺ from the carbon that bonded to the electrophile restores the continuous π system.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_ece0f0ec2f"
+      ]
+    },
+    {
+      "question": "Why can chlorobenzene be deactivated but ortho/para-directing?",
+      "answer": "Inductive withdrawal slows overall substitution, while resonance donation favours the ortho/para positions relative to meta.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_92903dca06"
+      ]
+    },
+    {
+      "question": "Distinguish benzene chlorine addition from chlorine substitution.",
+      "answer": "UV-driven addition can give C6H6Cl6; suitable Lewis-acid-catalysed substitution gives C6H5Cl and HCl. Conditions and products differ.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_ece0f0ec2f"
+      ]
+    },
+    {
+      "question": "Name the alkene reconstructed from ethanal and pentan-3-one.",
+      "answer": "CH3CH=C(CH2CH3)2 is 3-ethylpent-2-ene. The five-carbon parent contains C=C at position 2 and an ethyl group at position 3.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_92903dca06"
+      ]
+    },
+    {
+      "question": "What is the major directing behaviour of –NO2 on benzene?",
+      "answer": "It is strongly deactivating and generally meta-directing in the elementary electrophilic-substitution comparison.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_92903dca06"
+      ]
+    }
+  ],
+  "title": "Aromatic Structure, Benzene Reactions and Hydrocarbon Applications"
+}

@@ -1,0 +1,276 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_03f4c45196",
+  "title": "Dipole Moments, Molecular Polarity and Polarisation",
+  "pages": [
+    {
+      "title": "Can a molecule have polar bonds but no overall polarity?",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "CO₂ contains polar C–O bonds, yet its overall dipole moment is zero. Water also has polar bonds, but its dipole is non-zero. The missing ingredient is molecular geometry.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A dipole is a separation of positive and negative charge. To combine several bond dipoles, we must consider their directions as well as their magnitudes.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch4_unit2_page1",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_03f4c45196"
+      ],
+      "transition": "Define the magnitude and direction of a charge separation."
+    },
+    {
+      "title": "Define a dipole moment",
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "For equal and opposite charges of magnitude Q separated by distance r, the dipole moment magnitude is μ=Qr. Use Q in coulombs and r in metres to obtain C m.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Chemists often use debye: 1 D=3.33564 × 10⁻³⁰ C m. Dipole moment is a vector quantity. Simply adding all bond-dipole magnitudes ignores cancellation.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "Two equal pulls in opposite directions can cancel; pulls in different directions may leave a resultant. Dipole addition is a vector problem for the same reason. Looking only at how strong each bond dipole is misses the arrangement."
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch4_unit2_page2",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_03f4c45196"
+      ],
+      "transition": "Use consistent charge and distance units in a numerical example."
+    },
+    {
+      "title": "Calculate a simple dipole magnitude",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Teacher-worked application: suppose separated charges each have magnitude 1.00 × 10⁻¹⁹ C and separation 1.00 × 10⁻¹⁰ m. Then μ=Qr=1.00 × 10⁻²⁹ C m.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Convert to debye: μ=(1.00 × 10⁻²⁹)/(3.33564 × 10⁻³⁰) D≈3.00 D. These are illustrative charges and distance, not claimed measured values for a named molecule.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch4_unit2_page3",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_03f4c45196"
+      ],
+      "transition": "Apply vector cancellation to a symmetric linear molecule."
+    },
+    {
+      "title": "Explain cancellation in carbon dioxide",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "CO₂ is linear with two equivalent C–O bonds pointing in opposite directions. Their dipoles have equal magnitudes and opposite directions, so the vector sum is zero.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The bonds remain polar individually. A zero molecular dipole therefore does not prove that every bond is non-polar; it may demonstrate geometric cancellation.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch4_unit2_page4",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_03f4c45196"
+      ],
+      "transition": "Compare that with bent and trigonal planar geometries."
+    },
+    {
+      "title": "Explain water and boron trifluoride",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Water is bent, so its two O–H dipoles do not cancel. BF₃ is trigonal planar with three equivalent bond dipoles separated symmetrically by 120°, whose vector sum is zero.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Compare the full arrangement, not merely the number of bonds. Two bonds can cancel when linear and identical, but fail to cancel when bent.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch4_unit2_page5",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_03f4c45196"
+      ],
+      "transition": "Lone-pair contributions make another instructive comparison possible."
+    },
+    {
+      "title": "Compare ammonia and nitrogen trifluoride",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "NH₃ and NF₃ are both pyramidal. In the textbook’s qualitative model, N–H bond dipoles reinforce the lone-pair contribution, whereas N–F bond dipoles oppose it.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "NF₃ consequently has a smaller net dipole moment even though F is more electronegative. Bond polarity alone cannot determine a polyatomic molecule’s net dipole without considering direction.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch4_unit2_page6",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_03f4c45196"
+      ],
+      "transition": "A different question concerns distortion of an ion’s electron cloud."
+    },
+    {
+      "title": "An ionic bond can have covalent character",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A positive ion can distort a neighbouring negative ion’s electron cloud. This distortion is polarisation. Electron density shifts towards the region between ions, adding covalent character to an otherwise ionic description.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The cation’s ability to distort is polarising power; the anion’s ease of distortion is polarisability. These terms refer to different partners in the same interaction.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch4_unit2_page7",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_03f4c45196"
+      ],
+      "transition": "Translate distortion into qualitative size and charge rules."
+    },
+    {
+      "title": "Apply Fajans’ rules",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A small, highly charged cation has strong polarising power. A large anion has a more easily distorted electron cloud. Both features favour greater covalent character.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For the same cation, iodide is generally more polarisable than fluoride. For the same anion, a smaller or more highly charged cation generally produces greater distortion.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch4_unit2_page8",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_03f4c45196"
+      ],
+      "transition": "Apply the rules while keeping the comparison partner fixed."
+    },
+    {
+      "title": "Use two comparisons instead of one slogan",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Compare LiCl and NaCl: Li⁺ is smaller, so it polarises Cl⁻ more strongly and LiCl has greater covalent character. Compare LiF and LiI: the larger I⁻ cloud is easier to distort, so LiI has greater covalent character.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The textbook also notes configuration effects: a cation with filled d electrons may shield less effectively than a noble-gas-type cation of similar size and charge. Compare all stated conditions, not charge alone.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "Why does a large anion favour covalent character? Its outer cloud is more easily distorted by a cation, increasing density between the ions. This is a comparison of polarisability; it does not claim the anion’s formal charge changes during the comparison."
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch4_unit2_page9",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_03f4c45196"
+      ],
+      "transition": "Separate molecular polarity from ionic polarisation in the final check."
+    },
+    {
+      "title": "Separate polarity from polarisation",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Dipole moment measures charge separation and depends on vector addition. Polarisation describes distortion of one ion’s cloud by another, explaining covalent character in ionic compounds.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Use geometry for molecular dipoles and Fajans’ size/charge reasoning for ionic polarisation. A familiar name is less valuable than identifying which physical question the comparison asks.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch4_unit2_page10",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_03f4c45196"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why is CO₂ non-polar overall?",
+      "answer": "Its equal C–O bond dipoles cancel in a linear arrangement.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_03f4c45196"
+      ]
+    },
+    {
+      "question": "Why do water’s bond dipoles not cancel?",
+      "answer": "Its bent geometry leaves a non-zero vector sum.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_03f4c45196"
+      ]
+    },
+    {
+      "question": "Convert 6.67128 × 10⁻³⁰ C m to debye.",
+      "answer": "Divide by 3.33564 × 10⁻³⁰ C m per D to obtain 2.00 D.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_03f4c45196"
+      ]
+    },
+    {
+      "question": "Why can NF₃ have a smaller dipole than NH₃?",
+      "answer": "The bond contributions oppose rather than reinforce the lone-pair contribution in the qualitative comparison.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_03f4c45196"
+      ]
+    },
+    {
+      "question": "Which cation polarises a given anion more: Li⁺ or Na⁺?",
+      "answer": "Li⁺, because its smaller size gives greater polarising power.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_03f4c45196"
+      ]
+    },
+    {
+      "question": "Which is more polarisable, F⁻ or I⁻?",
+      "answer": "I⁻; its larger electron cloud distorts more readily.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_03f4c45196"
+      ]
+    },
+    {
+      "question": "Does zero molecular dipole imply all bonds are non-polar?",
+      "answer": "No. Symmetric cancellation of polar bonds can give zero net dipole.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_03f4c45196"
+      ]
+    }
+  ]
+}

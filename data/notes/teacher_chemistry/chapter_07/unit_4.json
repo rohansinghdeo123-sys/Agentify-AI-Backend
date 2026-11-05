@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_412d2a7d8e",
+  "pages": [
+    {
+      "title": "A colour change can measure electron transfer",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " A redox reaction can determine an unknown solution concentration when its stoichiometry is known. Instead of an acid–base pH endpoint, we may watch a redox-sensitive colour change indicating that the analyte has been consumed."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " A redox titration measures an oxidant or reductant by reaction with a known amount of its counterpart. The equivalence point follows the balanced mole ratio; the observed endpoint is the experimental signal near it."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_412d2a7d8e"
+      ],
+      "transition": "Some coloured reagents can provide their own endpoint signal.",
+      "id": "chem11-ch07-u05-p01",
+      "page_number": 1
+    },
+    {
+      "title": "Permanganate is a self-indicator",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " In a suitable acidic Fe²⁺ titration, purple MnO₄⁻ is reduced to much less intensely coloured Mn²⁺. While Fe²⁺ remains, added permanganate is consumed. The first lasting faint pink colour indicates a small excess of permanganate."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " The permanent colour is due to excess titrant, not proof that the equivalence point requires equal moles of MnO₄⁻ and Fe²⁺. Their stoichiometric ratio is 1:5."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " Titrant is the standard solution added from the burette; analyte is the substance being measured."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_412d2a7d8e"
+      ],
+      "transition": "Balance the reaction before using the delivered titrant volume.",
+      "id": "chem11-ch07-u05-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Worked permanganate titration",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created data: 20.0 mL of 0.0200 M MnO₄⁻ reacts with Fe²⁺ in acid. Equation: MnO₄⁻ + 8H⁺ + 5Fe²⁺ → Mn²⁺ + 4H₂O + 5Fe³⁺. n(MnO₄⁻) = 0.0200 mol L⁻¹ × 0.0200 L = 4.00 × 10⁻⁴ mol. Thus n(Fe²⁺) = 5 × 4.00 × 10⁻⁴ = 2.00 × 10⁻³ mol. If the sample volume was 25.0 mL, its concentration was 0.00200/0.0250 = 0.0800 M."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Converting mL to L and using the coefficient five are separate required steps. A direct M₁V₁ = M₂V₂ equality would fail for this unequal mole ratio."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_412d2a7d8e"
+      ],
+      "transition": "Other oxidants require a separate indicator or a secondary iodine reaction.",
+      "id": "chem11-ch07-u05-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Dichromate and iodine endpoint signals",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Dichromate is not used as a self-indicator in the same way. An indicator such as diphenylamine is oxidised after the reductant is consumed, producing a marked colour change."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " In iodometry, an oxidant liberates I₂ from I⁻. Iodine reacts with thiosulfate: I₂ + 2S₂O₃²⁻ → 2I⁻ + S₄O₆²⁻. Starch gives an intense blue iodine-containing complex; disappearance of the blue colour signals consumption of iodine."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_412d2a7d8e"
+      ],
+      "transition": "Electron transfer can also be separated spatially to produce a current.",
+      "id": "chem11-ch07-u05-p04",
+      "page_number": 4
+    },
+    {
+      "title": "From a direct reaction to two half-cells",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Zinc directly contacting Cu²⁺ transfers electrons locally. If oxidation and reduction occur in separate connected compartments, electrons can instead travel through a wire and provide electrical energy."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " A redox couple consists of the oxidised and reduced forms of a species, such as Zn²⁺/Zn or Cu²⁺/Cu. Each compartment contains an electrode and an electrolyte suitable for its half-reaction."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_412d2a7d8e"
+      ],
+      "transition": "The Daniell cell makes the two electron-transfer sites explicit.",
+      "id": "chem11-ch07-u05-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Oxidation at zinc, reduction at copper",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " In the Daniell cell, anode oxidation is Zn(s) → Zn²⁺(aq) + 2e⁻. Cathode reduction is Cu²⁺(aq) + 2e⁻ → Cu(s). The net reaction is Zn + Cu²⁺ → Zn²⁺ + Cu."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Electrons travel through the external wire from zinc to copper. In this galvanic cell the anode is negative and the cathode positive. Oxidation-at-anode and reduction-at-cathode are the fundamental process labels."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_412d2a7d8e"
+      ],
+      "transition": "A wire alone is insufficient because the solutions would accumulate charge.",
+      "id": "chem11-ch07-u05-p06",
+      "page_number": 6
+    },
+    {
+      "title": "The salt bridge carries ions, not electrons",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " As Zn²⁺ forms, the zinc solution tends to gain positive charge. As Cu²⁺ is removed, the copper solution tends to have excess negative charge. Ion migration through a suitable salt bridge maintains charge balance and completes the internal circuit."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Electrons pass through the external metallic path; ions carry current through the electrolyte and salt bridge. Do not draw electrons flowing through the salt bridge as though it were a wire."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_412d2a7d8e"
+      ],
+      "transition": "The potential of each redox couple measures a relative electron-accepting tendency.",
+      "id": "chem11-ch07-u05-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Standard electrode potentials need a reference",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " An electrode potential describes the potential associated with an electrode process. Individual values are measured relative to a reference; the standard hydrogen electrode is assigned E° = 0.00 V by convention. Tables normally list reduction half-reactions."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Standard conditions use unit activities for the participating species at a specified temperature, commonly 298 K, with the stated gas standard state. The dilute concentration description is an approximation to the activity convention."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_412d2a7d8e"
+      ],
+      "transition": "Interpret the sign according to the tabulated reduction direction.",
+      "id": "chem11-ch07-u05-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Use a reduction table without reversing the meaning",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " NCERT lists Cu²⁺ + 2e⁻ → Cu at about +0.34 V and Zn²⁺ + 2e⁻ → Zn at about −0.76 V. Relative to these couples under standard conditions, Cu²⁺ is more readily reduced, while Zn metal is the stronger reducing agent."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " A more negative reduction potential does not mean its oxidised ion is a stronger oxidant. For a metal-ion/metal couple, it indicates the reduced metal has a greater tendency to donate electrons relative to the comparison."
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": " Table values refer to specified chemical species and conditions. Changing oxidation state, pH or concentration can change the relevant comparison."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_412d2a7d8e"
+      ],
+      "transition": "Revise titration ratios and cell current carriers together.",
+      "id": "chem11-ch07-u05-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: balance the redox transfer before interpreting data",
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Titration mole ratios come from a balanced equation. Permanganate can self-indicate by a persistent slight excess; dichromate can use an added redox indicator; iodometry uses iodine–thiosulfate stoichiometry and starch."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Galvanic cells separate oxidation at the anode from reduction at the cathode. Electrons flow in the external circuit and ions through the solutions and bridge. Standard reduction potentials are relative to the hydrogen reference and must be read in the written direction."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_412d2a7d8e"
+      ],
+      "transition": "",
+      "id": "chem11-ch07-u05-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why is M₁V₁ = M₂V₂ insufficient for permanganate and Fe²⁺?",
+      "answer": "Their acidic reaction has a 1:5 mole ratio, so the Fe²⁺ amount is five times the permanganate amount.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_412d2a7d8e"
+      ]
+    },
+    {
+      "question": "What causes the lasting pink permanganate endpoint?",
+      "answer": "A small excess of unconsumed permanganate remains after the reductant has been consumed.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_412d2a7d8e"
+      ]
+    },
+    {
+      "question": "How many moles thiosulfate react with one mole I₂?",
+      "answer": "Two, from I₂ + 2S₂O₃²⁻ → 2I⁻ + S₄O₆²⁻.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_412d2a7d8e"
+      ]
+    },
+    {
+      "question": "Where do electrons flow in a Daniell cell?",
+      "answer": "Through the external wire from the zinc anode to the copper cathode.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_412d2a7d8e"
+      ]
+    },
+    {
+      "question": "Does the salt bridge carry electrons?",
+      "answer": "No. It carries ions to maintain electroneutrality and complete the internal circuit.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_412d2a7d8e"
+      ]
+    },
+    {
+      "question": "If Cu²⁺/Cu has a more positive reduction potential than Zn²⁺/Zn, which oxidised species is more readily reduced under standard conditions?",
+      "answer": "Cu²⁺; zinc metal correspondingly acts as the stronger reducing agent of the two reduced forms.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_412d2a7d8e"
+      ]
+    }
+  ],
+  "title": "Redox Titrations and Electrode Processes"
+}

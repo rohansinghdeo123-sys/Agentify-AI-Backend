@@ -1,0 +1,276 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_52587b0f4f",
+  "title": "Hybridisation in Simple Molecules and Hydrocarbons",
+  "pages": [
+    {
+      "title": "Use orbital direction to explain a molecular shape",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A straight BeCl₂ molecule, flat BF₃ and tetrahedral CH₄ require different arrangements of bonding orbitals. Hybridisation provides directed combinations of orbitals suitable for these patterns.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Begin with the number of electron domains and the bonding requirements. A hybridisation label should explain a known pattern, not replace electron counting or become a magic shape rule.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch4_unit5_page1",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_52587b0f4f"
+      ],
+      "transition": "Check what orbital mixing changes and what it conserves."
+    },
+    {
+      "title": "Understand the mixing conditions",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Hybridisation combines atomic orbital functions of comparable energy on the same atom. The number of resulting hybrids equals the number of participating orbitals. Filled and half-filled orbitals can participate in appropriate descriptions.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Electron promotion is not an essential separate experimental event for every hybridised atom. Hybridisation is a mathematical bonding model, not a mechanical collision that blends physical orbitals like liquids.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch4_unit5_page2",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_52587b0f4f"
+      ],
+      "transition": "Start with the simplest two-direction hybrid set."
+    },
+    {
+      "title": "Construct linear sp hybrids",
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "One s and one p orbital form two sp hybrids directed 180° apart. Each has 50% s character. Two unhybridised p orbitals remain available when the atom has a full valence s, p set.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The simple BeCl₂ molecular description uses two Be sp hybrids for two σ bonds. The sp label specifies the mixing count and resulting directions.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "The exponent in sp² counts two p functions mixed with one s function; it does not mean two electrons or a 2+ ionic charge. The total is three input orbitals and therefore three hybrids. An unused p orbital can remain for π bonding."
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch4_unit5_page3",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_52587b0f4f"
+      ],
+      "transition": "Add another p orbital to obtain three planar directions."
+    },
+    {
+      "title": "Construct trigonal planar sp² hybrids",
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "One s and two p orbitals form three sp² hybrids, ideally 120° apart in a plane. Each has one-third s character. One p orbital remains perpendicular to the plane.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "In BF₃, three hybrids describe three σ bonds around B. In an alkene carbon, the remaining unhybridised p orbital can participate in a π bond.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch4_unit5_page4",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_52587b0f4f"
+      ],
+      "transition": "Four directions require one s plus three p functions."
+    },
+    {
+      "title": "Construct tetrahedral sp³ hybrids",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "One s and three p orbitals form four sp³ hybrids, ideally 109.5° apart, each with 25% s character. CH₄ uses all four for σ bonds.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "NH₃ and H₂O also have four electron domains, but lone pairs occupy some hybrid directions. Their molecular shapes become pyramidal and bent, with angles smaller than ideal tetrahedral values.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch4_unit5_page5",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_52587b0f4f"
+      ],
+      "transition": "Apply the tetrahedral description to both carbon atoms in ethane."
+    },
+    {
+      "title": "Explain every bond in ethane",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Ethane is CH₃–CH₃. Each carbon uses an sp³ description: three hybrids overlap with H 1s orbitals, while one overlaps with the other carbon’s sp³ hybrid.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The molecule has six C–H σ bonds and one C–C σ bond: seven σ bonds and no π bond. Rotation about the C–C axis is possible because σ overlap can be retained.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch4_unit5_page6",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_52587b0f4f"
+      ],
+      "transition": "A double bond requires a remaining p orbital for sideways overlap."
+    },
+    {
+      "title": "Explain every bond in ethene",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Ethene is CH₂=CH₂. Each carbon uses three sp² hybrids for two C–H σ bonds and one C–C σ bond. The remaining p orbitals are parallel and overlap sideways.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Ethene therefore has five σ bonds and one π bond. The planar arrangement allows π overlap; rotating one CH₂ unit out of alignment disrupts it and costs energy.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch4_unit5_page7",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_52587b0f4f"
+      ],
+      "transition": "A triple bond needs two unhybridised p directions."
+    },
+    {
+      "title": "Explain every bond in ethyne",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Ethyne is HC≡CH. Each carbon uses two sp hybrids: one forms C–H σ overlap and one forms C–C σ overlap. Two unhybridised p orbitals on each carbon remain.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Two perpendicular sets of sideways p overlap make two π bonds. Thus ethyne has three σ and two π bonds, with a linear carbon-centred arrangement.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch4_unit5_page8",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_52587b0f4f"
+      ],
+      "transition": "Compare the hybrid sets and the associated carbon-bond distances."
+    },
+    {
+      "title": "Compare s character and bond lengths",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The progression sp³, sp², sp has 25%, about 33.3%, and 50% s character. Greater s character holds hybrid electron density closer to the nucleus and contributes to shorter bonds in appropriate comparisons.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For related carbon bonds, increased multiplicity also shortens the C–C distance: ethane>ethene>ethyne. Explain which feature is changing rather than attributing every length difference to one factor.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "For a linear HC≡N fragment, carbon needs two σ directions and two π components, fitting an sp description. Count the C–H and C–N σ links separately from the two π components of the triple bond."
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch4_unit5_page9",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_52587b0f4f"
+      ],
+      "transition": "Verify every atom’s directions and every σ/π component."
+    },
+    {
+      "title": "Count domains, hybrids and unhybridised orbitals",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Two, three and four hybrid directions correspond to sp, sp², sp³. Any unhybridised p orbitals may provide π overlap. Lone pairs count as domains but are not bonded atoms.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A useful check is to count σ and π components from connectivity, then verify that each atom has appropriate orbital directions. This links molecular structure to its bonding model.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch4_unit5_page10",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_52587b0f4f"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "How many sp² hybrids form from one s and two p orbitals?",
+      "answer": "Three, with one unhybridised p orbital remaining in the valence set.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_52587b0f4f"
+      ]
+    },
+    {
+      "question": "Which hybrid set has 50% s character?",
+      "answer": "sp, because one of the two combined orbital functions is s.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_52587b0f4f"
+      ]
+    },
+    {
+      "question": "Count σ and π bonds in ethane.",
+      "answer": "Seven σ and zero π.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_52587b0f4f"
+      ]
+    },
+    {
+      "question": "Count σ and π bonds in ethene.",
+      "answer": "Five σ and one π.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_52587b0f4f"
+      ]
+    },
+    {
+      "question": "Why is ethyne linear at each carbon?",
+      "answer": "Its two sp hybrid directions are 180° apart.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_52587b0f4f"
+      ]
+    },
+    {
+      "question": "Do NH₃ and CH₄ have the same molecular shape?",
+      "answer": "No. Both have four domains, but NH₃ has a lone pair and is pyramidal.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_52587b0f4f"
+      ]
+    },
+    {
+      "question": "Does hybridisation change the number of orbitals?",
+      "answer": "No. Two, three or four input orbitals give the same number of hybrids.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_52587b0f4f"
+      ]
+    }
+  ]
+}

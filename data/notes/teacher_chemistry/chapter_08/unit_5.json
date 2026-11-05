@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_1e06fb051d",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch8-unit6-page01",
+      "title": "A separation method is a choice of contrast",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_1e06fb051d"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Suppose an organic substance is mixed with water. If it is steam volatile, distillation may help; if it dissolves much better in another immiscible solvent, extraction may help. Neither choice depends simply on whether the substance is “organic”.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "We continue from purification to chemical identification. Chromatography compares how strongly components interact with two phases, while qualitative analysis detects particular elements. A test’s colour or precipitate becomes meaningful only when its chemical cause is understood.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Let us first use the combined vapour pressures of two immiscible liquids."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch8-unit6-page02",
+      "title": "Steam distillation avoids excessive heating",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_1e06fb051d"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Steam distillation separates substances that are steam volatile and immiscible with water. Each liquid contributes to the total vapour pressure: p(total) = p(water) + p(organic). The mixture boils when this total reaches the external pressure, at a temperature below either component’s normal boiling point.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "Aniline can be separated from an aniline–water mixture by steam distillation. Both substances enter the vapour; after condensation, the immiscible liquid layers can be separated. This method is suitable because the necessary properties are present, not because all organic liquids boil below 373 K.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Immiscible liquids form separate layers instead of mixing uniformly. Adsorption means accumulation at a surface, unlike absorption into the bulk of a material.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Unequal solubility offers another way to separate a compound from water."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch8-unit6-page03",
+      "title": "Extraction: give the solute another home",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_1e06fb051d"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Differential extraction transfers a dissolved compound between two immiscible liquids, commonly water and an organic solvent. If the compound is more soluble in the organic layer, mixing lets it distribute preferentially into that layer. The layers are then separated.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "A separating funnel lets the two liquid layers settle before one is drained. Identify the layers from their densities or appropriate checks; the organic layer is not always the upper layer. Several small extractions are generally more efficient than one extraction using the same total solvent volume.",
+          "level": "essential"
+        }
+      ],
+      "transition": "For several components, repeated retention along a moving phase can separate a mixture."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch8-unit6-page04",
+      "title": "Why chromatographic components travel differently",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_1e06fb051d"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Chromatography separates mixture components between a stationary phase and a moving mobile phase. In adsorption chromatography, substances stick to a solid such as silica or alumina to different extents. More strongly retained components move more slowly under the same conditions.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "In column chromatography the moving solvent carries components through a packed column. In thin-layer chromatography, TLC, it rises along a coated plate. Partition chromatography instead relies mainly on different distributions between two liquid phases, one retained as the stationary phase.",
+          "level": "essential"
+        }
+      ],
+      "transition": "TLC turns that difference in movement into a measurable ratio."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch8-unit6-page05",
+      "title": "Measure movement from the same starting line",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_1e06fb051d"
+      ],
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "For TLC, R_f = distance travelled by the component / distance travelled by the solvent front. Both distances start at the same baseline and use the same units, so R_f has no unit. It is meaningful only with the stated stationary phase, solvent and conditions.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "A spot moves 3.0 cm while the solvent front moves 6.0 cm from the baseline. R_f = 3.0/6.0 = 0.50. The spot has travelled half the solvent-front distance. A bigger R_f means less retention in this particular system, not a universal identity or purity guarantee.",
+          "level": "essential"
+        }
+      ],
+      "transition": "After physical separation, chemical products can reveal which elements were present."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch8-unit6-page06",
+      "title": "Carbon and hydrogen become detectable products",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_1e06fb051d"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Heating an organic compound with copper(II) oxide can oxidise carbon to CO2 and hydrogen to H2O. Carbon dioxide turns limewater milky through CaCO3 formation. Water turns anhydrous white CuSO4 blue through hydration. These observations detect products containing the original elements.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "C + 2CuO → CO2 + 2Cu; H2 + CuO → H2O + Cu; CO2 + Ca(OH)2 → CaCO3 + H2O. The H2 equation represents oxidation of hydrogen in the analysis scheme; it does not say that every organic compound first releases free hydrogen gas.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Elements held in covalent bonds may first need conversion into ionic forms."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch8-unit6-page07",
+      "title": "Why sodium fusion is needed",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_1e06fb051d"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Lassaigne’s test converts covalently bound nitrogen, sulphur and halogens into water-soluble ionic sodium salts during fusion. The aqueous sodium fusion extract can then undergo ionic tests. Typical products are NaCN for nitrogen, Na2S for sulphur and NaX for a halogen X.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Simply adding a halide test reagent to an unconverted organic halogen compound may not release halide ions. Fusion changes the chemical form into something testable. Sodium fusion is a hazardous supervised laboratory operation, not a home experiment; understanding the conversion is the learning objective here.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Those ionic products explain the characteristic nitrogen and sulphur tests."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch8-unit6-page08",
+      "title": "Nitrogen and sulphur: explain the colours",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_1e06fb051d"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "For nitrogen, cyanide in the extract forms ferrocyanide with iron(II); subsequent iron(III) chemistry in the acidified test produces Prussian blue. For sulphur, S²⁻ gives black PbS with lead(II) ions, or a violet colour with sodium nitroprusside. These are different tests for different ionic products.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Fe²⁺ + 6CN⁻ → [Fe(CN)6]⁴⁻; 4Fe³⁺ + 3[Fe(CN)6]⁴⁻ → Fe4[Fe(CN)6]3. For sulphur: Pb²⁺ + S²⁻ → PbS. If nitrogen and sulphur occur together, thiocyanate can form and give a blood-red iron(III) complex; the combined case needs its own interpretation.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Halogen and phosphorus tests require their own preparation and interpretation."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch8-unit6-page09",
+      "title": "Halogens and phosphorus need appropriate treatment",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_1e06fb051d"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "After nitric-acid treatment removes interfering cyanide and sulphide, halides react with AgNO3: Ag⁺ + X− → AgX. AgCl is white and soluble in aqueous ammonia; AgBr is pale yellow and only sparingly soluble; AgI is yellow and insoluble. Without interference removal, other silver precipitates can mislead.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Phosphorus can be oxidised to phosphate, then detected with ammonium molybdate in acidic solution as yellow ammonium phosphomolybdate. Detection means the element is present; it does not by itself give its percentage. Always associate a test observation with its necessary preparation and chemical product.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "Under the same TLC conditions, an unknown and a reference with different R_f values cannot be the same chromatographic component. Matching values are consistent with identity but are not conclusive on their own: different compounds can sometimes move together. Combine chromatographic evidence with other observations."
+        }
+      ],
+      "transition": "Let us distinguish what each separation or colour test actually establishes."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch8-unit6-page10",
+      "title": "From physical separation to chemical evidence",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_1e06fb051d"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "Steam distillation uses added vapour pressures, extraction uses unequal solubility between immiscible phases, and chromatography uses unequal retention or partition. R_f compares distances from a common origin under specified conditions.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Qualitative tests first create accessible chemical forms and then detect characteristic products: CO2/H2O for C/H, ionic fusion products for N/S/halogens, and phosphate for phosphorus. A positive colour or precipitate is evidence interpreted in the context of the test, not an unexplained label.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why does steam distillation work below an organic liquid’s normal boiling point?",
+      "answer": "Water vapour adds to the organic vapour pressure, so their sum reaches external pressure at a lower temperature.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_1e06fb051d"
+      ]
+    },
+    {
+      "question": "A TLC solvent front moves 8 cm and a component moves 2 cm. Find R_f.",
+      "answer": "R_f = 2/8 = 0.25, dimensionless. Both distances must be measured from the same baseline.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_1e06fb051d"
+      ]
+    },
+    {
+      "question": "Why is the upper extraction layer not always the organic phase?",
+      "answer": "Layer order depends on density. Some organic solvents are denser than water, so solvent identity must be checked.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_1e06fb051d"
+      ]
+    },
+    {
+      "question": "Why must sulphide and cyanide interference be removed before the silver halide test?",
+      "answer": "They can form silver precipitates themselves, which would obscure or imitate halide evidence.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_1e06fb051d"
+      ]
+    },
+    {
+      "question": "Does a Prussian-blue nitrogen test give nitrogen percentage?",
+      "answer": "No. It is qualitative evidence of nitrogen after the required conversion and reactions; quantitative estimation is a separate procedure.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_1e06fb051d"
+      ]
+    },
+    {
+      "question": "What does stronger adsorption usually do in the same chromatographic system?",
+      "answer": "It retains the substance more strongly on the stationary phase and makes it move more slowly.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_1e06fb051d"
+      ]
+    }
+  ],
+  "title": "Separation Methods and Qualitative Elemental Analysis"
+}

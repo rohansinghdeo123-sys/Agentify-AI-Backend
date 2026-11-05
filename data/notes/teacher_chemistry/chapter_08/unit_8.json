@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4c54425608",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch8-unit9-page01",
+      "title": "Solve a laboratory problem in the right order",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4c54425608"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "A student obtains an impure organic liquid and wants to identify it. A sensible sequence is to purify it, examine composition and then interpret its structure and reactions. A correct reaction name cannot compensate for testing an impure or chemically unprepared sample.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "This application unit revisits the chapter through decisions: which physical contrast separates a mixture, which chemical conversion makes an element detectable, and which electron change explains a reaction. Each question requires a reason rather than a memorised method name.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Start with the physical contrast that would purify a solid."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch8-unit9-page02",
+      "title": "Choose a solid-purification method",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4c54425608"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "A product dissolves well in hot solvent but poorly when cold, while an impurity remains dissolved on cooling. Choose crystallisation: dissolve in a minimum suitable hot solvent, remove insoluble material as appropriate, cool and collect crystals. The important contrast is temperature-dependent solubility.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A sublimable product mixed with a non-sublimable solid suggests sublimation instead. These methods are not interchangeable: a non-sublimable product will not be separated by simply heating it as though all organic solids sublime. Product recovery and impurity behaviour must both be considered.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Qualitative means identifying what is present. Quantitative means measuring how much is present. A separation, an identification test and a percentage calculation answer different questions.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Liquid separations depend on a different set of volatility and temperature choices."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch8-unit9-page03",
+      "title": "Choose between three distillations",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4c54425608"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "A volatile liquid with non-volatile impurities suggests simple distillation. Two close-boiling liquids suggest fractional distillation. A high-boiling liquid that decomposes on strong heating suggests reduced-pressure distillation. Steam distillation additionally requires a steam-volatile substance immiscible with water.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The fractionating column provides repeated vapour–liquid equilibration; reduced pressure lowers the boiling temperature; steam contributes its own vapour pressure. These are three different physical reasons for separation, not three interchangeable names for heating a flask.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Extraction and chromatography answer related separation problems in different ways."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch8-unit9-page04",
+      "title": "Chromatography versus extraction",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4c54425608"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Extraction distributes a solute between immiscible liquid layers. Chromatography distributes mixture components between stationary and mobile phases, separating them because their retention differs. Partition chromatography uses distribution between liquid phases; adsorption chromatography emphasises attachment to a solid surface.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "On a TLC plate, spots travel 2.0 cm and 5.0 cm while the solvent front travels 8.0 cm. Their R_f values are 0.25 and 0.625. The lower value indicates greater retention under these conditions. Changing the solvent can change the values, so compare samples under the same conditions.",
+          "level": "essential"
+        }
+      ],
+      "transition": "A purified sample still needs chemical conversion before some elemental tests work."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch8-unit9-page05",
+      "title": "A chemical test needs the right ionic form",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4c54425608"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Covalently attached nitrogen, sulphur and halogens are converted into ionic salts during sodium fusion. Nitrogen may then give Prussian blue, sulphur black PbS or a violet nitroprusside test, and halides silver-halide precipitates after suitable interference removal.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "These observations are qualitative, not percentage measurements. Also, a sulphide test is not the same as sulphur estimation through BaSO4: the latter first oxidises sulphur to sulphate and weighs a different chemical product. The oxidation state and sample treatment explain the different tests.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Detecting nitrogen and measuring its percentage are separate tasks."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch8-unit9-page06",
+      "title": "Choose a valid quantitative nitrogen method",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4c54425608"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Dumas measures N2 after converting nitrogen oxides and removing other gases; wet-gas data require water-vapour correction and temperature/pressure conversion. Kjeldahl measures ammonia through acid consumption after digestion, but is unsuitable for nitro, azo and certain ring nitrogens under its usual conditions.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "If ammonia consumes 0.00400 mol of H⁺ equivalents, nitrogen moles are also 0.00400. N mass = 14×0.00400 = 0.0560 g. For a 0.400 g sample, %N = 0.0560/0.400×100 = 14.0%. State acid equivalents clearly to avoid a factor-of-two error with H2SO4.",
+          "level": "essential"
+        }
+      ],
+      "transition": "After analysis, use bond changes to classify the compound’s reactions."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch8-unit9-page07",
+      "title": "Classify what changed in a reaction",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4c54425608"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "CH3CH2Br + HS− → CH3CH2SH + Br⁻ is substitution: Br is replaced. CH2=CH2 + HBr → CH3CH2Br is addition: atoms add across C=C. Under suitable elimination conditions, CH3CH2Br + HO⁻ → CH2=CH2 + H2O + Br⁻ removes H and Br while forming a double bond.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The same substrate can follow different paths under different conditions; aqueous and alcoholic basic conditions need not give the same major outcome. Rearrangement changes group positions or the skeleton. The equation describes the overall change; a mechanism supplies its electron-by-electron explanation.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The same comparison skills distinguish actual isomers from resonance drawings."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch8-unit9-page08",
+      "title": "Distinguish isomerism from resonance",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4c54425608"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Butane and 2-methylpropane have the same C4H10 formula but different connectivity: structural isomers. Two resonance contributors of benzene keep the same atom connectivity and move only electrons. Turning one drawing around does not create either a new structural isomer or a new substance.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Stereoisomers retain connectivity but differ in spatial arrangement. Restricted C=C rotation can allow geometrical isomerism when each double-bonded carbon carries two different groups. Merely having a double bond is not enough: CH2=CH2 cannot satisfy that requirement.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Electron withdrawal provides a test case for explaining, rather than listing, reactivity trends."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch8-unit9-page09",
+      "title": "Use electron effects to explain an acidity trend",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4c54425608"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "An acid loses H⁺ to form a conjugate base. Electron-withdrawing chlorine helps stabilise the carboxylate anion by induction. Thus more appropriately placed chlorine substituents strengthen the acid: CCl3COOH > CHCl2COOH > CH2ClCOOH, all other comparisons being comparable.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "The induction effect is transmitted through σ bonds and weakens with distance. It does not require actual release of Cl− from the molecule. The electromeric effect instead concerns a reagent-induced π-pair displacement; it should not be invoked as a permanent σ-chain polarisation.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "When several methods appear possible, ask what evidence would select among them: boiling-point separation, heat sensitivity, water immiscibility, adsorption or temperature-dependent solubility. Explaining why a tempting alternative would fail demonstrates more understanding than naming the chosen method alone."
+        }
+      ],
+      "transition": "Let us bring the separation, analysis and reaction decisions together."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch8-unit9-page10",
+      "title": "Reason before naming the method or reaction",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4c54425608"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "Match purification to a physical contrast, identify the chemical form required for each qualitative test, and convert the measured product into element mass for percentages. A sample’s analytical treatment determines what a precipitate or gas means.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Classify reactions from their net bond changes and explain them through electrons. Isomers are distinct arrangements; resonance contributors describe one delocalised species. Preserve conditions, charges, bond orders and assumptions in every comparison.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why choose reduced pressure rather than simply more heat for a sensitive high-boiling liquid?",
+      "answer": "Lower pressure lowers its boiling temperature, reducing the need for temperatures at which it decomposes.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4c54425608"
+      ]
+    },
+    {
+      "question": "Is a black PbS test the same as sulphur estimation as BaSO4?",
+      "answer": "No. PbS is qualitative sulphide evidence; BaSO4 is a weighed sulphate product after oxidation in a quantitative method.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4c54425608"
+      ]
+    },
+    {
+      "question": "Which reaction type replaces Br by HS in bromoethane?",
+      "answer": "Substitution, because the carbon skeleton remains and one group replaces another.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4c54425608"
+      ]
+    },
+    {
+      "question": "Do all alkenes show geometrical isomerism?",
+      "answer": "No. Each carbon of the double bond must have two different attached groups; ethene does not.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4c54425608"
+      ]
+    },
+    {
+      "question": "Why is CCl3COOH stronger than CH2ClCOOH in the stated comparison?",
+      "answer": "More electron-withdrawing chlorine substituents better stabilise the carboxylate conjugate base through the inductive effect.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4c54425608"
+      ]
+    },
+    {
+      "question": "A TLC spot moves 4 cm and the solvent front 10 cm. What is R_f?",
+      "answer": "0.40. It is a ratio of distances from the same baseline and has no unit.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4c54425608"
+      ]
+    }
+  ],
+  "title": "Applying Purification, Analysis and Organic Reaction Principles"
+}

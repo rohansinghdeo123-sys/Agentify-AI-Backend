@@ -74,12 +74,13 @@ class GroundedRetriever:
         return candidates
 
     def _retrieve_section(self, section_id: str, question: str, scope: Dict[str, Any]) -> RetrievalResult:
-        from services.master_notes_service import resolve_unit
-        resolved = resolve_unit(scope.get("chapter_slug") or scope.get("chapter"), section_id)
-        if resolved and _scope_value(scope, "catalog_source").lower() == "planning_manifest" and _scope_value(scope, "class_level") in {"", "11", "Class 11"} and _scope_value(scope, "subject").lower() in {"", "chemistry"}:
+        from services.teacher_notes_service import resolve_teacher_unit, uses_teacher_notes
+        resolved = resolve_teacher_unit(scope.get("chapter_slug") or scope.get("chapter"), section_id) if uses_teacher_notes(scope) else None
+        if resolved:
             from services.teacher_notes_service import retrieve_teacher_context
             notes = retrieve_teacher_context(scope.get("chapter_slug") or scope.get("chapter"), section_id,
-                question=question, subtopic_ids=scope.get("subtopic_ids"), page_number=scope.get("notes_page_number"))
+                question=question, subtopic_ids=scope.get("subtopic_ids"), page_number=scope.get("notes_page_number"),
+                proficiency=scope.get("notes_proficiency") or "new_to_it", style=scope.get("notes_explanation_style") or "balanced")
             return RetrievalResult(context=notes["context"], section_id=notes["section_id"], source=notes["source"],
                 paragraphs_found=notes["paragraphs_found"], keywords_used=notes["keywords_used"], scope=dict(scope),
                 supported=bool(notes["context"]), retrieval_mode=notes["retrieval_mode"], matched_sections=notes["matched_sections"])

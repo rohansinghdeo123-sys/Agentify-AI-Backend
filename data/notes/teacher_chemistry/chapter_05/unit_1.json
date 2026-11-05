@@ -1,0 +1,278 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9cbe0ae807",
+  "pages": [
+    {
+      "title": "One warming effect, two routes",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Water can warm when placed on a hot plate or when stirred by a paddle in an insulated vessel. The same temperature rise can be reached through different transfers. We need a rule that counts both without treating either as a substance stored in water."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Heat q is energy transferred because of a temperature difference. Work w is energy transferred by other organised means, such as a force moving a piston. Internal energy U is a property of the system; q and w describe a process."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9cbe0ae807"
+      ],
+      "transition": "The energy account becomes a conservation equation.",
+      "id": "chem11-ch05-u02-p01",
+      "page_number": 1
+    },
+    {
+      "title": "The first law is an energy balance",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " For a closed system, ΔU = q + w. The first law states that energy is conserved: any change in internal energy is accounted for by heat and work exchanged. Use the same energy units for all three quantities."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Energy entering as heat or work increases the account; energy leaving decreases it. There is no additional energy created merely because a chemical reaction releases heat. Energy is transferred while the system changes its state."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " Closed means no matter crosses the boundary. Energy carried by incoming or outgoing matter would need an additional accounting term for an open system."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9cbe0ae807"
+      ],
+      "transition": "A consistent sign convention makes the balance usable.",
+      "id": "chem11-ch05-u02-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Read the signs from the system perspective",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Heat absorbed by the system: q > 0. Heat released: q < 0. Work done on the system: w > 0. Work done by the system: w < 0. These are the chemistry sign conventions used in ΔU = q + w."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Compressing a gas transfers work to it, so w is positive. Expanding against a resisting external pressure transfers work to the surroundings, so w is negative. A cooling sample generally releases heat, so its q is negative."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Do not change conventions halfway through a problem. The phrase work done by the gas gives the direction of transfer, not a positive sign in this convention."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9cbe0ae807"
+      ],
+      "transition": "Follow a complete balance with both heat and work present.",
+      "id": "chem11-ch05-u02-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Worked balance: some supplied heat leaves as work",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created example: a gas absorbs 500 J and does 200 J of work on its surroundings. Given q = +500 J and w = −200 J. Find ΔU. Select ΔU = q + w; substitute ΔU = 500 + (−200) = +300 J. The system keeps 300 J as increased internal energy."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The heat input is not equal to ΔU because some energy is transferred out as work. This distinction is why a reaction energy and the measured heat are not interchangeable without stating the experimental conditions."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9cbe0ae807"
+      ],
+      "transition": "The same initial and final states can have different separate heat and work values.",
+      "id": "chem11-ch05-u02-p04",
+      "page_number": 4
+    },
+    {
+      "title": "State function versus path function",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " A path function depends on how a process is performed. q and w are path-dependent, while their sum ΔU depends only on the initial and final states. A system therefore does not possess an amount of heat or work as a state property."
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Suppose route A has q = +100 J and w = +50 J, giving ΔU = +150 J. Route B between the same states delivers 30 J of work, so w = −30 J. Its required heat is q = ΔU − w = 150 − (−30) = +180 J. The energy change is identical despite different transfers."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9cbe0ae807"
+      ],
+      "transition": "An isolated system is the simplest limiting case of this balance.",
+      "id": "chem11-ch05-u02-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Check the boundary conditions first",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " In an isolated system, q = 0 and w = 0, so ΔU = 0. In a closed adiabatic process, q = 0 but work may occur, giving ΔU = w. Neither statement requires U itself to be zero."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " A sealed insulated rigid container, with no electrical or other work crossing its boundary, approximates an isolated system. Internal changes can redistribute its energy even though total U remains constant."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Constant internal energy does not prove nothing happens. A chemical change can redistribute energy among microscopic forms inside an isolated system."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9cbe0ae807"
+      ],
+      "transition": "For many gas experiments, work comes from moving the boundary.",
+      "id": "chem11-ch05-u02-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Why a piston transfers energy",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " A gas expanding in a cylinder pushes a piston against an external force. The piston moves a distance, so energy is transferred mechanically. During compression, the surroundings push the piston inward and transfer energy to the gas."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " If the piston area is A and the opposing external pressure is p(ex), the force is p(ex)A. A displacement changes volume by A times distance, leading to the pressure–volume work expression. Pressure is force per unit area."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " The gas pressure helps determine whether the piston moves, but the resisting external pressure determines the work transferred to the surroundings."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9cbe0ae807"
+      ],
+      "transition": "This force–distance argument gives a useful work formula.",
+      "id": "chem11-ch05-u02-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Pressure–volume work at constant external pressure",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " For constant external pressure, w = −p(ex)ΔV = −p(ex)[V(final) − V(initial)]. Expansion gives ΔV > 0 and w < 0; compression gives ΔV < 0 and w > 0. Pressure in Pa and volume in m³ give work in J."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Unit checks: 1 Pa m³ = 1 J; 1 L bar = 100 J; 1 L atm = 101.325 J. Use the conversion matching the pressure unit supplied. These conversions prevent an answer numerically correct in L bar from being mislabelled as J."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9cbe0ae807"
+      ],
+      "transition": "Use the external pressure and then put the work into the first law.",
+      "id": "chem11-ch05-u02-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Worked piston problem",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created example: a gas expands from 2.0 L to 5.0 L against 1.0 bar and absorbs 600 J. Find w and ΔU. ΔV = 5.0 − 2.0 = 3.0 L. Then w = −1.0 × 3.0 = −3.0 L bar = −300 J. Finally ΔU = 600 − 300 = +300 J."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The gas transfers 300 J as work while receiving 600 J as heat. The remaining 300 J increases its internal energy. Had the external pressure been different, the work could change even for the same volume endpoints."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Subtract final minus initial volume before assigning the sign. Writing a negative ΔV for expansion and also adding the formula minus sign reverses the physical meaning."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9cbe0ae807"
+      ],
+      "transition": "Revise the system-based sign convention before adding reversible paths.",
+      "id": "chem11-ch05-u02-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: conserve energy and label the path",
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " The first law for a closed system is ΔU = q + w. U depends on state; heat and work depend on the process. Heat entering and work done on the system are positive. Heat leaving and work done by the system are negative."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " For constant external pressure, w = −p(ex)ΔV. Check the pressure–volume energy conversion. Isolation gives ΔU = 0, while adiabatic only sets q = 0. Always state whether mechanical, electrical or other work is possible."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9cbe0ae807"
+      ],
+      "transition": "",
+      "id": "chem11-ch05-u02-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "A gas releases 250 J and receives 100 J of work. Find ΔU.",
+      "answer": "q = −250 J and w = +100 J, so ΔU = −150 J. The system loses internal energy.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9cbe0ae807"
+      ]
+    },
+    {
+      "question": "Why are heat and internal energy different quantities?",
+      "answer": "Heat measures energy transferred due to a temperature difference during a process. Internal energy is a state property, and can also change through work.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9cbe0ae807"
+      ]
+    },
+    {
+      "question": "A gas compresses by 2 L against 1 bar. What is the work?",
+      "answer": "ΔV = −2 L, so w = −1 × (−2) = +2 L bar = +200 J. Compression transfers energy to the gas.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9cbe0ae807"
+      ]
+    },
+    {
+      "question": "Can q differ between paths with the same ΔU?",
+      "answer": "Yes. Work can also differ, provided q + w remains the same endpoint energy change.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9cbe0ae807"
+      ]
+    },
+    {
+      "question": "Does a rigid sealed vessel automatically make q zero?",
+      "answer": "No. Rigidity sets ΔV = 0 and removes pressure–volume work. Heat may still cross a conducting wall.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9cbe0ae807"
+      ]
+    }
+  ],
+  "title": "The First Law and Pressure–Volume Work"
+}

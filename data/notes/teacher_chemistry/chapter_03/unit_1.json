@@ -1,0 +1,286 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_509d3c2e26",
+  "title": "Element Names, Electron Configurations and Blocks",
+  "pages": [
+    {
+      "title": "Find an element without memorising its address",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "If we know an element’s atomic number, we can write its electron configuration and infer its place in the table. The location is connected to structure rather than being an arbitrary address.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For newly studied very heavy elements, a systematic naming scheme also allows unambiguous discussion before a permanent name is approved.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch3_unit1_page1",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_4a269efe31"
+      ],
+      "transition": "Start with the naming code used when a permanent name is unavailable."
+    },
+    {
+      "title": "Build a temporary systematic name",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "For the textbook’s naming scheme above Z=100, digit roots are 0 nil, 1 un, 2 bi, 3 tri, 4 quad, 5 pent, 6 hex, 7 sept, 8 oct, 9 enn. Join roots in digit order and add the ending ium.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The temporary symbol uses the roots’ initial letters, with only the first capitalised. This is a naming procedure, not a prediction of chemical properties.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "A temporary systematic name is like a code for the digits of Z. The symbol has several letters because each digit contributes an initial. This coding step is independent of the later configuration calculation that locates an element in the table."
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch3_unit1_page2",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_4a269efe31"
+      ],
+      "transition": "Apply the roots in exactly the same order as the atomic-number digits."
+    },
+    {
+      "title": "Work through the textbook’s Z=120 example",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "For 120, write the roots un, bi, nil. Joining them and adding ium gives unbinilium, with temporary symbol Ubn. Each root corresponds to one digit, so the procedure is reversible.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Distinguish temporary systematic names from permanent approved names. The scheme teaches how to label an element without inventing a discovery claim or assuming that it has been isolated.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch3_unit1_page3",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_4a269efe31"
+      ],
+      "transition": "A configuration then translates nuclear identity into table position."
+    },
+    {
+      "title": "Locate periods using the outer shell",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "For main-group atoms, the highest occupied principal quantum number n gives the period. Sodium,[Ne]3s¹, has highest n=3 and lies in period 3. Chlorine,[Ne]3s²3p⁵, also lies in period 3.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The electron configuration contains both the shell information and the valence pattern. Do not use total electron count alone as the group number.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch3_unit1_page4",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_4a269efe31"
+      ],
+      "transition": "The last subshell filled identifies the first two main blocks."
+    },
+    {
+      "title": "Identify the s and p blocks",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The block names indicate the subshell receiving the differentiating electron. The s block has outer configurations ns¹ or ns² and mainly comprises groups 1 and 2. The p block generally has ns²np¹ to ns²np⁶, groups 13–18.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Helium is an important exception in placement: its 1s² configuration is an s-type configuration, but its filled-shell chemistry places it with the noble gases in group 18.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch3_unit1_page5",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_eb511aa13e"
+      ],
+      "transition": "Use the outer-electron pattern to distinguish main-group columns."
+    },
+    {
+      "title": "Connect main-group configurations with groups",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "For p-block elements, group number equals 10 plus the number of outer s and p electrons. Chlorine has 3s²3p⁵: seven valence electrons, so group 17. Magnesium has 3s² and lies in group 2.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "This rule applies to the stated main-group patterns. It should not be extended blindly to transition-metal or inner-transition configurations.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch3_unit1_page6",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_4a269efe31",
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_eb511aa13e"
+      ],
+      "transition": "The centre of the table requires another subshell family."
+    },
+    {
+      "title": "Recognise the d block",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The d block occupies the middle of the table, groups 3–12, with general configurations involving(n−1)d¹–¹⁰ns⁰–². These elements are metals and often show variable oxidation states and coloured compounds.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A transition element has an incomplete d subshell in its atom or a common ion. Filled d configurations in both atoms and usual ions explain why zinc is not classed as a typical transition element.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch3_unit1_page7",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_eb511aa13e"
+      ],
+      "transition": "The remaining block belongs within the longer periods."
+    },
+    {
+      "title": "Place the f block without breaking periods",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Lanthanoids and actinoids involve filling(n−2)f orbitals and are displayed separately below the main table for compactness. They still belong to periods 6 and 7, respectively.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The f subshell accommodates fourteen electrons, explaining fourteen filling positions in each series. The separate rows are a layout choice, not extra periods beyond the seven.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch3_unit1_page8",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_eb511aa13e"
+      ],
+      "transition": "Bring period, block and group together in one worked example."
+    },
+    {
+      "title": "Use one configuration as a complete example",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Teacher-worked application: Z=13 gives 1s²2s²2p⁶3s²3p¹=[Ne]3s²3p¹. Highest n=3 means period 3; the differentiating electron is p, so p block.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "There are three valence electrons, so group=10+3=13. This identifies aluminium’s position through one consistent reasoning chain rather than three separate guesses.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "For Z=20, the configuration is[Ar]4s². Highest n=4 gives period 4; final s filling gives s block; ns² gives group 2. The filled argon core is not counted as valence electrons for this main-group rule."
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch3_unit1_page9",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_4a269efe31",
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_eb511aa13e"
+      ],
+      "transition": "Keep each location shortcut tied to its proper range of use."
+    },
+    {
+      "title": "Read names and positions consistently",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Temporary names encode atomic-number digits. Configurations explain period, block and many group relationships. An element’s chemical family follows its valence pattern, with helium demonstrating that chemistry also guides layout.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Keep the scope of each shortcut clear: highest n, differentiating subshell and main-group valence count answer different location questions.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch3_unit1_page10",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_4a269efe31",
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_eb511aa13e"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "Give the temporary systematic name and symbol for Z=120.",
+      "answer": "un-bi-nil gives unbinilium, Ubn.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_4a269efe31",
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_eb511aa13e"
+      ]
+    },
+    {
+      "question": "Where is[Ne]3s²3p³ in the table?",
+      "answer": "Highest n=3 gives period 3; p filling gives p block; five valence electrons give group 15.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_4a269efe31",
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_eb511aa13e"
+      ]
+    },
+    {
+      "question": "Why is helium in group 18 despite 1s²?",
+      "answer": "Its filled shell produces noble-gas behaviour, so chemical similarity determines placement.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_4a269efe31",
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_eb511aa13e"
+      ]
+    },
+    {
+      "question": "Are the bottom f-block rows additional periods?",
+      "answer": "No. They are parts of periods 6 and 7, displayed separately for compactness.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_4a269efe31",
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_eb511aa13e"
+      ]
+    },
+    {
+      "question": "How many orbitals and electrons can a d subshell hold?",
+      "answer": "Five orbitals and ten electrons, explaining ten d-block columns.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_4a269efe31",
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_eb511aa13e"
+      ]
+    },
+    {
+      "question": "Why is zinc not a typical transition element?",
+      "answer": "Its atom and common Zn²⁺ ion have complete d subshells.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_4a269efe31",
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_eb511aa13e"
+      ]
+    },
+    {
+      "question": "Which group contains[Ne]3s¹?",
+      "answer": "Group 1, because the outer configuration is ns¹.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_4a269efe31",
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_eb511aa13e"
+      ]
+    }
+  ]
+}

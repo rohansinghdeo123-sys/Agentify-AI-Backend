@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_6e37b8a0f0",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch8-unit10-page01",
+      "title": "An organic analysis case file",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_6e37b8a0f0"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Imagine receiving an unknown organic sample with three tasks: detect heteroatoms, calculate elemental percentages and explain a simple reaction. You should not use one observation as the answer to all three. Each task calls for its own evidence and chemical reasoning.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "This final application unit integrates sodium-fusion evidence, gravimetric and combustion calculations, nitrogen estimation, local hybridisation and reaction classification. Worked cases use stated data and assumptions so that the result can be checked rather than guessed.",
+          "level": "essential"
+        }
+      ],
+      "transition": "First make covalently bound heteroatoms accessible to ionic tests."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch8-unit10-page02",
+      "title": "Why an element may need extraction first",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_6e37b8a0f0"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Sodium fusion changes covalently bound N, S and halogens into ionic forms such as CN⁻, S²⁻ and X−. The aqueous fusion extract allows familiar ionic reactions. The conversion, not water alone, is what makes the original covalently bound element available for the test.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "Nitrogen can be identified by the Prussian-blue iron-cyanide sequence. Sulphide gives black PbS with Pb²⁺ or a violet nitroprusside test. Nitrogen and sulphur together can give thiocyanate and a blood-red iron(III) complex, so the combined case should not be forced into a single-element interpretation.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "An equivalent in this acid–base calculation counts a proton accepted by one NH3 molecule. One mole HCl provides one such equivalent; one mole H2SO4 provides two when both protons are neutralised.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "A halogen observation is reliable only after likely interferences are removed."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch8-unit10-page03",
+      "title": "Interpret a halogen test without interference",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_6e37b8a0f0"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Before adding AgNO3 to the prepared extract, nitric-acid treatment removes cyanide and sulphide interference. Ag⁺ + X− → AgX then gives characteristic halide precipitates: white AgCl, pale-yellow AgBr and yellow AgI. Their behaviour with aqueous ammonia helps distinguish them.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "A silver precipitate without the correct pretreatment is not conclusive halogen evidence. Acid is not merely added to make the mixture “more reactive”; interfering ions can produce other silver salts. A qualitative observation must be interpreted together with the method used.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The same halogen can be measured quantitatively as a silver precipitate."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch8-unit10-page04",
+      "title": "A chlorine estimation with every step visible",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_6e37b8a0f0"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Teacher-created Carius data: a 0.200 g sample gives 0.1435 g AgCl. Use Ag = 108 and Cl = 35.5. M(AgCl) = 143.5 g mol⁻¹; moles AgCl = 0.1435/143.5 = 0.00100 mol. Moles Cl are also 0.00100.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Chlorine mass = 0.00100×35.5 = 0.0355 g. Percentage chlorine = 0.0355/0.200×100 = 17.75%. The 1:1 relation comes from AgCl’s formula; using its entire 0.1435 g mass as chlorine would mistakenly include silver supplied by the reagent.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Carbon estimation uses the same stoichiometric logic with a gaseous product."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch8-unit10-page05",
+      "title": "A carbon percentage from captured dioxide",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_6e37b8a0f0"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Teacher-created combustion data: 0.250 g sample produces 0.550 g CO2. Moles CO2 = 0.550/44 = 0.0125 mol. Each mole CO2 contains one mole C, so carbon mass = 0.0125×12 = 0.150 g. Percentage C = 0.150/0.250×100 = 60.0%.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The oxygen in CO2 does not all come from the original sample; the combustion process supplies oxygen. Thus CO2 mass can exceed sample mass. A mass increase in the CO2 absorber measures product mass, which must be converted before reporting carbon composition.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Nitrogen requires a suitable gas or acid–base measurement instead."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch8-unit10-page06",
+      "title": "Nitrogen: select a method and count equivalents",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_6e37b8a0f0"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Dumas estimation converts nitrogen to N2 and measures its corrected gas volume. Kjeldahl converts suitable nitrogen to ammonia and measures acid consumed. A wet Dumas volume must be corrected for water vapour; Kjeldahl must be checked against its functional-group limitations.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "For a Kjeldahl-compatible 0.350 g sample, suppose ammonia consumes 5.00 mL of 1.00 mol L−1 HCl. HCl moles = 1.00×0.00500 = 0.00500; NH3 moles are the same. N mass = 0.0700 g, so %N = 0.0700/0.350×100 = 20.0%.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Once composition is established, a structural formula lets us assign local orbitals."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch8-unit10-page07",
+      "title": "Read a mixed-hybridisation chain",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_6e37b8a0f0"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "In CH2=CH–CH2–CH2–C≡CH, carbons 1 and 2 are sp2, carbons 3 and 4 sp3, and carbons 5 and 6 sp. The C2–C3 σ bond overlaps an sp2 orbital with an sp3 orbital; the C4–C5 σ bond overlaps sp3 with sp.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A double bond includes a σ bond and a π bond; a triple bond includes a σ bond and two π bonds. Changing the neighbouring carbon’s hybridisation changes the orbital description of the connecting σ bond. Do not label an entire molecule with one hybridisation when its carbon environments differ.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The orbital picture also helps compare electron-deficient carbon centres."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch8-unit10-page08",
+      "title": "Which positive carbon is better stabilised?",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_6e37b8a0f0"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Compare simple alkyl carbocations by alkyl substitution and adjacent C–H bonds: tertiary generally > secondary > primary > methyl. Hyperconjugation spreads electron deficiency through interaction with adjacent σ bonds, while alkyl groups also donate inductively.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "(CH3)3C+ has three adjacent methyl groups and nine adjacent C–H bonds. CH3CH2+ has one adjacent methyl and three such bonds. The difference supports the greater stability of tert-butyl cation in this simple comparison; it is not a universal ranking against resonance-stabilised ions.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The next question is which net change a given reagent and solvent produce."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch8-unit10-page09",
+      "title": "Use the reagent conditions to identify the change",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_6e37b8a0f0"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "CH3CH2I + KOH(aq) → CH3CH2OH + KI is a nucleophilic substitution: hydroxide donates an electron pair to carbon and iodide leaves. The carbon chain has not lost a carbon or formed a double bond. Aqueous conditions are part of this stated example.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "Under appropriate alcoholic-base elimination conditions, removal of H and a leaving group can instead form C=C. Addition runs the opposite structural direction across a multiple bond. Identify the net bond change first, then verify the electron-flow explanation and charge balance.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "A consistency check can combine analytical results: element percentages should total approximately 100% only after every element is accounted for. A substantial excess suggests arithmetic, conversion, contamination or measurement problems; do not silently rescale the values and attribute the altered numbers to the experiment."
+        }
+      ],
+      "transition": "A complete answer should now separate measurement evidence from mechanistic explanation."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch8-unit10-page10",
+      "title": "A defensible answer needs evidence and reasoning",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_6e37b8a0f0"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "Qualitative tests indicate elements after required chemical conversion. Carius, combustion and nitrogen methods determine amounts through explicit molar relationships. Every percentage needs the original sample mass, and every gas calculation needs stated temperature and pressure conditions.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Assign hybridisation locally, distinguish σ from π bonds and compare only appropriate classes of intermediates. Reaction labels describe net structural changes; conditions and electron movement explain why that change occurs. Keep formulas, charges, units and assumptions visible throughout.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why can untreated organic chlorine fail to give the normal chloride-ion test?",
+      "answer": "Its chlorine is covalently bound and not freely available as Cl−. Sodium fusion converts it into a soluble ionic form for testing.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_6e37b8a0f0"
+      ]
+    },
+    {
+      "question": "What is %Cl for 0.100 g sample yielding 0.1435 g AgCl?",
+      "answer": "AgCl moles = 0.00100; Cl mass = 0.0355 g, so chlorine is 35.5% of the sample.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_6e37b8a0f0"
+      ]
+    },
+    {
+      "question": "A 0.200 g sample gives 0.440 g CO2. Find %C.",
+      "answer": "C mass = 0.440×12/44 = 0.120 g; %C = 0.120/0.200×100 = 60.0%.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_6e37b8a0f0"
+      ]
+    },
+    {
+      "question": "How does the acid-mole calculation change if H2SO4 replaces HCl?",
+      "answer": "Use two H⁺ equivalents per mole H2SO4 in the ammonia neutralisation; do not treat its molarity as identical to acid-equivalent concentration.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_6e37b8a0f0"
+      ]
+    },
+    {
+      "question": "What orbital types form the C4–C5 σ bond in CH2=CH–CH2–CH2–C≡CH?",
+      "answer": "sp3 on C4 overlaps with sp on C5.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_6e37b8a0f0"
+      ]
+    },
+    {
+      "question": "Why is aqueous-KOH conversion of ethyl iodide into ethanol substitution?",
+      "answer": "An OH group replaces I on the same carbon skeleton; no double bond forms in the stated net reaction.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_6e37b8a0f0"
+      ]
+    }
+  ],
+  "title": "Organic Analysis and Structure: Worked Applications"
+}

@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_f6f12e63b0",
+  "pages": [
+    {
+      "title": "Not every metal releases hydrogen equally",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Some metals react vigorously with water while others need steam or acid. Others do not release hydrogen from ordinary non-oxidising acids. This reflects different tendencies to supply electrons, not merely different appearances."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " In a hydrogen-displacement reaction, the metal is oxidised and hydrogen is reduced. Reaction conditions and surface effects also influence the observed rate."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_f6f12e63b0"
+      ],
+      "transition": "Write a water reaction with the correct electron and atom account.",
+      "id": "chem11-ch07-u03-p01",
+      "page_number": 1
+    },
+    {
+      "title": "Active metals displace hydrogen from water",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " 2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g). Sodium changes 0 → +1, while the hydrogen forming H₂ changes +1 → 0. Oxygen stays −2. Calcium similarly gives Ca + 2H₂O → Ca(OH)₂ + H₂."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Not all hydrogen in the water becomes gas. Some remains in hydroxide with oxidation state +1. Track the atoms in their actual products."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " These are reactive-metal examples for understanding, not instructions for an unsupervised experiment."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_f6f12e63b0"
+      ],
+      "transition": "Less active metals may react under different conditions.",
+      "id": "chem11-ch07-u03-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Acid displacement and its limits",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Zn + 2HCl → ZnCl₂ + H₂ gives net Zn + 2H⁺ → Zn²⁺ + H₂. Chloride is a spectator in this simple reaction. Copper and silver do not normally liberate H₂ from dilute non-oxidising HCl under ordinary conditions."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " An oxidising acid can produce different products, so the phrase metal plus acid always gives hydrogen is unreliable. The acid identity and conditions must be stated."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_f6f12e63b0"
+      ],
+      "transition": "Halogen displacement follows competition for electrons rather than hydrogen release.",
+      "id": "chem11-ch07-u03-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Halogens differ in oxidising power",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The usual oxidising-strength order in this chapter is F₂ > Cl₂ > Br₂ > I₂. A suitable stronger halogen can oxidise the halide ions of a weaker one."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂. Chlorine accepts two electrons and is reduced; two bromide ions each lose one electron and are oxidised. The reverse displacement is not favoured under the same ordinary conditions."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_f6f12e63b0"
+      ],
+      "transition": "A second example confirms the agent roles.",
+      "id": "chem11-ch07-u03-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Use half-reactions for a displacement",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " For Br₂ + 2I⁻ → 2Br⁻ + I₂, reduction is Br₂ + 2e⁻ → 2Br⁻ and oxidation is 2I⁻ → I₂ + 2e⁻. Adding cancels two electrons. Br₂ is the oxidising agent and I⁻ is the reducing agent. Total charge is −2 on both sides."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " I₂ is not the oxidant here merely because iodine is a halogen. Name the agents from the actual reaction direction."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_f6f12e63b0"
+      ],
+      "transition": "Fluorine is unusually reactive toward water itself.",
+      "id": "chem11-ch07-u03-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Fluorine is an aqueous exception",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Fluorine can oxidise water: 2F₂ + 2H₂O → 4HF + O₂. Fluorine changes 0 → −1, while oxygen changes −2 → 0. Therefore a simple aqueous halide-displacement comparison with F₂ is complicated by its solvent reaction."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Fluoride cannot be chemically oxidised to F₂ by the ordinary weaker halogens. Producing elemental fluorine requires suitable specialised conditions such as electrolysis, rather than a routine aqueous displacement."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_f6f12e63b0"
+      ],
+      "transition": "Now consider one reactant serving as both oxidant and reductant.",
+      "id": "chem11-ch07-u03-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Chlorine can disproportionate in alkali",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " In cold dilute alkali: Cl₂ + 2OH⁻ → Cl⁻ + ClO⁻ + H₂O. Chlorine begins at 0. It becomes −1 in chloride and +1 in hypochlorite, so one chlorine is reduced while the other is oxidised."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Charge balance is −2 on each side; oxygen and hydrogen also balance. Hypochlorite’s oxidising behaviour connects the reaction with bleaching chemistry, without requiring chlorine to be oxygenated before it can act as an oxidant."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_f6f12e63b0"
+      ],
+      "transition": "Peroxide provides another clear oxidation-state split.",
+      "id": "chem11-ch07-u03-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Hydrogen peroxide shows both oxygen directions",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " In 2H₂O₂ → 2H₂O + O₂, all four O atoms start at −1. Two O atoms become −2 in water, gaining two bookkeeping electrons in total. Two O atoms become 0 in O₂, losing two in total. The electron changes balance."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The same original species supplies oxygen for both directions. This is different from a reaction where unrelated reactants supply separate oxidising and reducing elements."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_f6f12e63b0"
+      ],
+      "transition": "The available oxidation states determine whether disproportionation is possible.",
+      "id": "chem11-ch07-u03-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Intermediate oxidation states allow two directions",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " An element in an intermediate state may be able to form both higher and lower states. Chlorine in suitable oxoanions can do this, but chlorine at its usual maximum +7 cannot be oxidised further in ordinary chapter chemistry."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " An intermediate state is a possibility test, not proof that disproportionation occurs under all conditions. Thermodynamic stability and reaction conditions still matter. Fluorine cannot show a positive oxidation state in its ordinary compounds."
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": " The initial state of elemental F₂ is zero, but that alone does not make its chemistry analogous to chlorine disproportionation; accessible product states must also be considered."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_f6f12e63b0"
+      ],
+      "transition": "Revise displacement and disproportionation through their electron changes.",
+      "id": "chem11-ch07-u03-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: compare the actual chemical roles",
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Metals can reduce hydrogen-containing species under suitable conditions. Halogens can oxidise weaker halide ions, with fluorine reacting strongly with water. The oxidant is reduced and the reductant is oxidised."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Disproportionation sends one element from one initial state to both a higher and a lower state. Verify balanced atoms, charge and total state changes; an intermediate state alone does not guarantee the reaction."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_f6f12e63b0"
+      ],
+      "transition": "",
+      "id": "chem11-ch07-u03-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "In Zn + 2H⁺ → Zn²⁺ + H₂, which species is reduced?",
+      "answer": "H⁺ is reduced from +1 to 0 in H₂.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_f6f12e63b0"
+      ]
+    },
+    {
+      "question": "Why does copper not release hydrogen from ordinary dilute HCl?",
+      "answer": "Its reducing tendency is insufficient to displace hydrogen under those non-oxidising-acid conditions.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_f6f12e63b0"
+      ]
+    },
+    {
+      "question": "Which is the oxidant in Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂?",
+      "answer": "Cl₂, because it gains electrons to form chloride.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_f6f12e63b0"
+      ]
+    },
+    {
+      "question": "Why is aqueous F₂ not a simple halide-displacement reagent?",
+      "answer": "It oxidises water itself, complicating the desired displacement chemistry.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_f6f12e63b0"
+      ]
+    },
+    {
+      "question": "Find chlorine states in Cl⁻ and ClO⁻.",
+      "answer": "Chloride is −1. In ClO⁻, x − 2 = −1 gives Cl = +1.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_f6f12e63b0"
+      ]
+    },
+    {
+      "question": "Why is an intermediate oxidation state not enough to prove disproportionation?",
+      "answer": "Both directions must be chemically accessible and favourable under the conditions; oxidation-state bookkeeping alone does not establish reaction feasibility.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_f6f12e63b0"
+      ]
+    }
+  ],
+  "title": "Displacement and Disproportionation"
+}

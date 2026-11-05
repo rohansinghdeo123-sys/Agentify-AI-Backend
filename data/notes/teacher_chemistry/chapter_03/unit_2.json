@@ -1,0 +1,276 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_5cf5ab3a1e",
+  "title": "Metals, Non-metals and Atomic Size",
+  "pages": [
+    {
+      "title": "Why do neighbouring elements behave differently?",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A metal wire conducts electricity and bends; many non-metals behave very differently. Moving across the periodic table gradually changes electronic attraction and the tendency to lose or gain electrons.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "We can organise these broad categories, then use atomic and ionic size to explain some of the differences. Categories are trends, not lists without exceptions.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch3_unit2_page1",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_5cf5ab3a1e"
+      ],
+      "transition": "Describe the broad physical categories before explaining their trends."
+    },
+    {
+      "title": "Recognise metallic and non-metallic character",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Metals are generally lustrous, malleable, ductile and good conductors. Most are solids at room temperature. Non-metals occur as solids or gases, with bromine a liquid; they generally conduct poorly.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "These are broad tendencies. Mercury is a liquid metal, graphite conducts, and some non-metals are lustrous. An observed exception does not change an element’s nuclear identity.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch3_unit2_page2",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_5cf5ab3a1e"
+      ],
+      "transition": "Some elements show intermediate behaviour rather than fitting one extreme."
+    },
+    {
+      "title": "Understand metalloids and table location",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Metals occupy most of the left and centre; non-metals cluster towards the upper right. Metalloids such as silicon and germanium show intermediate characteristics near the dividing region.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Metallic character generally decreases across a period and increases down a group. The trend reflects changing ease of electron loss rather than the physical location of a box causing the behaviour.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch3_unit2_page3",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_5cf5ab3a1e"
+      ],
+      "transition": "Size requires a careful definition because the cloud has no hard edge."
+    },
+    {
+      "title": "An atom has no sharp outer edge",
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "An electron cloud extends gradually, so atomic radius needs an operational definition. Covalent radius is half the internuclear distance between two identical atoms joined by a single covalent bond.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For non-bonded atoms, van der Waals radius uses their closest non-bonded contact. Metallic radius uses neighbouring nuclei in a metal. Compare like definitions; they measure different environments.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "An atom’s cloud resembles a gradual distribution rather than a marble with a surface. Radius definitions choose reproducible reference distances. That is why two quoted radii may both be valid when one refers to bonding and another to non-bonded contact."
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch3_unit2_page4",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_5cf5ab3a1e"
+      ],
+      "transition": "Use a measured bond distance to calculate a covalent radius."
+    },
+    {
+      "title": "Calculate a covalent radius",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Teacher-worked application: the Cl–Cl single-bond distance is 198 pm. Each identical atom contributes one covalent radius, so 2r=198 pm and r=99 pm.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A non-bonded chlorine contact gives a larger van der Waals radius. The difference is not a contradiction: a bonded pair can approach more closely than a non-bonded pair.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch3_unit2_page5",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_5cf5ab3a1e"
+      ],
+      "transition": "Now ask how comparable atomic sizes change across a period."
+    },
+    {
+      "title": "Explain the decrease across a period",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Across a main-group period, proton number increases while added electrons enter the same principal shell. Shielding does not cancel the increased nuclear attraction fully. Effective nuclear attraction therefore generally increases.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The electron cloud contracts, so atomic radius usually decreases from left to right. Do not explain this trend by saying that more electrons automatically make every atom larger.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch3_unit2_page6",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_5cf5ab3a1e"
+      ],
+      "transition": "A group comparison changes the principal shell as well as nuclear charge."
+    },
+    {
+      "title": "Explain the increase down a group",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Down a group, the valence electrons enter shells with larger n. Additional inner electrons provide shielding, and the outer distribution extends farther from the nucleus. Atomic size therefore generally increases.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The nucleus also gains protons, but increased shell size and shielding dominate this trend. Reasoning requires weighing competing effects rather than considering nuclear charge alone.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch3_unit2_page7",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_5cf5ab3a1e"
+      ],
+      "transition": "Ion formation changes electron count without changing the nucleus."
+    },
+    {
+      "title": "Compare an ion with its parent atom",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A cation is generally smaller than its parent atom: electron loss reduces repulsion and may remove the outer shell. An anion is larger because added electrons increase repulsion in the occupied valence region.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Na⁺ is smaller than Na; Cl⁻ is larger than Cl. The nucleus has not changed in either comparison. Ionic size changes because electron count and distribution change.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch3_unit2_page8",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_5cf5ab3a1e"
+      ],
+      "transition": "Equal electron counts let us isolate the effect of nuclear attraction."
+    },
+    {
+      "title": "Rank an isoelectronic series",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Isoelectronic species have equal electron counts. O²⁻, F⁻, Na⁺, Mg²⁺ all have ten electrons, but their proton counts are 8, 9, 11, 12. More protons attract the same electron population more strongly.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Thus size decreases O²⁻>F⁻>Na⁺>Mg²⁺. First verify equal electron counts; this particular argument should not be applied to arbitrary ions with different shells.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "Add Al³⁺ to the ten-electron series. It has 13 protons, so it is smaller than Mg²⁺ in the same comparison. The sequence is governed by increasing nuclear attraction for an equal electron population, not by charge labels alone."
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch3_unit2_page9",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_5cf5ab3a1e"
+      ],
+      "transition": "Choose the right comparison before applying a size trend."
+    },
+    {
+      "title": "Choose the right size comparison",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Use comparable radius definitions. Across a period, increasing effective attraction generally contracts atoms; down a group, extra shells enlarge them. Cations shrink and anions expand relative to their parents.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For isoelectronic species, increasing Z decreases size. These principles explain trends, while metallic and non-metallic classifications describe broad patterns with meaningful exceptions.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch3_unit2_page10",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_5cf5ab3a1e"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why is atomic radius not an exact hard boundary?",
+      "answer": "An electron cloud has no sharply defined outer surface, so radius is defined through measurable distances.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_5cf5ab3a1e"
+      ]
+    },
+    {
+      "question": "A homonuclear single bond is 150 pm long. Find covalent radius.",
+      "answer": "Each atom contributes half: 75 pm.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_5cf5ab3a1e"
+      ]
+    },
+    {
+      "question": "Why do atoms generally shrink across a period?",
+      "answer": "Increasing nuclear charge is not fully shielded by same-shell additions, increasing effective attraction.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_5cf5ab3a1e"
+      ]
+    },
+    {
+      "question": "Why do atoms grow down a group despite more protons?",
+      "answer": "Additional shells and shielding outweigh the increased nuclear charge for the outer electrons.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_5cf5ab3a1e"
+      ]
+    },
+    {
+      "question": "Which is larger, Na or Na⁺?",
+      "answer": "Na; losing its outer electron produces a smaller cation.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_5cf5ab3a1e"
+      ]
+    },
+    {
+      "question": "Order F⁻, Na⁺, Mg²⁺ by increasing radius.",
+      "answer": "Mg²⁺<Na⁺<F⁻: all have ten electrons, but attraction strengthens with Z.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_5cf5ab3a1e"
+      ]
+    },
+    {
+      "question": "Does good conductivity prove an element must be a metal?",
+      "answer": "No. Graphite is a non-metallic exception, so a single property is insufficient.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_5cf5ab3a1e"
+      ]
+    }
+  ]
+}

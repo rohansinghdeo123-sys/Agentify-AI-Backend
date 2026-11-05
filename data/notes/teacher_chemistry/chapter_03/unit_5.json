@@ -1,0 +1,276 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_9fa373be9c",
+  "title": "Valence, Anomalous Behaviour and Chemical Reactivity",
+  "pages": [
+    {
+      "title": "Use a table position to predict chemistry",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Sodium and chlorine sit in the same period but behave very differently. Their outer-shell electron patterns suggest different ways to reach stable arrangements: electron loss, gain or sharing.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Valence and reactivity connect periodic structure with chemical change. The aim is a reasoned prediction, not a claim that all members of a group behave identically.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch3_unit5_page1",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_9fa373be9c"
+      ],
+      "transition": "Relate common combining capacities to the number of outer electrons."
+    },
+    {
+      "title": "Connect main-group valence with outer electrons",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "For simple main-group compounds, valence often rises from 1 to 4 across a period and then falls towards 0. Elements with one, two or three outer electrons frequently show corresponding valencies; those with five, six or seven often show 8 minus that count.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "This introductory rule predicts common combining capacities. It is not a universal formula for every oxidation state, especially in heavier or transition elements.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "Combining capacity and ionic charge are related in many simple examples but not identical concepts. In a neutral covalent molecule, atoms share electron pairs; the formula need not imply free ions. Always identify which bonding model the example uses."
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch3_unit5_page2",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_9fa373be9c"
+      ],
+      "transition": "Charge neutrality turns simple ion predictions into formulas."
+    },
+    {
+      "title": "Explain familiar formulas using the pattern",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Sodium tends to lose one electron to form Na⁺; magnesium often forms Mg²⁺. Chlorine tends to gain one to form Cl⁻. Charge balance therefore gives NaCl and MgCl₂.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The subscripts express the ratio needed for neutrality. MgCl₂ contains one Mg²⁺ per two Cl⁻, not a magnesium ion with a fractional charge.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch3_unit5_page3",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_9fa373be9c"
+      ],
+      "transition": "The smallest members of groups need separate attention."
+    },
+    {
+      "title": "Recognise anomalous second-period behaviour",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The first member of a group can differ noticeably from heavier members. Small size, high charge density and distinctive orbital availability make the second-period elements particularly unusual.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The textbook relates this to their compact valence shells and absence of valence d orbitals. Do not mechanically transfer every heavier-element compound or coordination pattern to the first member.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch3_unit5_page4",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_9fa373be9c"
+      ],
+      "transition": "Some competing trends produce similarities along a diagonal."
+    },
+    {
+      "title": "Understand diagonal relationships",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Some second-period elements resemble the third-period element diagonally to the right. Lithium–magnesium and beryllium–aluminium are standard examples. Competing trends can produce comparable size-to-charge characteristics.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A diagonal relationship means selected similarities, not that the elements share a group or identical chemistry. Compare the actual property or compound before claiming the resemblance.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch3_unit5_page5",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_9fa373be9c"
+      ],
+      "transition": "Use electron-removal ease to explain a metallic-family trend."
+    },
+    {
+      "title": "Explain metallic reactivity down a group",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "For alkali metals, larger size and greater shielding down the group generally make the valence electron easier to remove. Metallic reactivity therefore tends to increase down the group.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The trend refers to a particular family and type of reaction. Rate also depends on conditions and physical factors; a periodic argument is not a complete kinetic prediction.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch3_unit5_page6",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_9fa373be9c"
+      ],
+      "transition": "Compare that with an electron-accepting non-metal family."
+    },
+    {
+      "title": "Explain non-metal reactivity qualitatively",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Halogens react strongly by accepting electron density or forming bonds. Their ability to act as oxidising agents generally decreases down the group as attraction for electrons becomes less effective.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Do not describe this by reversing only one isolated gas-phase enthalpy trend. Real chemical reactivity involves the full reaction energy balance, including bonds and the surrounding medium.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch3_unit5_page7",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_9fa373be9c"
+      ],
+      "transition": "Oxides provide a useful chemical test of changing character."
+    },
+    {
+      "title": "Relate oxide character to periodic position",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Across a main-group period, oxides tend to change from basic through amphoteric to acidic. Basic oxides react with acids; acidic oxides react with bases; amphoteric oxides can react with both.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Na₂O and MgO illustrate basic character, Al₂O₃ amphoteric character, and oxides of later non-metals acidic character. This provides a chemical application of changing metallic character.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "An oxide reacts with both hydrochloric acid and a strong base. That observation supports amphoteric character. Its classification comes from two kinds of chemical behaviour, not from merely placing the element halfway across a drawn row."
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch3_unit5_page8",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_9fa373be9c"
+      ],
+      "transition": "Work through one complete electronic and charge-balance prediction."
+    },
+    {
+      "title": "Test a prediction against actual structure",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Teacher application: compare period 3 sodium and chlorine. Sodium’s 3s¹ configuration favours loss of its single outer electron; chlorine’s 3s²3p⁵ needs one electron to complete its valence shell.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Their combination gives Na⁺ and Cl⁻ in an ionic solid. The periodic pattern predicts useful behaviour, while the completed reaction must still conserve atoms and overall charge.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch3_unit5_page9",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_9fa373be9c"
+      ],
+      "transition": "State the limits of each trend before using it for an unfamiliar reaction."
+    },
+    {
+      "title": "Make predictions with stated limits",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Valence patterns, group trends and oxide character translate periodic structure into chemistry. Anomalous first members and diagonal relationships remind us that similarities are selective.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "State the family, property and conditions when predicting reactivity. Use outer-electron structure and size to explain the trend rather than assuming one rule covers all reactions.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch3_unit5_page10",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_9fa373be9c"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why is MgCl₂ electrically neutral?",
+      "answer": "One Mg²⁺ balances two Cl⁻, giving total charge zero.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_9fa373be9c"
+      ]
+    },
+    {
+      "question": "Predict a common valency for a group 16 main-group element.",
+      "answer": "The simple octet pattern suggests 8−6=2, while other oxidation states may occur.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_9fa373be9c"
+      ]
+    },
+    {
+      "question": "Why can the first member of a group be unusual?",
+      "answer": "Its small size, high charge density and compact valence-orbital set differ from heavier members.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_9fa373be9c"
+      ]
+    },
+    {
+      "question": "Does a diagonal relationship mean identical chemistry?",
+      "answer": "No. It refers to selected similarities, such as those between Li and Mg.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_9fa373be9c"
+      ]
+    },
+    {
+      "question": "Why does alkali-metal reactivity generally increase down the group?",
+      "answer": "The outer electron becomes easier to remove as size and shielding increase.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_9fa373be9c"
+      ]
+    },
+    {
+      "question": "What does amphoteric mean for an oxide?",
+      "answer": "It can react with both acids and bases; Al₂O₃ is a familiar example.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_9fa373be9c"
+      ]
+    },
+    {
+      "question": "Why should reactivity not be inferred from one gas-phase step alone?",
+      "answer": "The complete reaction involves multiple bond and energy changes, often including solvent effects.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_9fa373be9c"
+      ]
+    }
+  ]
+}

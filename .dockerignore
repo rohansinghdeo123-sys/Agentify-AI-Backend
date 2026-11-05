@@ -13,6 +13,13 @@ tests/
 data/raw/ncert/**/*.pdf
 !data/raw/ncert/class_11/chemistry/chapter_01_some_basic_concepts_of_chemistry.pdf
 !data/raw/ncert/class_11/chemistry/chapter_02_structure_of_atom.pdf
+!data/raw/ncert/class_11/chemistry/chapter_03.pdf
+!data/raw/ncert/class_11/chemistry/chapter_04.pdf
+!data/raw/ncert/class_11/chemistry/chapter_05.pdf
+!data/raw/ncert/class_11/chemistry/chapter_06.pdf
+!data/raw/ncert/class_11/chemistry/chapter_07.pdf
+!data/raw/ncert/class_11/chemistry/chapter_08.pdf
+!data/raw/ncert/class_11/chemistry/chapter_09.pdf
 desktop.ini
 Dockerfile
 .dockerignore

@@ -1,0 +1,2 @@
+# Keep scientific source artifacts byte-for-byte and exclude them from text diffs.
+*.pdf binary

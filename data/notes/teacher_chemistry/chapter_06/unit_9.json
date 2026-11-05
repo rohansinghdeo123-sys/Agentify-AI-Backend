@@ -1,0 +1,284 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488",
+  "pages": [
+    {
+      "title": "Choose the reaction before choosing a formula",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " A mixed equilibrium question can mention pH, a gas pressure or an insoluble salt. The useful first step is always the same: identify the reaction and the composition it changes. This application sequence practises selecting the method independently."
+        },
+        {
+          "kind": "practice",
+          "level": "essential",
+          "text": " Teacher-created case: A ⇌ B has K(c) = 9 and starts with 1.00 M A. The requested equilibrium composition requires an initial–change–equilibrium account, not a pH formula or pressure rule."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488"
+      ],
+      "transition": "Solve the molecular equilibrium and check its ratio.",
+      "id": "chem11-ch06-u10-p01",
+      "page_number": 1
+    },
+    {
+      "title": "Case one: equilibrium composition",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Let x M A become B. At equilibrium [A] = 1.00 − x and [B] = x. Substitute K = x/(1.00 − x) = 9. Thus x = 9 − 9x, giving x = 0.900 M. The answer is [A] = 0.100 M, [B] = 0.900 M. Check: 0.900/0.100 = 9."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The concentrations are not equal, but the opposing reaction rates are. A constant describes their ratio, not a requirement that half the reactant changes."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488"
+      ],
+      "transition": "An arbitrary present mixture uses Q to determine its direction.",
+      "id": "chem11-ch06-u10-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Case two: direction and pressure",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created gas reaction H₂ + I₂ ⇌ 2HI has K = 16, with current concentrations 0.50 M H₂, 0.50 M I₂ and 1.00 M HI. Q = 1.00²/(0.50 × 0.50) = 4. Since Q < K, net forward reaction forms more HI."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Uniform compression at fixed temperature leaves this reaction’s Q unchanged because the total gas coefficients are equal on both sides. Adding inert gas at constant volume also leaves reacting partial pressures unchanged."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488"
+      ],
+      "transition": "A proton-transfer problem instead begins with conjugate partners.",
+      "id": "chem11-ch06-u10-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Case three: identify acid, base and partners",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created reaction: HCO₃⁻ + H₂O ⇌ CO₃²⁻ + H₃O⁺. HCO₃⁻ donates H⁺ and acts as the acid; water accepts it and acts as the base. Conjugate pairs are HCO₃⁻/CO₃²⁻ and H₃O⁺/H₂O. Charge is −1 on both sides."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " HCO₃⁻ can act as a base in a different reaction by accepting H⁺. Identify the actual proton movement rather than assigning one permanent role to every species."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488"
+      ],
+      "transition": "For a strong dilute acid, stoichiometry often supplies hydronium directly.",
+      "id": "chem11-ch06-u10-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Case four: dilution of a strong acid",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created example: dilute 10.0 mL of 0.0100 M monoprotic strong acid to 100.0 mL at 298 K. Final concentration = 0.0100 × 10.0/100.0 = 0.00100 M. Neglect water ionisation, giving pH = −log(10⁻³) = 3.00. Then [OH⁻] = 10⁻¹⁴/10⁻³ = 10⁻¹¹ M."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Dilution conserves acid moles, not concentration. The approximation is appropriate here because the acid concentration is much greater than 10⁻⁷ M."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " Millilitres can cancel in the volume ratio because numerator and denominator use the same unit."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488"
+      ],
+      "transition": "A weak acid requires an equilibrium correction before taking a logarithm.",
+      "id": "chem11-ch06-u10-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Case five: weak-acid ionisation",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created data: c = 0.010 M and K(a) = 1.0 × 10⁻⁶. Estimate [H⁺], pH and ionisation. Let x = [H⁺]; x²/(0.010 − x) = 10⁻⁶. Assuming small x, x ≈ √(10⁻⁸) = 10⁻⁴ M. Then pH ≈ 4.00 and α = 10⁻⁴/0.010 = 0.010 = 1%. The small fraction supports the approximation."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " It would be wrong to set [H⁺] = 0.010 M solely because the acid is monoprotic. One available proton per molecule does not imply complete ionisation."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488"
+      ],
+      "transition": "A buffer requires reaction with added acid or base before its ratio is used.",
+      "id": "chem11-ch06-u10-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Case six: a buffer consumes added acid",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created data: a buffer contains 0.0100 mol HA and 0.0100 mol A⁻, with pK(a) = 4.76. Add 0.0010 mol H⁺, neglecting large dilution. H⁺ + A⁻ → HA first leaves 0.0090 mol A⁻ and 0.0110 mol HA. pH = 4.76 + log(0.0090/0.0110) ≈ 4.67."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The pH changes modestly because the conjugate base consumes most of the added acid. Using the original equal ratio would miss this chemical reaction. If the base were exhausted, the buffer formula would no longer apply in the same way."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488"
+      ],
+      "transition": "A solubility question starts with a different reaction and coefficient pattern.",
+      "id": "chem11-ch06-u10-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Case seven: convert K(sp) into solubility",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created data for M(OH)₂(s) ⇌ M²⁺ + 2OH⁻: K(sp) = 4.0 × 10⁻¹². In pure water, ignoring water’s small contribution, [M²⁺] = s and [OH⁻] = 2s. Thus 4s³ = 4.0 × 10⁻¹² and s = 1.0 × 10⁻⁴ M. [OH⁻] = 2.0 × 10⁻⁴ M, pOH = 3.70 and pH = 10.30 at 298 K."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The hydroxide factor two affects both solubility and pH. If a common ion were initially present, its concentration would need to be included before solving."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488"
+      ],
+      "transition": "Check whether a mixed solution starts above or below saturation.",
+      "id": "chem11-ch06-u10-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Case eight: precipitation after dilution",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created example: mix equal volumes of 2.0 × 10⁻⁴ M Ag⁺ and 2.0 × 10⁻⁴ M Cl⁻ solutions. Each ion concentration becomes 1.0 × 10⁻⁴ M before precipitation. Q(sp) = 10⁻⁸. For K(sp) = 1.8 × 10⁻¹⁰, Q(sp) > K(sp), so AgCl precipitation is favoured."
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": " For an undersaturated case, no precipitate is predicted merely because an insoluble salt is possible. The actual diluted ion product must exceed K(sp)."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " A direction prediction is not the final equilibrium calculation. If final concentrations are requested, let ions precipitate stoichiometrically until their product matches K(sp)."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488"
+      ],
+      "transition": "Use the revision questions to check method selection, not just formula memory.",
+      "id": "chem11-ch06-u10-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: an equilibrium problem-solving route",
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Identify the reaction, write the correct constant, account for stoichiometric changes and dilution, then solve and verify. Use Q/K for direction; K(p) = K(c)(RT)^Δn(g) for ideal-gas conversions; acid/base constants for ionisation; and K(sp) for dissolution."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " pH + pOH = pK(w). K(a)K(b) = K(w) applies to a conjugate pair. Buffer ratios use amounts after any strong acid/base reaction. Check physical roots, approximation size, temperature, units and charge balance."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488"
+      ],
+      "transition": "",
+      "id": "chem11-ch06-u10-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "If A ⇌ B has K = 3 and initially 0.80 M A only, find equilibrium concentrations.",
+      "answer": "x/(0.80 − x) = 3 gives 4x = 2.40, so [B] = 0.60 M and [A] = 0.20 M.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488"
+      ]
+    },
+    {
+      "question": "What does Q < K predict?",
+      "answer": "Net forward reaction until the quotient rises to the equilibrium value.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488"
+      ]
+    },
+    {
+      "question": "What is the conjugate acid of CO₃²⁻?",
+      "answer": "HCO₃⁻, obtained by adding exactly one H⁺.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488"
+      ]
+    },
+    {
+      "question": "At 298 K, a solution has pOH 5.20. Find pH.",
+      "answer": "pH = 14.00 − 5.20 = 8.80.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488"
+      ]
+    },
+    {
+      "question": "Why react added strong acid with A⁻ before applying a buffer formula?",
+      "answer": "The addition changes the moles of both conjugate partners, which determine the new equilibrium ratio.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488"
+      ]
+    },
+    {
+      "question": "For MX₂ dissolving as M²⁺ + 2X⁻, why is K(sp) not s²?",
+      "answer": "The ion concentrations are s and 2s, so K(sp) = s(2s)² = 4s³.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488"
+      ]
+    },
+    {
+      "question": "Does dilution change K at a fixed temperature?",
+      "answer": "No. It can change the quotient and equilibrium composition, but the temperature-dependent constant remains fixed.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488"
+      ]
+    },
+    {
+      "question": "Why is a negative algebraic concentration rejected?",
+      "answer": "It violates the physical amount and concentration constraints of the system.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_43cf13c488"
+      ]
+    }
+  ],
+  "title": "Equilibrium: Connected Applications"
+}

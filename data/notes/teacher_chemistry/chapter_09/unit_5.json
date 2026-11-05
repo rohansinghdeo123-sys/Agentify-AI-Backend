@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_70303b4a86",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch9-unit6-page01",
+      "title": "Change the conditions, change the product",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_70303b4a86"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Ordinary HBr addition to propene mainly gives 2-bromopropane, but HBr with suitable peroxide conditions mainly gives 1-bromopropane. The substrate is unchanged; a different reaction mechanism changes the preferred orientation.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "We use that contrast to understand the peroxide effect, then connect alkene addition with hydration, oxidation, ozonolysis and polymerisation. Each transformation uses the π bond differently, so identify reagents and work-up before predicting products.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The change in orientation begins with a different radical chain."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch9-unit6-page02",
+      "title": "Peroxide begins a radical chain",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_70303b4a86"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Peroxides can undergo homolysis and generate radicals. In the HBr radical chain, Br• adds to a double bond and creates a carbon radical. The carbon radical then takes hydrogen from HBr, giving product and regenerating Br•. This differs from forming a carbocation first.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "For propene, Br• + CH3CH=CH2 → CH3CH•CH2Br; then CH3CH•CH2Br + HBr → CH3CH2CH2Br + Br•. The first step places the radical on the more substituted middle carbon, helping explain why Br attaches to the terminal carbon.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A carbonyl group contains C=O. An aldehyde has at least one H on its carbonyl carbon, whereas a ketone has carbon groups on both sides of that carbon.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "That chain explains both the peroxide product and the limits of the effect."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch9-unit6-page03",
+      "title": "Anti-Markovnikov has a specific scope",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_70303b4a86"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The major peroxide-mediated product of propene with HBr is 1-bromopropane, opposite to ordinary ionic orientation. The practical peroxide effect applies to HBr; the corresponding radical chains with HCl or HI do not have both necessary propagation steps energetically favourable.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Do not extend “anti-Markovnikov” automatically to every reagent or alkene reaction. Peroxide is not consumed once per product molecule as though it supplied bromine. It initiates a radical pathway; the hydrogen and bromine incorporated in the product come from HBr.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Water and acids add through another set of stated conditions."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch9-unit6-page04",
+      "title": "Acid addition and hydration",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_70303b4a86"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Cold concentrated H2SO4 can add across an alkene to give an alkyl hydrogen sulphate. Acid-catalysed addition of water gives an alcohol; simple unsymmetrical alkenes follow the usual Markovnikov orientation in this elementary treatment.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Propene hydration is CH3CH=CH2 + H2O → CH3CH(OH)CH3 with suitable acid catalysis. The product is propan-2-ol. H and OH add across the double bond; the acid assists the mechanism and is regenerated rather than being included as a permanent group in this hydration product.",
+          "level": "essential"
+        }
+      ],
+      "transition": "An oxidant can add oxygen-containing groups instead of H and halogen."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch9-unit6-page05",
+      "title": "Gentle oxidation adds two hydroxyl groups",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_70303b4a86"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Cold, dilute alkaline or neutral permanganate oxidises an alkene to a vicinal diol, also called a glycol: the two –OH groups lie on neighbouring carbons. The purple permanganate colour disappears as it is reduced, an observation used in testing unsaturation.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "Ethene gives HOCH2CH2OH under these conditions. Both carbons of the original C=C become alcohol-bearing carbons. The observation is useful but is not an absolute proof of one unique structure, since other readily oxidised substances can also affect a permanganate test.",
+          "level": "essential"
+        }
+      ],
+      "transition": "More vigorous oxidation can break the carbon skeleton completely at C=C."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch9-unit6-page06",
+      "title": "Strong oxidation can split the carbon skeleton",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_70303b4a86"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Vigorous oxidation cleaves C=C rather than merely forming a diol. Product identity depends on the groups attached to each double-bond carbon: a carbon carrying H can be oxidised to a carboxylic acid, while a carbon carrying two carbon groups gives a ketone. Terminal carbon may be oxidised further to CO2.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "But-2-ene gives two ethanoic-acid fragments under suitable strong oxidative conditions. Each C=C carbon originally has one H and one CH3. The statement identifies the organic products; a fully balanced redox equation additionally depends on the oxidant and reaction medium.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Ozonolysis makes that cleavage particularly useful for locating the double bond."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch9-unit6-page07",
+      "title": "Ozonolysis reveals the position of C=C",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_70303b4a86"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Ozonolysis adds ozone to an alkene and cleaves the original double bond after work-up. With reductive work-up such as Zn/H2O, each double-bonded carbon becomes a carbonyl carbon. A carbon originally bearing H gives an aldehyde; one bearing two carbon groups gives a ketone.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "CH3CH=CHCH3 gives two CH3CHO molecules on reductive ozonolysis. Cut the C=C into two halves and replace each end with C=O while keeping its attached CH3 and H. The equal ethanal fragments identify the symmetrical position of the original double bond.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Working backwards from carbonyl fragments turns the reaction into a structure tool."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch9-unit6-page08",
+      "title": "Reconstruct an alkene from its fragments",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_70303b4a86"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Suppose reductive ozonolysis gives methanal, HCHO, and propanone, (CH3)2CO. Remove the carbonyl oxygens conceptually and join the two carbonyl carbons with C=C. The reconstructed structure is CH2=C(CH3)2, 2-methylpropene. Check that its four carbon atoms equal the combined product carbons.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "This is a structure deduction, not a claim that mixing the two carbonyl products reverses ozonolysis. Work-up matters: oxidative conditions may convert aldehydes further to acids. Name the work-up before using the aldehyde/ketone fragment rule.",
+          "level": "essential"
+        }
+      ],
+      "transition": "A different use of π bonding links many alkene units into a polymer."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch9-unit6-page09",
+      "title": "Many small molecules become one chain",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_70303b4a86"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Polymerisation joins many monomer molecules into a high-molecular-mass polymer. Addition polymerisation of ethene opens its π bonds and links the carbon units into a chain. No small molecule needs to be eliminated in this idealised addition scheme.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "n CH2=CH2 → [–CH2–CH2–]ₙ under suitable catalyst, temperature and pressure conditions. The bracketed pair of carbon atoms is the repeating unit of polyethene. n counts the number of monomer units, not the number of carbon atoms in a single ethene molecule.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "Teacher-created structure check: pent-2-ene gives ethanal and propanal on reductive ozonolysis. Their carbon counts, two plus three, recover five. A different work-up can oxidise the aldehydes, so always preserve the stated work-up when comparing your prediction with experimental products."
+        }
+      ],
+      "transition": "The reagents and work-up now distinguish these several outcomes clearly."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch9-unit6-page10",
+      "title": "Read the conditions before the product",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_70303b4a86"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "Ordinary HBr addition and peroxide-mediated HBr addition follow different ionic and radical pathways. Hydration gives an alcohol, mild permanganate gives a vicinal diol, and strong oxidation can cleave C=C. These are different outcomes of reacting the same functional bond.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Reductive ozonolysis turns each C=C carbon into a carbonyl carbon and can locate the double bond. Addition polymerisation turns monomers into repeating chain units. Preserve reagent, work-up, atom counts and the distinction between overall product patterns and fully balanced redox equations.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "What is the major propene + HBr product with suitable peroxide conditions?",
+      "answer": "1-Bromopropane, formed by the radical pathway with anti-Markovnikov orientation.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_70303b4a86"
+      ]
+    },
+    {
+      "question": "Should the peroxide effect be assumed for HCl addition?",
+      "answer": "No. The useful peroxide effect in this treatment is specific to HBr; the analogous HCl and HI propagation steps are not both favourable.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_70303b4a86"
+      ]
+    },
+    {
+      "question": "What does cold dilute permanganate form from ethene?",
+      "answer": "Ethane-1,2-diol, HOCH2CH2OH, with hydroxyl groups on the two originally double-bonded carbons.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_70303b4a86"
+      ]
+    },
+    {
+      "question": "Which alkene gives only ethanal on reductive ozonolysis?",
+      "answer": "But-2-ene, CH3CH=CHCH3, gives two ethanal molecules per alkene molecule.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_70303b4a86"
+      ]
+    },
+    {
+      "question": "Reconstruct an alkene giving methanal and propanone on reductive ozonolysis.",
+      "answer": "Join the carbonyl carbons to obtain CH2=C(CH3)2, 2-methylpropene.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_70303b4a86"
+      ]
+    },
+    {
+      "question": "Does polyethene retain a C=C in every repeating unit?",
+      "answer": "No. The monomer π bonds are used to form the chain; the ideal repeating unit is –CH2–CH2–.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_70303b4a86"
+      ]
+    }
+  ],
+  "title": "Peroxide Effect, Alkene Oxidation, Ozonolysis and Polymerisation"
+}

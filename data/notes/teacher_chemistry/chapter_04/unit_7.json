@@ -1,0 +1,276 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bd9a540096",
+  "title": "Molecular Orbitals, Bond Order and Magnetism",
+  "pages": [
+    {
+      "title": "Why is oxygen attracted to a magnet?",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A simple Lewis picture pairs all electrons in O₂, yet oxygen is paramagnetic: it is attracted by a magnetic field. Molecular orbital occupation explains the unpaired electrons behind this observation.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "We will fill allowed molecular states, count bonding and antibonding electrons, then predict both bond order and magnetic behaviour. Counting alone is not enough; orbital energy order matters.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch4_unit7_page1",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bd9a540096"
+      ],
+      "transition": "Identify the molecular states before placing any electrons."
+    },
+    {
+      "title": "Distinguish sigma and pi molecular orbitals",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Sigma molecular orbitals have cylindrical symmetry about the internuclear axis. Pi orbitals arise from parallel sideways overlap and occur as two equal-energy orientations for the relevant p orbitals.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Antibonding partners carry a star and contain a node between nuclei. Wave-function signs denote phase, not charge. Two π orientations must obey Hund’s rule when singly occupied.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "An MO box still accepts at most two opposite-spin electrons. A pair of degenerateπ boxes is filled singly before pairing. The familiar atomic occupation rules apply, but the boxes now represent states spread over a molecule."
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch4_unit7_page2",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bd9a540096"
+      ],
+      "transition": "Choose the appropriate ordering for the particular second-period molecule."
+    },
+    {
+      "title": "Use the correct second-period energy order",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "For Li₂ through N₂ in the elementary ordering, bonding π2p orbitals lie below bonding σ2p. For O₂ and F₂, bonding σ2p lies below bonding π2p.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "In both cases, after the bonding 2p set come π*2p and then σ*2p. Choose the correct ordering before filling. A reversed σ/π order can give an incorrect electron arrangement even when the total count is right.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch4_unit7_page3",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bd9a540096"
+      ],
+      "transition": "Apply electron-count and spin rules consistently."
+    },
+    {
+      "title": "Fill molecular orbitals using familiar rules",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Electrons occupy lower-energy states first, at most two opposite-spin electrons per orbital. In degenerate orbitals, they occupy singly with parallel spins before pairing. These are Aufbau, Pauli and Hund applied to molecular orbitals.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The molecule’s electron total comes from both atoms and any ionic charge. Core bonding and antibonding contributions often cancel in bond-order calculations, but their electrons still exist.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch4_unit7_page4",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bd9a540096"
+      ],
+      "transition": "Occupation now gives a quantitative net-bonding measure."
+    },
+    {
+      "title": "Define bond order from occupation",
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "Bond order=(N_b−N_a)/2, where N_b and N_a count electrons in bonding and antibonding orbitals. The half reflects that a pair of bonding electrons contributes one bond.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A positive value indicates net bonding in this elementary model. Greater bond order generally corresponds to stronger, shorter bonds in a related series. A zero value predicts no stable conventional bond in the model.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch4_unit7_page5",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bd9a540096"
+      ],
+      "transition": "Test the calculation on the simplest diatomic examples."
+    },
+    {
+      "title": "Compare H₂, He₂ and Li₂",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "H₂ has 2 bonding and 0 antibonding electrons, so bond order=(2−0)/2=1. He₂ has 2 bonding and 2 antibonding electrons, giving 0, so no stable ordinary He–He bond is predicted.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Li₂ has 6 total electrons: (σ1s)²(σ*1s)²(σ2s)². Bond order=(4−2)/2=1, with all electrons paired. The core 1s contributions cancel but must be counted correctly.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch4_unit7_page6",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bd9a540096"
+      ],
+      "transition": "A filled bonding2p set explains nitrogen’s strong bond."
+    },
+    {
+      "title": "Explain nitrogen’s strong bond",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "N₂ has fourteen electrons. After the core and 2s bonding/antibonding pairs, its six remaining valence electrons fill the two bondingπ2p orbitals and bondingσ2p orbital completely.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Bonding and antibonding totals give bond order 3. All electrons are paired, so N₂ is diamagnetic. The high bond order explains the short, strong N–N bond in comparison with lower-order related bonds.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch4_unit7_page7",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bd9a540096"
+      ],
+      "transition": "Oxygen requires a different occupation that explains its magnetism."
+    },
+    {
+      "title": "Explain oxygen’s magnetism",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "O₂ has sixteen electrons. Its last two electrons occupy the two degenerateπ*2p orbitals singly with parallel spins. It therefore contains two unpaired electrons and is paramagnetic.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Bond order is 2: ten bonding minus six antibonding electrons, divided by 2. The unpaired electrons are in antibonding orbitals; they do not prevent net bonding.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch4_unit7_page8",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bd9a540096"
+      ],
+      "transition": "Changing the charge tests the role of antibonding occupation."
+    },
+    {
+      "title": "Predict oxygen-ion comparisons",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Removing one electron from O₂ removes it fromπ*2p, increasing bond order from 2 to 2.5 in O₂⁺. Adding one gives O₂⁻ bond order 1.5; adding two gives O₂²⁻ bond order 1.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "O₂⁺ and O₂⁻ each retain one unpaired electron; O₂²⁻ has pairedπ* electrons. The related bond-length trend is shortest for O₂⁺ and longest for peroxide O₂²⁻.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "Compare O₂⁻ with O₂²⁻. The second added electron completes pairing in theπ* set and lowers bond order from 1.5 to 1. Thus magnetic behaviour and bond strength change for different reasons: pairing controls magnetism, while antibonding count controls the bond-order change."
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch4_unit7_page9",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bd9a540096"
+      ],
+      "transition": "Check bond order and unpaired-electron count as distinct conclusions."
+    },
+    {
+      "title": "Check bonding and magnetism independently",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Bond order comes from bonding minus antibonding occupation. Paramagnetism comes from unpaired electrons; diamagnetism means all are paired. These are related calculations but not interchangeable tests.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Use the correct energy order, conserve the electron total and apply Hund’s rule. Oxygen’s magnetic behaviour is compelling evidence that a molecule-wide orbital description adds information beyond a simple Lewis drawing.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch4_unit7_page10",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bd9a540096"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why does O₂ have two unpaired electrons?",
+      "answer": "Its last two electrons singly occupy the degenerateπ*2p orbitals according to Hund’s rule.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bd9a540096"
+      ]
+    },
+    {
+      "question": "Which lies lower for O₂: bondingσ2p orπ2p?",
+      "answer": "Bondingσ2p lies lower; for lighter Li₂–N₂ the ordering is reversed.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bd9a540096"
+      ]
+    },
+    {
+      "question": "Find bond order for 8 bonding and 4 antibonding electrons.",
+      "answer": "(8−4)/2=2.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bd9a540096"
+      ]
+    },
+    {
+      "question": "Why does He₂ have bond order zero in this model?",
+      "answer": "Its two bonding electrons are cancelled by two antibonding electrons.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bd9a540096"
+      ]
+    },
+    {
+      "question": "Why does O₂⁺ have higher bond order than O₂?",
+      "answer": "Ionisation removes an antibonding electron, increasing(N_b−N_a)/2 by 0.5.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bd9a540096"
+      ]
+    },
+    {
+      "question": "Which is longer-bonded: O₂ or O₂²⁻?",
+      "answer": "O₂²⁻, because its lower bond order 1 gives a weaker, longer bond in this related series.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bd9a540096"
+      ]
+    },
+    {
+      "question": "Can a positive-bond-order molecule be paramagnetic?",
+      "answer": "Yes. O₂ is bonded with bond order 2 and also has unpaired electrons.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bd9a540096"
+      ]
+    }
+  ]
+}

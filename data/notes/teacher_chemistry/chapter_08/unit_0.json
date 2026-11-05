@@ -1,0 +1,263 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_51580ba567",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch8-unit1-page01",
+      "title": "Why does carbon appear everywhere?",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_51580ba567"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "A cotton shirt, cooking oil and a medicine look unrelated, yet their compounds contain carbon. Organic chemistry gives us a common way to understand such substances through their bonding and structures, rather than memorising every material separately.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Organic chemistry mainly studies carbon compounds. Carbon can bond to itself, forming chains and rings, and to atoms such as hydrogen, oxygen and nitrogen. This self-linking ability is catenation. Some simple carbon compounds, such as carbon oxides and carbonates, are conventionally studied in inorganic chemistry.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Carbon’s versatility begins with the way it shares its four outer electrons."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch8-unit1-page02",
+      "title": "Four bonds, many possibilities",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_51580ba567"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Carbon has four valence electrons, meaning four electrons in its outermost shell. Sharing electrons can complete an octet around carbon. Its usual covalency is four: a carbon atom makes four shared electron pairs, distributed among single, double or triple bonds.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "In CH4, carbon makes four single bonds to hydrogen. In CH2=CH2, each carbon makes two C–H single bonds and a C=C double bond. Count a double bond as two shared pairs: each carbon still has four bonds in this counting sense.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "An orbital is a description of where an electron is likely to be found. Overlap means that orbital regions from bonded atoms occupy common space; it does not mean that atoms lose their identities.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "To distinguish the resulting compounds, we need drawings that show connections."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch8-unit1-page03",
+      "title": "Carbon chains need a structural language",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_51580ba567"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A molecular formula gives atom numbers but not their connections. C2H6O, for example, does not tell us whether oxygen connects to hydrogen or lies between two carbon groups. Structural formulas show connectivity, which is essential for explaining properties and reactions.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "A complete structural formula displays every bond. A condensed formula groups atoms without drawing every bond: CH3CH2OH shows a two-carbon chain ending in –OH. Parentheses collect repeated or branched groups; CH3(CH2)2CH3 means CH3–CH2–CH2–CH3, containing four carbons.",
+          "level": "essential"
+        }
+      ],
+      "transition": "A simpler skeletal drawing can preserve these connections without writing every carbon."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch8-unit1-page04",
+      "title": "Reading a carbon skeleton",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_51580ba567"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "In a bond-line formula, a line represents a bond; each unlabelled end and corner represents carbon. Hydrogens on carbon are usually omitted and are supplied mentally until each carbon has its usual four bonds. Atoms other than carbon and their attached hydrogens are shown where needed.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Imagine three connected line segments forming a zigzag, with no atom labels. Count both ends and the two corners: four carbons. All bonds are single, so the end carbons are CH3 and the inner carbons are CH2. The structure is CH3CH2CH2CH3, not a three-carbon chain.",
+          "level": "essential"
+        }
+      ],
+      "transition": "A skeleton shows connectivity; the next step is understanding its local shape."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch8-unit1-page05",
+      "title": "Shape comes from the bonds",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_51580ba567"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Carbon does not always have the same geometry. Hybridisation describes combinations of atomic orbitals used to explain bonding directions. In methane, four sp3 orbitals point towards the corners of a tetrahedron; the H–C–H angle is about 109.5°, rather than the 90° suggested by a flat cross.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "Each carbon in ethene is sp2 hybridised: three bond directions lie in a plane at about 120°. Each carbon in ethyne is sp hybridised: its two bond directions lie along a straight line, giving 180°. These shapes describe the region around that carbon, not every atom in a larger molecule.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Let us now look at the orbital overlaps that produce those bonds."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch8-unit1-page06",
+      "title": "Sigma and pi bonds do different jobs",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_51580ba567"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "A sigma (σ) bond forms by head-on orbital overlap along the line joining two nuclei. A pi (π) bond forms by sideways overlap of parallel p orbitals, with electron density above and below that line. A single bond is σ; a double bond is σ + π; a triple bond is σ + 2π.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Count bonds in ethene, CH2=CH2. Four C–H bonds contribute four σ bonds. The C=C bond contributes one σ and one π bond. Total: five σ and one π. Counting the double bond as two σ bonds would give the wrong picture of its geometry and reactivity.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The difference between σ and π overlap explains why rotation behaves differently."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch8-unit1-page07",
+      "title": "Why a double bond resists rotation",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_51580ba567"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The two p orbitals forming a π bond must remain parallel. Twisting one carbon relative to the other reduces their sideways overlap. Free rotation about C=C would therefore disrupt the π bond and requires much more energy than ordinary rotation about a C–C single bond.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "The exposed π electron cloud also helps explain why multiple bonds are sites of chemical attack. Notice the link: the same orbital arrangement influences both molecular shape and reactivity. This does not mean that every reaction of a double bond happens under the same conditions.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Those shapes can also be represented clearly on a flat page."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch8-unit1-page08",
+      "title": "Putting a three-dimensional molecule on paper",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_51580ba567"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "A normal line shows a bond in the plane of the page. A solid wedge shows a bond projecting towards you; a dashed wedge shows a bond projecting away. The wedges describe direction in space, not different types of chemical bond.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "For tetrahedral methane, draw two C–H bonds in the page, one towards you and one away. All four C–H bonds remain equivalent. A ball-and-stick model makes bond directions easy to see, while a space-filling model better shows the volume occupied by the atoms.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The orbital model also helps us compare how strongly carbon attracts shared electrons."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch8-unit1-page09",
+      "title": "A stronger attraction to shared electrons",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_51580ba567"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "An sp orbital has 50% s character, sp2 about 33% and sp3 25%. Greater s character brings the orbital closer to the nucleus. Carbon using an sp orbital therefore attracts its shared electrons more strongly than carbon using sp2 or sp3 orbitals.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Hybridisation is a model of orbital mixing, not a change in the number of carbon atoms or valence electrons. Nor does a molecular formula alone determine all the shapes in a compound. Identify each carbon’s bonding environment and then assign its local geometry.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "Teacher-created comparison: CH3CH2CH3 has eight C–H σ bonds and two C–C σ bonds, ten σ bonds in total and no π bonds. Compare that with ethene and ethyne: extra bond lines add π bonds, while every connected atom pair contributes only one σ bond."
+        }
+      ],
+      "transition": "We can now bring the representations and bonding patterns together."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch8-unit1-page10",
+      "title": "Connect structure, bonding and representation",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_51580ba567"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "Carbon’s usual tetravalence and catenation explain the variety of organic skeletons. Complete, condensed, bond-line and wedge-dash drawings emphasise different information. Translate between them by preserving every atom, connection and bond order.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Use the pattern sp3 → tetrahedral, sp2 → trigonal planar, sp → linear. Single/double/triple bonds contain one σ and zero/one/two π bonds respectively. A π bond needs parallel p orbitals, explaining restricted rotation and an exposed electron cloud.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why is C2H6O not a complete structural description?",
+      "answer": "It fixes atom counts but not connectivity; ethanol and an ether can share the formula while joining atoms differently.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_51580ba567"
+      ]
+    },
+    {
+      "question": "How many σ and π bonds are present in HC≡CH?",
+      "answer": "Two C–H σ bonds plus one C–C σ bond give three σ bonds; the triple bond also contains two π bonds.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_51580ba567"
+      ]
+    },
+    {
+      "question": "What do four connected segments in an unlabelled open zigzag represent?",
+      "answer": "Five carbon positions: two ends and three internal corners. Count positions rather than line segments.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_51580ba567"
+      ]
+    },
+    {
+      "question": "Does a wedge C–H bond differ chemically from an ordinary line C–H bond?",
+      "answer": "No. The drawing conventions specify spatial direction; they do not define a new bond type.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_51580ba567"
+      ]
+    },
+    {
+      "question": "Why is ethene not freely rotating like ethane?",
+      "answer": "Rotation disrupts the parallel p-orbital overlap needed for its π bond. Ethane has only a C–C σ bond between the carbons.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_51580ba567"
+      ]
+    }
+  ],
+  "title": "Carbon Bonding, Molecular Shape and Structural Representations"
+}

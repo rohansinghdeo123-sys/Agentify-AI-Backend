@@ -1,0 +1,276 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bdbc324725",
+  "title": "Predict Molecular Shape with VSEPR",
+  "pages": [
+    {
+      "title": "Why is water bent but carbon dioxide straight?",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A Lewis diagram gives connectivity and electron pairs, but does not by itself determine a molecule’s three-dimensional shape. Electron regions around the central atom repel and favour arrangements that keep them apart.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Valence Shell Electron Pair Repulsion, abbreviated VSEPR, turns that simple idea into a shape-prediction method. Begin by counting regions around the central atom.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch4_unit3_page1",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bdbc324725"
+      ],
+      "transition": "Count regions rather than bond lines in a checked Lewis structure."
+    },
+    {
+      "title": "Count electron domains correctly",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "An electron domain is one region of bonding or non-bonding electron density around the central atom. A single, double or triple bond counts as one directional domain for basic VSEPR geometry.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A lone pair is also one domain. Count domains from a valid Lewis structure; counting every electron pair in a multiple bond as a separate direction produces an incorrect geometry.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "For CO₂, each double bond points in one direction from carbon. Thus there are two domains, not four, and the arrangement is linear. VSEPR counts directions of electron density rather than counting each drawn bond line separately."
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch4_unit3_page2",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bdbc324725"
+      ],
+      "transition": "Arrange the simplest domain counts as far apart as possible."
+    },
+    {
+      "title": "Arrange two, three and four domains",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Two domains maximise separation in a line at 180°. Three form a trigonal plane at 120°. Four form a tetrahedral arrangement with ideal angles about 109.5°.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "BeCl₂, BF₃ and CH₄ illustrate these geometries in their simple molecular descriptions. The shape names describe positions of bonded atoms, not a flat drawing on paper.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch4_unit3_page3",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bdbc324725"
+      ],
+      "transition": "Lone pairs require a distinction between domain geometry and atomic shape."
+    },
+    {
+      "title": "Separate electron geometry from molecular shape",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "NH₃ has three bonding domains and one lone pair: four total, giving a tetrahedral domain arrangement. Omitting the lone pair from the atom-position description gives a trigonal pyramidal molecular shape.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "H₂O has two bonding domains and two lone pairs. Its four-domain arrangement is also tetrahedral, but its molecular shape is bent. Equal domain counts do not imply identical molecular shapes.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch4_unit3_page4",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bdbc324725"
+      ],
+      "transition": "Repulsion differences explain deviations from ideal angles."
+    },
+    {
+      "title": "Explain why bond angles change",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Lone pairs occupy more space near the central atom than bond pairs. The qualitative repulsion order is lone pair–lone pair>lone pair–bond pair>bond pair–bond pair.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Thus CH₄ is about 109.5°, NH₃ about 107°, and H₂O about 104.5°. The reduction follows increasing lone-pair influence, rather than a change from four to three to two total domains.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch4_unit3_page5",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bdbc324725"
+      ],
+      "transition": "Five domains introduce two different kinds of position."
+    },
+    {
+      "title": "Arrange five domains",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Five domains form a trigonal bipyramid: three equatorial positions 120° apart and two axial positions 180° apart, each at 90° to the equatorial plane.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A lone pair preferentially occupies an equatorial site because it then has fewer 90° interactions. SF₄ therefore adopts a see-saw shape rather than treating all five sites as equivalent.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch4_unit3_page6",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bdbc324725"
+      ],
+      "transition": "Place lone pairs before naming five-domain molecular shapes."
+    },
+    {
+      "title": "Use lone pairs in a trigonal bipyramid",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "For ClF₃, three bonds and two lone pairs give five domains. Place both lone pairs equatorially; the remaining atoms form a T-shaped molecule.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For XeF₂, two bonds and three lone pairs also give five domains. All three lone pairs occupy equatorial positions, leaving the two bonds axial and the molecule linear.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch4_unit3_page7",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bdbc324725"
+      ],
+      "transition": "A six-domain framework creates a different set of shapes."
+    },
+    {
+      "title": "Arrange six domains",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Six domains form an octahedral arrangement with 90° between adjacent directions. SF₆ has six bonds and no central lone pair, so its molecular shape is octahedral.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "XeF₄ has four bonds and two lone pairs. The lone pairs occupy opposite sites, leaving four F atoms in a square plane. This is square planar, not tetrahedral, despite having four bonded atoms.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "Predict a six-domain species with five bonded atoms and one lone pair. Remove one vertex from the octahedral atom-position set and the molecular shape is square pyramidal. The electron-domain arrangement remains octahedral."
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch4_unit3_page8",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bdbc324725"
+      ],
+      "transition": "Shape predictions can now be connected with the energy account of bonding."
+    },
+    {
+      "title": "Connect shape to a bonding explanation",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "VSEPR predicts many main-group shapes but does not explain bond strength through electron wave functions. Valence bond theory develops the next level by considering atomic-orbital overlap and changes in energy.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "When two hydrogen atoms approach, attractions can lower their total energy. At excessively short distances, repulsions dominate. A stable bond length occurs near the energy minimum.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch4_unit3_page9",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bdbc324725"
+      ],
+      "transition": "Use the complete counting sequence on new molecules."
+    },
+    {
+      "title": "Predict shape through a reproducible sequence",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Draw and check the Lewis structure, count bonding domains and lone pairs, choose the domain arrangement, place lone pairs to minimise close repulsions, then name the positions of atoms.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Distinguish domain geometry from molecular shape and describe approximate angle changes. VSEPR is a model for shape, while the energy and orbital account explains why bonds form.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch4_unit3_page10",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bdbc324725"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "How many domains does a double bond count as in VSEPR?",
+      "answer": "One directional domain, although its repulsion can differ from that of a single bond.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bdbc324725"
+      ]
+    },
+    {
+      "question": "Why are NH₃ and CH₄ different molecular shapes?",
+      "answer": "Both have four domains, but NH₃ has one lone pair and only three bonded atoms.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bdbc324725"
+      ]
+    },
+    {
+      "question": "Why is the water angle smaller than the methane angle?",
+      "answer": "Two lone pairs exert greater repulsion and compress the O–H bond angle.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bdbc324725"
+      ]
+    },
+    {
+      "question": "Where does a lone pair prefer to sit in a trigonal bipyramid?",
+      "answer": "Equatorially, where it has fewer 90° interactions.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bdbc324725"
+      ]
+    },
+    {
+      "question": "Predict XeF₂ shape from two bonds and three lone pairs.",
+      "answer": "Five domains; equatorial lone pairs leave opposite axial bonds, giving linear shape.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bdbc324725"
+      ]
+    },
+    {
+      "question": "Why is XeF₄ square planar rather than tetrahedral?",
+      "answer": "Its four bonds plus two lone pairs form six domains; opposite lone pairs leave a square plane.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bdbc324725"
+      ]
+    },
+    {
+      "question": "Does VSEPR give a complete orbital explanation of bond energy?",
+      "answer": "No. It predicts shapes through repulsion; valence bond and molecular orbital approaches address electronic bonding more deeply.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_bdbc324725"
+      ]
+    }
+  ]
+}

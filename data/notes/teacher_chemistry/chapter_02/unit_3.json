@@ -1,0 +1,322 @@
+{
+  "unit_id": "chem11_u02_lu04_bohr_model_hydrogen",
+  "title": "Bohr’s Hydrogen Atom",
+  "pages": [
+    {
+      "title": "Explain why hydrogen selects colours",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Hydrogen emits discrete lines, so its electron cannot have every possible energy. Bohr introduced selected allowed electron orbits to explain this evidence for one-electron atoms.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Labelled stair steps give a limited analogy: you may stand on a step, unlike a ramp that permits any height. The analogy concerns allowed energies, not a literal electron climbing stairs.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch2_unit3_page1",
+      "source_section_ids": [
+        "2.4"
+      ],
+      "transition": "Give each allowed energy state an unambiguous label."
+    },
+    {
+      "title": "Label stationary states",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "In Bohr’s model an electron moves in an allowed circular orbit without continuously radiating energy. Each stationary state is labelled by a positive integer n, the principal quantum number.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The n=1 state has the lowest energy and is the ground state. Higher n values are excited states. Radiation is exchanged only during transitions between allowed states.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": "Stationary does not mean “the electron is motionless” in Bohr’s historical picture. It means its orbit has a definite, unchanged energy while no transition occurs. An electron can be in an excited stationary state until a permitted process changes its energy."
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch2_unit3_page2",
+      "source_section_ids": [
+        "2.4"
+      ],
+      "transition": "Bohr’s extra postulate tells us why only selected circular states are allowed."
+    },
+    {
+      "title": "Quantise angular momentum",
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "Bohr postulated mₑvr=nh/(2π), where n=1, 2, 3,…, mₑ is electron mass, v speed, r orbit radius and h Planck’s constant. Only specified angular momenta are allowed.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The postulate selects discrete orbits rather than every classical path. It belongs to this historical model; modern quantum mechanics does not assign an electron an exact circular track.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": "Classical attraction alone would allow many possible orbital radii and energies. The additional angular-momentum postulate deliberately restricts the possibilities to selected values. That new restriction is why the model can describe lines rather than a continuous range of radiation."
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch2_unit3_page3",
+      "source_section_ids": [
+        "2.4"
+      ],
+      "transition": "The postulates lead to quantitative radii and bound-state energies."
+    },
+    {
+      "title": "Interpret orbit energy and radius",
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "For a hydrogen-like species with one electron and nuclear charge Z, rₙ=52.9(n²/Z) pm and Eₙ=−2.18 × 10⁻¹⁸(Z²/n²) J per electron. H has Z=1; He⁺ has Z=2.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Larger n gives larger radius and energy nearer zero. Larger Z at fixed n binds more tightly. Zero denotes the separated electron and nucleus, so negative energy identifies a bound state.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "On the energy scale, −1 is greater than−4 even though its magnitude is smaller. Likewise an excited bound electron has less negative energy than a ground-state electron. Keeping the number-line meaning prevents confusing stronger binding with greater numerical energy."
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch2_unit3_page4",
+      "source_section_ids": [
+        "2.4"
+      ],
+      "transition": "Try the formulas while keeping the negative-energy reference clear."
+    },
+    {
+      "title": "Calculate an excited state",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Teacher-worked application: find hydrogen’s radius and energy at n=2. With Z=1, r₂=52.9 × 2²=211.6 pm; E₂=−2.18 × 10⁻¹⁸/2²=−5.45 × 10⁻¹⁹ J.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "This exceeds the ground-state energy −2.18 × 10⁻¹⁸ J because it is less negative. The electron is excited but remains bound: its energy has not reached zero.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "Compare H and He⁺ at n=2. Hydrogen gives r=211.6 pm and E=−5.45 × 10⁻¹⁹ J. For He⁺, Z=2: r=52.9×4/2=105.8 pm and E=−2.18 × 10⁻¹⁸×4/4=−2.18 × 10⁻¹⁸ J. The stronger nucleus makes the orbit smaller and binding stronger."
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch2_unit3_page5",
+      "source_section_ids": [
+        "2.4"
+      ],
+      "transition": "A spectral photon corresponds to a difference between two states."
+    },
+    {
+      "title": "Use an energy difference for a photon",
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "ΔE_atom=E_final−E_initial is positive for absorption and negative for emission. Photon energy is always positive: E_photon=|ΔE_atom|=hν.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For hydrogen emission from n₂ to n₁ with n₂>n₁, E_photon=2.18 × 10⁻¹⁸(1/n₁²−1/n₂²) J. Combine with E=hc/λ to obtain Rydberg’s relation for spectral wavelengths.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "For hydrogen absorption from n=1 to 2, ΔE_atom=E₂−E₁=−5.45 × 10⁻¹⁹−(−2.18 × 10⁻¹⁸)=1.635 × 10⁻¹⁸ J. It is positive. The required photon has ν=ΔE/h≈2.47 × 10¹⁵ s⁻¹ and wavelength about 122 nm."
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch2_unit3_page6",
+      "source_section_ids": [
+        "2.4.1"
+      ],
+      "transition": "Calculate an actual transition and identify its spectral series."
+    },
+    {
+      "title": "Solve the red hydrogen line",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "For emission from n=3 to n=2, E_photon=2.18 × 10⁻¹⁸(1/4−1/9)=2.18 × 10⁻¹⁸ × 5/36=3.03 × 10⁻¹⁹ J.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Then λ=hc/E=(6.626 × 10⁻³⁴ × 3.00 × 10⁸)/(3.03 × 10⁻¹⁹) m≈6.56 × 10⁻⁷ m=656 nm. It is a Balmer line because the transition ends at n=2.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": "A transition may end at n=2 from n=3, 4, 5 and higher. All these lines belong to the Balmer series, but their photon energies differ because the initial levels differ. The series label fixes the common lower level, not one unique wavelength."
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch2_unit3_page7",
+      "source_section_ids": [
+        "2.4.1"
+      ],
+      "transition": "The limiting transition takes the electron out of the bound atom."
+    },
+    {
+      "title": "Reach the ionisation limit",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Ground-state hydrogen starts at −2.18 × 10⁻¹⁸ J. Removing its electron to the zero-energy limit requires ΔE=0−(−2.18 × 10⁻¹⁸)=2.18 × 10⁻¹⁸ J per atom.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Multiply by N_A for a mole: approximately 1.31 × 10⁶ J mol⁻¹=1.31 × 10³ kJ mol⁻¹. A negative bound-state energy does not mean electron removal releases energy.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "Ionising hydrogen already in n=2 requires 0−(−5.45 × 10⁻¹⁹)=5.45 × 10⁻¹⁹ J per atom. That is one-quarter of the ground-state requirement. The electron starts less tightly bound, so less additional energy is needed to reach the same zero reference."
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch2_unit3_page8",
+      "source_section_ids": [
+        "2.4.1"
+      ],
+      "transition": "Successful hydrogen predictions must still be tested against other observations."
+    },
+    {
+      "title": "Know where the model stops working",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Bohr’s model explains the main hydrogen spectrum and one-electron ions such as He⁺. It does not satisfactorily explain multi-electron spectra, fine spectral structure, or line splitting in electric and magnetic fields.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "It also fails to explain chemical bonding adequately. Its definite trajectories conflict with later wave and uncertainty descriptions. Successful predictions do not make every model assumption universally valid.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "A claim applies the formula with Z=3 to neutral lithium. Reject it: neutral Li has three electrons. The one-electron species with Z=3 is Li²⁺. For that ion, the ground-state energy would be−2.18 × 10⁻¹⁸×9=−1.962 × 10⁻¹⁷ J."
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch2_unit3_page9",
+      "source_section_ids": [
+        "2.4.2"
+      ],
+      "transition": "Review both the model’s useful formulas and its restricted domain."
+    },
+    {
+      "title": "Keep the useful predictions consistent",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Use positive integer n, insert Z only for one-electron species, and distinguish energy per electron from energy per mole. Calculate state energies first when transition signs seem confusing.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "An emitting atom loses energy, but its emitted photon has positive energy. The model’s limitations motivate quantum mechanics rather than adding arbitrary classical orbits.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch2_unit3_page10",
+      "source_section_ids": [
+        "2.4",
+        "2.4.1",
+        "2.4.2"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why is n=2 an excited hydrogen state?",
+      "answer": "It is higher in energy, or less negative, than the lowest allowed n=1 state.",
+      "source_section_ids": [
+        "2.4",
+        "2.4.1",
+        "2.4.2"
+      ]
+    },
+    {
+      "question": "Compare hydrogen’s n=2 and n=1 radii.",
+      "answer": "Since radius is proportional to n², r₂/r₁=4.",
+      "source_section_ids": [
+        "2.4",
+        "2.4.1",
+        "2.4.2"
+      ]
+    },
+    {
+      "question": "Find the ground-state energy of He⁺.",
+      "answer": "Z=2 gives E₁=−2.18 × 10⁻¹⁸ × 4=−8.72 × 10⁻¹⁸ J.",
+      "source_section_ids": [
+        "2.4",
+        "2.4.1",
+        "2.4.2"
+      ]
+    },
+    {
+      "question": "What sign has an atom’s ΔE during emission?",
+      "answer": "Negative; the atom ends at lower energy. Photon energy is the positive magnitude.",
+      "source_section_ids": [
+        "2.4",
+        "2.4.1",
+        "2.4.2"
+      ]
+    },
+    {
+      "question": "Which series ends at n=1?",
+      "answer": "Lyman, in the ultraviolet region.",
+      "source_section_ids": [
+        "2.4",
+        "2.4.1",
+        "2.4.2"
+      ]
+    },
+    {
+      "question": "Why does ionisation require energy?",
+      "answer": "A bound electron has negative energy relative to the separated zero reference, so removal increases energy.",
+      "source_section_ids": [
+        "2.4",
+        "2.4.1",
+        "2.4.2"
+      ]
+    },
+    {
+      "question": "Can this simple formula accurately describe neutral helium?",
+      "answer": "No. Neutral He contains two electrons, whereas the hydrogen-like formula requires one.",
+      "source_section_ids": [
+        "2.4",
+        "2.4.1",
+        "2.4.2"
+      ]
+    }
+  ]
+}

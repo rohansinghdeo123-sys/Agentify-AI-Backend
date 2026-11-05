@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_96eba327ff",
+  "pages": [
+    {
+      "title": "One element can have more than one oxidation state",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Iron forms both FeCl₂ and FeCl₃. Saying iron chloride alone leaves the oxidation state unclear. Stock notation makes the distinction visible and also helps identify which state changes during reaction."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Stock notation uses a Roman numeral for oxidation state, as in iron(II) chloride and iron(III) chloride. It refers to the metal state, not the number of atoms in a formula."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_96eba327ff"
+      ],
+      "transition": "Use the oxidation-state change to identify a redox reaction.",
+      "id": "chem11-ch07-u02-p01",
+      "page_number": 1
+    },
+    {
+      "title": "Increasing oxidation number means oxidation",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Oxidation is an increase in oxidation number; reduction is a decrease. Fe²⁺ → Fe³⁺ + e⁻ is oxidation from +2 to +3. Fe³⁺ + e⁻ → Fe²⁺ is reduction."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " In 2Cu₂O + Cu₂S → 6Cu + SO₂, copper goes from +1 to 0 and is reduced. Sulfur goes from −2 to +4 and is oxidised. Six copper atoms each gain one bookkeeping electron while sulfur loses six."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_96eba327ff"
+      ],
+      "transition": "The reaction’s pattern gives a second useful classification.",
+      "id": "chem11-ch07-u02-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Combination reactions can be redox",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " A combination reaction joins reactants into a product. It is redox when oxidation states change, such as elements forming a compound. The pattern alone is not sufficient evidence."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " 2Mg + O₂ → 2MgO combines elements: Mg changes 0 → +2 and O changes 0 → −2. But CaO + CO₂ → CaCO₃ is combination without changes in Ca(+2), C(+4) or O(−2)."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " Classify by calculating states on both sides rather than assuming every combination is oxidation."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_96eba327ff"
+      ],
+      "transition": "The reverse structural pattern is decomposition.",
+      "id": "chem11-ch07-u02-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Decomposition is not automatically redox",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " 2KClO₃ → 2KCl + 3O₂ is redox: Cl changes +5 → −1 and O changes −2 → 0. One element is reduced while another is oxidised."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " CaCO₃ → CaO + CO₂ is decomposition but not redox, because all oxidation states remain unchanged. A reaction breaking one substance into several does not itself prove electron redistribution."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_96eba327ff"
+      ],
+      "transition": "Displacement compares an element with a related ion or compound.",
+      "id": "chem11-ch07-u02-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Metal displacement couples two state changes",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " In displacement, one element replaces another in a compound or ionic solution. A more effective reducing metal can reduce ions of another metal under suitable conditions."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Zn + Cu²⁺ → Zn²⁺ + Cu: Zn changes 0 → +2 and Cu +2 → 0. Zinc displaces copper. Spectator counterions do not need to appear in the net ionic equation."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_96eba327ff"
+      ],
+      "transition": "Non-metal displacement follows the same coupled logic.",
+      "id": "chem11-ch07-u02-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Hydrogen and halogen displacement",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Zn + 2H⁺ → Zn²⁺ + H₂ displaces hydrogen. Zinc loses two electrons while two protons gain them. For Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂, chlorine is reduced and bromide is oxidised."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The reducing or oxidising strength determines which displacement is favoured. The position of a symbol in the periodic table alone should not replace the relevant chemical conditions."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_96eba327ff"
+      ],
+      "transition": "Sometimes one element in one reactant undergoes both changes.",
+      "id": "chem11-ch07-u02-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Recognise disproportionation",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Disproportionation occurs when the same element in one reactant is simultaneously oxidised and reduced to different product states. Its initial state must allow both an increase and a decrease."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " In 2H₂O₂ → 2H₂O + O₂, oxygen begins at −1. Some becomes −2 in water and some becomes 0 in O₂. Hydrogen stays +1, so oxygen supplies both redox roles."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_96eba327ff"
+      ],
+      "transition": "A contrasting example helps avoid over-classifying a reaction.",
+      "id": "chem11-ch07-u02-p07",
+      "page_number": 7
+    },
+    {
+      "title": "A redox change can cross within one compound",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " In a decomposition such as 2KClO₃ → 2KCl + 3O₂, different elements change: Cl is reduced and O is oxidised. It is redox decomposition, but not disproportionation of one element."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Disproportionation requires the same element to appear in both a higher and lower product state than its single initial state. Merely having oxidation and reduction in the same equation is not enough."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_96eba327ff"
+      ],
+      "transition": "Practise a full classification using oxidation-state sums.",
+      "id": "chem11-ch07-u02-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Worked reaction classification",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created check: 2FeCl₂ + Cl₂ → 2FeCl₃. In FeCl₂, Fe is +2; in FeCl₃ it is +3, so two Fe atoms each lose one electron. Cl₂ begins at 0 and becomes chloride at −1, gaining two electrons in total. Cl₂ is the oxidant; Fe(II) is the reductant."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Naming both agents and counting the changes verifies the redox assignment. Stock numerals identify the changing metal states without altering the chemical formulas."
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": " An element in its highest oxidation state cannot be oxidised further within the available ordinary states; this helps screen possible disproportionation candidates."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_96eba327ff"
+      ],
+      "transition": "Revise classification using state changes rather than equation shape alone.",
+      "id": "chem11-ch07-u02-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: patterns help, oxidation states decide",
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Stock Roman numerals identify oxidation states. An increase is oxidation and a decrease is reduction. Combination, decomposition and displacement can be redox, but verify state changes before applying the label."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Disproportionation is the special case where one element in one reactant is both oxidised and reduced. Match total state increases and decreases, and identify the oxidant as the species reduced."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_96eba327ff"
+      ],
+      "transition": "",
+      "id": "chem11-ch07-u02-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "What does iron(III) mean?",
+      "answer": "Iron has oxidation state +3; the numeral is not the number of iron atoms.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_96eba327ff"
+      ]
+    },
+    {
+      "question": "Is CaCO₃ → CaO + CO₂ redox?",
+      "answer": "No. Ca remains +2, carbon +4 and oxygen −2.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_96eba327ff"
+      ]
+    },
+    {
+      "question": "In 2FeCl₂ + Cl₂ → 2FeCl₃, what is the oxidising agent?",
+      "answer": "Cl₂; chlorine is reduced from 0 to −1.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_96eba327ff"
+      ]
+    },
+    {
+      "question": "Why is hydrogen peroxide decomposition disproportionation?",
+      "answer": "Oxygen at −1 forms both oxygen at −2 in water and oxygen at 0 in O₂.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_96eba327ff"
+      ]
+    },
+    {
+      "question": "Does every decomposition involve disproportionation?",
+      "answer": "No. Even a redox decomposition can oxidise and reduce different elements rather than the same one.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_96eba327ff"
+      ]
+    },
+    {
+      "question": "How many electrons are gained by the six Cu atoms in 2Cu₂O + Cu₂S → 6Cu + SO₂?",
+      "answer": "Each Cu goes from +1 to 0 and gains one, giving six bookkeeping electrons in total.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_96eba327ff"
+      ]
+    }
+  ],
+  "title": "Stock Notation and Types of Redox Reactions"
+}

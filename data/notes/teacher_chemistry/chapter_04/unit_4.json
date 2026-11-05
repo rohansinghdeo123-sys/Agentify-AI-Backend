@@ -1,0 +1,276 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_6b828afade",
+  "title": "Orbital Overlap, Sigma and Pi Bonds",
+  "pages": [
+    {
+      "title": "What holds two hydrogen atoms at one distance?",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "As two hydrogen atoms approach, attractive interactions can lower the system’s energy. But pushing nuclei very close increases repulsion. A bond forms where the total energy reaches a minimum.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Valence bond theory describes covalent bonding using atomic orbitals and their overlap. The energy minimum explains both a stable distance and the energy needed to separate the atoms.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch4_unit4_page1",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_6b828afade"
+      ],
+      "transition": "Balance all the attractions and repulsions during approach."
+    },
+    {
+      "title": "Balance attractions and repulsions",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Each hydrogen nucleus attracts both electrons, while nuclei repel one another and electrons repel one another. The total energy depends on all these interactions, not just one attractive force.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "At the equilibrium H–H distance, approximately 74 pm, the energy is lower than for separate H atoms. Breaking one mole of gas-phase H–H bonds requires about 435.8 kJ mol⁻¹ in the textbook example.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "The energy minimum is like the bottom of a valley on a graph of energy against internuclear distance. Moving either closer or farther raises energy relative to that minimum. The valley is a graph analogy, not a literal landscape inside a molecule."
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch4_unit4_page2",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_6b828afade"
+      ],
+      "transition": "Use orbital overlap to interpret the stabilised arrangement."
+    },
+    {
+      "title": "Overlap singly occupied orbitals",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "In the elementary valence-bond picture, suitable half-filled atomic orbitals overlap and their electrons pair with opposite spins. Increased electron density between nuclei helps stabilise the bonded arrangement.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Greater effective overlap generally gives a stronger bond for comparable orbitals. Proper orientation matters: two orbitals can occupy nearby space yet overlap inefficiently because their directions or phases do not match.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch4_unit4_page3",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_6b828afade"
+      ],
+      "transition": "Distinguish overlap along the bond axis from other orientations."
+    },
+    {
+      "title": "Identify head-on sigma overlap",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A sigma bond, σ, forms by head-on overlap along the internuclear axis. Possible examples include s–s, s–p and suitably oriented p–p overlap. Electron density has cylindrical symmetry about the bond axis.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "H₂ illustrates 1s–1s σ overlap; HCl can be described using H 1s and an appropriately directed Cl 3p orbital. The σ label describes symmetry, not the element names.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch4_unit4_page4",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_6b828afade"
+      ],
+      "transition": "Sideways overlap creates a second symmetry type."
+    },
+    {
+      "title": "Identify sideways pi overlap",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A pi bond, π, forms by sideways overlap of parallel p orbitals. Electron density lies on opposite sides of the internuclear axis, with a nodal plane containing that axis.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Sideways overlap is generally less effective than comparable head-on overlap, making a π component weaker than its corresponding σ component. The lobes’ phase signs are not positive and negative charges.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch4_unit4_page5",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_6b828afade"
+      ],
+      "transition": "Count the components that make single and multiple bonds."
+    },
+    {
+      "title": "Count bonds in single, double and triple links",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A conventional single bond is one σ bond. A double bond contains one σ and one π; a triple bond contains one σ and two π bonds. Additional components between the same atoms cannot all be independent head-on σ overlaps.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Thus N≡N has one σ and two π components. A double bond is stronger overall than a comparable single bond, even though its π component is weaker than its σ component.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch4_unit4_page6",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_6b828afade"
+      ],
+      "transition": "Orbital alignment explains why rotation can disrupt a π component."
+    },
+    {
+      "title": "Explain restricted rotation around a double bond",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Rotating one end of a π bond relative to the other disrupts parallel p-orbital alignment and reduces sideways overlap. This creates a substantial barrier to rotation about a double bond.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A σ bond retains overlap under rotation around its axis much more readily. This orbital argument explains why double bonds constrain molecular arrangement instead of merely adding an extra line on paper.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch4_unit4_page7",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_6b828afade"
+      ],
+      "transition": "Methane exposes a limitation of using only pure p directions."
+    },
+    {
+      "title": "Why pure p orbitals cannot explain methane",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Carbon’s isolated-atom configuration contains 2s²2p², yet methane has four equivalent C–H bonds directed tetrahedrally. Simply pointing pure p orbitals along perpendicular axes does not reproduce these observations.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Hybridisation mixes atomic orbital functions to construct equivalent directed orbitals. It is a model for describing bonding directions, not four new electrons or an increase in the number of orbitals.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch4_unit4_page8",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_6b828afade"
+      ],
+      "transition": "Directed combinations provide the needed tetrahedral description."
+    },
+    {
+      "title": "Introduce the sp³ construction",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "One s and three p orbitals combine to form four sp³ hybrids. The number of orbitals is conserved. Their directions point tetrahedrally, making angles near 109.5°.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "In methane, each carbon hybrid overlaps with H 1s to form a σ bond. The model connects equivalent directional bonding with observed geometry while electron-pair repulsion helps describe deviations when lone pairs occur.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "In methane, four carbon hybrids overlap with four separate H 1s orbitals. The four resulting bonds are σ bonds; the sp³ label belongs to the carbon orbital description, not to four new types of hydrogen orbital."
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch4_unit4_page9",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_6b828afade"
+      ],
+      "transition": "Connect the energy picture with the overlap and geometry vocabulary."
+    },
+    {
+      "title": "Link energy, symmetry and direction",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A stable covalent bond corresponds to a lower-energy arrangement at an equilibrium separation. σ and π labels distinguish overlap symmetry; hybridisation supplies useful directed orbital descriptions.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Count components carefully and never confuse orbital phase with charge. Orbital overlap explains why orientation changes bond strength and why π bonds constrain rotation.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch4_unit4_page10",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_6b828afade"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why does energy rise if H nuclei approach too closely?",
+      "answer": "Nucleus–nucleus and other short-range repulsions outweigh further attraction.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_6b828afade"
+      ]
+    },
+    {
+      "question": "What does a bond-energy minimum identify?",
+      "answer": "A stable equilibrium internuclear separation relative to nearby distances.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_6b828afade"
+      ]
+    },
+    {
+      "question": "How does a σ bond differ from a π bond?",
+      "answer": "σ uses head-on overlap along the axis; π uses sideways parallel overlap with density off the axis.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_6b828afade"
+      ]
+    },
+    {
+      "question": "Count components of a conventional triple bond.",
+      "answer": "One σ and two π bonds.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_6b828afade"
+      ]
+    },
+    {
+      "question": "Why does double-bond rotation require substantial energy?",
+      "answer": "Rotation disrupts the parallel orbital alignment needed for π overlap.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_6b828afade"
+      ]
+    },
+    {
+      "question": "How many hybrids arise from one s and three p orbitals?",
+      "answer": "Four sp³ orbitals; mixing conserves the number of orbitals.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_6b828afade"
+      ]
+    },
+    {
+      "question": "Why is methane not explained by three pure perpendicular p bonds?",
+      "answer": "It has four equivalent bonds with tetrahedral rather than 90° directions.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_6b828afade"
+      ]
+    }
+  ]
+}

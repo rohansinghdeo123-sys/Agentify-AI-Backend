@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_6_equilibrium_065da76778",
+  "pages": [
+    {
+      "title": "A bottle can look still while molecules move",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Water in a closed bottle eventually maintains a steady liquid level. Has evaporation stopped? Molecules still leave the liquid, while others return from the vapour. An unchanging appearance can hide two continuing processes."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Dynamic equilibrium means opposing processes occur at equal rates, giving no net macroscopic change under fixed conditions. Dynamic means microscopic activity continues."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_065da76778"
+      ],
+      "transition": "Watch the returning process develop above a liquid.",
+      "id": "chem11-ch06-u01-p01",
+      "page_number": 1
+    },
+    {
+      "title": "Evaporation meets condensation",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Initially little vapour is present, so evaporation dominates. As vapour accumulates, more molecules return to the liquid by condensation. Eventually the rates become equal."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Equilibrium vapour pressure is the pressure of vapour in equilibrium with its liquid at the specified temperature, while both phases remain. Equal rates do not mean equal amounts of liquid and vapour."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " A phase is a physically uniform form such as liquid water or water vapour. Particles can move between coexisting phases."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_065da76778"
+      ],
+      "transition": "Temperature changes the pressure of the equilibrium vapour.",
+      "id": "chem11-ch06-u01-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Boiling compares two pressures",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Boiling occurs when liquid vapour pressure matches external pressure. Since vapour pressure rises with temperature, lower external pressure allows boiling at a lower temperature."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Water boils below 100 °C at high altitude because atmospheric pressure is lower. Its normal boiling point is approximately 100 °C at 1 atm, about 1.013 bar. Evaporation can occur below the boiling point; boiling is not the first moment any molecule escapes."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_065da76778"
+      ],
+      "transition": "A solid and liquid can also exchange particles continuously.",
+      "id": "chem11-ch06-u01-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Ice and water can coexist",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " At the melting temperature and specified pressure, molecules leave ice while others join it from liquid water. Equal melting and freezing rates preserve the relative amounts when no net heat input drives further phase change."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Constant temperature during melting does not alone prove equilibrium. Continuous heating can melt more ice while temperature stays nearly constant. Both temperature and the net process must be considered."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_065da76778"
+      ],
+      "transition": "Some solids exchange particles directly with a vapour.",
+      "id": "chem11-ch06-u01-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Solid–vapour equilibrium",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Sublimation is solid → vapour; deposition is vapour → solid. In a closed vessel at fixed temperature these opposing processes can balance."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Iodine can form violet vapour above its solid. A steady colour intensity, with both phases present and the system settled, indicates steady vapour concentration. It does not mean iodine particles have stopped moving."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_065da76778"
+      ],
+      "transition": "Dissolving a solid gives another form of continuous exchange.",
+      "id": "chem11-ch06-u01-p05",
+      "page_number": 5
+    },
+    {
+      "title": "A saturated solution is still active",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " A saturated solution is in equilibrium with undissolved solute at the specified temperature. Dissolution and crystallisation continue at equal rates, so dissolved concentration stays constant."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Sugar molecules can exchange between a crystal and its saturated solution. Adding more sugar at the same temperature mainly increases the undissolved amount; it does not automatically increase the equilibrium concentration."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_065da76778"
+      ],
+      "transition": "For dissolved gas, the pressure above the liquid becomes important.",
+      "id": "chem11-ch06-u01-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Why opened soda releases gas",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " In a sealed carbonated drink, CO₂ enters and leaves the liquid dynamically. Opening lowers CO₂ pressure above the liquid, so escape temporarily exceeds return and bubbles form."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Henry’s law relates dissolved gas amount to its partial pressure above the solvent at fixed temperature under appropriate dilute conditions. Higher gas pressure favours more dissolved gas. Partial pressure means the pressure contribution of that gas, rather than all gases combined."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_065da76778"
+      ],
+      "transition": "The same balance idea applies to a reversible chemical reaction.",
+      "id": "chem11-ch06-u01-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Chemical equilibrium does not stop reactions",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " For A + B ⇌ C + D, the forward reaction makes products and the reverse reforms reactants. At equilibrium their rates are equal, leaving constant concentrations under fixed conditions."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Equal rates do not mean equal concentrations. A product-rich mixture can be at equilibrium. Isotope labels can still pass between reactants and products after bulk composition becomes steady, demonstrating continuing reaction."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_065da76778"
+      ],
+      "transition": "Check the boundary before deciding whether a balance can persist.",
+      "id": "chem11-ch06-u01-p08",
+      "page_number": 8
+    },
+    {
+      "title": "A suitable closed system preserves the balance",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " In an open vessel, vapour can disperse and prevent the same liquid–vapour balance from forming. Equilibrium depends on conditions and boundary, not merely the identity of the substance."
+        },
+        {
+          "kind": "practice",
+          "level": "essential",
+          "text": " Removing vapour from a closed equilibrium vessel reduces the returning condensation rate. Net evaporation then supplies more vapour until equilibrium is restored, provided liquid remains."
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": " No visible change during a short observation can also reflect a very slow process. Equilibrium requires a balance of opposing processes, not mere apparent stillness."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_065da76778"
+      ],
+      "transition": "Consolidate the common pattern across the physical and chemical examples.",
+      "id": "chem11-ch06-u01-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: equal rates and constant properties",
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Dynamic equilibrium has equal opposing rates and no net bulk change at fixed conditions. Amounts of phases and concentrations of reactants and products need not be equal."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Liquid–vapour equilibrium gives constant vapour pressure; saturation gives constant dissolved concentration; gas dissolution depends on gas partial pressure. Chemical equilibrium preserves composition through continuing forward and reverse reactions."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_065da76778"
+      ],
+      "transition": "",
+      "id": "chem11-ch06-u01-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "Are evaporation and condensation zero at equilibrium?",
+      "answer": "No. They continue at equal rates, so there is no net transfer.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_065da76778"
+      ]
+    },
+    {
+      "question": "Why does soda fizz after opening?",
+      "answer": "CO₂ partial pressure falls, disturbing the old balance and allowing net gas escape.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_065da76778"
+      ]
+    },
+    {
+      "question": "Must equilibrium contain equal reactant and product amounts?",
+      "answer": "No. The equality concerns opposing rates, not amounts.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_065da76778"
+      ]
+    },
+    {
+      "question": "Does more undissolved sugar raise a saturated concentration at fixed temperature?",
+      "answer": "Not while the same solid and solution phases coexist at equilibrium; it mainly increases solid amount.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_065da76778"
+      ]
+    },
+    {
+      "question": "Why is the boiling point lower at altitude?",
+      "answer": "A lower external pressure is matched by vapour pressure at a lower temperature.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_065da76778"
+      ]
+    },
+    {
+      "question": "How does isotope exchange show dynamic equilibrium?",
+      "answer": "Labels move between reactants and products despite constant bulk composition, showing reactions continue.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_065da76778"
+      ]
+    }
+  ],
+  "title": "Dynamic Equilibrium in Physical and Chemical Changes"
+}

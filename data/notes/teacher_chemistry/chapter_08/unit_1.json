@@ -1,0 +1,263 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4edb490c10",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch8-unit2-page01",
+      "title": "How can one name identify one structure?",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4edb490c10"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "A label such as “alcohol” does not identify a particular bottle: methanol and ethanol are different compounds. A systematic name should let another chemist reconstruct the same arrangement of atoms. We first recognise the carbon skeleton and then identify the chemically important groups.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "IUPAC nomenclature is a rule-based naming system. The parent name describes the selected main skeleton, locants are numbers locating features, prefixes name substituents, and a suffix identifies the principal functional group. Each part contributes structural information.",
+          "level": "essential"
+        }
+      ],
+      "transition": "First identify whether the skeleton is a chain, a ring or a heterocycle."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch8-unit2-page02",
+      "title": "Chains, rings and different ring atoms",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4edb490c10"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Acyclic compounds have open chains, straight or branched. Cyclic compounds contain rings. An alicyclic compound such as cyclohexane has a non-aromatic carbon ring; benzene is aromatic. If an atom other than carbon belongs to the ring, the compound is heterocyclic.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "Cyclohexane and benzene both have six-carbon rings but different bonding and chemical behaviour. A ring containing oxygen is not a hydrocarbon because hydrocarbons contain only carbon and hydrogen. A ring-shaped drawing alone is therefore insufficient for classification.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A locant is simply a position number. A substituent replaces a hydrogen on the chosen parent; an alkyl substituent is obtained formally by removing one hydrogen from an alkane.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Within that skeleton, particular atom groups determine characteristic chemistry."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch8-unit2-page03",
+      "title": "The group that changes the chemistry",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4edb490c10"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "A functional group is an atom or group that gives an organic compound characteristic chemical behaviour. –OH identifies an alcohol when attached to a saturated carbon, –CHO an aldehyde, >C=O a ketone, and –COOH a carboxylic acid.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "Members of a homologous series share a functional group and general pattern of chemical behaviour; successive members differ by CH2, a mass difference of about 14 u. Methanol and ethanol belong to the alcohol series even though their physical properties are not identical.",
+          "level": "essential"
+        }
+      ],
+      "transition": "With the group recognised, we can select a parent chain for its name."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch8-unit2-page04",
+      "title": "Choose the parent before numbering",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4edb490c10"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "For an alkane, select the longest continuous carbon chain as the parent. The chain may bend on the page; a visually straight line is not automatically longest. Meth-, eth-, prop-, but- and pent- indicate one to five carbons; the ending –ane indicates saturated bonding.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "For CH3CH(CH3)CH2CH3, the longest continuous chain contains four carbons: butane. The remaining CH3 is a methyl substituent. Numbering from the nearer end puts it at carbon 2 rather than 3, so the name is 2-methylbutane.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The same parent must now be numbered consistently."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch8-unit2-page05",
+      "title": "Use the first point of difference",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4edb490c10"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Compare possible locant sequences from the two ends of a parent chain. Choose the sequence with the lower number at the first point where they differ. Repeated identical substituents use di-, tri- or tetra-; their positions are all written.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "CH3CH(CH3)CH(CH3)CH2CH3 is 2,3-dimethylpentane. Numbering from the other end would give 3,4, so 2,3 is preferred. In a name, commas separate numbers and hyphens separate numbers from words. “Di” counts methyl groups; it does not add two carbons to the parent chain.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Different branch names add one more ordering decision."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch8-unit2-page06",
+      "title": "Naming more than one kind of branch",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4edb490c10"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Different substituent names are written alphabetically. Numerical multipliers such as di- and tri- do not control that alphabetical order. If equally good numbering gives the same locant set to different substituents, alphabetical order helps decide which substituent receives the lower locant.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "In 3-ethyl-4-methylhexane, ethyl is listed before methyl because e comes before m. The parent remains hexane: branches are not folded into the name as though they extended the selected chain. Check the actual structure before accepting any longest-chain choice.",
+          "level": "essential"
+        }
+      ],
+      "transition": "A functional group can take priority over branches when numbering the parent."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch8-unit2-page07",
+      "title": "Let the principal group guide the name",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4edb490c10"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "When a suffix functional group is present, choose a suitable parent chain containing it and number to give that principal group the lowest possible locant. In simple cases its naming priority comes before an alkyl branch or a multiple bond.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "CH3CH(OH)CH2CH3 contains four carbons and an alcohol group. From the nearer end –OH is on carbon 2, so the name is butan-2-ol. CH3CH2CHO has a terminal aldehyde carbon included in its three-carbon parent and is propanal; that carbon is carbon 1.",
+          "level": "essential"
+        }
+      ],
+      "transition": "We can extend that idea to unsaturation and more than one functional group."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch8-unit2-page08",
+      "title": "Multiple bonds and several groups",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4edb490c10"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The endings –ene and –yne locate double and triple bonds. For more than one suffix group, retain the required parent ending and use multipliers: HOCH2CH2OH is ethane-1,2-diol. For more than one kind of functional group, select the principal one for the suffix and describe subordinate groups as prefixes.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "CH3COCH2CH2OH has a ketone and an alcohol group. The ketone has suffix priority here; numbering gives its carbonyl carbon locant 2. The –OH group is hydroxy at carbon 4, so the compound is 4-hydroxybutan-2-one. Priority prevents calling the same compound simply a substituted alcohol.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Ring names use the same need for clear, minimal position numbers."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch8-unit2-page09",
+      "title": "Rings use the same need for clear positions",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4edb490c10"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A saturated carbon ring uses cyclo- before the alkane name. A single methyl group on cyclohexane gives methylcyclohexane without an unnecessary locant 1. With two substituents, number the ring to give the lowest locants consistent with the naming rules.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "A substituent is a branch attached to the chosen parent, while a functional group describes a chemical feature. The same atom count does not guarantee the same parent or suffix. Always check connectivity, principal group and numbering rather than assembling a name from familiar words.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "Try reconstructing 3-ethyl-2-methylhexane. Draw the six-carbon parent, attach methyl at 2 and ethyl at 3, then supply hydrogens to valence four. Count nine carbons overall. Reconstructing a name is a useful independent check on the parent-versus-branch distinction."
+        }
+      ],
+      "transition": "Let us combine these decisions into a reliable naming method."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch8-unit2-page10",
+      "title": "A naming checklist with a chemical purpose",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4edb490c10"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "Classify the skeleton, identify functional groups, choose the principal group and parent, number appropriately, locate branches and unsaturation, and assemble the name. A good name preserves enough information to draw the intended structure.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "An alcohol is not named only by carbon count; location matters. Branches do not alter the parent’s stated carbon count. Homologous members differ by CH2 but retain their characteristic group, while cyclic and heterocyclic categories describe the skeleton.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "Name CH3CH2CH(CH3)CH3 and explain the numbering.",
+      "answer": "2-Methylbutane: the parent has four carbons and numbering from the nearer end gives 2 rather than 3.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4edb490c10"
+      ]
+    },
+    {
+      "question": "Why is HOCH2CH2OH ethane-1,2-diol?",
+      "answer": "The parent has two carbons and two alcohol groups, at carbons 1 and 2; diol identifies both groups.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4edb490c10"
+      ]
+    },
+    {
+      "question": "Which distinction separates a cyclic hydrocarbon from a heterocycle?",
+      "answer": "A cyclic hydrocarbon contains only carbon and hydrogen, while a heterocycle has a non-carbon atom in the ring.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4edb490c10"
+      ]
+    },
+    {
+      "question": "Name CH3CH=CHCH3.",
+      "answer": "But-2-ene. The longest chain has four carbons and the double bond starts at carbon 2.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4edb490c10"
+      ]
+    },
+    {
+      "question": "Why is CH3COCH2CH2OH named with –one rather than –ol?",
+      "answer": "The ketone has suffix priority over alcohol in this example, so the alcohol is represented by the prefix hydroxy.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_4edb490c10"
+      ]
+    }
+  ],
+  "title": "Classification, Functional Groups and Systematic Naming"
+}

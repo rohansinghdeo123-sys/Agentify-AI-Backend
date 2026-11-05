@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_01a8f9ca57",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch9-unit8-page01",
+      "title": "Follow the triple bond one addition at a time",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_01a8f9ca57"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Adding one molecule of H2 to an alkyne does not automatically give the same product as adding two. The number of reagent equivalents and the catalyst decide whether unsaturation remains. Product prediction begins by counting the π bonds available to react.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "We examine alkyne hydrogenation, halogen and hydrogen-halide additions, hydration and ethyne polymerisation. The final pages introduce benzene’s names and the evidence that its structure requires more than a simple alternating-bond drawing.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Begin by counting how much hydrogen removes one or both π bonds."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch9-unit8-page02",
+      "title": "Hydrogenation can pass through an alkene",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_01a8f9ca57"
+      ],
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "HC≡CH + H2 → CH2=CH2; CH2=CH2 + H2 → CH3CH3. Adding the equations gives HC≡CH + 2H2 → CH3CH3. Ordinary Pt, Pd or Ni catalysis can continue to full saturation; controlled partial reduction requires suitable selective conditions.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "For 0.100 mol ethyne, complete hydrogenation needs 0.200 mol H2 and ideally gives 0.100 mol ethane. The molar ratio 1:2 comes from the two π bonds. Partial reduction would need only 0.100 mol H2, but the reagent amount alone is not a guarantee of a pure alkene product.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A geminal arrangement places two substituents on the same carbon; a vicinal arrangement places them on neighbouring carbons. These words describe positions, independently of the substituents’ chemical identities.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Halogens can likewise add in two successive stages."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch9-unit8-page03",
+      "title": "Halogens add across the unsaturation",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_01a8f9ca57"
+      ],
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "HC≡CH + Br2 → CHBr=CHBr is the one-equivalent addition pattern; a second Br2 gives CHBr2CHBr2. Two π bonds allow two successive additions. Preserve each carbon’s four bonds when drawing the intermediate and final product.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Bromine colour disappears as it is consumed, supporting a test for unsaturation under appropriate conditions. The textbook’s historical solvent descriptions are not an invitation to handle hazardous solvents. An observation alone does not uniquely distinguish an alkyne from every other reactive compound.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Hydrogen halides introduce an additional question about product orientation."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch9-unit8-page04",
+      "title": "Hydrogen halides give a geminal product",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_01a8f9ca57"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "HX adds in stages. For a simple unsymmetrical alkyne, the usual orientation follows the Markovnikov pattern in this treatment. After two additions, both halogens can lie on the same carbon, producing a geminal dihalide, in contrast with a vicinal dihalide’s adjacent positions.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "HC≡CH + HBr → CH2=CHBr, followed by CH2=CHBr + HBr → CH3CHBr2. The final product is 1,1-dibromoethane. For propyne with two HBr, the simple major-product scheme gives CH3CBr2CH3, 2,2-dibromopropane.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Water addition requires its own catalyst and leads to a carbonyl product."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch9-unit8-page05",
+      "title": "Hydration gives a carbonyl compound",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_01a8f9ca57"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Alkynes do not simply mix and react rapidly with water. The NCERT hydration scheme uses suitable HgSO4 and dilute H2SO4 conditions near 333 K. Addition initially gives an enol, containing C=C–OH, which rearranges to a more stable carbonyl form.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "Ethyne hydration ultimately gives ethanal, CH3CHO: HC≡CH + H2O → CH3CHO in the stated catalytic conditions. Propyne gives propanone, CH3COCH3. Count atoms in both products to see that hydration adds one H2O overall without losing any carbon.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Ethyne can also join many units rather than react with one small reagent."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch9-unit8-page06",
+      "title": "Linear polymerisation uses repeated ethyne units",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_01a8f9ca57"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Polymerisation joins many smaller monomers. Ethyne can form polyethyne, also called polyacetylene, represented by [–CH=CH–]ₙ. The product remains unsaturated, unlike the saturated repeating unit of polyethene made from ethene.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "Suitable modification can make polyacetylene electrically conducting, an example of how extended bonding influences a material property. The elementary formula only shows the repeating connectivity; it does not claim that every untreated sample has the same conductivity or molecular mass.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Cyclic joining of three ethyne units takes us to the benzene ring."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch9-unit8-page07",
+      "title": "Cyclic polymerisation leads to benzene",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_01a8f9ca57"
+      ],
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "3HC≡CH → C6H6 when ethyne is passed through a red-hot iron tube around 873 K in the textbook preparation. Three two-carbon units supply the six-carbon ring. Carbon and hydrogen are conserved without an extra small-molecule product in this overall equation.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Benzene is the starting member of the arenes, aromatic hydrocarbons with special electronic stability. Its low hydrogen count suggests unsaturation, but its behaviour differs from that of an ordinary open-chain alkene or alkyne. We need evidence about both structure and reactivity.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Equivalent ring positions determine the names of substituted benzene compounds."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch9-unit8-page08",
+      "title": "Name the substituted benzene positions",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_01a8f9ca57"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Replacing one benzene H by methyl gives methylbenzene, commonly toluene. Two methyl substituents give three relative positions: 1,2-, 1,3- and 1,4-dimethylbenzene, called o-, m- and p-xylene. The ring’s numbering must give equivalent positions the same identity.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "Adjacent substituents are ortho; one intervening ring carbon gives meta; opposite positions give para. Benzene itself gives only one monosubstituted derivative for a specified replacing group, indicating equivalence of its six hydrogen positions.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The observed equivalences also reveal a limitation of a fixed alternating-bond structure."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch9-unit8-page09",
+      "title": "Why Kekulé’s drawing needed refinement",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_01a8f9ca57"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The six-carbon cyclic proposal with alternating single and double bonds accounted for important features of C6H6. However, treating those bonds as permanently different would predict distinct adjacent-substitution arrangements that are not observed and would not explain benzene’s unusual stability.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "The modern description uses a resonance hybrid with delocalised π electrons, rather than real bonds jumping back and forth. Naming the ring and writing its formula identify its skeleton, but the electron distribution is needed to explain why benzene favours substitution over typical alkene addition.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "A two-carbon acetylene unit can end in a saturated chain after complete hydrogenation, an unsaturated polymer after linear joining, or an aromatic ring after cyclic trimerisation. The products conserve atoms differently because different amounts and types of reactants are involved; conditions select the intended path."
+        }
+      ],
+      "transition": "We can now connect alkyne stoichiometry with the need for an aromatic description."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch9-unit8-page10",
+      "title": "From addition stoichiometry to aromatic structure",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_01a8f9ca57"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "Alkynes can consume two equivalents in complete hydrogen or halogen addition. Two HX additions can give a geminal dihalide; catalytic hydration yields a carbonyl product after rearrangement. Always state the reagent amount and conditions.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Ethyne forms linear polyethyne or, under different conditions, benzene through cyclic trimerisation. Benzene’s equivalent positions and characteristic products require a delocalised description. The three xylene positional isomers follow the familiar ortho/meta/para arrangement.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "How many moles H2 completely hydrogenate 0.25 mol ethyne?",
+      "answer": "0.50 mol H2, using the 1:2 ethyne-to-hydrogen ratio.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_01a8f9ca57"
+      ]
+    },
+    {
+      "question": "What is the difference between geminal and vicinal dihalides?",
+      "answer": "Geminal means both halogens on one carbon; vicinal means halogens on adjacent carbons.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_01a8f9ca57"
+      ]
+    },
+    {
+      "question": "What is the final hydration product of ethyne under the stated HgSO4/acid conditions?",
+      "answer": "Ethanal, CH3CHO, after the initially formed enol rearranges to the carbonyl form.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_01a8f9ca57"
+      ]
+    },
+    {
+      "question": "How does polyethyne’s repeating unit differ from polyethene’s?",
+      "answer": "Polyethyne is –CH=CH– and retains C=C; polyethene is –CH2–CH2– and is saturated in its ideal chain.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_01a8f9ca57"
+      ]
+    },
+    {
+      "question": "Balance cyclic conversion of ethyne into benzene.",
+      "answer": "3C2H2 → C6H6, under the stated heated iron-tube conditions.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_01a8f9ca57"
+      ]
+    },
+    {
+      "question": "What are the three dimethylbenzene positional arrangements?",
+      "answer": "1,2- (ortho), 1,3- (meta) and 1,4- (para).",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_01a8f9ca57"
+      ]
+    }
+  ],
+  "title": "Alkyne Additions, Polymerisation and the Benzene Ring"
+}

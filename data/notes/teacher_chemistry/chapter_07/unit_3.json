@@ -1,0 +1,265 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_7311025523",
+  "pages": [
+    {
+      "title": "Fractions can describe an average, not a fractional electron",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Charge-balance arithmetic sometimes gives an oxidation number such as +8/3. Does that mean an atom loses a fraction of one electron? No. The result can be an average over atoms in different environments or oxidation states."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " In Fe₃O₄, oxygen totals −8, so the three Fe total +8 and average +8/3. Its mixed Fe(II)/Fe(III) description contains one Fe at +2 and two at +3 per formula unit."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_7311025523"
+      ],
+      "transition": "A structural example makes the average clearer.",
+      "id": "chem11-ch07-u04-p01",
+      "page_number": 1
+    },
+    {
+      "title": "Use structure to interpret formal averages",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " In C₃O₂, the structure O=C=C=C=O assigns each terminal C +2 from its C=O bond, while the central C is 0. The average is (2 + 0 + 2)/3 = +4/3. Carbon–carbon bonds do not change the assignment between identical atoms."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " In S₄O₆²⁻, total S oxidation number is +10, averaging +2.5. Structural analysis assigns +5 to each terminal sulfur and 0 to the two inner sulfurs. The molecular formula alone supplies only the average."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " Oxidation states are bookkeeping assignments; a structural formula can distinguish atoms that the empirical composition groups together."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_7311025523"
+      ],
+      "transition": "Balancing uses the total electron changes rather than assuming every average is an individual charge.",
+      "id": "chem11-ch07-u04-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Balance changes before water and charge",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " The oxidation-number method matches total oxidation-number increases to total decreases, then completes atom and charge balance for the stated medium. Start with correct species formulas; never change subscripts to force a balance."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " In Cr₂O₇²⁻ + SO₃²⁻ → Cr³⁺ + SO₄²⁻, each Cr changes +6 → +3, so two Cr gain six electrons in total. Each S changes +4 → +6 and loses two. Therefore three sulfite ions match one dichromate ion."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_7311025523"
+      ],
+      "transition": "Complete the acidic-medium equation and verify every atom.",
+      "id": "chem11-ch07-u04-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Worked oxidation-number balance in acid",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Start Cr₂O₇²⁻ + 3SO₃²⁻ → 2Cr³⁺ + 3SO₄²⁻. Left O = 7 + 9 = 16; right O = 12, so add 4H₂O on the right. This requires 8H⁺ on the left. Final: Cr₂O₇²⁻ + 3SO₃²⁻ + 8H⁺ → 2Cr³⁺ + 3SO₄²⁻ + 4H₂O."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Charge left is −2 − 6 + 8 = 0; charge right is +6 − 6 = 0. Cr, S, O and H also match. The medium supplies H⁺ and water without changing the specified redox species."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_7311025523"
+      ],
+      "transition": "The half-reaction method separates the same electron accounting explicitly.",
+      "id": "chem11-ch07-u04-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Balance each half-reaction systematically",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " In acidic medium, balance atoms other than O and H first. Add H₂O to balance O, H⁺ to balance H, then electrons to balance charge. Multiply the halves so their electron counts agree, add, and cancel identical species."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Balancing atoms alone is insufficient for an ionic reaction. Electrons are inserted on the side needed to make the half-reaction charges equal, then disappear from the overall equation."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_7311025523"
+      ],
+      "transition": "Apply the method to dichromate oxidising iron(II).",
+      "id": "chem11-ch07-u04-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Worked acidic half-reactions",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Oxidation: Fe²⁺ → Fe³⁺ + e⁻. Reduction skeleton: Cr₂O₇²⁻ → 2Cr³⁺. Balance O with 7H₂O on the right and H with 14H⁺ on the left. Charge left is +12 and right +6, so add 6e⁻ on the left: Cr₂O₇²⁻ + 14H⁺ + 6e⁻ → 2Cr³⁺ + 7H₂O."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Each dichromate accepts six electrons, while one Fe²⁺ supplies only one. Multiply the iron half by six before adding; adding unscaled halves would violate electron conservation."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_7311025523"
+      ],
+      "transition": "Add the matched halves and check the complete equation.",
+      "id": "chem11-ch07-u04-p06",
+      "page_number": 6
+    },
+    {
+      "title": "The combined iron–dichromate equation",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Cr₂O₇²⁻ + 14H⁺ + 6Fe²⁺ → 2Cr³⁺ + 7H₂O + 6Fe³⁺. The six electrons cancel. Total charge left is −2 + 14 + 12 = +24; right is +6 + 18 = +24."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " The coefficient ratio is 1 mol dichromate to 6 mol Fe²⁺. For 0.0100 mol dichromate, the equivalent Fe²⁺ amount is 6 × 0.0100 = 0.0600 mol, assuming the stated acidic reaction proceeds completely."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_7311025523"
+      ],
+      "transition": "Basic solutions require removing the H⁺ introduced during balancing.",
+      "id": "chem11-ch07-u04-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Convert a balanced half-reaction to basic medium",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " A reliable procedure first balances as though acidic, then adds enough OH⁻ to both sides to neutralise every H⁺. Replace H⁺ + OH⁻ by H₂O and cancel water appearing on both sides. The final basic equation should contain no leftover H⁺."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Permanganate reduction to MnO₂ in base is MnO₄⁻ + 2H₂O + 3e⁻ → MnO₂ + 4OH⁻. Check: O = 6 on both sides, H = 4, and charge = −4."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_7311025523"
+      ],
+      "transition": "Combine it with an oxidation half to finish a basic-medium example.",
+      "id": "chem11-ch07-u04-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Worked basic balance with bromide",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Oxidation in base: Br⁻ + 6OH⁻ → BrO₃⁻ + 3H₂O + 6e⁻. Multiply the preceding Mn reduction by two, then add. Cancel 6e⁻, 3H₂O and 6OH⁻ where appropriate. Final: 2MnO₄⁻ + Br⁻ + H₂O → 2MnO₂ + BrO₃⁻ + 2OH⁻."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Charge is −3 on both sides; Mn = 2, Br = 1, O = 9 and H = 2. Mn gains six electrons in total while Br loses six. The explicit medium determines whether manganese appears as Mn²⁺ or MnO₂."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_7311025523"
+      ],
+      "transition": "Revise the structural-average and balancing checks before attempting new equations.",
+      "id": "chem11-ch07-u04-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: conserve atoms and charge together",
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Fractional oxidation numbers may be averages; use structure to distinguish individual atoms. In balancing, match total oxidation increase and reduction decrease, not just per-atom changes."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Acidic half-reaction steps: other atoms → O with H₂O → H with H⁺ → charge with e⁻. For base, neutralise H⁺ using OH⁻ on both sides and cancel water. Verify every element, total charge, electron cancellation and the specified medium."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_7311025523"
+      ],
+      "transition": "",
+      "id": "chem11-ch07-u04-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why is +8/3 for Fe in Fe₃O₄ not a fractional ionic charge?",
+      "answer": "It is the average for one Fe(II) and two Fe(III) contributions per formula unit.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_7311025523"
+      ]
+    },
+    {
+      "question": "How many electrons does one Cr₂O₇²⁻ gain on becoming 2Cr³⁺?",
+      "answer": "Each Cr gains three, so two Cr gain six in total.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_7311025523"
+      ]
+    },
+    {
+      "question": "Why does one dichromate need three sulfite ions in the stated reaction?",
+      "answer": "Dichromate gains six electrons, while each S(+4) → S(+6) loses two, requiring three sulfites.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_7311025523"
+      ]
+    },
+    {
+      "question": "What extra check is needed beyond atoms for an ionic equation?",
+      "answer": "Total electrical charge must also be equal on both sides.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_7311025523"
+      ]
+    },
+    {
+      "question": "How are acidic balancing H⁺ ions removed for a basic equation?",
+      "answer": "Add the same number of OH⁻ to both sides, form water from H⁺ + OH⁻, then cancel redundant water.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_7311025523"
+      ]
+    },
+    {
+      "question": "Can the same permanganate half-reaction be used for every medium?",
+      "answer": "No. Products depend on the reaction conditions; the stated acidic or basic product must be used.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_7_redox_reactions_7311025523"
+      ]
+    }
+  ],
+  "title": "Oxidation-State Averages and Redox Balancing"
+}

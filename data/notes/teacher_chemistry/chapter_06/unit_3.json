@@ -1,0 +1,275 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_6_equilibrium_bcb5423f24",
+  "pages": [
+    {
+      "title": "A disturbed mixture gains a direction",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Removing ammonia from its equilibrium mixture can encourage more ammonia to form. The composition ratio has changed, creating a temporary driving force even though the equilibrium rule at that temperature is unchanged."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Le Chatelier’s principle says an equilibrium disturbed by changed conditions shifts in a direction tending to reduce the disturbance. Comparing Q with K explains the direction more precisely."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_bcb5423f24"
+      ],
+      "transition": "Connect that ratio to the thermodynamic driving force.",
+      "id": "chem11-ch06-u04-p01",
+      "page_number": 1
+    },
+    {
+      "title": "Gibbs energy connects composition and equilibrium",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " ΔrG = ΔrG° + RT ln Q. At equilibrium ΔrG = 0 and Q = K, giving ΔrG° = −RT ln K. Combining them gives ΔrG = RT ln(Q/K). Use kelvin and consistent energy units."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " For Q < K, ln(Q/K) is negative, favouring forward change. For Q > K it is positive, favouring reverse change. Thermodynamic Q and K are dimensionless activity ratios."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Actual ΔrG is zero at equilibrium; standard ΔrG° need not be zero."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_bcb5423f24"
+      ],
+      "transition": "Calculate the standard energy corresponding to a known constant.",
+      "id": "chem11-ch06-u04-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Worked conversion from K to energy",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created example: K = 100 at 300 K. Find ΔrG°. ΔrG° = −8.314 × 300 × ln 100. Since ln 100 = 4.605, the result is −11486 J mol⁻¹ ≈ −11.5 kJ mol⁻¹."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The negative standard value is consistent with product-favoured equilibrium. It does not mean every possible product-rich mixture must react forward, because actual direction also depends on Q."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_bcb5423f24"
+      ],
+      "transition": "Disturb a reactant concentration while keeping temperature fixed.",
+      "id": "chem11-ch06-u04-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Adding reactant lowers the quotient",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " For H₂ + I₂ ⇌ 2HI, Q(c) = [HI]²/([H₂][I₂]). Adding H₂ initially enlarges the denominator while other concentrations remain unchanged. Q falls below K, so net forward reaction forms more HI."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " K stays the same at fixed temperature. The added reactant is partly consumed until a new equilibrium satisfies that same ratio. The system need not restore every original concentration."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_bcb5423f24"
+      ],
+      "transition": "Product removal changes the ratio in a similar direction.",
+      "id": "chem11-ch06-u04-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Removing product can drive further conversion",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Removing NH₃ from N₂ + 3H₂ ⇌ 2NH₃ lowers Q and favours further formation. Removing CO₂ from CaCO₃(s) ⇌ CaO(s) + CO₂(g) favours decomposition while the relevant solid phases remain."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Adding more of a pure solid already present does not change its activity term. Apply concentration reasoning to variable activities rather than every mass added."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " A shift is the temporary net reaction before opposing rates become equal at the new equilibrium."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_bcb5423f24"
+      ],
+      "transition": "Compression changes all gas concentrations together.",
+      "id": "chem11-ch06-u04-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Compression favours fewer gas coefficients",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " At constant temperature, reducing volume raises gas concentrations. If gaseous coefficients differ between sides, the numerator and denominator of Q scale differently. Net reaction favours the side with fewer gas moles."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " N₂ + 3H₂ ⇌ 2NH₃ shifts right on compression: four gas coefficients become two. C(s) + CO₂(g) ⇌ 2CO(g) shifts left: one gas coefficient is favoured over two. Exclude solids from the gas count."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_bcb5423f24"
+      ],
+      "transition": "Equal gas counts and inert gases prevent a universal pressure rule.",
+      "id": "chem11-ch06-u04-p06",
+      "page_number": 6
+    },
+    {
+      "title": "When raising total pressure gives no shift",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " H₂ + I₂ ⇌ 2HI has two gaseous coefficients on each side. Uniform compression multiplies numerator and denominator equally, leaving Q unchanged in the ideal-gas treatment."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Adding an inert gas at constant volume raises total pressure without changing reacting-gas partial pressures, so Q is unchanged. Constant volume is essential; an addition at constant pressure can change volume instead."
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": " When unsure, calculate the changed partial pressures and Q rather than guessing from the word pressure."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_bcb5423f24"
+      ],
+      "transition": "Temperature is different because it changes the value of K itself.",
+      "id": "chem11-ch06-u04-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Heating favours the endothermic direction",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " For an exothermic forward reaction, heating favours reverse change and decreases K. For an endothermic forward reaction, heating favours products and increases K. The temperature change alters the equilibrium rule."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " In 2NO₂(g) ⇌ N₂O₄(g), dimerisation is exothermic. Warming favours brown NO₂; cooling favours less-coloured N₂O₄. Concentration and temperature effects must be distinguished."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_bcb5423f24"
+      ],
+      "transition": "Industrial conditions must also account for how quickly equilibrium is approached.",
+      "id": "chem11-ch06-u04-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Ammonia: rate and yield compete",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Ammonia formation is exothermic and reduces gas moles. Low temperature and high pressure favour equilibrium yield, but low temperature also slows the reaction. Practical operation balances both requirements."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " A catalyst helps reach equilibrium sooner but does not change K or the final equilibrium composition. Removing product can increase overall conversion by repeatedly disturbing the mixture without changing K at fixed temperature."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_bcb5423f24"
+      ],
+      "transition": "Revise which disturbances change Q and which alter K.",
+      "id": "chem11-ch06-u04-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: distinguish ratio changes from constant changes",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " ΔrG° = −RT ln K; ΔrG = RT ln(Q/K). Concentration changes and compression can change Q at fixed temperature, leading back to the same K. Temperature changes K itself."
+        },
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Compression favours fewer gas coefficients if the counts differ. Inert gas at constant volume and uniform compression with equal gas counts give no ideal-gas shift. A catalyst changes the time to equilibrium."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_bcb5423f24"
+      ],
+      "transition": "",
+      "id": "chem11-ch06-u04-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why does adding reactant not change K at fixed temperature?",
+      "answer": "It changes Q, after which reaction adjusts composition to recover the same temperature-dependent K.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_bcb5423f24"
+      ]
+    },
+    {
+      "question": "What does compression favour in 2NO₂ ⇌ N₂O₄?",
+      "answer": "N₂O₄, the side with fewer gas coefficients.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_bcb5423f24"
+      ]
+    },
+    {
+      "question": "Does helium added at constant volume shift an ideal reacting mixture?",
+      "answer": "No. Reacting partial pressures and Q remain unchanged.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_bcb5423f24"
+      ]
+    },
+    {
+      "question": "How does heating affect K for an exothermic forward reaction?",
+      "answer": "It decreases K by favouring the endothermic reverse direction.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_bcb5423f24"
+      ]
+    },
+    {
+      "question": "Why can ΔrG° be negative at equilibrium?",
+      "answer": "The composition term RT ln Q can balance it; actual ΔrG, not necessarily ΔrG°, is zero.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_bcb5423f24"
+      ]
+    },
+    {
+      "question": "Why use a catalyst if equilibrium yield is unchanged?",
+      "answer": "It makes the equilibrium composition accessible on a useful timescale.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_bcb5423f24"
+      ]
+    }
+  ],
+  "title": "Predicting Equilibrium Shifts"
+}

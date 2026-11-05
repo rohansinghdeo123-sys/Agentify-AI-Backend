@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_e1d56abbfe",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch8-unit7-page01",
+      "title": "Turn a product mass into an element mass",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_e1d56abbfe"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "A combustion experiment does not weigh the carbon atoms directly. It collects CO2 and H2O, products whose known formulas tell us what fraction of each mass came from carbon or hydrogen. Quantitative analysis is therefore a stoichiometric measurement.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "We need the original sample mass, a measured product amount and a balanced chemical relationship. The central calculation is percentage of element = mass of that element / sample mass × 100. The method chosen must convert the element completely into the measured form.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The formulas of carbon dioxide and water provide our first conversion factors."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch8-unit7-page02",
+      "title": "Carbon and hydrogen in combustion products",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_e1d56abbfe"
+      ],
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "If sample mass is m, CO2 mass is m(CO2) and H2O mass is m(H2O), then %C = (12/44)(m(CO2)/m)×100 and %H = (2/18)(m(H2O)/m)×100. Use consistent mass units. The fractions are carbon’s share of CO2 and hydrogen’s share of water.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Water is collected by a suitable drying absorbent such as anhydrous calcium chloride; CO2 is absorbed by potassium hydroxide. Mass increases measure the respective products. Their order and experimental controls matter: the increase in a tube is not automatically the mass of the element itself.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A percentage is an amount out of one hundred. The measured compound or precipitate contains other atoms too; its formula supplies the conversion fraction needed to isolate the element’s mass.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Putting those factors into a complete calculation shows why product mass is not element mass."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch8-unit7-page03",
+      "title": "A complete combustion calculation",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_e1d56abbfe"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Teacher-created data: 0.500 g compound produces 0.880 g CO2 and 0.270 g H2O. Find C and H percentages. Carbon mass = 0.880×12/44 = 0.240 g; %C = 0.240/0.500×100 = 48.0%. Hydrogen mass = 0.270×2/18 = 0.0300 g; %H = 0.0300/0.500×100 = 6.00%.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The products weigh more than the carbon and hydrogen they contain because oxygen was supplied during combustion. The result does not violate conservation of mass. The remaining 46.0% is oxygen only if independent information establishes that the compound contains no elements except C, H and O.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Nitrogen can instead be measured as a gas, with pressure and temperature corrections."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch8-unit7-page04",
+      "title": "Dumas method: collect nitrogen as a gas",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_e1d56abbfe"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "In Dumas estimation, an organic compound is heated with CuO in a carbon-dioxide atmosphere. Nitrogen is converted to N2; heated copper reduces nitrogen oxides to nitrogen. Carbon dioxide is absorbed, leaving nitrogen for volume measurement. The collecting gas must not already contain an unknown amount of N2.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "For wet gas, dry nitrogen pressure = measured total pressure − aqueous tension. Convert to the textbook reference conditions using V(STP) = P(dry) V × 273/(760 T) when P is in mm Hg, V in mL and T in K. NCERT uses 22 400 mL mol⁻¹ at 273 K and 760 mm Hg.",
+          "level": "essential"
+        }
+      ],
+      "transition": "We can now apply those corrections to the textbook’s nitrogen data."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch8-unit7-page05",
+      "title": "A gas-volume nitrogen example",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_e1d56abbfe"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "NCERT data: a 0.300 g sample gives 50.0 mL N2 at 300 K and 715 mm Hg; aqueous tension is 15 mm Hg. P(dry) = 700 mm Hg. V(STP) = 700×50.0×273/(760×300) = 41.91 mL. Nitrogen mass = 28×41.91/22 400 = 0.05239 g.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "The required percentage is 0.05239/0.300×100 = 17.46%. The factor 28 g mol⁻¹ is the mass of N2, containing only nitrogen. Subtracting aqueous tension removes water vapour’s contribution; using Celsius in the gas-law conversion would give an incorrect result.",
+          "level": "essential"
+        }
+      ],
+      "transition": "A different nitrogen method counts ammonia through an acid–base reaction."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch8-unit7-page06",
+      "title": "Kjeldahl method: count ammonia equivalents",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_e1d56abbfe"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Digestion with concentrated H2SO4 converts suitable organic nitrogen into ammonium sulphate. Addition of excess alkali releases NH3, which is collected in a known amount of standard acid. From acid consumed, determine ammonia and hence nitrogen. Back-titration measures how much of the original acid remains.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "One mole NH3 contains one mole nitrogen and consumes one mole H⁺. Thus mass of N = 14×moles of NH3 in grams, using the school atomic mass. A mole of H2SO4 supplies two acid equivalents here; distinguish acid moles from the H⁺ equivalents used by ammonia.",
+          "level": "essential"
+        }
+      ],
+      "transition": "A numerical example makes the distinction between acid moles and equivalents visible."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch8-unit7-page07",
+      "title": "A titration with clear units and limitations",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_e1d56abbfe"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Teacher-created data: ammonia from 0.500 g sample consumes exactly 10.0 mL of 0.250 mol L−1 H2SO4. Acid moles = 0.250×0.0100 = 0.00250 mol. NH3 moles = 2×0.00250 = 0.00500 mol. N mass = 14×0.00500 = 0.0700 g; %N = 14.0%.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Use net acid consumed, not all the acid initially put in the receiver. The usual Kjeldahl method is unsuitable for nitrogen in nitro, azo and certain ring compounds because their nitrogen is not quantitatively converted into ammonium sulphate under these conditions.",
+          "level": "essential"
+        }
+      ],
+      "transition": "For halogens, a weighed precipitate supplies the required stoichiometric link."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch8-unit7-page08",
+      "title": "Carius estimation: weigh a silver halide",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_e1d56abbfe"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "In the Carius method, oxidation with fuming nitric acid in the presence of silver nitrate converts chlorine, bromine or iodine into AgX. The washed, dried precipitate is weighed. Each mole AgX contains one mole X, giving %X = (atomic mass X / molar mass AgX)(m(AgX)/m(sample))×100.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "For NCERT’s 0.150 g sample giving 0.120 g AgBr, use Ag = 108 and Br = 80. M(AgBr) = 188 g mol⁻¹. Br mass = 0.120×80/188 = 0.05106 g; %Br = 0.05106/0.150×100 = 34.04%. The silver mass must not be counted as bromine.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Sulphur uses a different precipitate but the same product-to-element reasoning."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch8-unit7-page09",
+      "title": "Sulphur is weighed as barium sulphate",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_e1d56abbfe"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Oxidation converts sulphur to sulphuric acid or sulphate, then BaCl2 precipitates BaSO4. Because one mole BaSO4 contains one mole sulphur, the sulphur mass is 32/233 of the precipitate mass, using the school molar masses in g mol⁻¹.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Teacher-created data: a 0.100 g sample yields 0.233 g BaSO4. Sulphur mass = 0.233×32/233 = 0.0320 g. Percentage sulphur = 0.0320/0.100×100 = 32.0%. A precipitate heavier than the original sample is possible because barium and oxygen came from outside the sample.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "For an answer check, convert the reported percentage back into element mass and then predicted product mass. In the 48.0% carbon example, 0.500×0.480 = 0.240 g C; multiplying by 44/12 recovers 0.880 g CO2. This reverse calculation exposes misplaced factors."
+        }
+      ],
+      "transition": "Let us compare the shared logic and the method-specific limitations."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch8-unit7-page10",
+      "title": "Use composition, not a memorised shortcut",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_e1d56abbfe"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "Combustion counts C through CO2 and H through H2O. Dumas counts N2 after temperature, pressure and water-vapour corrections. Kjeldahl counts ammonia through net acid consumption, with method-specific limitations.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Carius halogen estimation uses the fraction X/AgX; sulphur uses S/BaSO4. Convert the product amount to element mass before dividing by sample mass. Preserve units, molar ratios and assumptions, and do not label an unmeasured remainder as oxygen without knowing the possible elements.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why is carbon mass only 12/44 of CO2 mass?",
+      "answer": "One mole CO2 weighs 44 g and contains 12 g carbon; its remaining mass is oxygen. The measured CO2 therefore needs a mass-fraction conversion.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_e1d56abbfe"
+      ]
+    },
+    {
+      "question": "Why subtract aqueous tension in Dumas estimation?",
+      "answer": "The measured pressure includes nitrogen and water vapour. Nitrogen’s dry pressure is the total minus water’s contribution.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_e1d56abbfe"
+      ]
+    },
+    {
+      "question": "How many moles NH3 consume 0.0030 mol H2SO4?",
+      "answer": "0.0060 mol NH3, because each H2SO4 supplies two acid equivalents while each NH3 accepts one proton.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_e1d56abbfe"
+      ]
+    },
+    {
+      "question": "Why can a silver halide precipitate weigh more than the sample’s halogen?",
+      "answer": "The precipitate includes silver from the reagent as well as the halogen being estimated.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_e1d56abbfe"
+      ]
+    },
+    {
+      "question": "Can the usual Kjeldahl method be used without checking the nitrogen functional group?",
+      "answer": "No. Nitro, azo and some ring nitrogens are not quantitatively converted to ammonium sulphate by the usual method.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_e1d56abbfe"
+      ]
+    },
+    {
+      "question": "Find %S if 0.200 g sample gives 0.233 g BaSO4.",
+      "answer": "S mass = 0.233×32/233 = 0.0320 g; %S = 0.0320/0.200×100 = 16.0%.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_e1d56abbfe"
+      ]
+    }
+  ],
+  "title": "Quantitative Estimation of Carbon, Hydrogen, Nitrogen, Halogens and Sulphur"
+}

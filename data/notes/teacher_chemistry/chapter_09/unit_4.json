@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_89ff9c631c",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch9-unit5-page01",
+      "title": "A double bond changes the possibilities",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_89ff9c631c"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "But-1-ene and but-2-ene share C4H8 but differ in double-bond position. But-2-ene has an additional spatial distinction because its double bond cannot rotate freely. To name, prepare and react with an alkene correctly, first establish exactly which structure is present.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "This unit develops alkene naming and isomerism, compares preparation routes and then explains elementary additions. Track the C=C location and the groups on each of its carbons rather than treating every compound with formula CₙH₂ₙ as the same molecule.",
+          "level": "essential"
+        }
+      ],
+      "transition": "A precise alkene name must first locate the double bond."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch9-unit5-page02",
+      "title": "Name the chain that contains the double bond",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_89ff9c631c"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Choose the appropriate longest parent chain containing C=C and number it to give the double bond the lowest possible locant in these simple examples. Use –ene and write the double bond’s starting position; substituents are then located on that numbered parent.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "CH2=C(CH3)CH2CH3 has a four-carbon parent containing C=C. Numbering starts at the terminal CH2, making the double bond position 1 and methyl position 2. The name is 2-methylbut-1-ene. Counting the branch as part of a longer chain that omits the double bond gives an unsuitable parent.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A symmetrical alkene presents equivalent double-bonded environments for the stated addition. An unsymmetrical alkene may give different connectivities depending on which carbon receives each part of the reagent.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "The same formula can allow both connectivity and spatial alternatives."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch9-unit5-page03",
+      "title": "Structural and geometrical alternatives",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_89ff9c631c"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "But-1-ene and but-2-ene are position isomers; 2-methylpropene has a different carbon skeleton. All have C4H8. In but-2-ene, each double-bonded carbon has H and CH3, allowing distinct arrangements with the methyl groups on the same or opposite sides.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Cis-but-2-ene has its two methyl groups on the same side; trans-but-2-ene has them on opposite sides. Geometrical isomerism requires two different groups on each carbon of the double bond. Ethene and propene fail that requirement because one double-bonded carbon bears two identical hydrogens.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Selective partial hydrogenation uses that spatial distinction in preparation."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch9-unit5-page04",
+      "title": "Partial hydrogenation: stop at the alkene",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_89ff9c631c"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "An alkyne can take up one H2 to give an alkene, but ordinary active metal catalysts may continue to the alkane. A deactivated palladium catalyst, Lindlar’s catalyst, helps stop at the alkene. Suitable internal alkynes give cis products in this partial hydrogenation.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "But-2-yne + H2 with Lindlar’s catalyst gives cis-but-2-ene. Sodium in liquid ammonia instead gives trans-but-2-ene in this example. Ethyne gives ethene, which has no cis/trans pair; do not assign stereochemical labels where the product lacks the required two different groups on each carbon.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Elimination provides another route that creates C=C from a single bond."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch9-unit5-page05",
+      "title": "Remove hydrogen halide to create C=C",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_89ff9c631c"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Dehydrohalogenation removes H and X from adjacent carbons of an alkyl halide. Heating with alcoholic KOH favours elimination in the elementary preparation scheme. The carbon bearing X is the α carbon; the neighbouring carbon losing H is the β carbon.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "CH3CH2Br + KOH(alcoholic, heat) → CH2=CH2 + KBr + H2O. Carbon count remains two while a C=C bond forms. The same substrate under aqueous conditions can favour substitution instead; the solvent and conditions should accompany the proposed preparation.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Different removable groups require different elimination-type preparations."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch9-unit5-page06",
+      "title": "Two more ways to remove groups",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_89ff9c631c"
+      ],
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "Vicinal dihalides have halogens on neighbouring carbons. Zinc can remove both: CH2BrCH2Br + Zn → CH2=CH2 + ZnBr2. Alcohol dehydration removes water: CH3CH2OH → CH2=CH2 + H2O with suitable acid and heating.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Dehalogenation removes two halogen atoms; dehydrohalogenation removes H and X; dehydration removes H and OH as water. Each can create a double bond but begins from a different functional arrangement. Naming the groups removed prevents confusion between the reagents needed.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The newly formed π system explains the characteristic addition reactions."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch9-unit5-page07",
+      "title": "Why the pi bond undergoes addition",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_89ff9c631c"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The exposed π electron cloud can interact with electrophiles. Addition uses the π bond while creating new σ bonds; the C–C σ framework remains. Physical properties are broadly hydrocarbon-like: low water solubility and increasing boiling points with increasing molecular size.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Hydrogenation: CH2=CH2 + H2 → CH3CH3 with a suitable metal catalyst. Halogen addition: CH2=CH2 + Br2 → BrCH2CH2Br in the stated addition conditions. The product is a vicinal dihalide because each original double-bonded carbon receives one bromine.",
+          "level": "essential"
+        }
+      ],
+      "transition": "An unsymmetrical double bond raises an orientation question."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch9-unit5-page08",
+      "title": "Unsymmetrical addition needs a direction rule",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_89ff9c631c"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "For ordinary ionic addition of HX to a simple unsymmetrical alkene, Markovnikov’s rule places H on the double-bonded carbon already bearing more hydrogens, and X mainly on the other carbon. It describes the major product under appropriate conditions, not every possible reaction of an alkene.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Propene, CH3CH=CH2, has one H on the middle carbon and two on the terminal carbon. Ordinary HBr addition therefore gives mainly CH3CHBrCH3, 2-bromopropane. Hydrogen adds to the terminal carbon, while bromine appears at the middle carbon.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Carbocation stability supplies a reason for the Markovnikov product pattern."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch9-unit5-page09",
+      "title": "Explain the rule through the intermediate",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_89ff9c631c"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Proton addition to propene can form a secondary carbocation at the middle carbon or a primary carbocation at the end. The secondary intermediate is more stable in this simple comparison, so its pathway is favoured. Br⁻ then bonds at the positively charged middle carbon.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "The reagent’s negative part does not choose a carbon by counting hydrogens independently of a mechanism. The stability of the intermediate explains the pattern. Radical conditions with peroxides can change HBr addition; specify ordinary ionic conditions when applying the rule here.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "For geometrical isomerism, test each C=C carbon independently. In CHCl=CHCl, each has H and Cl, so two relative arrangements are possible. In CH2=CCl2, one carbon has H/H and the other Cl/Cl, so the required distinction fails even though two chlorine atoms are present."
+        }
+      ],
+      "transition": "We can now choose structures, preparation routes and addition products consistently."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch9-unit5-page10",
+      "title": "Identify the structure before choosing the route",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_89ff9c631c"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "Locate C=C in the name, distinguish structural from geometrical isomerism and check the two-different-groups condition. Lindlar partial hydrogenation and dissolving-metal reduction can give different spatial products for suitable internal alkynes.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Elimination, dehalogenation and dehydration create C=C from different starting groups. Additions consume π bonding, and Markovnikov orientation for ordinary HX addition follows the favoured carbocation pathway. Conditions and electron reasoning make the product prediction meaningful.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why does propene not show cis/trans isomerism?",
+      "answer": "Its terminal double-bonded carbon carries two identical H atoms, so the necessary two-different-groups condition fails.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_89ff9c631c"
+      ]
+    },
+    {
+      "question": "Name CH2=C(CH3)CH2CH3.",
+      "answer": "2-Methylbut-1-ene: a four-carbon parent containing the double bond, numbered from the C=C end.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_89ff9c631c"
+      ]
+    },
+    {
+      "question": "Which preparation can give cis-but-2-ene from but-2-yne?",
+      "answer": "Partial hydrogenation with H2 and Lindlar’s catalyst.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_89ff9c631c"
+      ]
+    },
+    {
+      "question": "Distinguish dehalogenation from dehydrohalogenation.",
+      "answer": "Dehalogenation removes two halogens, commonly from adjacent carbons; dehydrohalogenation removes H and a halogen from adjacent carbons.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_89ff9c631c"
+      ]
+    },
+    {
+      "question": "Why is 2-bromopropane the major ordinary HBr-addition product of propene?",
+      "answer": "Proton addition that forms the more stable secondary carbocation is favoured, and Br⁻ then attaches at that carbon.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_89ff9c631c"
+      ]
+    },
+    {
+      "question": "Does aqueous KOH always play the same role as alcoholic KOH?",
+      "answer": "No. Conditions affect reaction pathways; aqueous conditions commonly favour substitution in simple examples, while heated alcoholic base favours elimination.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_89ff9c631c"
+      ]
+    }
+  ],
+  "title": "Alkene Isomerism, Preparation and Electrophilic Addition"
+}

@@ -1,0 +1,343 @@
+{
+  "unit_id": "chem11_u02_lu07_orbital_energies_and_electronic_configuration",
+  "title": "Orbital Energies and Electronic Configuration",
+  "pages": [
+    {
+      "title": "How do many electrons share an atom?",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "An atom can contain many electrons, but they cannot all occupy the same lowest state. We need rules combining orbital energies with restrictions on electron states.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "An electronic configuration records occupation, such as 1s²2s²2p⁶. Superscripts count electrons; they are not orbital charges.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": "In 1s², the 1 is n, s identifies l=0, and the superscript 2 is the electron count in that subshell. Writing 1s² does not locate two electrons at fixed points; it specifies occupied quantum states."
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch2_unit6_page1",
+      "source_section_ids": [
+        "2.6.4",
+        "2.6.5"
+      ],
+      "transition": "Read the configuration notation before using it to distribute electrons."
+    },
+    {
+      "title": "Compare hydrogen and multi-electron energies",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Hydrogen-like orbitals with the same n have equal energy in the basic model. In multi-electron atoms, electron repulsion and shielding make energy depend on n and l.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Shielding means inner electrons reduce nuclear attraction experienced by outer ones. Penetration describes how effectively orbital density reaches near the nucleus. For one shell, s penetrates more than p, then d and f.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": "Penetration and shielding work together. An s electron samples regions closer to the nucleus more effectively than a p electron of the same shell, so it can experience greater effective attraction and lower energy. This explains why multi-electron 2s and 2p orbitals need not be degenerate."
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch2_unit6_page2",
+      "source_section_ids": [
+        "2.6.3"
+      ],
+      "transition": "Orbital-energy differences tell us where filling begins."
+    },
+    {
+      "title": "Use the energy-order guide",
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "The Aufbau principle fills available lower-energy orbitals first. The n+l rule places smaller n+l first; on a tie, smaller n first. It gives 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p,… .",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For 4s, n+l=4; for 3d, n+l=5, so 4s starts first in the simple filling order. Energies change with occupation; this is a ground-state guide, not one fixed ladder for every atom and ion.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "Compare 3d and 4p: both have n+l=5, so the smaller n wins and 3d fills before 4p in the simple rule. Compare 4p and 5s: both have n+l=5, so 4p precedes 5s. These ties show why n+l alone is not the complete ordering rule."
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch2_unit6_page3",
+      "source_section_ids": [
+        "2.6.3",
+        "2.6.4"
+      ],
+      "transition": "The energy guide must be combined with restrictions on allowed states."
+    },
+    {
+      "title": "Apply Pauli’s exclusion principle",
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "No two electrons in an atom can share all four quantum numbers. A single orbital therefore accommodates at most two electrons, and their spins must be opposite.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "An orbital box may contain↑↓, never↑↑. This limits s, p, d, f subshells to 2, 6, 10, 14 electrons respectively because they contain 1, 3, 5, 7 orbitals.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "foundation",
+          "text": "A p subshell has three orbitals, each holding at most two electrons, so its capacity is 3×2=6. A d subshell has five, so its capacity is 10. Occupation notation such as 2p⁷ violates capacity before any detailed energy calculation is attempted."
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch2_unit6_page4",
+      "source_section_ids": [
+        "2.6.4"
+      ],
+      "transition": "Within equal-energy orbitals, decide whether electrons should pair."
+    },
+    {
+      "title": "Apply Hund’s rule before pairing",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Within degenerate orbitals, electrons occupy different orbitals singly with parallel spins before pairing. Degenerate means equal in energy, such as the three p orbitals of a free atom.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Nitrogen’s 2p³ arrangement is↑,↑,↑ across three boxes, not↑↓,↑, empty. Hund’s rule avoids premature pairing and describes the lower-energy ground-state arrangement.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "For carbon, Z=6 gives 1s²2s²2p². Put the two p electrons in different p orbitals with parallel spins:↑,↑, empty. Pairing them in one box would obey the two-electron limit but violate the ground-state Hund arrangement. Pauli and Hund answer different checks."
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch2_unit6_page5",
+      "source_section_ids": [
+        "2.6.4"
+      ],
+      "transition": "Use all three rules on a concrete atom."
+    },
+    {
+      "title": "Build oxygen’s configuration",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Oxygen has Z=8, so a neutral atom has eight electrons. Fill 1s², then 2s², leaving four electrons in 2p: 1s²2s²2p⁴. The superscripts total 2+2+4=8.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Place three 2p electrons separately, then pair the fourth with opposite spin in one box. Two electrons remain unpaired. Counting the electrons checks the configuration; applying Hund checks the arrangement.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "For nitrogen, 1s²2s²2p³ gives three unpaired electrons. Adding one electron to obtain oxygen produces 2p⁴ and two unpaired electrons; continuing to fluorine 2p⁵ leaves one, and neon 2p⁶ leaves zero. The sequence follows separate occupation before pairing."
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch2_unit6_page6",
+      "source_section_ids": [
+        "2.6.5"
+      ],
+      "transition": "A noble-gas core makes longer configurations easier to check."
+    },
+    {
+      "title": "Use a noble-gas core correctly",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Sodium’s eleven-electron configuration is 1s²2s²2p⁶3s¹. Its first ten electrons match neon, so write[Ne]3s¹. Chlorine’s seventeen electrons give[Ne]3s²3p⁵.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The bracket represents an entire filled inner configuration, not one electron. Add core electrons to the written outer superscripts when checking total electron count.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "For Z=20, fill to argon’s eighteen-electron core, then 4s²: calcium is[Ar]4s². The full superscript sum is 20. The highest occupied shell is n=4 even though a 3d subshell also exists as an allowed set of orbitals; existence does not mean occupation."
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch2_unit6_page7",
+      "source_section_ids": [
+        "2.6.5"
+      ],
+      "transition": "Compare the simple filling prediction with observed near-degenerate exceptions."
+    },
+    {
+      "title": "Recognise chromium and copper exceptions",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Chromium’s observed ground state is[Ar]3d⁵4s¹ rather than the naive[Ar]3d⁴4s². Copper is[Ar]3d¹⁰4s¹ rather than[Ar]3d⁹4s².",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The competing energies are close. Half-filled and filled subshells gain stabilisation associated with symmetric distribution and exchange effects. Actual total energy, not a blindly followed diagram, selects the ground state.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "Count chromium explicitly: argon contributes 18, 3d⁵ contributes 5 and 4s¹ contributes 1, totalling 24. Copper similarly gives 18+10+1=29. The exception changes distribution between close-energy subshells, not the required total number of electrons."
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch2_unit6_page8",
+      "source_section_ids": [
+        "2.6.5",
+        "2.6.6"
+      ],
+      "transition": "Explain why certain occupations gain additional stabilisation."
+    },
+    {
+      "title": "Explain subshell stability carefully",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Exchange stabilisation is associated with parallel-spin electrons in degenerate orbitals. More possible exchanges contribute to the stability of particular occupations, alongside other electron interactions.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "In 3d⁵, five d orbitals are singly occupied with parallel spins; in 3d¹⁰ they are filled. Do not predict electron promotion for every possible half-filled subshell: the complete energy balance decides.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "For five parallel-spin electrons in five d orbitals, there are 5×4/2=10 distinct pairs that can exchange in the elementary counting argument. This illustrates the many possible exchange relationships in a half-filled set; it does not by itself calculate the total atomic energy."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": "Do not confuse a half-filled shell with a half-filled subshell. Nitrogen has half-filled 2p³, but its n=2 shell also contains 2s². Chromium’s half-filled 3d⁵ likewise refers to the d subshell rather than all orbitals with n=3."
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch2_unit6_page9",
+      "source_section_ids": [
+        "2.6.6"
+      ],
+      "transition": "Finish by checking electron count, energy order and spin occupation together."
+    },
+    {
+      "title": "Check occupation, spin and count",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Use the energy-order guide, Pauli’s two-electron restriction and Hund’s single-occupation rule together. Check electron total before interpreting the configuration.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Observed exceptions show why total energy matters. The resulting repeated valence-electron patterns will explain chemical families in the next chapter.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch2_unit6_page10",
+      "source_section_ids": [
+        "2.6.3",
+        "2.6.4",
+        "2.6.5",
+        "2.6.6"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why can one orbital hold at most two electrons?",
+      "answer": "Pauli forbids identical sets of four quantum numbers; the pair must differ in spin.",
+      "source_section_ids": [
+        "2.6.3",
+        "2.6.4",
+        "2.6.5",
+        "2.6.6"
+      ]
+    },
+    {
+      "question": "How do three p electrons occupy degenerate orbitals?",
+      "answer": "Singly in separate orbitals with parallel spins before pairing.",
+      "source_section_ids": [
+        "2.6.3",
+        "2.6.4",
+        "2.6.5",
+        "2.6.6"
+      ]
+    },
+    {
+      "question": "Write magnesium’s configuration, Z=12.",
+      "answer": "[Ne]3s², with ten core electrons and two valence electrons.",
+      "source_section_ids": [
+        "2.6.3",
+        "2.6.4",
+        "2.6.5",
+        "2.6.6"
+      ]
+    },
+    {
+      "question": "Which fills first by n+l: 4s or 3d?",
+      "answer": "4s has n+l=4, while 3d has 5; the simple filling order begins 4s first.",
+      "source_section_ids": [
+        "2.6.3",
+        "2.6.4",
+        "2.6.5",
+        "2.6.6"
+      ]
+    },
+    {
+      "question": "How many unpaired electrons has oxygen?",
+      "answer": "Two, from the Hund arrangement of 2p⁴.",
+      "source_section_ids": [
+        "2.6.3",
+        "2.6.4",
+        "2.6.5",
+        "2.6.6"
+      ]
+    },
+    {
+      "question": "What is chromium’s observed configuration?",
+      "answer": "[Ar]3d⁵4s¹ rather than the naive 3d⁴4s² occupation.",
+      "source_section_ids": [
+        "2.6.3",
+        "2.6.4",
+        "2.6.5",
+        "2.6.6"
+      ]
+    },
+    {
+      "question": "Does[Ne] stand for one electron?",
+      "answer": "No. It denotes neon’s filled ten-electron core.",
+      "source_section_ids": [
+        "2.6.3",
+        "2.6.4",
+        "2.6.5",
+        "2.6.6"
+      ]
+    }
+  ]
+}

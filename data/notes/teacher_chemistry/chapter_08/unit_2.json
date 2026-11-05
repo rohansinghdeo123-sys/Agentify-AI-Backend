@@ -1,0 +1,263 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f5450796d4",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch8-unit3-page01",
+      "title": "Same ingredients, different arrangements",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f5450796d4"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Two houses can use the same number of bricks yet have different plans. Similarly, a molecular formula fixes atom counts but may allow several arrangements. We need both naming rules and the idea of isomerism to tell these compounds apart.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "This unit connects substituted benzene names with structural alternatives and then asks what happens when a bond breaks. Keep these questions separate: naming identifies a structure, isomerism compares structures, and bond fission describes a chemical event.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Benzene substitution gives a clear first example of why positions matter."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch8-unit3-page02",
+      "title": "Finding positions around benzene",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f5450796d4"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A single substituent on benzene needs no position number: chlorobenzene is unambiguous because the six ring positions are equivalent before substitution. With two substituents, their relative positions matter. Number the ring to obtain the lowest appropriate locants.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "For two substituents, ortho (o-) means 1,2; meta (m-) means 1,3; para (p-) means 1,4. Thus 1,3-dibromobenzene is m-dibromobenzene. The prefixes describe relative positions, not a new kind of bond or a difference in bromine atoms.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A tertiary carbocation has three carbon groups directly attached to the positive carbon, a secondary one two, and a primary one one. The total size of the molecule alone does not give the class.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "We can now use those positions to construct unambiguous ring names."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch8-unit3-page03",
+      "title": "Choosing a name for a substituted ring",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f5450796d4"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Put two methyl groups next to each other on benzene. Starting at one substituted carbon as 1 makes the other 2; the compound is 1,2-dimethylbenzene, also called o-xylene. Across the ring gives 1,4-dimethylbenzene, or p-xylene. These drawings have the same formula but different connections.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "When benzene acts as a substituent on a selected parent chain, C6H5– is phenyl. Do not confuse phenyl, which has the point of attachment on the ring, with benzyl, C6H5CH2–, whose attachment is through an extra CH2 group.",
+          "level": "essential"
+        }
+      ],
+      "transition": "These different arrangements lead naturally to the definition of isomers."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch8-unit3-page04",
+      "title": "Isomers: count atoms, then compare connections",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f5450796d4"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Isomers are distinct compounds with the same molecular formula but different arrangements of atoms. Structural isomers differ in connectivity. Stereoisomers have the same connectivity but differ in spatial arrangement; they are not obtained merely by turning a drawing on the page.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "Pentane, 2-methylbutane and 2,2-dimethylpropane are chain isomers, all C5H12. The first has an unbranched skeleton; the other two have different branching. Count all carbon and hydrogen atoms in each before comparing the shapes of their drawings.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Not all structural differences are changes in the carbon skeleton."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch8-unit3-page05",
+      "title": "Moving a group or changing its identity",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f5450796d4"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Propan-1-ol and propan-2-ol both contain –OH and have formula C3H8O, but its location differs: position isomerism. Propanal, CH3CH2CHO, and propanone, CH3COCH3, both have formula C3H6O but different functional groups: functional isomerism.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Metamerism describes different alkyl groups on either side of a polyvalent functional group. Ethoxyethane and 1-methoxypropane are ethers with formula C4H10O but different carbon distributions around oxygen. A different written direction of the same chain does not make another isomer.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Having identified structures, we can ask how their bonds break."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch8-unit3-page06",
+      "title": "What happens to the shared electrons?",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f5450796d4"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A covalent bond contains a shared electron pair. When it breaks, follow those two electrons. In heterolytic fission, one fragment takes both electrons. In homolytic fission, each fragment takes one. Electron accounting explains the charge and reactivity of the products.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Heterolytic illustration: CH3–Br → CH3⁺ + Br⁻, with the shared pair going to bromine. Homolytic illustration: CH3–Br → CH3• + Br•, with one electron going to each fragment. These equations illustrate possible cleavage patterns, not competing predictions without specified conditions.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Following the electron pair tells us which carbon intermediates form."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch8-unit3-page07",
+      "title": "Positive carbon and negative carbon",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f5450796d4"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "A carbocation has a positively charged carbon; a simple alkyl carbocation has three bonds and an incomplete octet. It is usually trigonal planar with an empty p orbital. A carbanion has a negatively charged carbon with a lone pair; simple alkyl carbanions are commonly pyramidal.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "CH3⁺ has six electrons around its carbon, while CH3⁻ has three bonds and a lone pair. Both are highly reactive intermediates, species formed during a reaction rather than necessarily isolated final products. A charge is therefore important structural information, not optional decoration.",
+          "level": "essential"
+        }
+      ],
+      "transition": "A different division of the electrons produces radicals instead of ions."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch8-unit3-page08",
+      "title": "Radicals and electron-flow symbols",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f5450796d4"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "A free radical contains an unpaired electron, written as a dot, for example CH3•. A radical can be neutral; being reactive does not require a charge. Homolysis is commonly associated with heat or light and suitable non-polar conditions.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A full curved arrow represents movement of an electron pair and starts at a bond or lone pair. A single-headed, fish-hook arrow follows one electron. Arrows describe electrons, so they must not be drawn from a positive charge as though the charge itself were donated.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Electron deficiency also makes some simple carbon intermediates more stable than others."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch8-unit3-page09",
+      "title": "Comparing simple intermediates carefully",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f5450796d4"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "For simple alkyl carbocations, greater alkyl substitution generally increases stability: tertiary > secondary > primary > methyl. Alkyl groups help disperse electron deficiency through inductive donation and hyperconjugation. A tertiary carbon has three carbon groups attached; count these at the charged carbon.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Resonance contributors are not structural isomers: only electrons are rearranged while the nuclear framework stays fixed, and the actual species is a hybrid. Do not assume the alkyl-carbocation order applies unchanged to every radical, carbanion or resonance-stabilised ion.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "A useful comparison is C2H6O: CH3CH2OH and CH3OCH3 are different functional isomers, but two rotated drawings of CH3CH2OH are still the same connectivity. Formula equality is necessary for isomerism; a genuine difference in arrangement must also be established."
+        }
+      ],
+      "transition": "We can now separate naming, isomer comparison and electron accounting clearly."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch8-unit3-page10",
+      "title": "Identify, compare and account for electrons",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f5450796d4"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "Use o-/m-/p- only for the relative positions of two ring substituents. To establish isomerism, verify the same molecular formula and a genuinely different arrangement; recognise chain, position, functional and metameric structural differences.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Heterolysis allocates a pair to one fragment and gives ions; homolysis divides the pair and gives radicals. Preserve charges and radical dots when writing products. The bond-breaking description and reaction conditions together help explain the path of an organic reaction.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "Are 1,2- and 1,6-dibromobenzene different compounds?",
+      "answer": "No. Renumbering the same adjacent arrangement gives the preferred 1,2 locants; both describe the ortho compound.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f5450796d4"
+      ]
+    },
+    {
+      "question": "Which kind of isomerism relates propan-1-ol and propan-2-ol?",
+      "answer": "Position isomerism: the carbon skeleton and alcohol functional group remain, but –OH occupies a different position.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f5450796d4"
+      ]
+    },
+    {
+      "question": "How does CH3⁺ differ electronically from CH3•?",
+      "answer": "CH3⁺ is a positively charged carbocation with six electrons around carbon; CH3• is a neutral radical with an unpaired electron.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f5450796d4"
+      ]
+    },
+    {
+      "question": "Why do resonance contributors not count as isomers?",
+      "answer": "They differ only in electron placement, not the positions or connections of nuclei; they represent one actual delocalised species.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f5450796d4"
+      ]
+    },
+    {
+      "question": "What products arise when each fragment takes one electron from R–Br?",
+      "answer": "R• and Br• form by homolytic fission. The dots show the separate unpaired electrons.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f5450796d4"
+      ]
+    }
+  ],
+  "title": "Benzene Nomenclature, Isomerism and Bond Fission"
+}

@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b5d42bc694",
+  "pages": [
+    {
+      "title": "A nearly insoluble solid still exchanges ions",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Silver chloride appears insoluble, but a small amount dissolves. In a saturated solution touching solid AgCl, ions leave and return to the crystal continuously. A small equilibrium concentration is different from exactly zero dissolution."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " The solubility product K(sp) is the equilibrium constant for dissolution of a sparingly soluble ionic solid into its ions under specified conditions."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b5d42bc694"
+      ],
+      "transition": "Write the dissolution equation before writing its product.",
+      "id": "chem11-ch06-u09-p01",
+      "page_number": 1
+    },
+    {
+      "title": "Stoichiometry determines the concentration powers",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " AgCl(s) ⇌ Ag⁺(aq) + Cl⁻(aq), so K(sp) = [Ag⁺][Cl⁻] in the dilute concentration convention. The pure solid is omitted. For CaF₂(s) ⇌ Ca²⁺ + 2F⁻, K(sp) = [Ca²⁺][F⁻]²."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " The coefficient 2 becomes an exponent in K(sp) and a factor in ion concentrations. Missing either use leads to an incorrect solubility."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " Molar solubility s is the number of moles of solid that dissolve per litre of saturated solution."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b5d42bc694"
+      ],
+      "transition": "Start with the simplest one-to-one ion stoichiometry.",
+      "id": "chem11-ch06-u09-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Worked solubility of a one-to-one salt",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created rounded data: K(sp)(AgCl) = 1.8 × 10⁻¹⁰ at the stated temperature. In pure water, [Ag⁺] = [Cl⁻] = s. Therefore s² = K(sp), giving s = √(1.8 × 10⁻¹⁰) = 1.34 × 10⁻⁵ mol L⁻¹."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " One mole of dissolved AgCl supplies one mole of each ion. The square root follows this stoichiometry; it is not a universal rule for all salts."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b5d42bc694"
+      ],
+      "transition": "A one-to-two salt changes both the factor and the power.",
+      "id": "chem11-ch06-u09-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Worked solubility of a one-to-two salt",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created rounded data: K(sp)(CaF₂) = 4.0 × 10⁻¹¹. Let molar solubility be s. Then [Ca²⁺] = s and [F⁻] = 2s. K(sp) = s(2s)² = 4s³. Thus s = (4.0 × 10⁻¹¹/4)^(1/3) = 2.15 × 10⁻⁴ mol L⁻¹. [F⁻] = 4.30 × 10⁻⁴ M."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Solubility and ion concentration are not always equal. A single formula unit can produce multiple ions of one type."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b5d42bc694"
+      ],
+      "transition": "An added common ion changes the saturated composition.",
+      "id": "chem11-ch06-u09-p04",
+      "page_number": 4
+    },
+    {
+      "title": "A common ion lowers solubility",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Adding chloride to AgCl equilibrium increases the dissolution product ratio, favouring return of ions to the solid. At fixed temperature K(sp) stays constant, but equilibrium silver concentration becomes smaller."
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created example: K(sp) = 1.8 × 10⁻¹⁰ and added chloride is 0.010 M. If s ≪ 0.010, s(0.010 + s) ≈ 0.010s. Hence s ≈ 1.8 × 10⁻⁸ M, much smaller than in pure water. The result checks the approximation."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b5d42bc694"
+      ],
+      "transition": "The same product ratio predicts whether a mixed solution precipitates.",
+      "id": "chem11-ch06-u09-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Compare ionic product with K(sp)",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Q(sp) uses current ion concentrations in the same expression as K(sp). If Q(sp) > K(sp), precipitation is favoured. If Q(sp) < K(sp), the solution is unsaturated and further solid can dissolve if present. Equality describes saturation."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " A solution with no visible solid may still be supersaturated temporarily because forming a crystal can be slow. The criterion predicts thermodynamic tendency rather than the exact time precipitation becomes visible."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b5d42bc694"
+      ],
+      "transition": "Mixing dilutes each ion before the precipitation test.",
+      "id": "chem11-ch06-u09-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Worked precipitation after mixing",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created example: mix 50.0 mL of 0.010 M AgNO₃ and 50.0 mL of 0.010 M NaCl. Before precipitation, total volume is 100.0 mL. [Ag⁺] = [Cl⁻] = 0.010 × 50.0/100.0 = 0.0050 M. Q(sp) = (0.0050)² = 2.5 × 10⁻⁵. This greatly exceeds K(sp) = 1.8 × 10⁻¹⁰, so AgCl precipitates."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The quotient is evaluated immediately after mixing and before reaction adjustment. Using the original stock concentrations would ignore the dilution, even though precipitation is still predicted in this example."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b5d42bc694"
+      ],
+      "transition": "A second reaction that removes an ion can instead increase dissolution.",
+      "id": "chem11-ch06-u09-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Acid can increase some salts’ solubility",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " For a carbonate solid, dissolved CO₃²⁻ can accept H⁺ to become HCO₃⁻ and then carbonic-acid-derived species. Removing free carbonate lowers the dissolution quotient, encouraging more solid to dissolve."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Acid does not universally increase every salt’s solubility. The effect depends on whether the relevant anion is protonated appreciably and on any other equilibria. Chloride, the conjugate base of a strong acid, is not appreciably removed by ordinary protonation in water."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b5d42bc694"
+      ],
+      "transition": "Use these examples to connect the chapter’s equilibrium tools.",
+      "id": "chem11-ch06-u09-p08",
+      "page_number": 8
+    },
+    {
+      "title": "One quotient idea links the chapter",
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Molecular equilibrium, acid ionisation, salt hydrolysis and precipitation all compare a current ratio with a temperature-dependent constant. A disturbance changes the composition; the system responds until the appropriate equilibria and charge balance are satisfied."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Acids donate protons, Lewis bases donate electron pairs, buffers consume small additions through conjugate partners, and common ions suppress suitable dissociation equilibria. Each application uses the same equilibrium logic with a different reaction equation."
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": " Comparing raw K(sp) values alone does not always rank solubilities if salts have different dissolution stoichiometries. Convert each to s under the same conditions."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b5d42bc694"
+      ],
+      "transition": "Revise stoichiometry and mixing before solving independently.",
+      "id": "chem11-ch06-u09-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: small solubility still has exact bookkeeping",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Write the dissolution equation, omit the pure solid, and raise each ion concentration to its coefficient. Relate ion concentrations to molar solubility through those same coefficients."
+        },
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Q(sp) > K(sp) favours precipitation; Q(sp) < K(sp) is unsaturated. Include dilution on mixing and any common ion. pH can alter solubility when it changes free-ion concentration through an additional acid–base equilibrium."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b5d42bc694"
+      ],
+      "transition": "",
+      "id": "chem11-ch06-u09-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "For PbI₂(s) ⇌ Pb²⁺ + 2I⁻, express K(sp) in terms of pure-water solubility s.",
+      "answer": "K(sp) = [Pb²⁺][I⁻]² = s(2s)² = 4s³.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b5d42bc694"
+      ]
+    },
+    {
+      "question": "Why is the solid absent from K(sp)?",
+      "answer": "Its pure-phase activity is constant and incorporated into the equilibrium constant.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b5d42bc694"
+      ]
+    },
+    {
+      "question": "If Q(sp) is smaller than K(sp), is precipitation favoured?",
+      "answer": "No. The solution is unsaturated; dissolution is favoured if solid is available.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b5d42bc694"
+      ]
+    },
+    {
+      "question": "Why calculate concentrations after mixing before testing precipitation?",
+      "answer": "Each stock solution is diluted by the added volume, and Q(sp) uses the resulting current concentrations.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b5d42bc694"
+      ]
+    },
+    {
+      "question": "Does a common ion change K(sp) at fixed temperature?",
+      "answer": "No. It changes the equilibrium composition and often lowers solubility while K(sp) stays fixed.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b5d42bc694"
+      ]
+    },
+    {
+      "question": "Why can acid dissolve a carbonate more readily?",
+      "answer": "Protonation removes free carbonate from solution, lowering the dissolution quotient and favouring further dissolution.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b5d42bc694"
+      ]
+    }
+  ],
+  "title": "Solubility Products and Precipitation"
+}

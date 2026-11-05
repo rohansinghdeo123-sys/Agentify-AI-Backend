@@ -1,0 +1,290 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9f002a08c1",
+  "pages": [
+    {
+      "title": "Breaking bonds costs energy",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " A fuel releases energy when it burns, but breaking its original bonds is not what releases that energy. Separating bonded atoms requires energy. Energy is released when new bonds form in the products; the net balance can be negative."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Bond dissociation enthalpy is the enthalpy needed to break one mole of a specified bond in gaseous molecules into gaseous fragments. Both the bond and the molecular environment matter."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9f002a08c1"
+      ],
+      "transition": "Start with a molecule containing just one bond.",
+      "id": "chem11-ch05-u05-p01",
+      "page_number": 1
+    },
+    {
+      "title": "A diatomic molecule makes the meaning visible",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " H₂(g) → 2H(g) requires about 435.0 kJ per mole of H₂ under the stated reference conditions. One mole of H–H bonds is broken, producing two moles of gaseous H atoms. The reverse bond formation releases the same magnitude of energy."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Enthalpy of atomisation refers to the stated process producing gaseous atoms. Always write its equation: H₂ → 2H and ½H₂ → H differ by a factor of two. The numerical enthalpy must match the amount and equation used."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " A value per mole of bonds must not be confused with a value per mole of atoms produced. Writing the process avoids a hidden factor-of-two error."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9f002a08c1"
+      ],
+      "transition": "A molecule with several bonds needs a more careful average.",
+      "id": "chem11-ch05-u05-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Why mean bond enthalpies are averages",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " In CH₄, removing one H changes the remaining molecular fragment. Successive C–H bonds therefore need different dissociation enthalpies even though the original bonds were equivalent. A mean value summarises the complete atomisation."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " For CH₄(g) → C(g) + 4H(g), NCERT gives total atomisation enthalpy about 1665 kJ mol⁻¹. The mean C–H bond enthalpy is 1665/4 = 416.25 ≈ 416 kJ mol⁻¹. This is an average, not the exact energy of every individual cleavage."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " Gaseous fragments means isolated species in the gas phase. Additional phase changes are needed if a starting substance is liquid or solid."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9f002a08c1"
+      ],
+      "transition": "These averages let us estimate a gas-reaction enthalpy.",
+      "id": "chem11-ch05-u05-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Bonds broken minus bonds formed",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " An approximate gas-phase reaction enthalpy is ΔrH ≈ ΣD(bonds broken) − ΣD(bonds formed). D values are positive dissociation enthalpies. Breaking contributes positive energy; forming contributes negative energy."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Count each bond in the balanced reaction. Mean bond enthalpies vary with molecular environment, so this approach estimates rather than exactly reproduces a calculation from substance-specific formation enthalpies."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Do not subtract reactant formula masses or count molecules as though each has one bond. Bond types and bond numbers are required."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9f002a08c1"
+      ],
+      "transition": "Follow a complete bond-accounting calculation.",
+      "id": "chem11-ch05-u05-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Worked bond estimate for hydrogen chloride",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created calculation with supplied rounded bond enthalpies: H₂(g) + Cl₂(g) → 2HCl(g). Given D(H–H) = 436, D(Cl–Cl) = 242 and D(H–Cl) = 431 kJ mol⁻¹. Find ΔrH. Break one H–H and one Cl–Cl: 436 + 242 = 678 kJ. Form two H–Cl bonds: 2 × 431 = 862 kJ released. ΔrH ≈ 678 − 862 = −184 kJ per written reaction."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Bond formation releases more energy than bond breaking absorbs, giving an exothermic result. The coefficient 2 before HCl was essential in counting the two product bonds."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9f002a08c1"
+      ],
+      "transition": "An ionic crystal needs a different energy account because it is not a collection of isolated molecules.",
+      "id": "chem11-ch05-u05-p05",
+      "page_number": 5
+    },
+    {
+      "title": "An ionic lattice resists separation",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Lattice dissociation enthalpy is the enthalpy change when one mole of an ionic solid separates completely into gaseous ions. For NaCl(s) → Na⁺(g) + Cl⁻(g), it is positive because attractions are overcome."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " NCERT uses about +788 kJ mol⁻¹ for NaCl lattice dissociation. The reverse lattice formation Na⁺(g) + Cl⁻(g) → NaCl(s) has about −788 kJ mol⁻¹. Some sources call the formation value lattice enthalpy, so inspect the equation and sign."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Lattice dissociation is not dissolution in water. Gaseous ions and hydrated aqueous ions are different final states."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9f002a08c1"
+      ],
+      "transition": "Hess’s law can find this inaccessible gaseous-ion separation indirectly.",
+      "id": "chem11-ch05-u05-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Build the Born–Haber route",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " A Born–Haber cycle connects solid salt formation from its elements to gaseous atoms, gaseous ions and the ionic lattice. It applies Hess’s law: the sum along an indirect route equals the direct formation enthalpy."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " For NaCl, the steps are Na(s) → Na(g), ½Cl₂(g) → Cl(g), Na(g) → Na⁺(g) + e⁻, Cl(g) + e⁻ → Cl⁻(g), then Na⁺(g) + Cl⁻(g) → NaCl(s). The electron appears on opposite sides of two steps and cancels."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " Ionisation costs energy to remove an electron. Electron-gain enthalpy describes adding an electron to a gaseous atom; for chlorine that step releases energy."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9f002a08c1"
+      ],
+      "transition": "Put signed values around the cycle and solve for the unknown step.",
+      "id": "chem11-ch05-u05-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Worked Born–Haber energy balance",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created rounded dataset, in kJ mol⁻¹: Na sublimation +108, ½Cl₂ dissociation +121, Na ionisation +496, Cl electron gain −349, NaCl formation −411. Find lattice formation enthalpy L. Hess’s law gives −411 = 108 + 121 + 496 − 349 + L = 376 + L. Hence L = −787 kJ mol⁻¹. Lattice dissociation is the reverse, +787 kJ mol⁻¹."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The slight difference from a quoted +788 value reflects the supplied rounding. The method and sign convention are unchanged. State which lattice direction the answer describes."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9f002a08c1"
+      ],
+      "transition": "Use units and physical states to distinguish these related energy terms.",
+      "id": "chem11-ch05-u05-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Match each name to a physical process",
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Bond dissociation separates a specified gaseous bond. Atomisation produces gaseous atoms according to the written stoichiometry. Lattice dissociation produces gaseous ions from an ionic solid. These final states are chemically different."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Na(s) → Na(g) makes neutral atoms, whereas Na(g) → Na⁺(g) + e⁻ makes ions. Adding their enthalpies is meaningful; replacing one by the other is not. A sound cycle includes every change needed to reach the specified endpoint."
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": " A strong lattice does not alone determine aqueous solubility. Stabilisation of ions by water must also be included, which motivates the solution-enthalpy account."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9f002a08c1"
+      ],
+      "transition": "Revise the signs and counting rules before applying these energies to solutions.",
+      "id": "chem11-ch05-u05-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: write the process before its enthalpy",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Bond estimate: energy for bonds broken minus energy for bonds formed. Use balanced coefficients and recognise mean-bond values as approximations. One mole of diatomic molecules produces two moles of atoms on full dissociation."
+        },
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Lattice dissociation is positive; lattice formation is its negative. A Born–Haber cycle adds sublimation, atomisation, ionisation, electron gain and lattice formation to the salt formation enthalpy. Cancel identical intermediates and retain all signs."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9f002a08c1"
+      ],
+      "transition": "",
+      "id": "chem11-ch05-u05-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why does breaking a fuel bond not release energy?",
+      "answer": "Separating bonded atoms requires energy. Combustion releases energy overall because forming product bonds releases more energy than breaking reactant bonds absorbs.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9f002a08c1"
+      ]
+    },
+    {
+      "question": "What does the mean C–H value in methane represent?",
+      "answer": "The total enthalpy for CH₄(g) → C(g) + 4H(g) divided by four; it is not each successive cleavage energy.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9f002a08c1"
+      ]
+    },
+    {
+      "question": "Why must a bond estimate use the balanced equation?",
+      "answer": "Coefficients determine the numbers of reactant bonds broken and product bonds formed, so they determine the total energy account.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9f002a08c1"
+      ]
+    },
+    {
+      "question": "If lattice formation is −760 kJ mol⁻¹, what is lattice dissociation?",
+      "answer": "+760 kJ mol⁻¹ for the reverse process with the same states and amount.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9f002a08c1"
+      ]
+    },
+    {
+      "question": "Why does a Born–Haber cycle contain an electron-gain step?",
+      "answer": "It converts the neutral non-metal atom into the gaseous anion required before forming the ionic lattice.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9f002a08c1"
+      ]
+    },
+    {
+      "question": "Is NaCl(s) → Na⁺(aq) + Cl⁻(aq) lattice dissociation?",
+      "answer": "No. Lattice dissociation ends in gaseous ions. The aqueous process also includes hydration and is a dissolution process.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_9f002a08c1"
+      ]
+    }
+  ],
+  "title": "Bond Energies and the Born–Haber Cycle"
+}

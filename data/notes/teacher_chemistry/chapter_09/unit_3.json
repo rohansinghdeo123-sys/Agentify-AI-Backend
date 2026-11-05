@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_7a6bc9b36c",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch9-unit4-page01",
+      "title": "One carbon skeleton can follow several routes",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_7a6bc9b36c"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "A hydrocarbon can burn completely, be oxidised selectively, rearrange its skeleton or break into smaller fragments under different conditions. The starting formula alone does not identify the product. We must know the transformation and the conditions that favour it.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "After comparing these alkane reactions, we examine rotation about a single bond and then the structural change introduced by C=C. This connects chemical change, conformational change and the beginning of alkene chemistry without treating them as the same process.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Controlled oxidation shows why conditions belong with the product prediction."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch9-unit4-page02",
+      "title": "Controlled oxidation is different from burning",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_7a6bc9b36c"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Combustion takes carbon mainly to CO2 under sufficient oxygen. Controlled oxidation uses selected conditions and catalysts to stop at products such as alcohols or aldehydes. The reaction conditions are essential; simply exposing methane to air does not selectively produce methanol.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "NCERT’s methanol example is 2CH4 + O2 → 2CH3OH with a copper catalyst at about 523 K and high pressure. Both carbon atoms remain in methanol. The balanced formula states the intended overall conversion, while catalyst, temperature and pressure explain why it differs from ordinary combustion.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A dihedral angle describes the relative twist of bonds on neighbouring atoms when viewed along their connecting bond. It is different from the ordinary bond angle around one carbon.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "A skeleton can also rearrange or become aromatic instead of being oxidised."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch9-unit4-page03",
+      "title": "Isomerisation versus aromatisation",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_7a6bc9b36c"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Isomerisation changes the arrangement of atoms while preserving molecular formula; suitable AlCl3/HCl conditions can convert an unbranched alkane into branched isomers. Aromatisation involves cyclisation and loss of hydrogen to create an aromatic ring from an appropriate longer chain.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "An illustrative aromatisation is C6H14 → C6H6 + 4H2 under suitable heated metal-oxide catalytic conditions. Six carbon atoms remain, while eight hydrogens leave as four H2. This is not isomerisation because the hydrocarbon formula changes and hydrogen is produced.",
+          "level": "essential"
+        }
+      ],
+      "transition": "High temperature can split the skeleton rather than merely rearranging it."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch9-unit4-page04",
+      "title": "Cracking makes smaller molecules",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_7a6bc9b36c"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Pyrolysis, or cracking, breaks larger hydrocarbons into smaller molecules at high temperature, often with catalysts. Products commonly include smaller alkanes and alkenes; a practical cracking process usually gives a mixture rather than one uniquely determined product.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "The balanced illustrative split C12H26 → C7H16 + C5H10 conserves carbon and hydrogen. C5H10 can be an alkene product. Writing one possible balanced split demonstrates carbon accounting, but does not imply that real dodecane cracking yields only those two compounds.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Ordinary bond rotation changes shape without making those chemical changes."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch9-unit4-page05",
+      "title": "Rotation can change shape without breaking bonds",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_7a6bc9b36c"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Conformations are spatial arrangements interconverted by rotation around single bonds. In ethane, the C–C σ overlap is symmetrical about the internuclear axis, allowing rotation. The C–C connectivity, bond lengths and usual bond angles remain essentially the same.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "Hold one CH3 group fixed and turn the other around the C–C axis. You obtain a sequence of conformations of the same ethane molecule, not a new carbon skeleton. Rotation has an energy barrier, so “free rotation” is an approximation rather than a claim of zero energy cost.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Projections help us see the relative orientation during rotation."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch9-unit4-page06",
+      "title": "Look along the carbon–carbon bond",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_7a6bc9b36c"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "A Newman projection looks directly along C–C: the front carbon is represented by a point and the rear carbon by a circle. Three bonds extend from each carbon. A sawhorse projection views the bond obliquely, showing both carbons and their attached bonds.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "To compare two Newman drawings, identify which bonds belong to the front carbon before judging the relative angles. Changing the viewing direction can change the drawing without changing the conformation. A projection is a viewing convention, not a flat physical structure.",
+          "level": "essential"
+        }
+      ],
+      "transition": "We can now compare the two limiting ethane arrangements."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch9-unit4-page07",
+      "title": "Staggered and eclipsed ethane",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_7a6bc9b36c"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "In staggered ethane, rear C–H bonds lie between the front bonds when viewed along C–C; the dihedral angle is 60°. In eclipsed ethane, corresponding bonds line up, giving 0°. Intermediate positions are skew conformations.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "The staggered arrangement has lower energy than the eclipsed arrangement. NCERT describes increased torsional strain when neighbouring bonding electron clouds eclipse. The energy difference is about 12.5 kJ mol⁻¹, small enough for rapid interconversion at ordinary temperatures; individual ethane conformers are not isolated as stable bottles.",
+          "level": "essential"
+        }
+      ],
+      "transition": "A double bond changes both geometry and the possibility of rotation."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch9-unit4-page08",
+      "title": "A double bond introduces a different geometry",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_7a6bc9b36c"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "An open-chain hydrocarbon with one C=C bond and no other unsaturation has formula CₙH₂ₙ. Each double-bonded carbon is sp2 hybridised with approximately trigonal-planar directions. The C=C contains one σ bond and one π bond from sideways p-orbital overlap.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The π bond needs parallel p orbitals. Rotation that was possible about an alkane C–C bond would disrupt this overlap at C=C. This provides the structural reason for restricted rotation, rather than merely stating that a double line is “stronger”.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Naming an alkene fixes the position of that structurally important bond."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch9-unit4-page09",
+      "title": "Name and locate the alkene bond",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_7a6bc9b36c"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "CH3CH=CHCH3 has four carbons and a double bond beginning at carbon 2, so its name is but-2-ene. CH2=CHCH2CH3 is but-1-ene. Both have C4H8, but the multiple-bond position differs, making them position isomers.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "A C=C bond is shorter and stronger overall than C–C, yet the π part is more accessible to chemical attack. Addition can replace π bonding with new σ bonds. The greater total bond strength therefore does not imply that alkenes are less reactive than alkanes towards all reagents.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "A 60° twist of one methyl group in a Newman view changes eclipsed ethane into a staggered arrangement. The molecule has not lost a hydrogen, changed its formula or become a chain isomer. Use both the drawing and the unchanged connectivity as a check on the classification."
+        }
+      ],
+      "transition": "The distinctions between reaction, conformation and unsaturation are now ready to revise."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch9-unit4-page10",
+      "title": "Three kinds of change to keep separate",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_7a6bc9b36c"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "Controlled oxidation, isomerisation, aromatisation and cracking are chemical transformations with different carbon and hydrogen accounting. Conformational rotation changes spatial arrangement without changing connectivity. Always read conditions and check the balanced equation.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Ethane’s staggered form is lower in energy than its eclipsed form, but rotation is rapid. A C=C bond introduces sp2 geometry, a π bond and restricted rotation. The alkene name locates that bond so the intended structure can be reconstructed.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "Is C6H14 → C6H6 + 4H2 an isomerisation?",
+      "answer": "No. Isomerisation preserves molecular formula; this conversion loses hydrogen and forms an aromatic product.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_7a6bc9b36c"
+      ]
+    },
+    {
+      "question": "Why does one balanced cracking equation not predict a unique industrial product?",
+      "answer": "Cracking generally gives a mixture; several fragmentation and reaction pathways are possible under the stated process conditions.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_7a6bc9b36c"
+      ]
+    },
+    {
+      "question": "What differs between staggered and eclipsed ethane?",
+      "answer": "The relative orientation of C–H bonds around the C–C axis, not atom connectivity or molecular formula.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_7a6bc9b36c"
+      ]
+    },
+    {
+      "question": "Why can ethane rotate readily but ethene cannot rotate freely around C=C?",
+      "answer": "Ethane retains σ overlap during rotation. Ethene would disrupt the parallel p-orbital overlap required for its π bond.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_7a6bc9b36c"
+      ]
+    },
+    {
+      "question": "Name CH2=CHCH2CH3.",
+      "answer": "But-1-ene: a four-carbon parent with the double bond starting at carbon 1.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_7a6bc9b36c"
+      ]
+    },
+    {
+      "question": "Balance the illustrated conversion of methane to methanol.",
+      "answer": "2CH4 + O2 → 2CH3OH, with the specified controlled-oxidation conditions rather than ordinary burning.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_7a6bc9b36c"
+      ]
+    }
+  ],
+  "title": "Alkane Transformations, Conformations and the Alkene Bond"
+}

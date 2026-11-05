@@ -1,0 +1,333 @@
+{
+  "unit_id": "chem11_u02_lu06_quantum_numbers_and_orbitals",
+  "title": "Quantum Numbers and Atomic Orbitals",
+  "pages": [
+    {
+      "title": "Replace a track with a probability map",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Repeatedly prepare an electron in the same atomic state and measure its position. A pattern of possible outcomes emerges. Quantum mechanics describes that pattern rather than a tiny planet-like path.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "An atomic orbital is a one-electron wave function for an atom. It identifies an allowed state and supports predictions of where an electron may be found.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": "Each position measurement records one outcome. The orbital description predicts a pattern across many identically prepared measurements, not a tiny cloud of fractions of one electron. The total probability of finding the electron somewhere is 1."
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch2_unit5_page1",
+      "source_section_ids": [
+        "2.6"
+      ],
+      "transition": "Give the probability map a precise mathematical meaning."
+    },
+    {
+      "title": "Interpret the wave function",
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "The Schrödinger equation yields allowed wave functions ψ and energies. The quantity |ψ|² is position probability density. In a small volume, the probability is approximately |ψ|² multiplied by that volume.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A drawn orbital boundary encloses a chosen large fraction of the probability. It is not a hard wall; the electron is not confined inside a solid coloured lobe.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": "Probability density may be large at a point while the probability for an extremely small region remains small. A larger surrounding volume can contribute more total probability even with a smaller local density. This is why a density diagram and a radial probability graph answer different questions."
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch2_unit5_page2",
+      "source_section_ids": [
+        "2.6"
+      ],
+      "transition": "Label the allowed states systematically, beginning with the shell."
+    },
+    {
+      "title": "Let n identify the shell",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The principal quantum number n=1, 2, 3,… identifies a shell. Larger n generally means larger orbital size. For hydrogen-like atoms, the basic energy depends on n alone.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A shell contains n² orbitals and holds at most 2n² electrons. This maximum does not mean every atom fills an entire shell before another begins; relative orbital energies also matter.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "For n=4, allowed l values are 0, 1, 2, 3. The subshells therefore contain 1+3+5+7=16 orbitals, agreeing with n²=16. At most 2×16=32 electrons fit. Counting the subshells explains the formula instead of treating 2n² as an unexplained rule."
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch2_unit5_page3",
+      "source_section_ids": [
+        "2.6.1"
+      ],
+      "transition": "Within each shell, distinguish subshells and spatial states."
+    },
+    {
+      "title": "Use l and mₗ to distinguish orbitals",
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "For fixed n, the azimuthal quantum number l runs from 0 to n−1. Values 0, 1, 2, 3 label s, p, d, f subshells. Thus n=3 allows 3s, 3p, 3d but not 3f.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The magnetic quantum number mₗ runs from−l to+l in integer steps, producing 2l+1 orbitals: s, p, d, f contain 1, 3, 5, 7 orbitals respectively.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "For a 3d subshell, n=3, l=2. Its mₗ values are−2,−1, 0,+1,+2: five orbitals. Each supports two opposite-spin electrons, giving capacity 10. The five mₗ values label states; they are not five different principal shells."
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch2_unit5_page4",
+      "source_section_ids": [
+        "2.6.1"
+      ],
+      "transition": "Add spin without confusing it with orbital direction or electric charge."
+    },
+    {
+      "title": "Keep spin separate from spatial state",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The spin quantum number mₛ has values+1/2 or−1/2. Along with n, l and mₗ, it labels an electron state in the basic atomic description.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For p, l=1 and mₗ=−1, 0,+1 give three orbitals. Each supports two spin states, giving six electrons maximum. Spin is intrinsic; it is not literally a ball rotating around its axis.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "Two electrons in the same spatial orbital have the same n, l and spatial-state label. They can differ in mₛ, one+1/2 and one−1/2. Their spin labels are numbers in the state description, not positive and negative electric charges."
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch2_unit5_page5",
+      "source_section_ids": [
+        "2.6.1"
+      ],
+      "transition": "Use the labels to interpret the simplest orbital shape."
+    },
+    {
+      "title": "Understand spherical s orbitals",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "An s orbital has spherical symmetry: at a fixed distance from the nucleus, probability density is independent of direction. The 1s orbital has no node; 2s has a radial node.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A node is a region where the wave function and probability density are zero. An s orbital is a probability distribution, not a spherical shell along which the electron travels.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": "The 1s probability density is largest at the nucleus, but the probability at an exact mathematical point is not the same quantity as density. A radial probability includes the volume of a thin spherical shell. Distinguish these statements before interpreting a textbook graph."
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch2_unit5_page6",
+      "source_section_ids": [
+        "2.6.2"
+      ],
+      "transition": "Compare spherical distributions with directional p and d shapes."
+    },
+    {
+      "title": "Read p and d orbital drawings",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The conventional pₓ, pᵧ, p_z drawings show two lobes along three perpendicular directions. Each p orbital has a nodal plane through the nucleus. Opposite signs on lobes denote wave-function phase, not opposite electric charges.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Most d orbitals have four-lobed drawings; d_z² has two lobes and a ring-like region. All five belong to l=2 despite their different shapes.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": "The pₓ, pᵧ, p_z pictures are convenient spatial orientations in a degenerate p subshell. Degenerate means equal energy in the isolated atom before external-field effects. Different orientations do not mean that one p orbital is intrinsically a different kind of subshell."
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch2_unit5_page7",
+      "source_section_ids": [
+        "2.6.2"
+      ],
+      "transition": "Nodes give another way to compare states with similar shapes."
+    },
+    {
+      "title": "Count radial and angular nodes",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "For hydrogen-like orbitals, total nodes=n−1, angular nodes=l and radial nodes=n−l−1. A radial change and an angular change describe different features of the wave function.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For 3p, n=3 and l=1: total nodes=2, angular nodes=1, radial nodes=3−1−1=1. The angular node is a plane; the radial node is a spherical surface.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "For 4d, n=4 and l=2. Total nodes=3, angular nodes=2 and radial nodes=4−2−1=1. Compare 3d: total 2, angular 2, radial 0. The same d angular pattern can coexist with a different radial distribution in another shell."
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch2_unit5_page8",
+      "source_section_ids": [
+        "2.6.1",
+        "2.6.2"
+      ],
+      "transition": "Test the allowed labels through explicit examples."
+    },
+    {
+      "title": "Test a quantum-number set",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Is (n, l, mₗ)=(3, 2,−2) allowed? For n=3, l may be 0, 1, 2; for l=2, mₗ may be−2,−1, 0,+1,+2. Yes: it labels a 3d orbital.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The set(2, 2, 0) fails: n=2 allows only l=0 or 1. Check n first, then l, then mₗ, rather than memorising every possible combination.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "Consider(3, 1, 2,+1/2). Although n=3 and l=1 are allowed, mₗ=2 is not: a p subshell allows only−1, 0,+1. The set(3, 1, 0,+1) also fails because spin must be±1/2. Check all four restrictions independently."
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "Find the number of orbitals with n=3 and mₗ=0. The allowed subshells l=0, 1, 2 each contain one mₗ=0 state, so there are three such orbitals. A quantum-number restriction can select across several subshells rather than one whole shell."
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch2_unit5_page9",
+      "source_section_ids": [
+        "2.6.1"
+      ],
+      "transition": "Unify the vocabulary before using orbitals to fill many-electron atoms."
+    },
+    {
+      "title": "Build a consistent orbital vocabulary",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A shell fixes n; a subshell fixes n and l; an orbital specifies an allowed spatial state. Each orbital accommodates two opposite-spin electrons. Its wave function supplies probability predictions.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Orbit and orbital are different concepts. A probability boundary, a node and a phase all describe a quantum state; none represents a miniature electron track or a differently charged part of an electron.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch2_unit5_page10",
+      "source_section_ids": [
+        "2.6",
+        "2.6.1",
+        "2.6.2"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "How many orbitals are in the n=3 shell?",
+      "answer": "n²=9: one 3s, three 3p and five 3d.",
+      "source_section_ids": [
+        "2.6",
+        "2.6.1",
+        "2.6.2"
+      ]
+    },
+    {
+      "question": "Can 2d exist?",
+      "answer": "No. n=2 allows l=0 or 1, whereas d requires l=2.",
+      "source_section_ids": [
+        "2.6",
+        "2.6.1",
+        "2.6.2"
+      ]
+    },
+    {
+      "question": "How many electrons fit a d subshell?",
+      "answer": "Five orbitals times two gives ten electrons.",
+      "source_section_ids": [
+        "2.6",
+        "2.6.1",
+        "2.6.2"
+      ]
+    },
+    {
+      "question": "What do opposite signs on lobes indicate?",
+      "answer": "Wave-function phase, not positive and negative electric charges.",
+      "source_section_ids": [
+        "2.6",
+        "2.6.1",
+        "2.6.2"
+      ]
+    },
+    {
+      "question": "How many radial nodes has 3s?",
+      "answer": "n−l−1=3−0−1=2.",
+      "source_section_ids": [
+        "2.6",
+        "2.6.1",
+        "2.6.2"
+      ]
+    },
+    {
+      "question": "Is an orbital boundary a physical wall?",
+      "answer": "No. It encloses a chosen probability fraction; the wave function extends beyond it.",
+      "source_section_ids": [
+        "2.6",
+        "2.6.1",
+        "2.6.2"
+      ]
+    },
+    {
+      "question": "Is |ψ|² itself the probability at a point?",
+      "answer": "It is probability density. A region’s probability also depends on its volume.",
+      "source_section_ids": [
+        "2.6",
+        "2.6.1",
+        "2.6.2"
+      ]
+    }
+  ]
+}

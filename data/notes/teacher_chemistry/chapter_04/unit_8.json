@@ -1,0 +1,276 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_c4fb6dbc8c",
+  "title": "Hydrogen Bonding and Choosing a Bonding Model",
+  "pages": [
+    {
+      "title": "Why is water unusually hard to boil?",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Water molecules are small, yet separating them into vapour requires more energy than their size alone might suggest. Strong attractions between molecules contribute to this behaviour.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Hydrogen bonding is an additional attraction involving H attached to a strongly electronegative atom. It must be distinguished from the covalent O–H bonds inside a water molecule.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch4_unit8_page1",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_c4fb6dbc8c"
+      ],
+      "transition": "Identify the chemical groups that can supply and accept the interaction."
+    },
+    {
+      "title": "Identify the donor and accepting site",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "When H is covalently bonded to N, O or F, the bond is strongly polar. The partially positive H can attract an electron-rich site, commonly a lone pair on N, O or F.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The attached X–H group supplies the hydrogen-bond donor; the electron-rich atom supplies the accepting site. Simply having hydrogen somewhere in a molecule is insufficient.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "In a water pair, one molecule supplies an O–H hydrogen and the other supplies an oxygen lone-pair site. Either molecule can play either role in another interaction. This is why water can build an extended network rather than only one isolated pair."
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch4_unit8_page2",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_c4fb6dbc8c"
+      ],
+      "transition": "Draw the extra attraction differently from the covalent bond."
+    },
+    {
+      "title": "Represent a hydrogen bond distinctly",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "In O–H···O, the solid O–H line is a covalent bond and the dots mark the hydrogen-bond attraction to another oxygen. These interactions differ in strength and electronic description.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "In the common school examples, hydrogen bonds are weaker than ordinary covalent bonds but strong enough to affect physical properties substantially. Boiling water mainly separates molecules rather than splitting all O–H bonds.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch4_unit8_page3",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_c4fb6dbc8c"
+      ],
+      "transition": "First place donor and acceptor on different molecules."
+    },
+    {
+      "title": "Distinguish intermolecular bonding",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "An intermolecular hydrogen bond connects different molecules. Water molecules form a network because they possess both O–H donor groups and oxygen lone-pair accepting sites.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "HF also forms associated structures through hydrogen bonding. Additional intermolecular attraction helps explain elevated boiling temperatures compared with analogous substances lacking equally effective hydrogen bonds.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch4_unit8_page4",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_c4fb6dbc8c"
+      ],
+      "transition": "Then compare the same interaction within one molecular framework."
+    },
+    {
+      "title": "Distinguish intramolecular bonding",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "An intramolecular hydrogen bond forms between suitable groups within one molecule when geometry brings them close. The same donor and acceptor requirements apply, but the partners belong to one molecular framework.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The distinction concerns location, not a new covalent linkage. An internal interaction can compete with association between molecules, so structure matters when interpreting physical properties.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch4_unit8_page5",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_c4fb6dbc8c"
+      ],
+      "transition": "A network can change bulk packing as well as boiling behaviour."
+    },
+    {
+      "title": "Explain water’s open solid structure",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "In ice, hydrogen bonding supports an open arrangement in which water molecules are held in an organised network. The relatively open structure contributes to ice being less dense than liquid water.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Melting partly disrupts and rearranges this network, allowing closer packing. Do not explain floating ice by saying its molecules lose mass on freezing; the important change is arrangement and volume.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch4_unit8_page6",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_c4fb6dbc8c"
+      ],
+      "transition": "Separate intermolecular properties from the shape of one molecule."
+    },
+    {
+      "title": "Choose a model for a shape question",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "If asked why NH₃ is pyramidal while CH₄ is tetrahedral, count central electron domains and lone pairs using VSEPR. A valence-bond hybrid description then connects the directions with orbital overlap.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The water molecule’s bent shape arises from its internal bonding-domain arrangement. Hydrogen bonding between molecules influences association and properties; it is not the primary reason an isolated H₂O molecule is bent.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch4_unit8_page7",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_c4fb6dbc8c"
+      ],
+      "transition": "Use orbital overlap for a question about covalent-bond energy."
+    },
+    {
+      "title": "Choose a model for bond strength and symmetry",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Valence bond theory explains how suitable orbital overlap lowers energy and distinguishesσ fromπ components. Hybridisation describes directed combinations useful for common geometries.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For H₂, approaching atoms lower total energy until the equilibrium distance; closer approach raises repulsion. This is an energy question, different from asking whether separate molecules attract through hydrogen bonds.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch4_unit8_page8",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_c4fb6dbc8c"
+      ],
+      "transition": "Magnetism calls for a molecule-wide electron-occupation picture."
+    },
+    {
+      "title": "Choose a model for magnetism",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Molecular orbital theory fills states extending over the molecule. For O₂, two singly occupiedπ* orbitals explain paramagnetism; bond order 2 still indicates net bonding.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A Lewis diagram, a VSEPR geometry and an MO configuration are complementary models answering different questions. Reject the idea that one simple drawing must predict every molecular property.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "A proposed explanation says O₂ is magnetic because its molecules hydrogen-bond. Reject both parts: O₂ lacks an N–H, O–H or F–H donor, and its paramagnetism is explained by unpaired molecular-orbital electrons, not an intermolecular hydrogen-bond network."
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch4_unit8_page9",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_c4fb6dbc8c"
+      ],
+      "transition": "Choose the model by the observed property rather than using one diagram for everything."
+    },
+    {
+      "title": "Connect structure at two levels",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Covalent bonding describes how atoms form a molecule; hydrogen bonding describes a further attraction within or between suitable molecular groups. VSEPR predicts shape, VB explains overlap and MO explains molecule-wide occupation.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For an unfamiliar question, identify the observation first: connectivity, geometry, energy, magnetism or association. Then choose the model that addresses it and retain all atom, electron and charge counts.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch4_unit8_page10",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_c4fb6dbc8c"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "What is required for common hydrogen bonding?",
+      "answer": "A sufficiently polar N–H, O–H or F–H donor and a suitable electron-rich accepting site, with favourable geometry.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_c4fb6dbc8c"
+      ]
+    },
+    {
+      "question": "Does every hydrogen-containing molecule hydrogen-bond strongly?",
+      "answer": "No. C–H groups alone do not meet the usual school-level strong hydrogen-bonding requirement.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_c4fb6dbc8c"
+      ]
+    },
+    {
+      "question": "Does boiling water mainly break O–H covalent bonds?",
+      "answer": "No. It mainly overcomes intermolecular attractions while H₂O molecules remain intact.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_c4fb6dbc8c"
+      ]
+    },
+    {
+      "question": "How do intermolecular and intramolecular hydrogen bonds differ?",
+      "answer": "They join sites on different molecules or on the same molecule, respectively.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_c4fb6dbc8c"
+      ]
+    },
+    {
+      "question": "Why can ice float on water?",
+      "answer": "Its open hydrogen-bonded arrangement gives a lower density, not lower molecular mass.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_c4fb6dbc8c"
+      ]
+    },
+    {
+      "question": "Which model explains oxygen’s paramagnetism?",
+      "answer": "MO theory, through unpaired electrons inπ* orbitals.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_c4fb6dbc8c"
+      ]
+    },
+    {
+      "question": "Is hydrogen bonding the main reason isolated H₂O is bent?",
+      "answer": "No. The internal bonding-domain and lone-pair arrangement explains that shape.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_c4fb6dbc8c"
+      ]
+    }
+  ]
+}

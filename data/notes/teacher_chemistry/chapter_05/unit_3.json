@@ -1,0 +1,290 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_82caa0a312",
+  "pages": [
+    {
+      "title": "Measure an inaccessible reaction indirectly",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Some reactions do not occur cleanly enough to measure their heat directly. Carbon burning, for example, can give a mixture of oxides. Can we still find the energy change for producing one selected compound?"
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Because enthalpy depends on the initial and final states, we can combine known reactions whose intermediate substances cancel. The energy account does not require the imagined route to be the actual laboratory mechanism."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_82caa0a312"
+      ],
+      "transition": "A common reference makes energy values for different substances comparable.",
+      "id": "chem11-ch05-u04-p01",
+      "page_number": 1
+    },
+    {
+      "title": "Formation means one mole from elements",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Standard molar enthalpy of formation ΔfH° is the enthalpy change when one mole of a compound forms from its constituent elements in their reference states at the specified temperature and standard pressure, 1 bar."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " H₂(g) + ½O₂(g) → H₂O(l) is a formation equation for one mole of liquid water. H₂O(g) is a different product state and has a different formation enthalpy. Fractional coefficients are allowed in thermochemical equations."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Forming a substance from other compounds is not its formation enthalpy, even if exactly one mole of that substance appears."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_82caa0a312"
+      ],
+      "transition": "The reference state identifies which elemental form receives the zero value.",
+      "id": "chem11-ch05-u04-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Zero is a reference convention",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " An element in its reference state has ΔfH° = 0 by convention. At 298 K examples include H₂(g), O₂(g) and graphite C(s). This does not mean those substances contain no internal energy."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Carbon diamond and graphite are different forms. Graphite is the reference form under the usual conditions, so diamond does not receive a zero formation enthalpy merely because it is elemental carbon."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " A reference state is the chosen most stable form of the element under the stated reference conditions. It lets enthalpy differences be assembled consistently."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_82caa0a312"
+      ],
+      "transition": "Now add formation steps to build any balanced reaction.",
+      "id": "chem11-ch05-u04-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Products minus reactants, with coefficients",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " ΔrH° = ΣνΔfH°(products) − ΣνΔfH°(reactants). The symbol Σ means add all terms, and ν is the corresponding balanced coefficient. Each formation value is per mole of its substance, so coefficients determine how much contributes."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " This relation follows by imagining reactants returned to their elements, then forming the products. Reversing the reactant formation steps changes their signs. The elemental intermediates cancel, leaving the target reaction."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Do not omit a coefficient, switch the subtraction order or substitute bond enthalpies into a formation-enthalpy table formula."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_82caa0a312"
+      ],
+      "transition": "Work through the complete formation calculation for combustion.",
+      "id": "chem11-ch05-u04-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Worked combustion enthalpy",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created calculation using rounded tabulated values: CH₄(g) + 2O₂(g) → CO₂(g) + 2H₂O(l). Given ΔfH° values in kJ mol⁻¹: CH₄ = −74.8, CO₂ = −393.5, H₂O(l) = −285.8, O₂ = 0. Find ΔrH°. Products sum = −393.5 + 2(−285.8) = −965.1. Reactants sum = −74.8 + 2(0) = −74.8. Therefore ΔrH° = −965.1 − (−74.8) = −890.3 kJ mol⁻¹ for the reaction as written."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " One mole of methane releases 890.3 kJ under the stated conditions. The liquid-water state matters: using water-vapour data would describe a different final state and a different heat release."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_82caa0a312"
+      ],
+      "transition": "The same result can be viewed as a general law of heat summation.",
+      "id": "chem11-ch05-u04-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Hess’s law follows from a state function",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Hess’s law of constant heat summation states that the enthalpy change for a reaction is the same whether the conversion occurs in one step or several steps, provided the initial and final states are the same."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " If a target equation is the sum of equations 1, 2 and 3, then ΔrH(target) = ΔrH(1) + ΔrH(2) + ΔrH(3), after each equation and its enthalpy have been adjusted consistently."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Think of accounting between two floors: taking stairs through an intermediate floor changes the route, not the overall height difference. The analogy illustrates endpoint dependence; reaction heat still requires appropriate physical states and conditions."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_82caa0a312"
+      ],
+      "transition": "Changing a thermochemical equation must change its enthalpy consistently.",
+      "id": "chem11-ch05-u04-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Reverse, scale and cancel carefully",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Reversing an equation reverses its ΔH sign. Multiplying every coefficient by a factor multiplies ΔH by the same factor. When equations are added, identical substances in identical states can cancel from opposite sides."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " If H₂(g) + ½O₂(g) → H₂O(l) has ΔH = −285.8 kJ, then 2H₂O(l) → 2H₂(g) + O₂(g) has ΔH = +571.6 kJ. Both reversal and doubling were necessary."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " H₂O(l) cannot simply cancel H₂O(g). Their difference is a phase transformation with its own enthalpy change."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_82caa0a312"
+      ],
+      "transition": "Use cancellation to find a reaction that is difficult to isolate directly.",
+      "id": "chem11-ch05-u04-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Worked Hess cycle: form carbon monoxide",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Given C(graphite) + O₂(g) → CO₂(g), ΔH₁ = −393.5 kJ, and CO(g) + ½O₂(g) → CO₂(g), ΔH₂ = −283.0 kJ. Required: C(graphite) + ½O₂(g) → CO(g). Reverse equation 2, making ΔH = +283.0 kJ, then add it to equation 1. CO₂ cancels and half the oxygen cancels. ΔH(target) = −393.5 + 283.0 = −110.5 kJ."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The calculated value belongs to one mole of CO formed in the stated state. The imagined decomposition of CO₂ is an accounting step, not a claim that this is how CO is experimentally produced."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_82caa0a312"
+      ],
+      "transition": "Finally connect the reaction amount to the measured energy.",
+      "id": "chem11-ch05-u04-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Match the enthalpy to the amount reacted",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created application: if forming 1 mol CO releases 110.5 kJ, what heat corresponds to 0.200 mol under the same constant-pressure conditions? q = 0.200 × (−110.5) = −22.1 kJ. The negative sign describes heat leaving the reacting system."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " A thermochemical equation gives an energy change for its written stoichiometric amounts. Doubling the reaction amount doubles the energy transfer while the molar reaction enthalpy remains the same."
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": " An experimental heat and a standard molar enthalpy can differ if temperature, pressure, physical states or reaction completeness differ. Check these conditions before comparing numbers."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_82caa0a312"
+      ],
+      "transition": "Revise the reference-state and equation-manipulation checks.",
+      "id": "chem11-ch05-u04-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: the equation and its energy are one pair",
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Formation: one mole of compound from elements in their reference states. Reference-state elements receive ΔfH° = 0 by convention. Reaction enthalpy uses coefficient-weighted formation values: products minus reactants."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Hess’s law lets us add enthalpy changes for equations that add to the target. Reverse equation → reverse sign; multiply equation → multiply energy; cancel only identical species and states. Always relate the final number to the reaction amount specified."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_82caa0a312"
+      ],
+      "transition": "",
+      "id": "chem11-ch05-u04-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "Is CaO(s) + CO₂(g) → CaCO₃(s) a formation-enthalpy equation?",
+      "answer": "No. Although one mole of CaCO₃ forms, the reactants are compounds, not its constituent elements in their reference states.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_82caa0a312"
+      ]
+    },
+    {
+      "question": "Why is ΔfH° of O₂(g) zero?",
+      "answer": "It is the reference state of oxygen under the usual specified conditions, and formation enthalpy is assigned zero by convention.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_82caa0a312"
+      ]
+    },
+    {
+      "question": "A reaction is reversed and multiplied by three. What happens to ΔH?",
+      "answer": "Its sign reverses and magnitude triples: ΔH(new) = −3ΔH(original).",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_82caa0a312"
+      ]
+    },
+    {
+      "question": "Why can liquid water not cancel water vapour in a Hess cycle?",
+      "answer": "They are different physical states. Connecting them requires the corresponding vaporisation or condensation enthalpy.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_82caa0a312"
+      ]
+    },
+    {
+      "question": "If 2 mol product corresponds to −80 kJ, what is the heat for 0.50 mol?",
+      "answer": "The amount is 0.50/2 = 0.25 of the written reaction, so q = 0.25 × (−80) = −20 kJ.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_82caa0a312"
+      ]
+    },
+    {
+      "question": "Does Hess’s law describe the actual reaction mechanism?",
+      "answer": "No. It gives the endpoint enthalpy difference; intermediate accounting steps need not be the actual experimental pathway.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_82caa0a312"
+      ]
+    }
+  ],
+  "title": "Formation Enthalpies and Hess’s Law"
+}

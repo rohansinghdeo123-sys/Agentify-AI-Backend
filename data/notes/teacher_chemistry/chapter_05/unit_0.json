@@ -1,0 +1,293 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_aefe39ecbd",
+  "pages": [
+    {
+      "title": "Follow the energy, not just the flame",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " A cup of tea cools, a fuel burns and a battery powers a lamp. In each case energy passes between things. Chemistry needs a way to account for that energy even when we cannot watch individual molecules."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Thermodynamics studies energy changes in macroscopic systems: samples containing very large numbers of particles. It compares initial and final states. It tells us about energy requirements and possible directions of change, rather than how quickly a reaction happens."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " Macroscopic means large enough to describe through bulk measurements such as temperature and pressure. You need not track the motion of every molecule."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_aefe39ecbd"
+      ],
+      "transition": "First choose which part of an experiment belongs in our energy account.",
+      "id": "chem11-ch05-u01-p01",
+      "page_number": 1
+    },
+    {
+      "title": "Draw an imaginary boundary",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " The system is the part of the universe selected for study. Everything outside it is the surroundings. A boundary, real or imaginary, separates the two; the system and surroundings together make the universe for the thermodynamic discussion."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " To study water heated in a beaker, choose the water as the system. The beaker, hot plate and room are surroundings. Energy crossing the water boundary matters; the boundary itself is not necessarily a physical insulating wall."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " A system is not automatically the entire apparatus. State your choice before deciding whether heat or matter has crossed its boundary."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_aefe39ecbd"
+      ],
+      "transition": "The kinds of exchange allowed through that boundary classify the system.",
+      "id": "chem11-ch05-u01-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Open: both matter and energy can cross",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Steam escaping from an uncovered vessel carries matter away. Energy can also enter from the hot plate and leave into the room. A system that can exchange both matter and energy with its surroundings is an open system."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Water in an open beaker is a useful example. Its mass may fall as it evaporates, while its temperature changes as it exchanges energy. An open system does not have to exchange both at every instant; its boundary permits both."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_aefe39ecbd"
+      ],
+      "transition": "Closing the lid changes one kind of exchange, but it does not necessarily stop energy transfer.",
+      "id": "chem11-ch05-u01-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Closed is different from isolated",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " A closed system exchanges energy but not matter. An isolated system exchanges neither matter nor energy with its surroundings. These are statements about the chosen boundary, not merely about whether a lid is visible."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " A sealed conducting vessel can gain heat while retaining its contents, so it is closed. An ideal sealed, rigid, perfectly insulated vessel with no other work exchange is isolated. A real thermos flask approximates isolation; it is not perfectly insulated forever."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Insulation alone prevents heat transfer, not every possible energy transfer. Mechanical or electrical work may still cross an appropriately designed boundary."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_aefe39ecbd"
+      ],
+      "transition": "Now describe the condition of the sample inside the boundary.",
+      "id": "chem11-ch05-u01-p04",
+      "page_number": 4
+    },
+    {
+      "title": "A state is described by properties",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " The state of a thermodynamic system is specified by suitable macroscopic properties, called state variables or state functions. Pressure p, volume V, temperature T and amount n help describe a gas at equilibrium."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " For an ideal gas, pV = nRT links these properties, so they are not all independent. If n, T and V are fixed, p follows. Here R is the gas constant, T is in kelvin, and units must be mutually consistent."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " Equilibrium here means the bulk properties are stable under the specified conditions. Measurements are compared after the system has settled."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_aefe39ecbd"
+      ],
+      "transition": "A state function remembers the endpoints, rather than the route between them.",
+      "id": "chem11-ch05-u01-p05",
+      "page_number": 5
+    },
+    {
+      "title": "The route and the destination are different ideas",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Two journeys can reach the same height by different paths. The height difference depends only on the endpoints, even though the walking distance does not. Similarly, a state-function change depends only on the initial and final states."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Internal energy U is a state function. Its change is ΔU = U(final) − U(initial). The symbol Δ means final minus initial; the SI unit of energy is the joule, J. Different procedures producing the same endpoints give the same ΔU."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " This does not mean every energy transfer is path-independent. Heat and work describe transfer during a process; they are not contents stored in the system."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_aefe39ecbd"
+      ],
+      "transition": "What does the internal energy account represent physically?",
+      "id": "chem11-ch05-u01-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Internal energy belongs to the sample",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Internal energy includes microscopic kinetic and potential contributions within the system, including molecular motion and interactions between particles. Chemical changes can alter these contributions even when the sample looks unchanged."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " We usually measure changes in U rather than assign a measurable absolute zero of internal energy. If a process raises the system energy, ΔU is positive; if it lowers it, ΔU is negative."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Stirring water can warm it without adding a hot substance. The moving paddle transfers energy through work, showing that heating is not the only way to change internal energy."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_aefe39ecbd"
+      ],
+      "transition": "To isolate the effect of work, imagine preventing heat transfer.",
+      "id": "chem11-ch05-u01-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Adiabatic means no heat transfer",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " An adiabatic process transfers no heat across the system boundary: q = 0. An adiabatic wall is an ideal insulating wall. The system can still receive or deliver work, so its internal energy and temperature can change."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " In an insulated vessel, a paddle driven from outside does work on water. The water can warm even though no heat crosses the wall. Adiabatic does not mean constant temperature; constant temperature is called isothermal."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " An adiabatic system is not necessarily isolated. Isolation also excludes work and matter exchange."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_aefe39ecbd"
+      ],
+      "transition": "We can quantify an internal-energy change using the work in such a process.",
+      "id": "chem11-ch05-u01-p08",
+      "page_number": 8
+    },
+    {
+      "title": "An energy difference from an insulated experiment",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " For a closed system undergoing an adiabatic process, ΔU = w(ad). Work done on the system is positive; work delivered by the system is negative. Both w and ΔU are measured in J or the same energy unit."
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created example: an insulated paddle experiment transfers 150 J of work to the water. Given q = 0 and w(ad) = +150 J, the internal-energy change is ΔU = +150 J. The plus sign means the water has gained energy; it does not tell us its final temperature without further information."
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": " If another adiabatic procedure reaches exactly the same final state from the same initial state, it must transfer the same net work. This is the operational link between adiabatic work and the state function U."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_aefe39ecbd"
+      ],
+      "transition": "Put the boundary, state and energy ideas together before calculating more general processes.",
+      "id": "chem11-ch05-u01-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: establish the system before the calculation",
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Choose the system and boundary; decide which exchanges are possible; specify its initial and final equilibrium states. Open permits matter and energy exchange, closed permits energy alone, and isolated permits neither."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " U is a state function; ΔU = U(final) − U(initial). In a closed adiabatic process q = 0 and ΔU = w(ad). Positive work on the system raises U. Adiabatic need not mean isothermal, and thermodynamic possibility does not give a reaction rate."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_aefe39ecbd"
+      ],
+      "transition": "",
+      "id": "chem11-ch05-u01-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why is water in a sealed metal vessel closed rather than isolated?",
+      "answer": "Matter cannot leave, but energy can cross the conducting wall. An isolated boundary would also prevent energy transfer.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_aefe39ecbd"
+      ]
+    },
+    {
+      "question": "Can an adiabatic sample become warmer?",
+      "answer": "Yes. Work, such as stirring, can transfer energy into it even when heat transfer is zero.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_aefe39ecbd"
+      ]
+    },
+    {
+      "question": "Two paths give identical initial and final states. Must ΔU be the same?",
+      "answer": "Yes. U is a state function, so its change depends only on those endpoints.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_aefe39ecbd"
+      ]
+    },
+    {
+      "question": "An adiabatic gas delivers 80 J of work. What is ΔU?",
+      "answer": "Work done by the system is w = −80 J. With q = 0, ΔU = −80 J, an internal-energy decrease.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_aefe39ecbd"
+      ]
+    },
+    {
+      "question": "Does a thermodynamically possible reaction necessarily occur rapidly?",
+      "answer": "No. Thermodynamics considers energy and direction; the rate of reaching the final state requires kinetic information.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_aefe39ecbd"
+      ]
+    }
+  ],
+  "title": "Systems, States and Internal Energy"
+}

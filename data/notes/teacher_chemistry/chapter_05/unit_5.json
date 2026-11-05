@@ -1,0 +1,285 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_7225630c18",
+  "pages": [
+    {
+      "title": "Dissolving need not warm the water",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Some substances cool water when they dissolve; others warm it. Both outcomes require an energy account that includes separating particles and forming new interactions with the solvent. Dissolving is not simply breaking the solid apart."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Enthalpy of solution is the enthalpy change when one mole of solute dissolves in a specified amount of solvent under stated conditions. The amount of solvent matters because interactions change with concentration."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_7225630c18"
+      ],
+      "transition": "For an ionic solute, imagine two stages leading to the same solution.",
+      "id": "chem11-ch05-u06-p01",
+      "page_number": 1
+    },
+    {
+      "title": "Separate the lattice, then hydrate the ions",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " First imagine separating the ionic solid into gaseous ions; this requires lattice dissociation energy. Then surround those ions with water molecules; this hydration releases energy through attractive ion–water interactions."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " ΔsolH = Δlattice(dissociation)H + ΔhydH for the specified dissolution endpoint. Both contributions must use the same mole of salt and compatible conditions. The hydration term includes all ions produced by that mole."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " Hydration means stabilisation by water. Solvation is the broader word when the solvent is not necessarily water."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_7225630c18"
+      ],
+      "transition": "The sum, rather than either term alone, determines the heat effect.",
+      "id": "chem11-ch05-u06-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Worked endothermic dissolution",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created example: a salt has lattice dissociation enthalpy +780 kJ mol⁻¹ and total hydration enthalpy −760 kJ mol⁻¹ for the specified solution. Find ΔsolH. Add signed steps: +780 + (−760) = +20 kJ mol⁻¹. Dissolving one mole absorbs 20 kJ under these conditions."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " If the solution receives this energy from its nearby surroundings, the surroundings cool. A positive solution enthalpy does not prove the salt cannot dissolve; heat change alone does not decide the direction of the process."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_7225630c18"
+      ],
+      "transition": "Now reverse which contribution dominates.",
+      "id": "chem11-ch05-u06-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Worked exothermic dissolution",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created comparison: lattice dissociation is +700 kJ mol⁻¹ and hydration is −730 kJ mol⁻¹. Then ΔsolH = +700 − 730 = −30 kJ mol⁻¹. For 0.200 mol, q = 0.200 × (−30) = −6.0 kJ. This amount of dissolution releases 6.0 kJ."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The values are supplied teaching data, not a prediction for every salt. Ion size, charge, solid structure and solvent interactions affect the balance. A single universal rule that all salts warm or all salts cool water is incorrect."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_7225630c18"
+      ],
+      "transition": "Even for the same solute, the heat depends on the solution concentration.",
+      "id": "chem11-ch05-u06-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Dilution changes the interactions again",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Enthalpy of dilution is the enthalpy change when more solvent is added to a solution, changing its concentration. It depends on the starting concentration and how much solvent is added."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " At large dilution, solute particles interact mainly with solvent. At higher concentration, solute–solute interactions also matter. Further dilution therefore need not have the same heat effect as dissolving the solid initially."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Dilution and dissolution are different processes. Dilution starts with a solution; dissolution may start with a solid or another separate solute phase."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_7225630c18"
+      ],
+      "transition": "Subtract solution endpoints to obtain a dilution enthalpy.",
+      "id": "chem11-ch05-u06-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Worked dilution using a Hess difference",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created example for one mole of solute: formation of solution A from the same starting solute and solvent gives ΔH₁ = −15 kJ; formation of the more dilute solution B gives ΔH₂ = −18 kJ. Add the extra pure solvent to A to reach B. ΔdilH = ΔH₂ − ΔH₁ = −18 − (−15) = −3 kJ per mole of solute."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The starting solid-to-solution steps cancel. The remaining process is A plus additional solvent → B, releasing 3 kJ. The two supplied solution enthalpies must refer to compatible starting states and the same amount of solute."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_7225630c18"
+      ],
+      "transition": "Heat accounting is complete, but does it tell us whether a change can occur?",
+      "id": "chem11-ch05-u06-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Spontaneous means a natural direction, not a speed",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " A spontaneous process has a natural tendency to proceed under the specified conditions without continuous external driving. The term does not tell us whether the process is fast or slow."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Iron rusting can be favourable yet slow. A gas spreading into an available space can happen rapidly. The rates differ, but thermodynamic discussion asks which direction is favoured, rather than how long it takes."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Spontaneous does not mean an initial trigger is never needed. An energy barrier can delay a favourable reaction; kinetics and thermodynamics answer different questions."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_7225630c18"
+      ],
+      "transition": "Many favourable changes release heat, but that observation is not a universal test.",
+      "id": "chem11-ch05-u06-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Why enthalpy alone cannot decide direction",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Heat flows naturally from a hot object to a cold one, and many reactions release heat. This might suggest that ΔH < 0 is required for spontaneity. But melting above the melting point and some dissolutions absorb heat while proceeding naturally."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " At a temperature above 0 °C and ordinary pressure, ice can melt by receiving energy from warmer surroundings. The system has a positive enthalpy change, yet melting is the favoured direction under those conditions."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " The conditions are essential: below its melting temperature the same substance tends to freeze. A sign must be connected to a specified process and environment."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_7225630c18"
+      ],
+      "transition": "An isolated-system argument also shows what the first law does not tell us.",
+      "id": "chem11-ch05-u06-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Energy conservation does not select the direction",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " The first law allows energy transfer from hot to cold, but energy could also be conserved in an imagined reverse transfer. Conservation alone therefore does not explain why one direction occurs naturally."
+        },
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " We need another property describing how energy and particles can be distributed. The next topic introduces entropy, then combines its effect with enthalpy. For now, retain the conclusion: neither a large lattice energy nor the sign of ΔH alone is a universal spontaneity test."
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": " Similarly, a negative solution enthalpy alone does not guarantee high solubility. The equilibrium endpoint reflects the complete thermodynamic balance."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_7225630c18"
+      ],
+      "transition": "Consolidate the solution-energy account and the limits of its interpretation.",
+      "id": "chem11-ch05-u06-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: heat effect and direction are separate questions",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " ΔsolH combines lattice dissociation and hydration for the specified solution. ΔdilH compares solution enthalpies for the same solute amount at two concentrations, with additional solvent included in the process."
+        },
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Positive ΔH absorbs heat; negative ΔH releases it. Spontaneity describes the preferred direction under stated conditions, not the rate. Endothermic processes can be spontaneous, so enthalpy must be supplemented by another criterion."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_7225630c18"
+      ],
+      "transition": "",
+      "id": "chem11-ch05-u06-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "A salt absorbs 12 kJ mol⁻¹ when dissolving. Does this forbid dissolution?",
+      "answer": "No. Enthalpy change alone does not determine spontaneity; other thermodynamic contributions can favour dissolution.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_7225630c18"
+      ]
+    },
+    {
+      "question": "Hydration is −800 and lattice dissociation is +770 kJ mol⁻¹. Find ΔsolH.",
+      "answer": "ΔsolH = 770 − 800 = −30 kJ mol⁻¹, an exothermic dissolution for the specified solution.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_7225630c18"
+      ]
+    },
+    {
+      "question": "Why must solvent amount be specified for solution enthalpy?",
+      "answer": "The interactions and concentration of the final solution affect its enthalpy; different solvent amounts can describe different endpoints.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_7225630c18"
+      ]
+    },
+    {
+      "question": "What distinguishes dilution from dissolving a solid?",
+      "answer": "Dilution starts with an existing solution and adds solvent. Dissolving a solid also includes the change from the solid phase.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_7225630c18"
+      ]
+    },
+    {
+      "question": "Does a spontaneous reaction necessarily finish immediately?",
+      "answer": "No. It may have a large kinetic barrier and proceed slowly even when its thermodynamic direction is favourable.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_7225630c18"
+      ]
+    },
+    {
+      "question": "Why cannot the first law alone explain the direction of heat flow?",
+      "answer": "It requires energy conservation but does not distinguish the natural hot-to-cold direction from an imagined energy-conserving reverse transfer.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_7225630c18"
+      ]
+    }
+  ],
+  "title": "Solution Enthalpies and Spontaneity"
+}

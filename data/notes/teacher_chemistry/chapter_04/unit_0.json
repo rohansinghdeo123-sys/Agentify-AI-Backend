@@ -1,0 +1,276 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_12ba3b879a",
+  "title": "Lewis Bonding, Electron Pairs and the Octet Rule",
+  "pages": [
+    {
+      "title": "Why do atoms stay together?",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Hydrogen and oxygen combine into water with properties unlike either element. A chemical bond is an interaction that holds atoms or ions together in a stable chemical species.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The key physical question is energy: the bonded arrangement must be favourable compared with the separated pieces. Lewis ideas track valence electrons to explain many common bonding patterns.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch4_unit0_page1",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_12ba3b879a"
+      ],
+      "transition": "Track the outer electrons before proposing a bonding arrangement."
+    },
+    {
+      "title": "Draw the electrons that participate",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A Lewis symbol places dots around an element symbol to represent valence electrons. Sodium has one dot; magnesium two; chlorine seven. Inner electrons and nucleus form the kernel and are not drawn individually.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "These dots are bookkeeping symbols, not photographs of electron locations. Their number connects a main-group element’s outer configuration with its common combining capacity.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "Place single valence dots around separate sides of a symbol before pairing, as a bookkeeping convention. A chlorine symbol has seven dots: three pairs and one single. The unpaired dot suggests a simple opportunity to share one pair with another atom."
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch4_unit0_page2",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_12ba3b879a"
+      ],
+      "transition": "One option is to form oppositely charged ions through transfer."
+    },
+    {
+      "title": "Explain electron transfer with charge balance",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Sodium can lose one electron to form Na⁺ with a neon-like configuration; chlorine can gain one to form Cl⁻ with an argon-like configuration. Oppositely charged ions attract in the ionic solid.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For calcium fluoride, Ca²⁺ needs two F⁻ ions for neutrality, giving CaF₂. Electron transfer explains ion formation; the stabilising interactions throughout the solid complete the bonding picture.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch4_unit0_page3",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_12ba3b879a"
+      ],
+      "transition": "Atoms can also stabilise a molecule by sharing pairs."
+    },
+    {
+      "title": "Share a pair instead of transferring it",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "In H₂, two H atoms share one electron pair. Each counts that pair towards a stable two-electron shell, a duplet. A shared pair represents one covalent bond, drawn as a line.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Cl₂ shares one pair while each Cl retains three lone pairs. A lone pair belongs to one atom in the Lewis representation; a bonding pair is counted around both bonded atoms.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch4_unit0_page4",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_12ba3b879a"
+      ],
+      "transition": "More than one shared pair gives multiple-bond possibilities."
+    },
+    {
+      "title": "Build double and triple bonds",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "O₂ is represented with a double bond: two shared pairs. N₂ has a triple bond: three shared pairs. Sharing can therefore complete octets without assuming all bonding involves full electron transfer.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The octet rule describes a common tendency towards eight valence electrons around an atom. Hydrogen seeks a duplet. The rule is a useful pattern, not the fundamental cause of every bond.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch4_unit0_page5",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_12ba3b879a"
+      ],
+      "transition": "Use the full electron total to build an explicit structure."
+    },
+    {
+      "title": "Construct a Lewis structure step by step",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "For CO₂, total valence electrons=4+2×6=16. Connect O–C–O using four electrons. Complete terminal O octets, then move one lone pair from each O into bonding pairs to complete carbon’s octet.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The result O=C=O uses sixteen electrons: eight in bonds and eight in oxygen lone pairs. Each atom has an octet. Check both total electron count and each atom’s surrounding count.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch4_unit0_page6",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_12ba3b879a"
+      ],
+      "transition": "Formal charge provides another check on the resulting drawing."
+    },
+    {
+      "title": "Calculate formal charge",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Formal charge=valence electrons−non-bonding electrons−half the bonding electrons. It assigns the bonding electrons equally, making it a bookkeeping charge rather than a measured partial charge.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For NH₄⁺, N contributes five valence electrons, has zero non-bonding electrons and eight bonding electrons: FC(N)=5−0−4=+1. Each H has 1−0−1=0; the sum is+1.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "Check formal charge in CO₂ drawn O=C=O. Carbon has 4−0−8/2=0. Each oxygen has 6−4−4/2=0. The zero sum matches the neutral molecule; the calculation does not assert equal physical sharing in each polar C–O bond."
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch4_unit0_page7",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_12ba3b879a"
+      ],
+      "transition": "Electron accounting must still work when octets are incomplete or exceeded."
+    },
+    {
+      "title": "Identify exceptions rather than force octets",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "BF₃ has only six electrons around B in its simple Lewis structure. NO has an odd total electron count, preventing all atoms from having paired octets. Expanded-octet Lewis representations occur for species such as PF₅ and SF₆.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Never invent extra electrons to force every species into an octet. The structure must retain the actual electron total and ionic charge. Second-period atoms do not expand their valence shell in this elementary treatment.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch4_unit0_page8",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_12ba3b879a"
+      ],
+      "transition": "A useful electron diagram has limits that require further bonding models."
+    },
+    {
+      "title": "Know what Lewis diagrams cannot predict",
+      "blocks": [
+        {
+          "kind": "clarification",
+          "text": "Lewis structures help track connectivity, electron pairs and formal charges. They do not by themselves predict accurate three-dimensional shapes, bond strengths or every magnetic property.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Clarification: expanded-octet drawings are useful bookkeeping. Modern bonding does not require literal occupation of low-energy valence d hybrids to explain every hypervalent main-group molecule; later textbook hybridisation labels are models, not direct measurements.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch4_unit0_page9",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_12ba3b879a"
+      ],
+      "transition": "Review the construction checks without forcing every species into an octet."
+    },
+    {
+      "title": "Check electrons before accepting a structure",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Count all valence electrons, add electrons for a negative charge or subtract for a positive charge, form bonds, complete appropriate shells and check formal charges. The formal charges must sum to the species charge.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Octets and duplets guide many simple examples, but incomplete, odd-electron and expanded-octet cases show their limits. A valid drawing needs correct electron accounting before further shape predictions.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch4_unit0_page10",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_12ba3b879a"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why are only valence electrons shown as Lewis dots?",
+      "answer": "They are the electrons mainly involved in the elementary bonding description; inner electrons are included in the kernel.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_12ba3b879a"
+      ]
+    },
+    {
+      "question": "Why is CaF₂ the neutral formula?",
+      "answer": "One Ca²⁺ balances two F⁻ ions.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_12ba3b879a"
+      ]
+    },
+    {
+      "question": "How many valence electrons are available for CO₂?",
+      "answer": "4+2×6=16.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_12ba3b879a"
+      ]
+    },
+    {
+      "question": "Calculate nitrogen’s formal charge in NH₄⁺.",
+      "answer": "5−0−8/2=+1; all hydrogens have formal charge zero.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_12ba3b879a"
+      ]
+    },
+    {
+      "question": "Does formal charge equal an atom’s actual charge distribution?",
+      "answer": "No. It assumes equal sharing of bonding electrons and is a bookkeeping quantity.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_12ba3b879a"
+      ]
+    },
+    {
+      "question": "Why does NO not satisfy paired octets for both atoms?",
+      "answer": "Its odd total number of valence electrons cannot be divided entirely into pairs.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_12ba3b879a"
+      ]
+    },
+    {
+      "question": "Can Lewis structure alone establish molecular shape?",
+      "answer": "No. A three-dimensional model such as VSEPR is needed.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_12ba3b879a"
+      ]
+    }
+  ]
+}

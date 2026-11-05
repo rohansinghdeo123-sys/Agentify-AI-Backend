@@ -1,0 +1,276 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0a885fe998",
+  "title": "Ionisation Enthalpy and Electron Gain Enthalpy",
+  "pages": [
+    {
+      "title": "How difficult is it to remove an electron?",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Sodium readily forms positive ions, whereas noble gases resist electron removal. The useful question is not simply how many electrons an atom has, but how strongly its outer electron is held.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Ionisation enthalpy gives a measurable energy requirement. Electron gain enthalpy answers the complementary question of what happens when a gaseous atom accepts an electron.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch3_unit3_page1",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0a885fe998"
+      ],
+      "transition": "Define the removal process precisely before comparing elements."
+    },
+    {
+      "title": "Define first ionisation enthalpy",
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "First ionisation enthalpy is the enthalpy change for removing the most loosely bound electron from an isolated gaseous ground-state atom: X(g)→X⁺(g)+e⁻. Values are normally stated per mole in kJ mol⁻¹.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "It is positive because energy must be supplied against nuclear attraction. The gaseous, isolated and ground-state conditions make different elements comparable.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "Removing an electron is like increasing the separation of attracted charges: it requires energy input. The analogy is only about attraction. Atomic electrons occupy quantum states, so subshell energies and pairing must also be considered."
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch3_unit3_page2",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0a885fe998"
+      ],
+      "transition": "Use shell size and shielding to explain the general trend."
+    },
+    {
+      "title": "Explain size, shielding and attraction",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A more distant outer electron is generally easier to remove. Stronger effective nuclear attraction makes removal harder. Inner-electron shielding reduces the attraction experienced by an outer electron.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Ionisation enthalpy therefore generally increases across a period and decreases down a group. These are broad trends; subshell energies and electron pairing produce important exceptions.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch3_unit3_page3",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0a885fe998"
+      ],
+      "transition": "The first important exception requires comparing different subshells."
+    },
+    {
+      "title": "Why Be exceeds B",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Beryllium has outer 2s², while boron has 2s²2p¹. Boron’s first removed electron is in a higher-energy, less penetrating 2p orbital, so it is easier to remove than a 2s electron from Be.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Thus first ionisation enthalpy falls from Be to B despite increasing Z. Comparing actual orbital occupation explains the exception better than blindly extending the across-period arrow.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch3_unit3_page4",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0a885fe998"
+      ],
+      "transition": "A second exception depends on whether electrons are paired."
+    },
+    {
+      "title": "Why N exceeds O",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Nitrogen has 2p³ with three singly occupied p orbitals. Oxygen has 2p⁴, introducing one paired set. Repulsion between paired electrons makes removing one from oxygen relatively easier.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Consequently first ionisation enthalpy decreases from N to O. This exception connects the periodic trend with Hund’s rule and the stability of a half-filled subshell.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch3_unit3_page5",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0a885fe998"
+      ],
+      "transition": "Successive removals reveal when a stable inner shell is reached."
+    },
+    {
+      "title": "Successive ionisations get harder",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Second ionisation removes an electron from X⁺(g), not from a fresh neutral atom. Removing electrons from increasingly positive ions requires progressively more energy.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For sodium, the first removal produces[Ne]. The second would remove a core electron from that filled shell, causing a large jump. Such jumps help identify the number of relatively accessible valence electrons.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch3_unit3_page6",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0a885fe998"
+      ],
+      "transition": "Reverse the direction of transfer to study electron gain."
+    },
+    {
+      "title": "Define electron gain enthalpy",
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Electron gain enthalpy is the enthalpy change for X(g)+e⁻→X⁻(g). It may be negative when energy is released, or positive when energy must be supplied. State the sign explicitly.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "This differs from ionisation, which removes an electron. A more negative electron gain enthalpy means a more exothermic first-electron addition, not a larger positive energy cost.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch3_unit3_page7",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0a885fe998"
+      ],
+      "transition": "Apply the addition definition while retaining its sign convention."
+    },
+    {
+      "title": "Explain the electron-gain trends",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Across a period, electron gain enthalpy generally becomes more negative as effective attraction increases. Down a group, the added electron usually enters a larger, more shielded region, but the trend has exceptions.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Chlorine has more negative electron gain enthalpy than fluorine. The very compact 2p region of F has stronger electron–electron repulsion for the incoming electron than Cl’s larger 3p region.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "Why does the F/Cl comparison not imply Cl is more electronegative? Electron gain enthalpy includes the energy change and repulsion when adding an electron to an isolated atom; electronegativity concerns a shared pair in a bond. They are different questions."
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch3_unit3_page8",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0a885fe998"
+      ],
+      "transition": "An already negative ion changes the energy cost of another addition."
+    },
+    {
+      "title": "Keep first and second additions distinct",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Adding a second electron to an already negative gaseous ion requires energy to overcome repulsion. Thus O⁻(g)+e⁻→O²⁻(g) is endothermic even if the first addition to O is exothermic.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Ionic solids can still contain O²⁻ because the complete formation process includes strong lattice stabilisation. One isolated gas-phase step is not the energy balance of an entire solid.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch3_unit3_page9",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0a885fe998"
+      ],
+      "transition": "Collect the trends together with the structural reasons for their exceptions."
+    },
+    {
+      "title": "Compare energy changes with correct signs",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Ionisation removes electrons and has positive enthalpy. Electron gain adds an electron and can have either sign. Across-period and down-group trends arise from size, shielding, subshell occupation and repulsion.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Be/B, N/O and F/Cl are useful tests of understanding. Explain the electron’s orbital environment rather than memorising exceptions without reasons.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch3_unit3_page10",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0a885fe998"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why specify gaseous isolated atoms for ionisation?",
+      "answer": "It avoids bond or condensed-phase effects, giving a common reference for electron removal.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0a885fe998"
+      ]
+    },
+    {
+      "question": "Why is second ionisation enthalpy greater than first?",
+      "answer": "The electron is removed from a positively charged ion, with stronger attraction and less electron repulsion.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0a885fe998"
+      ]
+    },
+    {
+      "question": "Why is Be harder to ionise than B?",
+      "answer": "B loses a higher-energy 2p electron, whereas Be loses a more tightly held 2s electron.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0a885fe998"
+      ]
+    },
+    {
+      "question": "Why is O easier to ionise than N?",
+      "answer": "O has paired-electron repulsion in 2p⁴; N has a half-filled 2p³ arrangement.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0a885fe998"
+      ]
+    },
+    {
+      "question": "Does more negative electron gain enthalpy mean more energy is required?",
+      "answer": "No. It means more energy is released by electron addition.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0a885fe998"
+      ]
+    },
+    {
+      "question": "Why is electron gain more exothermic for Cl than F?",
+      "answer": "The compact F 2p region imposes stronger electron repulsion on the incoming electron.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0a885fe998"
+      ]
+    },
+    {
+      "question": "Why does a second electron addition require energy?",
+      "answer": "An incoming electron is repelled by the already negative ion.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_3_classification_of_elements_and_periodicity_in_properties_0a885fe998"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_5d388f4543",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch9-unit3-page01",
+      "title": "Similar formulas, different boiling points",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_5d388f4543"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Pentane and a branched C5H12 isomer have identical molecular masses, yet boil at different temperatures. The difference cannot be explained by atom counts alone. Molecular shape changes the attractions between neighbouring molecules, linking structure to a measurable property.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "We first use this idea to explain alkane properties, then study halogen substitution and combustion. Physical separation changes intermolecular arrangements; a chemical reaction breaks and makes bonds. Keep those two kinds of change distinct.",
+          "level": "essential"
+        }
+      ],
+      "transition": "First consider the attractions between separate alkane molecules."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch9-unit3-page02",
+      "title": "Non-polar molecules and intermolecular attraction",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_5d388f4543"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Alkanes are largely non-polar and interact mainly through dispersion forces, weak attractions arising from fluctuating electron distributions. Larger molecules generally have stronger total attractions, so the normal boiling point increases along the unbranched homologous series.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "Water forms a strongly hydrogen-bonded network, while alkanes do not provide comparable interactions with it. This helps explain their poor water solubility. A hydrocarbon dissolving grease illustrates compatibility between non-polar materials, but petroleum solvents are flammable and are not recommended as household cleaning experiments.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "An intermolecular attraction acts between molecules, while a covalent bond joins atoms inside a molecule. Confusing them leads to incorrect explanations of boiling and of chemical reactions.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Among isomers, branching changes the contact available for those attractions."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch9-unit3-page03",
+      "title": "Branching changes contact between molecules",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_5d388f4543"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Among isomeric alkanes, branching commonly lowers boiling point. A compact branched molecule offers less effective surface contact than an extended chain, weakening the combined intermolecular attraction. Thus n-pentane boils higher than compact 2,2-dimethylpropane.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Boiling separates molecules; it does not ordinarily split C–C bonds into smaller molecules. Branching does not change the formula or molecular mass of chain isomers. Melting-point trends also depend on crystal packing and should not be inferred from this boiling-point comparison alone.",
+          "level": "essential"
+        }
+      ],
+      "transition": "A chemical reaction is different: light can initiate bond cleavage and substitution."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch9-unit3-page04",
+      "title": "Light starts a substitution chain",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_5d388f4543"
+      ],
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "CH4 + Cl2 → CH3Cl + HCl under suitable light or heat is a substitution: one hydrogen is replaced by chlorine. Initiation begins when Cl2 absorbs energy and undergoes homolysis: Cl2 → 2Cl•. Each chlorine atom takes one electron from the original bond.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A radical has an unpaired electron, shown by •. Chlorine radicals are highly reactive and initiate a chain process. The light supplies energy to start bond cleavage; it is not an atom-containing reagent that belongs among the balanced reaction’s material products.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The first radical then drives the two propagation steps."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch9-unit3-page05",
+      "title": "Propagation makes product and regenerates a radical",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_5d388f4543"
+      ],
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "First propagation step: Cl• + CH4 → HCl + CH3•. Second: CH3• + Cl2 → CH3Cl + Cl•. Adding these steps cancels the radicals and gives CH4 + Cl2 → CH3Cl + HCl, the overall substitution equation.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The regenerated Cl• can attack another methane molecule, which is why the sequence is a chain reaction. A radical intermediate is consumed and regenerated within the mechanism; it need not appear in the net equation. Check each step separately for both atoms and unpaired electrons.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Radicals may also combine, ending a chain or making a by-product."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch9-unit3-page06",
+      "title": "Termination and further substitution",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_5d388f4543"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Radicals can combine and stop a chain: Cl• + Cl• → Cl2; CH3• + Cl• → CH3Cl; CH3• + CH3• → C2H6. Formation of a little ethane is therefore evidence consistent with methyl radicals during methane chlorination.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Chloromethane still contains C–H bonds, so further substitution can give CH2Cl2, CHCl3 and CCl4. Product composition depends on conditions and relative reactant amounts. The first equation should not be read as a guarantee that only one organic product is ever obtained.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The same mechanism pattern does not give all halogens the same reactivity."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch9-unit3-page07",
+      "title": "Not every halogen behaves identically",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_5d388f4543"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Alkane halogenation becomes less vigorous from fluorine towards iodine. Fluorination can be too violent for controlled substitution, chlorination and bromination are more manageable, while iodination is slow and reversible. Conditions matter as much as the formal replacement of H by a halogen.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "The mechanism explains why energy and radicals are involved, but it does not imply equal rates or identical product selectivity for different halogens. A general reaction family is a pattern with limits, not permission to substitute any reagent without checking its behaviour.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Combustion requires a separate equation with carefully balanced oxygen."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch9-unit3-page08",
+      "title": "Complete combustion: balance carbon, then hydrogen",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_5d388f4543"
+      ],
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "For CₙH₂ₙ₊₂, complete combustion is CₙH₂ₙ₊₂ + (3n+1)/2 O2 → nCO2 + (n+1)H2O. Carbon gives n CO2, hydrogen gives n+1 H2O, and the oxygen coefficient follows by counting oxygen atoms on the product side.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "For ethane, n = 2: C2H6 + 7/2 O2 → 2CO2 + 3H2O. Multiply all coefficients by two for integers: 2C2H6 + 7O2 → 4CO2 + 6H2O. Verify C:4, H:12 and O:14 on both sides. Changing only one coefficient breaks the balance.",
+          "level": "essential"
+        }
+      ],
+      "transition": "If the oxygen supply changes, the combustion products change as well."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch9-unit3-page09",
+      "title": "Oxygen supply determines combustion products",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_5d388f4543"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "With sufficient oxygen, methane burns to CO2 and H2O and releases heat. With inadequate oxygen, incomplete combustion can produce carbon monoxide and soot as well as water. Carbon monoxide is poisonous; ventilation and appropriate equipment are essential whenever fuels are used.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "Carbon black has industrial uses in inks and pigments, but soot formation in a household flame signals incomplete combustion. Neither a hydrocarbon’s usefulness as fuel nor a clean-looking flame should be taken as proof of zero emissions or absence of hazard.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "You can derive the general combustion equation without memorising it. For CxHy, carbon gives xCO2 and hydrogen gives y/2 H2O, so oxygen demand is x+y/4 molecules of O2 per molecule of hydrocarbon. Substitute y=2x+2 to recover the alkane expression."
+        }
+      ],
+      "transition": "Let us separate these physical trends, radical steps and combustion outcomes."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch9-unit3-page10",
+      "title": "Separate physical trends from reaction mechanisms",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_5d388f4543"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "Increasing size generally raises alkane boiling points; branching commonly lowers them among isomers by changing intermolecular contact. Poor water solubility follows the mismatch between largely non-polar alkanes and strongly interacting water.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Halogen substitution follows initiation, propagation and termination, with dots marking radical electrons. Complete combustion must balance C, H and O; insufficient oxygen changes the products. A mechanism explains a sequence, while an overall equation records the net material change.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why can two C5H12 isomers have different boiling points?",
+      "answer": "Their molecular shapes produce different intermolecular contact and dispersion attractions despite identical molecular mass.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_5d388f4543"
+      ]
+    },
+    {
+      "question": "Which methane-chlorination step regenerates Cl•?",
+      "answer": "CH3• + Cl2 → CH3Cl + Cl•, the second propagation step.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_5d388f4543"
+      ]
+    },
+    {
+      "question": "How can ethane arise during methane chlorination?",
+      "answer": "Two methyl radicals combine in a termination step: CH3• + CH3• → C2H6.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_5d388f4543"
+      ]
+    },
+    {
+      "question": "Balance complete combustion of propane.",
+      "answer": "C3H8 + 5O2 → 3CO2 + 4H2O. Products contain ten oxygen atoms, requiring five O2.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_5d388f4543"
+      ]
+    },
+    {
+      "question": "Why is incomplete combustion dangerous?",
+      "answer": "It can form poisonous CO as well as soot, instead of converting all carbon to CO2.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_5d388f4543"
+      ]
+    },
+    {
+      "question": "Does boiling an alkane normally break its carbon skeleton?",
+      "answer": "No. Boiling overcomes intermolecular attractions to form vapour; cracking is a separate chemical process.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_5d388f4543"
+      ]
+    }
+  ],
+  "title": "Alkane Properties, Radical Substitution and Combustion"
+}

@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_78624c8196",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch9-unit2-page01",
+      "title": "Make the right alkane, not just any fuel",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_78624c8196"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "A synthesis problem asks for a particular carbon chain. The preparation must create that chain without quietly adding or removing a carbon. Naming and carbon-count checks are therefore practical tools for deciding which starting material and reaction are suitable.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "This unit reviews alkyl naming and then compares hydrogenation, reduction, Wurtz coupling, decarboxylation and Kolbe electrolysis. Each route has a characteristic carbon relationship. The last step connects alkane structures with their broad physical properties.",
+          "level": "essential"
+        }
+      ],
+      "transition": "An unambiguous target begins with a correct parent and substituent name."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch9-unit2-page02",
+      "title": "Name the parent and the branches",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_78624c8196"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "An alkyl group is formally obtained by removing one H from an alkane, giving CₙH₂ₙ₊₁– for a simple open-chain saturated group. CH3– is methyl and C2H5– ethyl. The open bond indicates attachment; it does not automatically mean a free radical.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "For (CH3)3CCH2C(CH3)3, choose a five-carbon longest chain. The remaining four methyl groups lie at positions 2,2,4,4, giving 2,2,4,4-tetramethylpentane. Check that the parent and branches together contain nine carbons, and compare locants by the first point of difference.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A carbon-count check traces every carbon from reactants to products. The carboxyl carbon is the carbon in –COO−, not the first carbon of the R group attached to it.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Hydrogenation offers a route that keeps the carbon skeleton intact."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch9-unit2-page03",
+      "title": "Hydrogenation keeps the carbon skeleton",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_78624c8196"
+      ],
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "CH2=CH2 + H2 → CH3CH3 with a suitable Pt, Pd or Ni catalyst. An alkyne needs two molecules of H2 for complete reduction: CH3C≡CH + 2H2 → CH3CH2CH3. Each π bond consumed requires one H2 molecule.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The catalyst enables hydrogen addition but is not counted as a stoichiometric reactant. Complete hydrogenation changes unsaturation, not the number of carbon atoms. A triple bond cannot become an alkane after adding only one H2; that amount gives the alkene stage if the reaction is appropriately controlled.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Reduction can retain that skeleton while replacing a halogen with hydrogen."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch9-unit2-page04",
+      "title": "Replace a halogen by hydrogen",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_78624c8196"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Alkyl halides, except difficult cases such as fluorides under the stated school conditions, can be reduced using zinc and dilute acid. The carbon skeleton is retained while C–X becomes C–H. The symbol [H] denotes supplied reducing hydrogen equivalents, not an isolated bottle of atomic hydrogen.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "A schematic reduction is R–X + 2[H] → R–H + HX. For chloromethane: CH3Cl + 2[H] → CH4 + HCl. Count hydrogen as well as carbon before accepting a reaction equation; conditions and reducing agent belong with the transformation.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Coupling reactions offer a way to make a longer carbon chain."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch9-unit2-page05",
+      "title": "Wurtz reaction joins two alkyl fragments",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_78624c8196"
+      ],
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "2R–X + 2Na → R–R + 2NaX in dry ether. With bromoethane: 2C2H5Br + 2Na → C4H10 + 2NaBr. Two two-carbon fragments couple to produce a four-carbon alkane, so carbon counting predicts the product.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "Using two different alkyl halides usually gives a mixture of coupling products, not a selective unsymmetrical alkane. Coupling one type of fragment is most useful for a symmetrical product with an even total carbon count. Sodium and dry ether require supervised laboratory handling.",
+          "level": "essential"
+        }
+      ],
+      "transition": "In contrast, decarboxylation deliberately removes one carbon."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch9-unit2-page06",
+      "title": "Decarboxylation removes one carbon",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_78624c8196"
+      ],
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "RCOONa + NaOH → RH + Na2CO3 on heating with soda lime, a mixture of NaOH and CaO. The carbon of the carboxylate group enters carbonate, so the alkane has one fewer carbon than the starting carboxylate.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "Sodium butanoate, CH3CH2CH2COONa, contains four carbons. Decarboxylation yields propane, CH3CH2CH3, plus Na2CO3. To prepare methane by this route, start with sodium ethanoate, CH3COONa, not sodium methanoate: remove the carboxyl carbon before naming the alkane.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Kolbe electrolysis combines carbon loss with coupling of the remaining fragments."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch9-unit2-page07",
+      "title": "Kolbe electrolysis joins radicals after carbon loss",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_78624c8196"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "At the anode, carboxylate ions lose electrons and CO2, forming R radicals that couple to R–R. Each starting carboxylate first loses its carboxyl carbon. The coupled product therefore contains twice the carbon count of the remaining R group.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Anode accounting: 2RCOO− → R–R + 2CO2 + 2e−. For acetate, R is CH3 and the product is ethane. The overall sodium-acetate equation is 2CH3COONa + 2H2O → C2H6 + 2CO2 + H2 + 2NaOH. Formate does not provide a methyl group for methane synthesis.",
+          "level": "essential"
+        }
+      ],
+      "transition": "These carbon signatures let us choose starting materials for a stated target."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch9-unit2-page08",
+      "title": "Choose a synthesis by counting carbons",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_78624c8196"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "To obtain butane, Wurtz coupling can join two ethyl fragments from bromoethane. Kolbe electrolysis can join two ethyl fragments after decarboxylating propanoate. To obtain propane by soda-lime decarboxylation, begin with a four-carbon butanoate. These are different starting-material counts for the same target.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Hydrogenation and alkyl-halide reduction retain carbon count. Wurtz joins intact alkyl groups. Decarboxylation removes one carbon, while Kolbe removes a carboxyl carbon from each of two fragments and then joins them. Writing R explicitly helps avoid memorised but mismatched products.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The prepared alkane’s physical behaviour follows its largely non-polar structure."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch9-unit2-page09",
+      "title": "Why alkanes separate from water",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_78624c8196"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Alkanes are largely non-polar and do not form strong hydrogen-bonding interactions with water. They are poorly soluble in water but dissolve better in suitable non-polar solvents. Their weak intermolecular attractions become stronger as molecular size increases, changing physical state and boiling point.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "At ordinary room conditions the first four alkanes are gases; medium-sized members are generally liquids and larger members solids. These broad trends are useful, but boiling and melting depend on structure and conditions. The “like dissolves like” description is a guide based on interactions, not a universal law.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "For a target containing six carbons, Wurtz coupling of identical three-carbon alkyl fragments is a plausible carbon-count plan. A Kolbe plan requires carboxylates whose R groups each contain three carbons, so each starting carboxylate has four. Carbon accounting checks a plan before reaction details are considered."
+        }
+      ],
+      "transition": "We can now compare the preparation routes without losing track of any carbon."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch9-unit2-page10",
+      "title": "Every preparation has a carbon signature",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_78624c8196"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "Use longest-chain naming and correct locants to specify the target. Hydrogenation consumes one H2 per π bond removed. Reduction replaces halogen by hydrogen. Wurtz coupling joins alkyl fragments; soda-lime decarboxylation removes one carbon; Kolbe couples fragments after CO2 loss.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Check formulas, coefficients and conditions before accepting a route. Different halides in Wurtz reaction can create mixtures, and a single H2 cannot fully hydrogenate a triple bond. Alkane solubility and physical properties follow their largely non-polar structures and intermolecular attractions.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "How much H2 is required to convert one mole propyne completely to propane?",
+      "answer": "Two moles H2, because the triple bond has two π bonds to remove.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_78624c8196"
+      ]
+    },
+    {
+      "question": "What alkane forms in Wurtz coupling of bromoethane alone?",
+      "answer": "Butane: two ethyl groups couple, 2C2H5Br + 2Na → C4H10 + 2NaBr.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_78624c8196"
+      ]
+    },
+    {
+      "question": "Which sodium carboxylate gives propane on soda-lime decarboxylation?",
+      "answer": "Sodium butanoate, containing one more carbon than the target propane.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_78624c8196"
+      ]
+    },
+    {
+      "question": "Why does acetate give ethane in Kolbe electrolysis?",
+      "answer": "Each acetate loses its carboxyl carbon as CO2 to give a methyl radical; two methyl radicals couple to ethane.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_78624c8196"
+      ]
+    },
+    {
+      "question": "Why is Wurtz reaction with two different halides not a clean route to one unsymmetrical alkane?",
+      "answer": "Either fragment may couple with itself or the other fragment, giving a mixture of products.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_78624c8196"
+      ]
+    },
+    {
+      "question": "Does an alkyl group symbol R– imply a free radical?",
+      "answer": "No. It normally marks a point of attachment; an unpaired electron must be indicated explicitly by a dot.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_78624c8196"
+      ]
+    }
+  ],
+  "title": "Alkane Naming, Preparation Routes and Physical Properties"
+}

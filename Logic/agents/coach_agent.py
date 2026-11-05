@@ -272,6 +272,9 @@ def _selected_material_scope(request, adaptive_context: Optional[Dict[str, Any]]
             if str(concept_id).strip()
         ],
         "planning_unit_id": str(learning_context.get("planning_unit_id") or "").strip(),
+        "notes_content_version": str(learning_context.get("notes_content_version") or ""),
+        "notes_proficiency": str(learning_context.get("notes_proficiency") or ""),
+        "notes_explanation_style": str(learning_context.get("notes_explanation_style") or ""),
         "subtopic_ids": learning_context.get("notes_subtopic_ids") if learning_context.get("notes_content_version") == "ncert_teacher_v1" else None,
         "notes_page_number": learning_context.get("notes_page_number") if learning_context.get("notes_content_version") == "ncert_teacher_v1" else None,
     }

@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_6_equilibrium_01e9504d65",
+  "pages": [
+    {
+      "title": "Two ways to express gas composition",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " A gas mixture can be measured through concentrations or partial pressures. The two textbook equilibrium forms are related through the ideal-gas equation, provided the unit convention and approximation are explicit."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " For each ideal gas, p(i) = [i]RT. Substitute this separately for every partial pressure in K(p), retaining the stoichiometric powers."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_01e9504d65"
+      ],
+      "transition": "Collect the factors of RT from numerator and denominator.",
+      "id": "chem11-ch06-u03-p01",
+      "page_number": 1
+    },
+    {
+      "title": "Derive the gas-coefficient exponent",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " For aA(g) + bB(g) ⇌ cC(g) + dD(g), substitution gives K(p) = K(c)(RT)^(c+d−a−b). Define Δn(g) as gaseous-product coefficients minus gaseous-reactant coefficients: K(p) = K(c)(RT)^Δn(g)."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " N₂ + 3H₂ ⇌ 2NH₃ has Δn(g) = −2. H₂ + I₂ ⇌ 2HI has Δn(g) = 0, so the corresponding numerical forms agree. Count only gas coefficients."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_01e9504d65"
+      ],
+      "transition": "Choose an R value matching pressure and volume units.",
+      "id": "chem11-ch06-u03-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Worked K(p) conversion",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created data: N₂O₄(g) ⇌ 2NO₂(g) has K(c) = 0.100 in the stated concentration convention at 300 K. Δn(g) = 1. Using R = 0.08314 L bar mol⁻¹ K⁻¹, K(p) = 0.100 × 0.08314 × 300 = 2.49 in the corresponding bar convention."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Numerical comparisons between K(p) and K(c) require stated units. A positive Δn(g) alone is not a unit-independent claim that one numerical constant must always be larger."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_01e9504d65"
+      ],
+      "transition": "Different phases introduce another useful simplification.",
+      "id": "chem11-ch06-u03-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Pure solids and liquids are not variable terms",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Heterogeneous equilibrium contains more than one phase. A pure solid or pure liquid has activity taken as one, so its contribution is incorporated into K rather than written as a variable concentration."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " For CaCO₃(s) ⇌ CaO(s) + CO₂(g), the textbook forms are K(p) = p(CO₂) and K(c) = [CO₂]. Both solids must remain present for this coexistence condition."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_01e9504d65"
+      ],
+      "transition": "An aqueous solute is different from a separate pure phase.",
+      "id": "chem11-ch06-u03-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Read phase labels before omitting a term",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " For Ni(s) + 4CO(g) ⇌ Ni(CO)₄(g), K(c) = [Ni(CO)₄]/[CO]⁴. Solid nickel is omitted, but the two gaseous substances remain."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Dissolved ions and molecules normally retain variable activities. Water as bulk solvent is commonly incorporated into dilute aqueous constants, but a solute labelled aqueous is not a separate pure liquid."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " Aqueous means dissolved in water. It does not mean the dissolved substance itself is liquid water."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_01e9504d65"
+      ],
+      "transition": "The magnitude of a correctly written K describes equilibrium preference.",
+      "id": "chem11-ch06-u03-p05",
+      "page_number": 5
+    },
+    {
+      "title": "K describes extent, not speed",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " A very large K generally indicates product-favoured equilibrium for the written equation; a very small K indicates reactant-favoured equilibrium. NCERT uses rough guides above 10³ and below 10⁻³ for strongly favoured sides."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " K does not reveal the rate of approaching equilibrium. A reaction with a large K can be slow. Nor does K alone determine each concentration without the starting amounts and stoichiometry."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_01e9504d65"
+      ],
+      "transition": "A present mixture needs comparison with the equilibrium ratio.",
+      "id": "chem11-ch06-u03-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Q predicts which way a mixture changes",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " The reaction quotient Q has the same expression as K but uses current concentrations or pressures, whether or not the mixture is at equilibrium. At equilibrium Q = K."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Q < K favours net forward change; Q > K favours net reverse change; Q = K gives no net change. For A ⇌ B with K = 4, a current [B]/[A] = 1 favours more B, while a ratio of 10 favours more A."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_01e9504d65"
+      ],
+      "transition": "Use stoichiometry to find an unknown equilibrium composition.",
+      "id": "chem11-ch06-u03-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Build an initial–change–equilibrium account",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Write initial concentrations, then let x describe a reaction change. Use balanced coefficients to obtain each species’ change, and add it to the initial value before substituting into K."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " For A ⇌ B starting with 1.00 M A and no B, equilibrium values are 1.00 − x and x. The possible range is 0 ≤ x ≤ 1.00 M. For A ⇌ 2B the B change would instead be +2x."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_01e9504d65"
+      ],
+      "transition": "Solve the account and check whether its answer is physically possible.",
+      "id": "chem11-ch06-u03-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Worked equilibrium concentrations",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created example: A ⇌ B has K = 4.00 and initially 1.00 M A only. Required equilibrium composition. K = x/(1.00 − x) = 4.00. Hence x = 4.00 − 4.00x; 5.00x = 4.00; x = 0.800 M. Therefore [A] = 0.200 M and [B] = 0.800 M."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Verify: 0.800/0.200 = 4.00, and both concentrations are nonnegative. A mathematical root producing negative concentration must be rejected."
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": " For quadratic accounts, compare candidate roots with the full physical range, not merely their signs. A positive x can still consume more reactant than was initially present."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_01e9504d65"
+      ],
+      "transition": "Revise the gas conversion, phase rule and quotient calculation together.",
+      "id": "chem11-ch06-u03-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: form the correct ratio first",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Ideal-gas textbook forms satisfy K(p) = K(c)(RT)^Δn(g) with matching units. Pure solid and liquid activities are omitted; variable gas and solute activities remain."
+        },
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " K describes equilibrium preference, Q/K describes current direction, and an initial–change–equilibrium account supplies unknown concentrations. Check coefficients, physical roots and substitution back into the original expression."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_01e9504d65"
+      ],
+      "transition": "",
+      "id": "chem11-ch06-u03-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "Does adding more CaCO₃(s) change K at fixed temperature?",
+      "answer": "No. K depends on temperature, and changing a pure solid amount does not enter the expression while that phase remains.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_01e9504d65"
+      ]
+    },
+    {
+      "question": "What is Δn(g) for PCl₅(g) ⇌ PCl₃(g) + Cl₂(g)?",
+      "answer": "2 − 1 = +1, giving K(p) = K(c)RT in the corresponding textbook conventions.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_01e9504d65"
+      ]
+    },
+    {
+      "question": "If Q = 20 and K = 5, which way is net reaction?",
+      "answer": "Reverse, lowering the product-to-reactant ratio toward K.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_01e9504d65"
+      ]
+    },
+    {
+      "question": "Does a large K imply a fast reaction?",
+      "answer": "No. It describes equilibrium composition, not the kinetic rate.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_01e9504d65"
+      ]
+    },
+    {
+      "question": "For A ⇌ 2B, what concentration changes follow consumption of x M A?",
+      "answer": "A changes by −x and B by +2x.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_01e9504d65"
+      ]
+    },
+    {
+      "question": "Why reject a negative equilibrium concentration root?",
+      "answer": "It is physically impossible even if it solves a rearranged algebraic equation.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_01e9504d65"
+      ]
+    }
+  ],
+  "title": "Gas Constants, Pure Phases and Equilibrium Calculations"
+}

@@ -1,0 +1,285 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_db41969b50",
+  "title": "Ionic Stability, Bond Parameters and Resonance",
+  "pages": [
+    {
+      "title": "Why does making ions produce a stable salt?",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Removing an electron from a gaseous metal costs energy. If ion formation alone were the story, some familiar salts would seem unfavourable. The missing contribution is the stability of the whole ionic crystal.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "We then need bond parameters to describe covalent structures quantitatively: how far apart atoms sit, how strongly they are held and how their electrons are shared.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch4_unit1_page1",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_93c366cd39"
+      ],
+      "transition": "Write the gas-phase ion steps before considering the crystal."
+    },
+    {
+      "title": "Separate the ion-formation steps",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "For a gas-phase metal, M(g)→M⁺(g)+e⁻ requires ionisation enthalpy. Electron addition X(g)+e⁻→X⁻(g) has its own electron gain enthalpy. Adding those steps does not yet describe a solid.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "In a crystal, each ion interacts with many neighbours. Strong overall electrostatic stabilisation can outweigh the preceding energy costs. An ionic solid is an extended arrangement, not a collection of isolated MX molecules.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch4_unit1_page2",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_93c366cd39"
+      ],
+      "transition": "The crystal contribution needs a stated process and sign convention."
+    },
+    {
+      "title": "State the lattice-enthalpy convention",
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Lattice dissociation enthalpy is the enthalpy required to separate one mole of an ionic solid into its gaseous ions; it is positive. The reverse lattice-formation process has the opposite, negative sign.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Smaller ionic distances and greater ionic charges generally strengthen electrostatic attraction. Always state the process before attaching a sign: dissociation and formation are reverse operations.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "Separate a process from its reverse: MX(s)→M⁺(g)+X⁻(g) is lattice dissociation; M⁺(g)+X⁻(g)→MX(s) is formation. Equal magnitudes have opposite signs. Merely quoting a negative number without naming the process can hide a convention error."
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch4_unit1_page3",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_93c366cd39"
+      ],
+      "transition": "Describe measurable distances and angles as well as energies."
+    },
+    {
+      "title": "Measure bond length and angle",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Bond length is the equilibrium distance between bonded nuclei. In a homonuclear single bond, the covalent radius is half this distance. In a polyatomic molecule, bond angle describes the angle between bond directions at an atom.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A 198 pm Cl–Cl distance gives 99 pm per covalent radius. Angles such as those in a water molecule carry shape information that a two-dimensional connectivity diagram cannot supply.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch4_unit1_page4",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_93c366cd39",
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_d7fc888c32"
+      ],
+      "transition": "Breaking a gaseous bond gives a quantitative measure of its strength."
+    },
+    {
+      "title": "Interpret bond enthalpy",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Bond dissociation enthalpy is the enthalpy required to break one mole of a specified bond in gaseous species. It is positive. Bond formation in the reverse process releases the corresponding energy.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "In polyatomic molecules, successive dissociations may have different values because the remaining species changes. Mean bond enthalpy averages relevant values; it is not always the exact energy of one particular bond.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch4_unit1_page5",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_d7fc888c32"
+      ],
+      "transition": "Bond multiplicity helps connect strength with length for related bonds."
+    },
+    {
+      "title": "Relate bond order to length and strength",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "In simple Lewis terms, single, double and triple bonds have bond orders 1, 2, 3. For a comparable atom pair, greater bond order generally means a shorter, stronger bond.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "C–C, C=C and C≡C illustrate the trend. It is a comparison for related bonds, not a guarantee that every triple bond between arbitrary elements exceeds every other bond in strength.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch4_unit1_page6",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_d7fc888c32"
+      ],
+      "transition": "Some measured equalities cannot be represented by one local Lewis diagram."
+    },
+    {
+      "title": "See why one ozone diagram is insufficient",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "One Lewis drawing of O₃ has a single and a double O–O bond, yet the two actual bond lengths are equal. Two canonical structures place the double bond on opposite sides.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The actual molecule is a resonance hybrid with delocalised electron density. It does not jump back and forth between independently existing single-double arrangements. The oxygen nuclei keep the same connectivity.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch4_unit1_page7",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_d7fc888c32"
+      ],
+      "transition": "A three-bond example makes the resonance averaging clearer."
+    },
+    {
+      "title": "Use carbonate to understand equivalent bonds",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "CO₃²⁻ has 24 valence electrons: 4+3×6+2. Three equivalent canonical structures each place one C=O bond at a different oxygen. The real ion has three equivalent C–O bonds.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A simple resonance average gives bond order(2+1+1)/3=4/3. Fractional bond order describes delocalised bonding; it does not mean that one-third of an electron pair is a separate local bond.",
+          "level": "essential"
+        },
+        {
+          "kind": "practice",
+          "level": "extension",
+          "text": "For ozone’s two equivalent O–O links, the simple resonance average is(1+2)/2=1.5. The actual molecule has one delocalised electronic structure; it is not a physical mixture of a single-bond molecule and a double-bond molecule."
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch4_unit1_page8",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_d7fc888c32"
+      ],
+      "transition": "Resonance and unequal electron sharing answer different questions."
+    },
+    {
+      "title": "Distinguish resonance from polarity",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Resonance changes how electrons are represented without moving nuclei. Bond polarity instead concerns unequal attraction for a shared pair in unlike-atom bonds. H–Cl is polar because Cl attracts the pair more strongly.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Canonical structures preserve total electron number and total charge. Do not shift atoms, change connectivity or use an equilibrium arrow to suggest a resonance hybrid is a mixture of rapidly interconverting molecules.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch4_unit1_page9",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_d7fc888c32"
+      ],
+      "transition": "Match the structural evidence with its appropriate parameter or model."
+    },
+    {
+      "title": "Match each measurement to its meaning",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Lattice enthalpy describes an ionic solid’s conversion to or from gaseous ions. Bond length and angle describe geometry; dissociation enthalpy describes bond breaking; bond order describes bonding multiplicity or delocalisation.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Equivalent observed bonds may require resonance. A useful explanation connects a measured property with its correct model and never changes atoms or total electrons to improve a drawing.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch4_unit1_page10",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_93c366cd39",
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_d7fc888c32"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why is isolated ion formation not the complete energy balance for NaCl(s)?",
+      "answer": "Crystal formation brings substantial lattice stabilisation involving many ion–ion interactions.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_93c366cd39",
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_d7fc888c32"
+      ]
+    },
+    {
+      "question": "What sign has lattice dissociation enthalpy?",
+      "answer": "Positive: separating the solid into gaseous ions requires energy.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_93c366cd39",
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_d7fc888c32"
+      ]
+    },
+    {
+      "question": "Find covalent radius from a 180 pm homonuclear single bond.",
+      "answer": "180/2=90 pm.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_93c366cd39",
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_d7fc888c32"
+      ]
+    },
+    {
+      "question": "Why can mean bond enthalpy differ from a specific bond dissociation?",
+      "answer": "Successive bond breaking changes the chemical environment; a mean averages several values.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_93c366cd39",
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_d7fc888c32"
+      ]
+    },
+    {
+      "question": "Why do ozone’s equal bonds challenge one Lewis diagram?",
+      "answer": "One local single-double drawing predicts unequal bonds; resonance represents delocalisation and equivalent observed bonds.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_93c366cd39",
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_d7fc888c32"
+      ]
+    },
+    {
+      "question": "Calculate simple carbonate resonance bond order.",
+      "answer": "(2+1+1)/3=4/3 for each equivalent C–O bond.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_93c366cd39",
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_d7fc888c32"
+      ]
+    },
+    {
+      "question": "Do resonance structures represent rapidly interconverting separate molecules?",
+      "answer": "No. The real structure is one delocalised resonance hybrid.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_93c366cd39",
+        "unit_ncert_class_11_chemistry_chapter_4_chemical_bonding_and_molecular_structure_d7fc888c32"
+      ]
+    }
+  ]
+}

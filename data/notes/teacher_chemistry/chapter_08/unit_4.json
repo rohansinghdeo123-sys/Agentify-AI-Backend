@@ -1,0 +1,263 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_235995632e",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch8-unit5-page01",
+      "title": "Why can the same bond respond differently?",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_235995632e"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "A multiple bond has electrons that can respond to an approaching reagent, while an alkyl group can help stabilise a neighbouring electron-deficient centre. We need to distinguish these effects before turning to a separate practical question: how to isolate a pure organic product.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "This unit follows the mapped NCERT sequence: the electromeric effect, hyperconjugation and then basic purification methods. Electron effects explain reactivity; purification exploits measurable physical differences such as solubility and boiling point. Neither requires memorising an unexplained list of names.",
+          "level": "essential"
+        }
+      ],
+      "transition": "First examine the temporary π-electron response to a reagent."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch8-unit5-page02",
+      "title": "Electromeric effect: a temporary response",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_235995632e"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "The electromeric effect is the complete displacement of a multiple bond’s π-electron pair towards one atom under the influence of an attacking reagent. It is temporary and disappears when the influence is removed without reaction. It concerns π electrons, unlike the inductive effect in σ bonds.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "When H⁺ approaches an alkene, a π pair can be used to make a C–H bond. The electrons move towards the atom that bonds to the attacking reagent: the +E description. When a nucleophile attacks a carbonyl carbon, the π pair shifts towards oxygen, away from the attacked carbon: −E.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Volatile means able to form vapour readily. Solubility describes how much of a substance dissolves in a given solvent under stated conditions. These properties depend on temperature and on the substances involved.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "A neighbouring σ bond can stabilise a reactive centre in a different way."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch8-unit5-page03",
+      "title": "A neighbouring sigma bond can stabilise a cation",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_235995632e"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Hyperconjugation is delocalisation involving a σ bond, commonly C–H, next to an empty p orbital or a π system. The orbitals must be suitably aligned. Sharing electron density over a larger region helps stabilise the species rather than keeping all electron deficiency concentrated at one carbon.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "In CH3CH2+, the empty p orbital on CH2+ can interact with C–H σ bonds on the adjacent CH3 group. The carbon–hydrogen bonds are not actually breaking to release free H⁺; the “no-bond” contributors are a way of describing delocalisation.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Counting adjacent C–H bonds makes this stabilisation argument concrete."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch8-unit5-page04",
+      "title": "Count adjacent bonds, not just carbon atoms",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_235995632e"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Compare CH3CH2+, (CH3)2CH⁺ and (CH3)3C+. Their directly neighbouring methyl groups provide 3, 6 and 9 adjacent C–H bonds respectively for hyperconjugative interaction. Together with inductive donation this supports the simple alkyl-cation order tertiary > secondary > primary.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "The isopropyl cation is (CH3)2CH⁺, not CH3CH2+. The latter is ethyl. Methyl cation, CH3⁺, has no adjacent carbon and therefore no adjacent C–H bonds for this interaction. Apply this comparison to simple alkyl cations; resonance may alter comparisons in other families.",
+          "level": "essential"
+        }
+      ],
+      "transition": "After a reaction, a new problem remains: separating the product from impurities."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch8-unit5-page05",
+      "title": "Purity is needed before identification",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_235995632e"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "An isolated reaction mixture can contain the desired compound, reactants, solvent and by-products. A measured melting or boiling point is useful for identification only after suitable purification. Choose a separation method from a physical difference between the product and its impurities.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "A volatile liquid mixed with a non-volatile solid suggests distillation. A solid much more soluble in hot solvent than cold solvent suggests crystallisation. A sublimable solid with a non-sublimable impurity suggests sublimation. The same method is not appropriate for every mixture.",
+          "level": "essential"
+        }
+      ],
+      "transition": "For solids, sublimation and changing solubility offer two useful contrasts."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch8-unit5-page06",
+      "title": "Sublimation and crystallisation",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_235995632e"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Sublimation changes a solid directly into vapour without passing through a liquid phase; cooling recovers the solid. Crystallisation dissolves an impure solid in a suitable hot solvent and forms purer crystals on cooling, using differences in solubility.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For crystallisation, use a solvent that dissolves the product well when hot but poorly when cold. Insoluble impurities are removed from the hot solution; soluble impurities can remain in the mother liquor, the liquid left after crystallisation. Washing crystals with a small amount of cold solvent limits product loss.",
+          "level": "essential"
+        }
+      ],
+      "transition": "For liquids, volatility provides a different separation principle."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch8-unit5-page07",
+      "title": "Why simple distillation works",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_235995632e"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "Distillation vaporises a liquid and condenses its vapour. It separates a volatile liquid from non-volatile impurities or liquids with a sufficiently large boiling-point difference. The more volatile component enriches the vapour that is collected first.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "NCERT compares chloroform, boiling near 334 K, with aniline, boiling near 457 K. Their widely separated boiling points support simple distillation. Boiling a mixture is not itself purification: the vapour must be condensed and collected separately under appropriate laboratory conditions.",
+          "level": "essential"
+        }
+      ],
+      "transition": "When boiling points are close, a single vaporisation is often insufficient."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch8-unit5-page08",
+      "title": "Close boiling points need repeated separation",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_235995632e"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Fractional distillation uses a fractionating column between the boiling flask and condenser. Repeated condensation and vaporisation within the column enrich the more volatile component more effectively than a single vaporisation. It is useful when liquid boiling points are close.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "Petroleum separation uses this principle on an industrial scale. The fractions represent ranges of boiling points rather than necessarily pure single compounds. The column improves separation; it does not make all components have different boiling points or chemically convert them into new substances.",
+          "level": "essential"
+        }
+      ],
+      "transition": "If heating itself damages the product, pressure becomes another useful control."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch8-unit5-page09",
+      "title": "Lowering pressure protects a sensitive liquid",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_235995632e"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A liquid boils when its vapour pressure equals the external pressure. Lower external pressure therefore allows boiling at a lower temperature. Distillation under reduced pressure is useful for high-boiling liquids or substances that would decompose near their normal boiling points.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "Glycerol can be purified under reduced pressure rather than heating it to its high normal boiling temperature. This is a pressure–boiling-point choice, not a claim that the molecule becomes more thermally stable. Purification procedures require supervised laboratory equipment, especially heating and pressure control.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "A product may need more than one purification step. Distillation can remove a solvent, followed by crystallisation of a solid product if a suitable hot–cold solubility contrast exists. A method should be chosen for the mixture at that stage, rather than assigned permanently to a compound name."
+        }
+      ],
+      "transition": "We can now match each electron effect and separation method to its proper purpose."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch8-unit5-page10",
+      "title": "Match the explanation to the question",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_235995632e"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "The electromeric effect concerns a reagent-induced π-pair displacement; hyperconjugation concerns stabilising delocalisation from a neighbouring σ bond. Preserve the actual intermediate’s formula and count adjacent C–H bonds when using the simple stability argument.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "For separation, identify the useful physical difference: sublimation, hot–cold solubility, volatility, close boiling points or thermal sensitivity. Crystallisation needs an appropriate solvent; fractional distillation adds repeated separation; reduced pressure lowers the temperature required for boiling.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "How does the electromeric effect differ from induction?",
+      "answer": "It is temporary and involves complete π-pair displacement under a reagent’s influence; induction is permanent polarisation through σ bonds.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_235995632e"
+      ]
+    },
+    {
+      "question": "How many adjacent methyl C–H bonds are available in (CH3)2CH⁺?",
+      "answer": "Six: two adjacent CH3 groups each supply three. The positively charged carbon itself is not the methyl group being counted.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_235995632e"
+      ]
+    },
+    {
+      "question": "Why can cold washing be preferable when collecting crystals?",
+      "answer": "The product is less soluble in cold solvent, so washing removes adhering impurities while limiting loss of product.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_235995632e"
+      ]
+    },
+    {
+      "question": "What extra function does a fractionating column provide?",
+      "answer": "Repeated vaporisation and condensation enrich the more volatile component, helping separate close-boiling liquids.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_235995632e"
+      ]
+    },
+    {
+      "question": "Why use reduced pressure for a decomposing high-boiling liquid?",
+      "answer": "Boiling occurs at a lower temperature when external pressure is lowered, avoiding excessive heating near its normal boiling point.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_235995632e"
+      ]
+    }
+  ],
+  "title": "Electromeric Effect, Hyperconjugation and Purification"
+}

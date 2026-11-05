@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b41a0af67a",
+  "pages": [
+    {
+      "title": "A catalyst changes the route, not the destination",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " A catalyst can make product appear faster. Does that prove it increases equilibrium yield? A new pathway can speed both directions while preserving their final balance."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " A catalyst increases the rate of reaching equilibrium without changing K or equilibrium composition at the same conditions. It cannot make a strongly reactant-favoured equilibrium product-favoured."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b41a0af67a"
+      ],
+      "transition": "Temperature, unlike a catalyst, can alter the final ratio.",
+      "id": "chem11-ch06-u05-p01",
+      "page_number": 1
+    },
+    {
+      "title": "Temperature affects rate and equilibrium differently",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Heating often speeds reactions, but its equilibrium effect depends on enthalpy: it favours the endothermic direction. Reaction rate and equilibrium yield can therefore improve in opposite temperature directions."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Cooling favours ammonia in its exothermic synthesis but lowers the rate. A catalyst helps the rate trade-off. Compare final equilibrated mixtures, rather than product amounts after equal short times."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b41a0af67a"
+      ],
+      "transition": "In water, the particles taking part in equilibrium are often ions.",
+      "id": "chem11-ch06-u05-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Mobile ions make an electrolyte",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Electrolytes supply mobile ions in solution and allow electrical conduction. Strong electrolytes are substantially dissociated or ionised in dilute water. Weak electrolytes establish an equilibrium containing appreciable unionised molecules."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " NaCl dissolves as ions, while ethanoic acid reacts with water only partly to form H₃O⁺ and CH₃COO⁻. Molecular sugar solution does not provide the same mobile-ion population."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " Dissociation separates pre-existing ions. Ionisation forms ions from a molecular solute through interaction with the solvent."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b41a0af67a"
+      ],
+      "transition": "How much is present differs from how completely it ionises.",
+      "id": "chem11-ch06-u05-p03",
+      "page_number": 3
+    },
+    {
+      "title": "Strong does not mean concentrated",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Concentration measures solute amount per volume. Strength describes the extent of ion formation under specified conditions. A dilute strong acid and a concentrated weak acid are both possible."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Conductivity also depends on ion concentration and mobility, so the word strong alone does not fix conductivity. Never taste or touch a substance to classify it as acidic or basic; use appropriate indicators or measurements."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b41a0af67a"
+      ],
+      "transition": "The Arrhenius definition identifies the ions produced in water.",
+      "id": "chem11-ch06-u05-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Arrhenius acids and bases",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " An Arrhenius acid increases hydrogen-ion concentration in water; an Arrhenius base increases hydroxide-ion concentration. Aqueous protons associate with water and are commonly represented as H₃O⁺."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " HCl + H₂O → H₃O⁺ + Cl⁻ illustrates an aqueous acid. NaOH(aq) → Na⁺(aq) + OH⁻(aq) supplies hydroxide as a base. This framework specifically concerns aqueous behaviour."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b41a0af67a"
+      ],
+      "transition": "A broader definition tracks proton transfer itself.",
+      "id": "chem11-ch06-u05-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Brønsted–Lowry follows H⁺",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " A Brønsted–Lowry acid donates a proton, H⁺; a Brønsted–Lowry base accepts one. These roles occur together because a donor needs an acceptor."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " NH₃ + H₂O ⇌ NH₄⁺ + OH⁻. NH₃ accepts H⁺ and is the base. Water donates H⁺ and is the acid. This explains ammonia basicity without requiring OH⁻ in its original formula."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b41a0af67a"
+      ],
+      "transition": "After transfer, each partner has a conjugate form.",
+      "id": "chem11-ch06-u05-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Conjugate pairs differ by one proton",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Removing H⁺ from an acid gives its conjugate base. Adding H⁺ to a base gives its conjugate acid. A pair differs by exactly one H⁺ and one charge unit."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " In the ammonia reaction, the pairs are NH₄⁺/NH₃ and H₂O/OH⁻. NH₃ and OH⁻ are not a conjugate pair with each other. Removing H⁺ from HCO₃⁻ gives CO₃²⁻, not CO₃⁻."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b41a0af67a"
+      ],
+      "transition": "The same substance can donate or accept depending on its partner.",
+      "id": "chem11-ch06-u05-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Water plays both roles",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " With HCl, water accepts H⁺ and acts as a base. With NH₃, it donates H⁺ and acts as an acid. This ability to show both behaviours is called amphoteric behaviour."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Acid or base is a reaction role, not a label determined merely by containing hydrogen. HCO₃⁻ can also accept or donate H⁺ depending on the reaction partner."
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": " Track the product charge as a check: accepting positive H⁺ raises the charge by one; donating it lowers the charge by one."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b41a0af67a"
+      ],
+      "transition": "Apply proton and charge bookkeeping to a new pair of reactants.",
+      "id": "chem11-ch06-u05-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Worked conjugate-pair assignment",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created reaction: HNO₂ + CN⁻ ⇌ NO₂⁻ + HCN. HNO₂ loses H⁺ and is the acid. CN⁻ gains H⁺ and is the base. The conjugate pairs are HNO₂/NO₂⁻ and HCN/CN⁻. Total charge remains −1 on both sides."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Do not alter oxygen counts or central atoms when constructing a conjugate partner. Only one H⁺ is transferred; changing other atoms creates a different species."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b41a0af67a"
+      ],
+      "transition": "Revise the catalyst, electrolyte and acid–base distinctions.",
+      "id": "chem11-ch06-u05-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: track ions and proton transfer",
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " A catalyst changes the time to equilibrium, while temperature can change K. Electrolyte strength describes ion formation; concentration describes solute amount per volume."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Arrhenius acids and bases increase aqueous hydrogen and hydroxide ions respectively. Brønsted–Lowry acids donate H⁺ and bases accept it. Conjugate partners differ by one proton; amphoteric water can play either role."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b41a0af67a"
+      ],
+      "transition": "",
+      "id": "chem11-ch06-u05-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "Does a catalyst change K at fixed temperature?",
+      "answer": "No. It changes the rate of approach, not the endpoint constant.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b41a0af67a"
+      ]
+    },
+    {
+      "question": "Can a strong acid be dilute?",
+      "answer": "Yes. Strength concerns ionisation, while dilute concerns concentration.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b41a0af67a"
+      ]
+    },
+    {
+      "question": "Why is NH₃ a base with water?",
+      "answer": "It accepts a proton to become NH₄⁺.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b41a0af67a"
+      ]
+    },
+    {
+      "question": "What is the conjugate base of H₂PO₄⁻?",
+      "answer": "HPO₄²⁻, after losing one H⁺.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b41a0af67a"
+      ]
+    },
+    {
+      "question": "Are H₃O⁺ and OH⁻ a conjugate pair?",
+      "answer": "No. They differ by two protons; H₃O⁺/H₂O and H₂O/OH⁻ are pairs.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b41a0af67a"
+      ]
+    },
+    {
+      "question": "Why can water be both acid and base?",
+      "answer": "It can accept H⁺ from one partner or donate H⁺ to another.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_b41a0af67a"
+      ]
+    }
+  ],
+  "title": "Electrolytes and Proton-Transfer Acids and Bases"
+}

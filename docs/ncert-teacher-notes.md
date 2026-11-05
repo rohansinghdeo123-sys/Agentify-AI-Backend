@@ -1,5 +1,7 @@
 # NCERT teacher notes: Chapter 1
 
+The same contract now covers all nine published Class XI Chemistry chapters; see [the Chemistry-wide implementation](chemistry-teacher-notes.md). This document records the original Chapter 1 behavior and source corrections.
+
 This is the current notes-content contract from Amit's November 4 prompt. It supersedes the earlier Master Notes-first excerpt presentation. NCERT is the primary scientific source; the earlier seed, original PDF and indexes remain available as reference and for archived-ID resolution, rather than being copied into the new reader.
 
 ## Authored lessons and provenance

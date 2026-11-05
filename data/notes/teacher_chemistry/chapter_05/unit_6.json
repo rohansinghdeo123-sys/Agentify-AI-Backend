@@ -1,0 +1,287 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_4963356ee9",
+  "pages": [
+    {
+      "title": "Why does a gas spread out?",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Release a gas into an available container and it spreads rather than collecting into one corner. Energy conservation alone cannot select this direction. We also need to consider the possible distributions of energy and particles."
+        },
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Entropy S is a thermodynamic state function associated with the dispersal of energy and the number of microscopic arrangements compatible with a state. NCERT introduces it through disorder; that word is a useful guide, not a complete visual test."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_00760eae33"
+      ],
+      "transition": "Compare familiar changes to develop the entropy idea.",
+      "id": "chem11-ch05-u07-p01",
+      "page_number": 1
+    },
+    {
+      "title": "Follow the accessible arrangements",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " A gas generally has greater freedom of motion than the corresponding liquid or solid. Melting, vaporisation and expansion commonly increase entropy. Mixing gases allows many more distributions than keeping them separated."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " System entropy need not increase in every spontaneous process. Freezing can decrease the system entropy while increasing the surroundings entropy sufficiently. The criterion concerns the system together with its surroundings."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " More gas particles often suggest a positive reaction entropy, but that is a trend for reasoning, not a substitute for data when several effects compete."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_00760eae33"
+      ],
+      "transition": "A reversible reference path connects entropy change to heat quantitatively.",
+      "id": "chem11-ch05-u07-p02",
+      "page_number": 2
+    },
+    {
+      "title": "Entropy has a measurable heat relation",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " For a reversible isothermal transfer, ΔS = q(rev)/T. q(rev) is the heat transferred reversibly to the system and T is the absolute temperature in K. If q is in J, ΔS is in J K⁻¹; molar entropy has units J mol⁻¹ K⁻¹."
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created phase-change example: reversible melting transfers 6.00 kJ to one mole at 273 K. ΔS = 6000/273 = +22.0 J mol⁻¹ K⁻¹. The positive sign matches increased accessible arrangements in the liquid."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " For an irreversible actual process, do not divide its actual q by T indiscriminately. Entropy is evaluated through a reversible path connecting the states."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_00760eae33"
+      ],
+      "transition": "Add the surroundings contribution to obtain a direction criterion.",
+      "id": "chem11-ch05-u07-p03",
+      "page_number": 3
+    },
+    {
+      "title": "The second law uses total entropy",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " ΔS(total) = ΔS(system) + ΔS(surroundings). A spontaneous change in an isolated combined system gives ΔS(total) > 0; equilibrium gives no net entropy increase for a reversible infinitesimal change."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " A system may become more ordered while warming its surroundings. If the surroundings gain more entropy than the system loses, the total rises. This is why system disorder alone cannot decide whether freezing or crystallisation is possible."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_00760eae33"
+      ],
+      "transition": "For ordinary constant-temperature, constant-pressure conditions, Gibbs energy packages this test.",
+      "id": "chem11-ch05-u07-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Gibbs energy combines enthalpy and entropy",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Gibbs energy is G = H − TS. For a change at constant temperature, ΔG = ΔH − TΔS. At constant temperature and pressure, a spontaneous direction has ΔG < 0, while equilibrium has ΔG = 0, for the usual closed-system conditions."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " ΔH counts the enthalpy change; TΔS expresses the entropy contribution in energy units. Use entropy in kJ K⁻¹ if enthalpy is in kJ. Temperature must be kelvin. Mixing J and kJ can reverse a numerical conclusion."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_00760eae33"
+      ],
+      "transition": "A numerical balance shows why temperature can change the preferred direction.",
+      "id": "chem11-ch05-u07-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Worked Gibbs-energy decision",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created data: ΔH = +40.0 kJ mol⁻¹ and ΔS = +150 J mol⁻¹ K⁻¹ at 300 K. Required: ΔG and direction. Convert ΔS = 0.150 kJ mol⁻¹ K⁻¹. Then ΔG = 40.0 − 300(0.150) = −5.0 kJ mol⁻¹. The forward change is favoured at this temperature despite being endothermic."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Assuming these values remain approximately constant, the crossover is T = ΔH/ΔS = 40.0/0.150 ≈ 267 K. Above this, the positive entropy contribution outweighs the positive enthalpy cost."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_00760eae33"
+      ],
+      "transition": "Classify the sign combinations without memorising disconnected rules.",
+      "id": "chem11-ch05-u07-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Read the temperature dependence from the signs",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " If ΔH < 0 and ΔS > 0, both contributions favour negative ΔG. If ΔH > 0 and ΔS < 0, both oppose it. For ΔH < 0, ΔS < 0, sufficiently low T favours the process; for ΔH > 0, ΔS > 0, sufficiently high T favours it."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " These sign rules assume ΔH and ΔS do not change greatly over the temperature range. A phase transition or strong temperature dependence can require fresh values. A favourable ΔG also says nothing about reaction speed."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_00760eae33"
+      ],
+      "transition": "Reference entropies differ from reference formation enthalpies.",
+      "id": "chem11-ch05-u07-p07",
+      "page_number": 7
+    },
+    {
+      "title": "The third-law reference for entropy",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " The third law assigns zero entropy to a perfectly crystalline pure substance at absolute zero, 0 K. As temperature rises, more microscopic arrangements become accessible, enabling evaluation of absolute entropies from thermal data."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Standard molar entropy of an element at 298 K is generally not zero. Do not transfer the zero convention for reference-state formation enthalpy to entropy. They are different reference conventions."
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": " The requirement of a perfect crystal matters. A frozen disordered arrangement can retain residual entropy; the simple third-law statement specifies the ideal ordered limit."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e4d5bb5346"
+      ],
+      "transition": "Gibbs energy also connects to the equilibrium composition of a reaction.",
+      "id": "chem11-ch05-u07-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Standard Gibbs energy and equilibrium",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " The relation is ΔrG° = −RT ln K, where K is the dimensionless thermodynamic equilibrium constant, R = 8.314 J mol⁻¹ K⁻¹ and T is in K. Negative ΔrG° means K > 1; positive ΔrG° means K < 1."
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created example: at 300 K, K = 10.0. ΔrG° = −8.314 × 300 × ln 10.0 = −5743 J mol⁻¹ ≈ −5.74 kJ mol⁻¹. Products are favoured in the standard-state comparison, but a particular mixture still depends on its composition."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " At equilibrium ΔrG = 0. This does not mean ΔrG° is always zero; the standard-state value can be nonzero when K differs from one."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e4d5bb5346"
+      ],
+      "transition": "Revise the conditions, units and distinction between total entropy and Gibbs energy.",
+      "id": "chem11-ch05-u07-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: choose the correct direction criterion",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Reversible isothermal heat gives ΔS = q(rev)/T. Total entropy increases for a spontaneous isolated-system change. At constant T and p, ΔG = ΔH − TΔS gives the equivalent system criterion; negative favours forward change."
+        },
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Use kelvin and consistent energy units. Standard elemental entropy at 298 K is not automatically zero. ΔrG° = −RT ln K describes equilibrium preference; ΔrG = 0 describes a mixture already at equilibrium. Neither entropy nor Gibbs energy predicts the rate."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_00760eae33",
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e4d5bb5346"
+      ],
+      "transition": "",
+      "id": "chem11-ch05-u07-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "Can a spontaneous change have negative system entropy?",
+      "answer": "Yes, if the surroundings gain enough entropy that ΔS(total) is positive.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_00760eae33",
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e4d5bb5346"
+      ]
+    },
+    {
+      "question": "Why convert 100 J mol⁻¹ K⁻¹ before combining it with kJ enthalpy?",
+      "answer": "TΔS must be in the same energy units as ΔH; 100 J mol⁻¹ K⁻¹ = 0.100 kJ mol⁻¹ K⁻¹.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_00760eae33",
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e4d5bb5346"
+      ]
+    },
+    {
+      "question": "For ΔH > 0 and ΔS > 0, which temperatures favour the forward change?",
+      "answer": "Sufficiently high temperatures, where TΔS exceeds ΔH and ΔG becomes negative.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_00760eae33",
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e4d5bb5346"
+      ]
+    },
+    {
+      "question": "Is standard entropy of O₂(g) at 298 K zero?",
+      "answer": "No. The third-law zero is for a perfect crystal at 0 K; the zero formation-enthalpy convention is different.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_00760eae33",
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e4d5bb5346"
+      ]
+    },
+    {
+      "question": "If K = 1, what is ΔrG°?",
+      "answer": "ln 1 = 0, so ΔrG° = 0 at that temperature.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_00760eae33",
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e4d5bb5346"
+      ]
+    },
+    {
+      "question": "At equilibrium, must ΔrG° be zero?",
+      "answer": "No. Actual ΔrG is zero. ΔrG° is zero only if the corresponding K is one.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_00760eae33",
+        "unit_ncert_class_11_chemistry_chapter_5_thermodynamics_e4d5bb5346"
+      ]
+    }
+  ],
+  "title": "Entropy, Gibbs Energy and Equilibrium"
+}

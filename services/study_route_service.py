@@ -467,28 +467,47 @@ def record_heartbeat(db, *, user_id, last_position=None, compact=False):
     position = dict(last_position or {})
     if position.get('unit_id') and position['unit_id'] != state.current_unit_id:
         raise StudyRouteError('Position belongs to a different unit')
-    if state.status == 'completed':
+    if state.status == 'completed' and 'notes_page' not in position:
         return {'saved': True} if compact else read_current_route(db, user_id=user_id)
     if 'notes_page' in position:
         page = position['notes_page']
-        if not isinstance(page, int) or page < 0 or page > 500:
+        if isinstance(page, bool) or not isinstance(page, int) or page < 0 or page > 500:
             raise StudyRouteError('Invalid notes page')
         runtime = dict(state.runtime_json or {})
         topic = str(position.get('notes_topic') or state.current_unit_id)
         curriculum = _curriculum(db, state)
         if not curriculum or topic not in {u['id'] for u in curriculum['units']}:
-            raise StudyRouteError('Notes topic is outside the saved plan chapter')
+            # A portfolio may contain several chapters. Save a selected
+            # chapter's page without changing the active route or mastery.
+            curriculum = None
+            for selection in state.selections_json or []:
+                args = dict(chapter_ref=selection.get('chapter_ref'), subject=state.subject, class_level=state.class_level)
+                candidate = resolve_planning_curriculum(**args) or resolve_published_planning_curriculum(db, **args)
+                if candidate and topic in {u['id'] for u in candidate['units']}:
+                    curriculum = candidate
+                    break
+            if curriculum is None:
+                raise StudyRouteError('Notes topic is outside the saved plan chapters')
         version = position.get('notes_version')
         if version:
             from services.teacher_notes_service import VERSION
             if version != VERSION or page > 9:
                 raise StudyRouteError('Invalid teaching-notes edition or page')
+            from services.teacher_notes_service import resolve_teacher_unit
+            if not resolve_teacher_unit(curriculum['chapter_slug'], topic):
+                raise StudyRouteError('No teaching-notes edition for this topic')
             versions = dict(runtime.get('notes_positions_by_version', {}))
             versions[version] = {**versions.get(version, {}), topic: page}
             runtime['notes_positions_by_version'] = versions
         else:
             runtime['notes_positions'] = {**runtime.get('notes_positions', {}), topic: page}
         state.runtime_json = runtime
+    if state.status == 'completed':
+        # Revision bookmarks remain writable after a route is finished. Do
+        # not reopen the route or overwrite its conversation/check position.
+        state.last_active_at = _now()
+        db.commit()
+        return {'saved': True} if compact else read_current_route(db, user_id=user_id)
     state.last_position_json = {**(state.last_position_json or {}), **position}
     state.status = 'in_progress'
     state.started_at = state.started_at or _now()

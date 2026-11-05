@@ -1,0 +1,263 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f65169a9cd",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch8-unit8-page01",
+      "title": "Complete the composition, then read the structure",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f65169a9cd"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Knowing carbon, hydrogen and nitrogen percentages may still leave phosphorus or oxygen unaccounted for. Elemental analysis completes the composition; bonding then explains the arrangement. This mapped final section links those tasks with a focused review of carbon geometry and electron movement.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Keep measurement evidence distinct from structural interpretation. A phosphorus precipitate gives an elemental mass through stoichiometry. Hybridisation and reaction mechanisms describe how atoms bond and how electrons move; they cannot replace an actual composition measurement.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Phosphorus is measured by converting it into a precipitate of known composition."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch8-unit8-page02",
+      "title": "Phosphorus as a known precipitate",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f65169a9cd"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Oxidation converts phosphorus in an organic compound into phosphoric acid. It can be precipitated as ammonium phosphomolybdate, (NH4)3PO4·12MoO3, or converted through magnesium ammonium phosphate into Mg2P2O7 on ignition. A known precipitate formula supplies the phosphorus fraction.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "Using textbook molar masses, %P = (31/1877)(m(precipitate)/m(sample))×100 for (NH4)3PO4·12MoO3. For Mg2P2O7, %P = (62/222)(m(precipitate)/m(sample))×100 because one formula unit contains two phosphorus atoms. All masses must use the same unit.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Stoichiometry links measured amounts through chemical formulas or equations. The same product, CO2, can appear in different analytical schemes, so identify which sample element was converted into it before calculating.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "A worked example shows why the two phosphorus atoms in pyrophosphate matter."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch8-unit8-page03",
+      "title": "A phosphorus mass calculation",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f65169a9cd"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Teacher-created data: a 0.100 g sample yields 0.111 g Mg2P2O7. Find %P. The precipitate contains 62 g P per 222 g, so P mass = 0.111×62/222 = 0.0310 g. Percentage P = 0.0310/0.100×100 = 31.0%.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The factor 62 counts two P atoms; using 31 would halve the answer. The precipitate also contains magnesium and oxygen supplied during analysis, so its total mass is not the sample’s phosphorus mass. This is the same product-to-element logic used for CO2 and AgX.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Oxygen by difference requires an assumption that should be stated explicitly."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch8-unit8-page04",
+      "title": "Oxygen by difference: state the assumption",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f65169a9cd"
+      ],
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "If every other element present has been accurately estimated, %O = 100 − sum of the percentages of those other elements. For a compound known to contain only C, H and O with 48.0% C and 6.0% H, %O = 100 − 48.0 − 6.0 = 46.0%.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "An unexplained remainder is not automatically oxygen. An unmeasured nitrogen or halogen content, an impurity or measurement error also changes the remainder. Calculation by difference is justified by a known complete list of possible elements, not by the sample being organic.",
+          "level": "essential"
+        }
+      ],
+      "transition": "A direct oxygen method uses its own conversion chain and mass fraction."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch8-unit8-page05",
+      "title": "Direct oxygen estimation follows a conversion chain",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f65169a9cd"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "In the direct method described by NCERT, decomposition products pass over red-hot carbon so sample oxygen forms CO. Iodine pentoxide then oxidises CO to CO2: I2O5 + 5CO → I2 + 5CO2. The measured CO2 is related to oxygen originally supplied by the sample through the CO intermediate.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "The textbook conversion is 32 g sample oxygen for 88 g collected CO2, equivalent to 16/44. If 0.100 g sample produces 0.0440 g CO2 in this oxygen-estimation scheme, O mass = 0.0440×32/88 = 0.0160 g, so %O = 16.0%. Do not use the carbon-estimation fraction 12/44 here.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Composition alone does not reveal local geometry, so we now read the carbon bonds."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch8-unit8-page06",
+      "title": "Read geometry carbon by carbon",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f65169a9cd"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Consider CH2=CH–CH2–C≡CH. The first two carbons are sp2, the third sp3, and the last two sp. Local bonding determines hybridisation; being part of an unsaturated molecule does not make every carbon sp2 or sp.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "sp3 gives four approximately tetrahedral bond directions; sp2 gives three planar directions and one unhybridised p orbital; sp gives two linear directions and two unhybridised p orbitals. The p orbitals supply the extra π bonds in double and triple bonds.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Once the local orbitals are identified, σ and π bonds can be counted consistently."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch8-unit8-page07",
+      "title": "Account for sigma and pi bonds",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f65169a9cd"
+      ],
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "In CH2=CH–CH2–C≡CH, four C–C connections give four σ bonds regardless of bond multiplicity. Six C–H bonds add six σ bonds: ten σ altogether. The double bond contributes one π and the triple bond two π, giving three π bonds.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "Wedge-dash drawings describe spatial direction, while σ/π counting describes orbital overlap. A complete structure must preserve both connectivity and local geometry. Rotating a C–C single bond may change a conformation without changing its bond count or molecular formula.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Bond breaking then determines which reactive intermediates are available."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch8-unit8-page08",
+      "title": "Bond breaking creates different intermediates",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f65169a9cd"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Homolytic fission splits a pair equally, producing radicals; heterolytic fission gives the pair to one atom, producing ions. A simple alkyl carbocation is electron deficient with an empty p orbital; a carbanion has a lone pair. Preserve dots and charges when following a mechanism.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "A nucleophile donates an electron pair to an electrophile. In substitution of CH3Br by HO⁻, the O lone pair forms C–O while the C–Br pair goes to Br. Arrows show both changes; charge balance is −1 on each side: CH3OH + Br⁻.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Electronic effects help explain how those intermediates participate in net reactions."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch8-unit8-page09",
+      "title": "Link electron effects with the reaction change",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f65169a9cd"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Induction is σ-bond polarisation that weakens with distance; resonance delocalises electrons through adjacent orbitals; electromeric displacement is reagent-induced movement of a π pair; hyperconjugation involves a neighbouring σ bond. Choose the explanation appropriate to the actual structure.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Substitution replaces one group with another; addition adds across a multiple bond; elimination removes groups while creating a multiple bond; rearrangement changes the skeleton or group positions. Classify the net change first, then use a mechanism to explain how it occurs.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "The measured CO2 has different meanings in two analyses: combustion carbon estimation uses 12/44, while the specified direct oxygen scheme uses 32/88. Writing a short label beside the measurement—carbon combustion or oxygen conversion—prevents the same product formula from suggesting the wrong fraction."
+        }
+      ],
+      "transition": "We can now join analytical evidence with structural and mechanistic reasoning."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch8-unit8-page10",
+      "title": "A composition-and-structure toolkit",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f65169a9cd"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "Phosphorus percentages come from a known precipitate’s composition. Oxygen by difference requires complete elemental information; direct estimation uses the specified CO/CO2 conversion. State which analytical scheme gives each measured product before choosing a mass fraction.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "For structure and reaction reasoning, assign hybridisation locally, count σ/π bonds accurately, follow pairs or single electrons, and classify the net change. Composition does not uniquely determine structure; electronic models explain properties only after the actual connectivity is specified.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why does Mg2P2O7 require a phosphorus factor 62/222?",
+      "answer": "Each formula unit has two P atoms, contributing 2×31 = 62 g per 222 g of precipitate.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f65169a9cd"
+      ]
+    },
+    {
+      "question": "When can oxygen be estimated by difference?",
+      "answer": "When every other element present is known and accurately estimated; otherwise the remainder may include unmeasured elements or error.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f65169a9cd"
+      ]
+    },
+    {
+      "question": "A 0.200 g sample gives 0.0880 g CO2 in the direct oxygen method. Find %O.",
+      "answer": "O mass = 0.0880×32/88 = 0.0320 g; %O = 0.0320/0.200×100 = 16.0%.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f65169a9cd"
+      ]
+    },
+    {
+      "question": "Assign hybridisation in CH3–C≡N.",
+      "answer": "The methyl carbon is sp3; the carbon in the triple bond is sp. Hybridisation is assigned separately at each carbon.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f65169a9cd"
+      ]
+    },
+    {
+      "question": "Why is electron-pair movement in substitution represented by two arrows?",
+      "answer": "One shows the nucleophile’s pair forming the new bond; the other shows the old bond pair moving to the leaving group, preserving electron and valence accounting.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_8_organic_chemistry_some_basic_principles_and_techniques_f65169a9cd"
+      ]
+    }
+  ],
+  "title": "Phosphorus and Oxygen Estimation with Bonding and Mechanism Review"
+}

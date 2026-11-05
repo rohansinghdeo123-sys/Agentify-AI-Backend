@@ -1,0 +1,335 @@
+{
+  "unit_id": "chem11_u02_lu03_radiation_and_atomic_spectra",
+  "title": "Radiation, Quanta, and Atomic Spectra",
+  "pages": [
+    {
+      "title": "Why do excited gases select colours?",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A hot filament glows with many colours, while excited gases can emit a few sharply defined colours. If atoms could exchange any amount of energy, why select particular colours?",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "We first need a language for radiation, then evidence that energy exchange occurs in packets. Colour becomes a measurable clue about atomic energy.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 1,
+      "id": "chem11_ch2_unit2_page1",
+      "source_section_ids": [
+        "2.3"
+      ],
+      "transition": "Translate the colour question into measurable wave properties."
+    },
+    {
+      "title": "Describe light as a wave",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Electromagnetic radiation consists of oscillating electric and magnetic fields, perpendicular to one another and to the travel direction. It does not require a material medium.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Wavelength λ measures the distance between successive equivalent points. Frequency ν counts oscillations per second, in hertz or s⁻¹. Amplitude describes the size of an oscillation, not the spacing between waves.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "Imagine counting peaks passing one point each second: that is frequency. Measuring the distance from one peak to the next gives wavelength. These two descriptions refer to the same wave but have different units, just as rate and spacing answer different questions."
+        }
+      ],
+      "page_number": 2,
+      "id": "chem11_ch2_unit2_page2",
+      "source_section_ids": [
+        "2.3.1"
+      ],
+      "transition": "Relate the spacing and rate descriptions through the speed of light."
+    },
+    {
+      "title": "Connect wavelength and frequency",
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "In vacuum, c=νλ with c≈3.00 × 10⁸ m s⁻¹. Thus ν=c/λ: shorter wavelength means higher frequency. Wavenumber is 1/λ, in m⁻¹ or cm⁻¹ when λ uses the corresponding length unit.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Radio waves have much longer wavelengths than visible light; X-rays and gamma rays have shorter wavelengths. Visible light is only a small part of the electromagnetic spectrum.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": "The relationship c=νλ follows because one oscillation advances the wave by one wavelength. In one second, ν oscillations advance νλ metres. The vacuum speed is fixed, so frequency and wavelength vary inversely; neither amplitude nor brightness enters this relation."
+        }
+      ],
+      "page_number": 3,
+      "id": "chem11_ch2_unit2_page3",
+      "source_section_ids": [
+        "2.3.1"
+      ],
+      "transition": "Convert units before applying the relationship to visible radiation."
+    },
+    {
+      "title": "Calculate the frequency of visible light",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Teacher-worked application: light has wavelength 500 nm. Convert first: 500 nm=5.00 × 10⁻⁷ m. We need frequency, so choose ν=c/λ.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "ν=(3.00 × 10⁸ m s⁻¹)/(5.00 × 10⁻⁷ m)=6.00 × 10¹⁴ s⁻¹. The metre units cancel. This enormous oscillation rate can still appear as steady light to our eyes.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "extension",
+          "text": "For wavelength 250 nm=2.50 × 10⁻⁷ m, ν=(3.00 × 10⁸)/(2.50 × 10⁻⁷)=1.20 × 10¹⁵ s⁻¹. Halving 500 nm to 250 nm doubles frequency, providing a useful independent check of the calculation."
+        }
+      ],
+      "page_number": 4,
+      "id": "chem11_ch2_unit2_page4",
+      "source_section_ids": [
+        "2.3.1"
+      ],
+      "transition": "Wave measurements alone do not explain how matter exchanges radiation energy."
+    },
+    {
+      "title": "Exchange energy in packets",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A heated ideal black body emits radiation with a temperature-dependent distribution. Classical descriptions could not explain the observed distribution satisfactorily. Planck proposed that matter exchanges radiation energy in discrete packets, called quanta.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "One quantum has E=hν, where h≈6.626 × 10⁻³⁴ J s. A light quantum is a photon. Higher frequency means greater energy per photon, not simply more photons.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": "A quantum is an allowed amount of exchanged energy, not a smallest universal energy that is identical for every kind of light. The size hν depends on frequency. Red and violet light therefore have different photon energies even though the same Planck constant appears in both."
+        }
+      ],
+      "page_number": 5,
+      "id": "chem11_ch2_unit2_page5",
+      "source_section_ids": [
+        "2.3.2"
+      ],
+      "transition": "Use the quantum relation to put an energy value on a photon."
+    },
+    {
+      "title": "Calculate photon energy",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "For 500 nm light, E=hc/λ. Substitute (6.626 × 10⁻³⁴ J s)(3.00 × 10⁸ m s⁻¹)/(5.00 × 10⁻⁷ m)=3.98 × 10⁻¹⁹ J per photon.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "For one mole of these photons, multiply by N_A≈6.022 × 10²³ mol⁻¹: approximately 2.39 × 10⁵ J mol⁻¹=239 kJ mol⁻¹. One photon and one mole of photons have very different energies.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "If a pulse of 500 nm light carries 1.00 J, estimate the photon count using E_total=N E_photon. Then N=1.00/(3.98 × 10⁻¹⁹)≈2.51 × 10¹⁸ photons. Count photons using energy per photon; do not multiply the total pulse energy by N_A unless converting a molar amount."
+        }
+      ],
+      "page_number": 6,
+      "id": "chem11_ch2_unit2_page6",
+      "source_section_ids": [
+        "2.3.2"
+      ],
+      "transition": "Photoelectric emission tests whether an individual photon carries enough energy."
+    },
+    {
+      "title": "Why brighter light may not eject electrons",
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "The photoelectric effect ejects electrons from a metal only above threshold frequency ν₀. The minimum escape energy is the work function W₀=hν₀. Each photon transfers energy hν.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The maximum electron kinetic energy is KEₘₐₓ=hν−W₀. Higher frequency increases this maximum. Greater intensity at sufficient frequency supplies more photons and can eject more electrons; below threshold, extra brightness does not repair insufficient photon energy.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "level": "foundation",
+          "text": "Think of the work function as a minimum individual entry cost. Sending more underfunded visitors does not pay that cost for one visitor in this basic photoelectric picture. The analogy explains the threshold, but photons are quantum objects, not people storing money."
+        }
+      ],
+      "page_number": 7,
+      "id": "chem11_ch2_unit2_page7",
+      "source_section_ids": [
+        "2.3.2"
+      ],
+      "transition": "An explicit energy budget turns the threshold idea into a calculation."
+    },
+    {
+      "title": "Follow the photoelectric energy budget",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "text": "Teacher-worked application: W₀=3.00 × 10⁻¹⁹ J and incident photon energy is 5.00 × 10⁻¹⁹ J. Subtract the escape cost: KEₘₐₓ=5.00 × 10⁻¹⁹−3.00 × 10⁻¹⁹=2.00 × 10⁻¹⁹ J.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "A photon of only 2.00 × 10⁻¹⁹ J cannot eject an electron here. Threshold is an individual interaction’s energy requirement, not a waiting time until weak photons accumulate.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "For a work function 3.00 × 10⁻¹⁹ J, ν₀=W₀/h≈4.53 × 10¹⁴ s⁻¹. The longest threshold wavelength is λ₀=hc/W₀≈6.63 × 10⁻⁷ m=663 nm. Shorter wavelengths have greater photon energy and can eject electrons; longer ones cannot in the basic one-photon effect."
+        }
+      ],
+      "page_number": 8,
+      "id": "chem11_ch2_unit2_page8",
+      "source_section_ids": [
+        "2.3.2"
+      ],
+      "transition": "Spectral lines reveal selective energies in atoms, not just escape from a metal."
+    },
+    {
+      "title": "Read spectral lines as an energy fingerprint",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "An emission spectrum shows selected wavelengths released by excited atoms. An absorption spectrum shows selected wavelengths removed from a continuous beam. Discrete lines imply discrete allowed atomic energy differences.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Hydrogen series end at n=1 for Lyman, n=2 for Balmer, then n=3, 4, 5 for Paschen, Brackett and Pfund. Rydberg’s relation is 1/λ=R_H(1/n₁²−1/n₂²), n₂>n₁, with R_H≈1.097 × 10⁷ m⁻¹.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": "For a hydrogen Balmer transition with n₁=2, n₂=3, 1/λ=(1.097 × 10⁷)(1/4−1/9)=(1.097 × 10⁷)(5/36)≈1.524 × 10⁶ m⁻¹. Invert: λ≈6.56 × 10⁻⁷ m=656 nm. The reciprocal step is essential: wavenumber is not wavelength."
+        },
+        {
+          "kind": "misconception",
+          "level": "foundation",
+          "text": "Emission lines are bright at the wavelengths released; absorption lines are dark at wavelengths removed from an incident continuous spectrum. The “fingerprint” analogy means reproducible characteristic wavelengths, not that every excited atom emits all lines equally intensely."
+        }
+      ],
+      "page_number": 9,
+      "id": "chem11_ch2_unit2_page9",
+      "source_section_ids": [
+        "2.3.3"
+      ],
+      "transition": "Bring together the wave relations and the evidence for discrete energy exchange."
+    },
+    {
+      "title": "Connect waves, photons and atomic evidence",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "The relations c=νλ and E=hν=hc/λ link measurable radiation to photon energy. Photoelectric emission shows particle-like energy exchange; interference and diffraction demonstrate wave behaviour.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "Line spectra demand discrete atomic energy differences. Remember that an atom’s signed energy change differs from the always-positive energy of the absorbed or emitted photon.",
+          "level": "essential"
+        }
+      ],
+      "page_number": 10,
+      "id": "chem11_ch2_unit2_page10",
+      "source_section_ids": [
+        "2.3",
+        "2.3.1",
+        "2.3.2",
+        "2.3.3"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question": "Which visible photon has more energy: red or violet?",
+      "answer": "Violet has higher frequency and shorter wavelength, so E=hν gives greater energy.",
+      "source_section_ids": [
+        "2.3",
+        "2.3.1",
+        "2.3.2",
+        "2.3.3"
+      ]
+    },
+    {
+      "question": "Find the frequency for wavelength 1.00 m.",
+      "answer": "ν=c/λ=3.00 × 10⁸ s⁻¹.",
+      "source_section_ids": [
+        "2.3",
+        "2.3.1",
+        "2.3.2",
+        "2.3.3"
+      ]
+    },
+    {
+      "question": "Does doubling intensity double one photon’s energy?",
+      "answer": "No. At fixed frequency each photon retains energy hν; intensity increases photon flux.",
+      "source_section_ids": [
+        "2.3",
+        "2.3.1",
+        "2.3.2",
+        "2.3.3"
+      ]
+    },
+    {
+      "question": "Why is there no photoelectric emission below threshold?",
+      "answer": "Each photon has less than the work-function energy needed to eject an electron.",
+      "source_section_ids": [
+        "2.3",
+        "2.3.1",
+        "2.3.2",
+        "2.3.3"
+      ]
+    },
+    {
+      "question": "What do discrete atomic spectral lines imply?",
+      "answer": "Only selected photon energies are exchanged, indicating discrete allowed atomic energy differences.",
+      "source_section_ids": [
+        "2.3",
+        "2.3.1",
+        "2.3.2",
+        "2.3.3"
+      ]
+    },
+    {
+      "question": "Which series contains a hydrogen transition from n=3 to n=2?",
+      "answer": "Balmer, because its lower level is n=2.",
+      "source_section_ids": [
+        "2.3",
+        "2.3.1",
+        "2.3.2",
+        "2.3.3"
+      ]
+    },
+    {
+      "question": "Why convert nanometres before using c in m s⁻¹?",
+      "answer": "Consistent units are necessary; using 500 instead of 5.00 × 10⁻⁷ m makes a factor-of-10⁹ error.",
+      "source_section_ids": [
+        "2.3",
+        "2.3.1",
+        "2.3.2",
+        "2.3.3"
+      ]
+    }
+  ]
+}

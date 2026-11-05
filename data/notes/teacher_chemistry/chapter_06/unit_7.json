@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_6_equilibrium_78a4940e9f",
+  "pages": [
+    {
+      "title": "Why acid strength follows more than one trend",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Hydrogen fluoride has a very polar bond, yet hydroiodic acid is stronger in water. A proton must both be attracted away and overcome its original bond. Bond polarity alone cannot explain every acid-strength trend."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Along a group, increasing atomic size often weakens the H–A bond and favours ionisation. Across a period, increasing electronegativity can increase H–A polarity. Compare like families rather than applying one trend indiscriminately."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_78a4940e9f"
+      ],
+      "transition": "Connect those trends to proton removal and conjugate stability.",
+      "id": "chem11-ch06-u08-p01",
+      "page_number": 1
+    },
+    {
+      "title": "Bond strength and successive proton loss",
+      "blocks": [
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " For the hydrogen halides, the aqueous acid-strength trend is HF < HCl < HBr < HI. Down the group, weakening of the H–halogen bond is important. Across a period the hydrides CH₄, NH₃, H₂O and HF show increasing acidic tendency."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " In a polyprotic acid, removing later protons from an increasingly negative ion is less favourable, so successive ionisation constants usually decrease. Each step must be considered separately."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_78a4940e9f"
+      ],
+      "transition": "An added ion can suppress ionisation without changing the acid’s K(a).",
+      "id": "chem11-ch06-u08-p02",
+      "page_number": 2
+    },
+    {
+      "title": "The common-ion effect",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " The common-ion effect is the suppression of an ionisation equilibrium by adding an electrolyte supplying an ion already present in that equilibrium. It follows from the change in Q and Le Chatelier’s principle."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " CH₃COOH ⇌ H⁺ + CH₃COO⁻. Adding sodium ethanoate supplies CH₃COO⁻, raising the product ratio. Net reverse reaction lowers acid ionisation and [H⁺], while K(a) stays fixed at the same temperature."
+        },
+        {
+          "kind": "explanation",
+          "level": "foundation",
+          "text": " Common means the same ion appears in both the original equilibrium and the added electrolyte."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_78a4940e9f"
+      ],
+      "transition": "A weak acid and its conjugate base can resist a small acid or base addition.",
+      "id": "chem11-ch06-u08-p03",
+      "page_number": 3
+    },
+    {
+      "title": "A buffer has two chemical partners",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " A buffer resists a large pH change when small amounts of acid or base are added, and approximately maintains pH on moderate dilution. A typical acidic buffer contains a weak acid HA and its conjugate base A⁻."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Added H⁺ is consumed by A⁻ to form HA. Added OH⁻ is consumed by HA to form A⁻ and water. Both partners must be present in useful amounts; buffer capacity is limited."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_78a4940e9f"
+      ],
+      "transition": "The acid equilibrium gives the buffer equation.",
+      "id": "chem11-ch06-u08-p04",
+      "page_number": 4
+    },
+    {
+      "title": "Derive the acidic-buffer relation",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " From K(a) = [H⁺][A⁻]/[HA], rearrange [H⁺] = K(a)[HA]/[A⁻]. Taking negative base-ten logarithms gives pH = pK(a) + log([A⁻]/[HA]). This is the Henderson–Hasselbalch form in the dilute concentration approximation."
+        },
+        {
+          "kind": "misconception",
+          "level": "essential",
+          "text": " Use the equilibrium acid/base ratio, or the post-reaction amounts when small ionisation corrections can be neglected. Do not insert original amounts before accounting for added strong acid or base."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_78a4940e9f"
+      ],
+      "transition": "An equal-ratio example shows what the equation means.",
+      "id": "chem11-ch06-u08-p05",
+      "page_number": 5
+    },
+    {
+      "title": "Worked buffer calculation",
+      "blocks": [
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created data: pK(a) = 4.76, [HA] = 0.100 M and [A⁻] = 0.100 M. Find pH. Ratio = 1, log 1 = 0, so pH = 4.76. If [A⁻]/[HA] becomes 2, pH = 4.76 + log 2 = 5.06."
+        },
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " Doubling the base-to-acid ratio changes pH by about 0.30, not by a factor of two. Diluting both partners equally leaves their ratio approximately unchanged, but lowers capacity because fewer moles remain per volume."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_78a4940e9f"
+      ],
+      "transition": "Basic buffers use the analogous conjugate acid/base pair.",
+      "id": "chem11-ch06-u08-p06",
+      "page_number": 6
+    },
+    {
+      "title": "Basic-buffer ratios need the right order",
+      "blocks": [
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " For weak base B and conjugate acid BH⁺, K(b) = [BH⁺][OH⁻]/[B]. Therefore pOH = pK(b) + log([BH⁺]/[B]); equivalently pH = pK(w) − pK(b) + log([B]/[BH⁺])."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " NH₃/NH₄⁺ is a basic-buffer pair. With equal concentrations at 298 K, pOH = pK(b) and pH = 14 − pK(b). Reversing the ratio without changing the sign gives the wrong result."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_78a4940e9f"
+      ],
+      "transition": "A salt ion can also act as an acid or base when no buffer mixture was deliberately prepared.",
+      "id": "chem11-ch06-u08-p07",
+      "page_number": 7
+    },
+    {
+      "title": "Salt hydrolysis changes the pH",
+      "blocks": [
+        {
+          "kind": "definition",
+          "level": "essential",
+          "text": " Hydrolysis here is reaction of a salt ion with water to produce an acidic or basic solution. Ions from a strong acid and strong base, such as Na⁺ and Cl⁻, do not appreciably hydrolyse in ordinary dilute solution."
+        },
+        {
+          "kind": "example",
+          "level": "essential",
+          "text": " Acetate hydrolyses: CH₃COO⁻ + H₂O ⇌ CH₃COOH + OH⁻, giving a basic solution. Ammonium hydrolyses: NH₄⁺ + H₂O ⇌ NH₃ + H₃O⁺, giving an acidic solution."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_78a4940e9f"
+      ],
+      "transition": "Compare both ions if the salt comes from a weak acid and weak base.",
+      "id": "chem11-ch06-u08-p08",
+      "page_number": 8
+    },
+    {
+      "title": "Which salt ion dominates?",
+      "blocks": [
+        {
+          "kind": "explanation",
+          "level": "essential",
+          "text": " For a weak-acid/weak-base salt, both ions can react with water. The pH depends on the competing acid and base strengths; the word salt does not imply neutrality. A simple dilute treatment gives pH ≈ ½[pK(w) + pK(a) − pK(b)] for suitable conditions."
+        },
+        {
+          "kind": "worked_example",
+          "level": "essential",
+          "text": " Teacher-created comparison at 298 K: if pK(a) = 5 and pK(b) = 4, pH ≈ ½(14 + 5 − 4) = 7.5. This is basic because the conjugate-base hydrolysis effect is stronger. The approximation has assumptions and is not a universal concentrated-solution formula."
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": " Buffers work best when both conjugate partners are appreciable. Adding enough strong acid to consume nearly all A⁻ exhausts the buffer even if the starting pH was ideal."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_78a4940e9f"
+      ],
+      "transition": "Revise strength trends, common ions, buffers and hydrolysis as related equilibrium applications.",
+      "id": "chem11-ch06-u08-p09",
+      "page_number": 9
+    },
+    {
+      "title": "Revision: keep the conjugate partner visible",
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "level": "essential",
+          "text": " Acid strength reflects bond strength and polarity. Common ions shift an existing equilibrium without changing its constant at fixed temperature. A buffer needs both members of a conjugate pair and has finite capacity."
+        },
+        {
+          "kind": "formula",
+          "level": "essential",
+          "text": " Acidic buffer: pH = pK(a) + log([A⁻]/[HA]). Basic buffer: pOH = pK(b) + log([BH⁺]/[B]). Salt hydrolysis follows the acid/base behaviour of the ions, not the neutral appearance of the solid."
+        }
+      ],
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_78a4940e9f"
+      ],
+      "transition": "",
+      "id": "chem11-ch06-u08-p10",
+      "page_number": 10
+    }
+  ],
+  "questions": [
+    {
+      "question": "Why does stronger H–F polarity not make HF the strongest hydrogen halide acid?",
+      "answer": "Bond strength also matters; the strong H–F bond resists dissociation, while bonds weaken down the group.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_78a4940e9f"
+      ]
+    },
+    {
+      "question": "Does added acetate change ethanoic acid’s K(a) at fixed temperature?",
+      "answer": "No. It changes the composition quotient and suppresses ionisation until the same K(a) is satisfied.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_78a4940e9f"
+      ]
+    },
+    {
+      "question": "Why can pure weak acid alone not buffer added base as effectively as a prepared conjugate mixture?",
+      "answer": "A useful buffer needs appreciable amounts of both acid and conjugate base to consume added base and acid respectively.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_78a4940e9f"
+      ]
+    },
+    {
+      "question": "If [A⁻]/[HA] = 10, how does pH compare with pK(a)?",
+      "answer": "pH = pK(a) + log 10 = pK(a) + 1.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_78a4940e9f"
+      ]
+    },
+    {
+      "question": "Write the correct basic-buffer pOH ratio.",
+      "answer": "pOH = pK(b) + log([BH⁺]/[B]); conjugate acid is above weak base.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_78a4940e9f"
+      ]
+    },
+    {
+      "question": "Why is NH₄Cl acidic in water?",
+      "answer": "NH₄⁺ donates a proton to water to form H₃O⁺, while Cl⁻ does not appreciably counteract this by hydrolysis.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_6_equilibrium_78a4940e9f"
+      ]
+    }
+  ],
+  "title": "Acid Strength, Buffers and Salt Hydrolysis"
+}

@@ -1,0 +1,270 @@
+{
+  "unit_id": "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_d69d90b2ac",
+  "pages": [
+    {
+      "page_number": 1,
+      "id": "teacher-ch9-unit7-page01",
+      "title": "A triple bond is a local structural feature",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_d69d90b2ac"
+      ],
+      "blocks": [
+        {
+          "kind": "example",
+          "text": "Ethyne is a small hydrocarbon with a C≡C bond. Compared with ethene, it has fewer hydrogens and a different geometry. The triple bond influences both addition reactions and the unusual acidity of a hydrogen directly attached to its carbon.",
+          "level": "essential"
+        },
+        {
+          "kind": "definition",
+          "text": "Alkynes contain a carbon–carbon triple bond. An open-chain hydrocarbon with one triple bond and no other unsaturation has formula CₙH₂ₙ₋₂. This formula is not sufficient to identify every unknown structure, because other combinations of rings or multiple bonds can have the same hydrogen count.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Naming tells us where the triple bond lies in the carbon chain."
+    },
+    {
+      "page_number": 2,
+      "id": "teacher-ch9-unit7-page02",
+      "title": "Name and locate the triple bond",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_d69d90b2ac"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Choose a suitable longest carbon chain containing C≡C, number to give it the lower locant in the simple examples, and use –yne. HC≡CH is ethyne; CH3C≡CH is propyne. The locant states where the triple bond starts in the numbered parent.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "HC≡CCH2CH3 is but-1-yne, while CH3C≡CCH3 is but-2-yne. They are position isomers with formula C4H6. Pent-1-yne and 3-methylbut-1-yne illustrate different carbon skeletons with the same C5H8 formula.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "An equivalent here is an amount relative to the amount of alkyne. One mole of H2 per mole alkyne removes one π bond; two moles are required to remove both π bonds in complete hydrogenation.",
+          "level": "foundation"
+        }
+      ],
+      "transition": "Its local orbital arrangement explains both linear geometry and bond count."
+    },
+    {
+      "page_number": 3,
+      "id": "teacher-ch9-unit7-page03",
+      "title": "One sigma bond and two pi bonds",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_d69d90b2ac"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Each triply bonded carbon is sp hybridised, giving two linear bond directions at 180°. The remaining two p orbitals form two π bonds by sideways overlap in perpendicular planes. The C≡C thus contains one σ and two π bonds.",
+          "level": "essential"
+        },
+        {
+          "kind": "worked_example",
+          "text": "For HC≡CH, the C–C connection contributes one σ and two π bonds. Two C–H connections add two σ bonds. Total: three σ and two π. The molecule is linear, not a bent structure suggested by drawing the triple lines as separate paths between atoms.",
+          "level": "essential"
+        }
+      ],
+      "transition": "Calcium carbide provides a direct preparation of the smallest alkyne."
+    },
+    {
+      "page_number": 4,
+      "id": "teacher-ch9-unit7-page04",
+      "title": "Prepare ethyne from calcium carbide",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_d69d90b2ac"
+      ],
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "CaC2 + 2H2O → HC≡CH + Ca(OH)2. One mole calcium carbide yields one mole ethyne in the ideal stoichiometric conversion. Calcium carbide can itself be made by heating calcium oxide with carbon: CaO + 3C → CaC2 + CO.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "The carbon pair in carbide becomes the carbon pair in ethyne; water supplies hydrogen. Check the Ca, C and H balances separately in the respective equations. Calcium carbide’s reaction with water can be vigorous and generates flammable gas, requiring appropriate laboratory or industrial controls.",
+          "level": "essential"
+        }
+      ],
+      "transition": "A dihalide offers another route through two successive eliminations."
+    },
+    {
+      "page_number": 5,
+      "id": "teacher-ch9-unit7-page05",
+      "title": "A two-stage elimination from a dihalide",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_d69d90b2ac"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "A vicinal dihalide can lose HX in stages. Alcoholic KOH removes one HX to give an alkenyl halide; removal of the second HX from that stronger unsaturated arrangement requires a stronger base such as sodamide, NaNH2, in the elementary preparation described.",
+          "level": "essential"
+        },
+        {
+          "kind": "example",
+          "text": "From 1,2-dibromoethane, one elimination gives bromoethene, CH2=CHBr. A second elimination gives ethyne, HC≡CH. Both H and Br are removed in each stage, and the carbon skeleton remains intact. Do not assume ordinary alcoholic KOH alone completes every double elimination efficiently.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The product’s physical behaviour still reflects its hydrocarbon character."
+    },
+    {
+      "page_number": 6,
+      "id": "teacher-ch9-unit7-page06",
+      "title": "Physical properties still resemble hydrocarbons",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_d69d90b2ac"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "Alkynes have low water solubility and dissolve in suitable organic solvents. Their boiling points generally rise with increasing molecular size. The strong covalent triple bond acts within a molecule; it does not mean neighbouring alkyne molecules are joined into one ionic lattice.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "text": "The C≡C bond is shorter and stronger overall than C=C or C–C. Nonetheless its π electrons can take part in addition reactions. As with alkenes, distinguish total bond strength from the reactivity of an accessible π system towards a particular reagent.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The special chemical behaviour of a terminal hydrogen needs a separate explanation."
+    },
+    {
+      "page_number": 7,
+      "id": "teacher-ch9-unit7-page07",
+      "title": "The terminal hydrogen behaves differently",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_d69d90b2ac"
+      ],
+      "blocks": [
+        {
+          "kind": "definition",
+          "text": "A terminal alkyne contains –C≡C–H, with H directly bonded to an sp carbon. An internal alkyne lacks that terminal H. Removing H⁺ from the terminal bond leaves a conjugate-base lone pair on sp carbon, whose high s character holds electrons relatively close to the nucleus.",
+          "level": "essential"
+        },
+        {
+          "kind": "explanation",
+          "text": "This helps make terminal alkynes more acidic than comparable alkenes or alkanes, although they remain weak acids and need sufficiently strong bases. A hydrogen on a methyl group beside a triple bond is not the terminal alkyne hydrogen being discussed.",
+          "level": "essential"
+        }
+      ],
+      "transition": "A strong base lets us express that acidity in a balanced reaction."
+    },
+    {
+      "page_number": 8,
+      "id": "teacher-ch9-unit7-page08",
+      "title": "Write acid–base reactions with correct charge",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_d69d90b2ac"
+      ],
+      "blocks": [
+        {
+          "kind": "formula",
+          "text": "CH3C≡CH + NaNH2 → CH3C≡C⁻ Na⁺ + NH3. Sodamide removes the terminal proton and yields an acetylide salt. Atom and charge accounting shows that the carbon skeleton stays intact while H transfers to NH2⁻.",
+          "level": "essential"
+        },
+        {
+          "kind": "formula",
+          "text": "With sodium metal, the balanced single-deprotonation example is 2HC≡CH + 2Na → 2HC≡C⁻ Na⁺ + H2. Two terminal H atoms combine to form one H2; writing one ethyne plus one sodium with a whole H2 product would not conserve hydrogen.",
+          "level": "essential"
+        }
+      ],
+      "transition": "The two π bonds also permit successive additions under suitable conditions."
+    },
+    {
+      "page_number": 9,
+      "id": "teacher-ch9-unit7-page09",
+      "title": "Addition uses the two pi bonds in stages",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_d69d90b2ac"
+      ],
+      "blocks": [
+        {
+          "kind": "explanation",
+          "text": "An alkyne can add one equivalent of a reagent across one π bond and then another across the remaining unsaturation. Complete hydrogenation consumes two H2 per triple bond and gives an alkane; suitably controlled partial hydrogenation can stop at the alkene.",
+          "level": "essential"
+        },
+        {
+          "kind": "misconception",
+          "text": "But-2-yne cannot form a terminal acetylide merely because it contains a triple bond: it has no H attached directly to a triple-bonded carbon. The distinctions terminal/internal and one/two equivalents are necessary for predicting acidity and addition products accurately.",
+          "level": "essential"
+        },
+        {
+          "kind": "connection",
+          "level": "extension",
+          "text": "Teacher-created stoichiometry check: 0.0500 mol terminal alkyne requires 0.0500 mol NH2⁻ to remove one terminal proton per molecule, but complete hydrogenation of the same number of triple bonds requires 0.100 mol H2. Acidity and addition consume different reagents through different bond changes."
+        }
+      ],
+      "transition": "Let us distinguish terminal acidity from the additions possible at any triple bond."
+    },
+    {
+      "page_number": 10,
+      "id": "teacher-ch9-unit7-page10",
+      "title": "Use location, geometry and stoichiometry together",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_d69d90b2ac"
+      ],
+      "blocks": [
+        {
+          "kind": "takeaway",
+          "text": "For one acyclic triple bond, use CₙH₂ₙ₋₂, locate –yne in the name and assign sp geometry at the two involved carbons. C≡C contains one σ and two π bonds; HC≡CH therefore contains three σ bonds in total.",
+          "level": "essential"
+        },
+        {
+          "kind": "takeaway",
+          "text": "Carbide hydrolysis and staged dihalide elimination provide preparation routes. Only terminal alkynes bear the special acidic C≡C–H discussed here. Strong-base deprotonation preserves the skeleton and produces an acetylide, while complete hydrogenation needs two H2 per triple bond.",
+          "level": "essential"
+        }
+      ],
+      "transition": ""
+    }
+  ],
+  "questions": [
+    {
+      "question": "Which of but-1-yne and but-2-yne has an acidic terminal alkyne H?",
+      "answer": "But-1-yne, HC≡CCH2CH3. But-2-yne has carbon groups at both ends of C≡C.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_d69d90b2ac"
+      ]
+    },
+    {
+      "question": "How many σ and π bonds are in ethyne?",
+      "answer": "Three σ bonds: one C–C and two C–H; two π bonds in C≡C.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_d69d90b2ac"
+      ]
+    },
+    {
+      "question": "Balance calcium carbide hydrolysis.",
+      "answer": "CaC2 + 2H2O → C2H2 + Ca(OH)2.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_d69d90b2ac"
+      ]
+    },
+    {
+      "question": "Why is sodamide needed after the first elimination from a vicinal dihalide?",
+      "answer": "The remaining alkenyl halide requires stronger conditions to eliminate the second HX and create the triple bond.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_d69d90b2ac"
+      ]
+    },
+    {
+      "question": "Why is terminal alkyne acidity greater than alkane acidity?",
+      "answer": "The conjugate-base pair is held in an sp orbital with higher s character, stabilising it relative to the corresponding less s-rich carbon orbitals.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_d69d90b2ac"
+      ]
+    },
+    {
+      "question": "Correct HC≡CH + Na → HC≡CNa + H2.",
+      "answer": "2HC≡CH + 2Na → 2HC≡CNa + H2. Two removed H atoms produce one H2 molecule.",
+      "source_section_ids": [
+        "unit_ncert_class_11_chemistry_chapter_9_hydrocarbons_d69d90b2ac"
+      ]
+    }
+  ],
+  "title": "Alkyne Structure, Preparation and Terminal Acidity"
+}
