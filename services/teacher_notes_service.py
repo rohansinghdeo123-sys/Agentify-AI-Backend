@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from copy import deepcopy
 from functools import lru_cache
 from pathlib import Path
@@ -28,14 +29,15 @@ def teacher_curricula():
 
 
 def resolve_teacher_curriculum(chapter_ref):
-    import re
-    normalize = lambda value: re.sub(r"[^a-z0-9]+", "_", str(value or "").lower()).strip("_")
-    requested = normalize(chapter_ref)
+    requested = _topic_identity(chapter_ref)
     if not requested:
         return None
+    published_scope = re.match(r"ncert_class_(\d+|[ivx]+)_([^_]+)_chapter_", requested)
+    if published_scope and (published_scope[1] not in {'11','xi'} or published_scope[2] != 'chemistry'):
+        return None
     matches = [c for c in teacher_curricula() if requested in {
-        normalize(c["chapter_slug"]), normalize(c["chapter_title"]),
-        *(normalize(a) for a in c.get("aliases", [])),
+        _topic_identity(c["chapter_slug"]), _topic_identity(c["chapter_title"]),
+        *(_topic_identity(a) for a in c.get("aliases", [])),
     }]
     if len(matches) == 1:
         return matches[0]
@@ -44,23 +46,55 @@ def resolve_teacher_curriculum(chapter_ref):
     return resolve_planning_curriculum(chapter_ref=chapter_ref, subject="Chemistry", class_level="Class 11") if not matches else None
 
 
-def resolve_teacher_unit(chapter, topic, preferred_unit=None):
+def _topic_identity(value):
+    return re.sub(r"[^a-z0-9]+", "_", str(value or "").lower()).strip("_")
+
+
+@lru_cache(maxsize=1)
+def _topic_aliases():
+    """Small approved-source index; never parse an embedding release on a click."""
+    data = json.loads((ROOT / "data/notes/teacher_chemistry/topic_aliases.json").read_text(encoding="utf-8"))
+    if data.get("schema_version") != 1:
+        raise ValueError("Unsupported notes topic index")
+    curricula = {c["curriculum_key"]: c for c in teacher_curricula()}
+    if set(data.get("chapters", {})) != set(curricula):
+        raise ValueError("Notes topic index does not cover the reviewed chapters")
+    for key, chapter in data["chapters"].items():
+        allowed = {u["id"] for u in curricula[key]["units"]}
+        if any(alias != _topic_identity(alias) or not ids or len(ids) != len(set(ids)) or not set(ids) <= allowed
+               for alias, ids in chapter["aliases"].items()):
+            raise ValueError("Notes aliases must stay inside their chapter")
+    return data["chapters"]
+
+
+def resolve_teacher_topics(chapter, topic, preferred_unit=None):
+    """Resolve a section to all of its verified lessons, keeping ambiguity visible."""
     curriculum = resolve_teacher_curriculum(chapter)
     if not curriculum:
         return None
-    if curriculum["chapter_number"] == 1:
-        # Keep the audited archived Chapter 1 URLs without applying its alias
-        # map to any other chapter.
-        from services.master_notes_service import resolve_unit
-        return resolve_unit(chapter, topic, preferred_unit)
     units = curriculum["units"]
     if not topic:
-        return curriculum, next((u for u in units if u["id"] == preferred_unit), units[0])
-    matches = [u for u in units if topic in {
-        u["id"], u["primary_topic_id"], *u.get("legacy_topic_ids", []),
+        return curriculum, [next((u for u in units if u["id"] == preferred_unit), units[0])]
+    requested = _topic_identity(topic)
+    # Canonical unit/concept/subtopic identities take precedence over reused
+    # ingestion aliases. In particular, Chapter 1 subtopics must not pass
+    # through the older Master Notes resolver, which only knew primary IDs.
+    for unit in units:
+        if requested == _topic_identity(unit["id"]):
+            return curriculum, [unit]
+    matches = [u for u in units if requested in {_topic_identity(value) for value in {
+        u["primary_topic_id"],
         *(s["id"] for s in u["ncert_subtopics"]), *(c["id"] for c in u["concepts"]),
-    }]
-    return (curriculum, matches[0]) if len(matches) == 1 else None
+    }}]
+    if matches:
+        return curriculum, matches
+    ids = _topic_aliases().get(curriculum["curriculum_key"], {}).get("aliases", {}).get(requested, [])
+    return curriculum, [u for u in units if u["id"] in ids]
+
+
+def resolve_teacher_unit(chapter, topic, preferred_unit=None):
+    resolved = resolve_teacher_topics(chapter, topic, preferred_unit)
+    return (resolved[0], resolved[1][0]) if resolved and len(resolved[1]) == 1 else None
 
 
 def uses_teacher_notes(scope):

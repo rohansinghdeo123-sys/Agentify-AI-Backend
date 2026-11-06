@@ -197,7 +197,7 @@ def test_revision_bookmarks_save_after_route_completion_without_reopening_it(db)
     assert db.query(History).count() == 0
 
 
-def test_existing_chapter_two_catalog_links_use_teaching_units_or_preserve_mixed_reviews(db):
+def test_existing_chapter_two_catalog_links_use_teaching_units_or_explicit_scoped_choices(db):
     from routers.study import get_chapter_notes
     from services.catalog_service import build_catalog
     c = teacher_curricula()[1]
@@ -211,4 +211,121 @@ def test_existing_chapter_two_catalog_links_use_teaching_units_or_preserve_mixed
             assert notes["topic_id"] == c["units"][[0,1,2,2,3,4,5,6][index]]["id"]
             assert notes["catalog_source"] == "planning_manifest"
         else:
-            assert [concept["id"] for concept in notes["concepts"]] == [topic["id"]]
+            assert notes['resolution'] == 'topic_choice'
+            assert len(notes['topic_options']) >= 2
+            assert {o['id'] for o in notes['topic_options']} <= {u['id'] for u in c['units']}
+
+
+@pytest.mark.parametrize('chapter_number', range(1,10))
+def test_every_catalog_source_subtopic_concept_and_alias_opens_meaningful_notes(db,chapter_number):
+    from routers.study import get_chapter_notes
+    from services.catalog_service import build_catalog
+    from services.teacher_notes_service import _topic_aliases, _topic_identity
+    c = teacher_curricula()[chapter_number-1]
+    raw_chapter, concepts = next(row for row in published_rows() if row[0]['chapter_number'] == chapter_number)
+    catalog = build_catalog(db)
+    published = next(ch for s in catalog['subjects'] for ch in s['chapters'] if ch['slug'] == raw_chapter['slug'])
+    cases = {topic['id'] for topic in published['topics']}
+    for u in c['units']:
+        cases.update([u['id'],u['primary_topic_id'],*u.get('legacy_topic_ids',[])])
+        for field in ['concepts','ncert_subtopics']:
+            cases.update(item['id'] for item in u[field])
+        cases.update(_topic_identity(s['id']) for s in u['ncert_subtopics'])
+    for concept in concepts:
+        cases.add(concept['concept_id'])
+        cases.update((concept.get('raw_json') or {}).get('source_concept_ids') or [])
+    cases.update(_topic_aliases()[c['curriculum_key']]['aliases'])
+    allowed = {u['id'] for u in c['units']}
+    checked_options = set()
+    for topic in sorted(cases):
+        notes = get_chapter_notes(raw_chapter['slug'],topic_id=topic,db=db,current_user={'uid':'coverage-reader'})
+        assert notes['chapter']['chapter_number'] == chapter_number, topic
+        if notes['resolution'] == 'topic_choice':
+            ids = [o['id'] for o in notes['topic_options']]
+            assert len(ids) >= 2 and len(ids) == len(set(ids)), topic
+            assert set(ids) <= allowed and notes['can_save_position'] is False, topic
+            assert ids == [u['id'] for u in c['units'] if u['id'] in ids], topic
+            for unit_id in set(ids)-checked_options:
+                lesson = mapped_notes(c['chapter_slug'],unit_id,db,'coverage-reader')
+                assert len(lesson['pages']) == 10
+                assert all(p['text'].strip() and len(p['blocks']) >= 2 for p in lesson['pages'])
+                checked_options.add(unit_id)
+        else:
+            assert notes['topic_id'] in allowed and len(notes['pages']) == 10, topic
+            assert all(p['text'].strip() and len(p['blocks']) >= 2 for p in notes['pages']), topic
+            assert type(notes['saved_page']) is int and 0 <= notes['saved_page'] < 10, topic
+
+
+def test_screenshot_group_and_final_review_expose_all_related_lessons_without_state_guessing(db):
+    from services.teacher_notes_service import resolve_teacher_unit
+    c = teacher_curricula()[0]
+    start_route(db,user_id='mixed-reader',class_level='Class 11',subject='Chemistry',study_time_today='15',
+                selections=[{'chapter_ref':c['chapter_slug'],'chapter_proficiency':'new_to_it'}])
+    active = _get_state(db,'mixed-reader').current_unit_id
+    for suffix, expected in [('2cb26c9c02',[1,2,3,4,5]),('fc4070d4c3',[1,3,4,5])]:
+        old_id = 'unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_' + suffix
+        assert resolve_teacher_unit(c['chapter_slug'],old_id,active) is None
+        notes = mapped_notes(c['chapter_slug'],old_id,db,'mixed-reader')
+        assert notes['resolution'] == 'topic_choice' and not notes['pages']
+        assert [o['id'] for o in notes['topic_options']] == [c['units'][i]['id'] for i in expected]
+        assert _get_state(db,'mixed-reader').current_unit_id == active
+        assert db.query(History).count() == 0
+
+
+def test_original_seed_topic_links_remain_compatible(db):
+    from services.master_notes_service import CHAPTER_ONE_SEED_GROUPS
+    c = teacher_curricula()[0]
+    for alias, index in CHAPTER_ONE_SEED_GROUPS.items():
+        notes = mapped_notes(c['chapter_slug'],alias,db,'seed-reader')
+        assert notes['topic_id'] == c['units'][index]['id']
+        assert len(notes['pages']) == 10
+
+
+def test_direct_subtopic_starts_on_its_own_first_page_and_keeps_parent_lesson_scope(db):
+    from services.teacher_notes_service import _topic_identity
+    for c in teacher_curricula():
+        for u in c['units']:
+            for subtopic in u['ncert_subtopics']:
+                notes = mapped_notes(c['chapter_slug'],_topic_identity(subtopic['id']),db,'subtopic-reader')
+                assert notes['topic_id'] == u['id']
+                assert subtopic['id'] in notes['pages'][notes['saved_page']]['source_section_ids']
+                assert {s for p in notes['pages'] for s in p['source_section_ids']} <= {s['id'] for s in u['ncert_subtopics']}
+
+
+def test_changed_catalog_group_hash_resolves_via_exact_approved_members(db):
+    from services.catalog_service import build_catalog
+    from services.teacher_notes_service import resolve_teacher_topics
+    c = teacher_curricula()[5]
+    with patch('services.topic_grouping.meaningful_topic_budget',return_value=2):
+        catalog = build_catalog(db)
+        chapter = next(ch for s in catalog['subjects'] for ch in s['chapters'] if ch['slug'] == c['chapter_slug'])
+        grouped_id = chapter['topics'][0]['id']
+        assert not resolve_teacher_topics(c['chapter_slug'],grouped_id)[1]
+        notes = mapped_notes(c['chapter_slug'],grouped_id,db,'regroup-reader')
+        assert notes['resolution'] == 'topic_choice'
+        assert {o['id'] for o in notes['topic_options']} == {u['id'] for u in c['units'][:5]}
+
+
+def test_alias_resolution_never_crosses_explicit_syllabus_boundaries(db):
+    from services.teacher_notes_service import resolve_teacher_topics
+    c = teacher_curricula()[0]
+    for prefix in ['ncert_class_12_chemistry_chapter_1_','ncert_class_11_biology_chapter_1_']:
+        assert resolve_teacher_topics(prefix+c['chapter_slug'],c['units'][0]['id']) is None
+    for other in teacher_curricula()[1:]:
+        with pytest.raises(HTTPException):
+            mapped_notes(c['chapter_slug'],other['units'][0]['id'],db,'wrong-chapter-reader')
+
+
+@pytest.mark.parametrize('position',[None,'NaN','4',1.5,-5,1000,{},[],True])
+def test_old_malformed_bookmarks_never_make_a_lesson_blank(db,position):
+    c = teacher_curricula()[0]
+    u = c['units'][0]
+    start_route(db,user_id='old-bookmark-reader',class_level='Class 11',subject='Chemistry',study_time_today='15',
+                selections=[{'chapter_ref':c['chapter_slug'],'chapter_proficiency':'new_to_it'}])
+    state = _get_state(db,'old-bookmark-reader')
+    state.runtime_json = {**state.runtime_json,'notes_positions_by_version':{VERSION:{u['id']:position}},
+                          'notes_session_start_positions':{VERSION:{u['id']:position}}}
+    db.commit()
+    notes = mapped_notes(c['chapter_slug'],u['id'],db,'old-bookmark-reader')
+    assert type(notes['saved_page']) is int and 0 <= notes['saved_page'] < 10
+    assert notes['pages'][notes['saved_page']]['blocks']

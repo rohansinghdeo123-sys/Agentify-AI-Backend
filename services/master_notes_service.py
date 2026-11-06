@@ -10,6 +10,14 @@ from Logic.planning.curriculum_registry import resolve_planning_curriculum
 
 ROOT = Path(__file__).resolve().parents[1]
 SLUG = "amit_master_class11_chemistry_ch1"
+CHAPTER_ONE_SEED_GROUPS = {
+    "atoms_and_molecules":0,"nature_and_classification_of_matter":0,
+    "properties_of_matter_and_measurement":1,"si_units_and_prefixes":1,"mass_weight_volume_density":1,
+    "uncertainty_and_scientific_notation":1,"significant_figures":1,"dimensional_analysis":1,
+    "laws_of_chemical_combinations":2,"daltons_atomic_theory":2,"atomic_molecular_formula_masses":3,
+    "mole_concept_and_molar_mass":4,"percentage_composition":4,"empirical_and_molecular_formulae":4,
+    "stoichiometry_and_limiting_reagent":5,"concentration_of_solutions":5,
+}
 
 @lru_cache(maxsize=1)
 def artifact():
@@ -59,13 +67,7 @@ def resolve_unit(chapter, topic, preferred_unit=None):
     for mapped in chapter_one_mapping()["units"]:
         count=sum(p["source_concept_id"]==topic for p in mapped["pages"])
         if count:candidates.append((count,mapped["unit_id"]))
-    seed_groups={"atoms_and_molecules":0,"nature_and_classification_of_matter":0,
-        "properties_of_matter_and_measurement":1,"si_units_and_prefixes":1,"mass_weight_volume_density":1,
-        "uncertainty_and_scientific_notation":1,"significant_figures":1,"dimensional_analysis":1,
-        "laws_of_chemical_combinations":2,"daltons_atomic_theory":2,"atomic_molecular_formula_masses":3,
-        "mole_concept_and_molar_mass":4,"percentage_composition":4,"empirical_and_molecular_formulae":4,
-        "stoichiometry_and_limiting_reagent":5,"concentration_of_solutions":5}
-    if topic in seed_groups:return c,units[seed_groups[topic]]
+    if topic in CHAPTER_ONE_SEED_GROUPS:return c,units[CHAPTER_ONE_SEED_GROUPS[topic]]
     if not topic:return c,next((u for u in units if u["id"]==preferred_unit),units[0])
     if candidates:
         selected=next((uid for _,uid in candidates if uid==preferred_unit),None)

@@ -125,8 +125,14 @@ def test_legacy_screenshot_url_uses_amit_measuring_matter(db):
     from fastapi import HTTPException
     with pytest.raises(HTTPException):mapped_notes(CHAPTER,"unknown-outdated-topic",db,"reader")
 
-def test_every_archived_concept_link_resolves_to_master_notes(db):
+def test_every_archived_concept_link_resolves_to_verified_lessons_or_scoped_choices(db):
     from services.topic_notes_service import chapter_one_mapping
     for old_id in {p["source_concept_id"] for u in chapter_one_mapping()["units"] for p in u["pages"]}:
         result=mapped_notes(CHAPTER,old_id,db,"reader")
-        assert result["pages"] and result["topic_id"].startswith("chem11_u01_")
+        if result['resolution'] == 'topic_choice':
+            assert len(result['topic_options']) >= 2 and not result['pages']
+            for option in result['topic_options']:
+                assert option['id'].startswith('chem11_u01_')
+                assert len(mapped_notes(CHAPTER,option['id'],db,'reader')['pages']) == 10
+        else:
+            assert result["pages"] and result["topic_id"].startswith("chem11_u01_")
