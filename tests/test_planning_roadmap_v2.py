@@ -676,10 +676,12 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
                     self.assertNotIn("error", result)
                     self.assertEqual(result["unit_id"], unit["id"])
                     if curriculum["chapter_number"] == 1:
-                        self.assertEqual(result["source"], "ncert_teacher_notes")
+                        self.assertEqual(result["source"], "adaptive_source_notes")
                         for citation in result["provenance"]:
                             expected_pages = {page for section in unit["ncert_sections"] for page in range(section["pages"]["start"], section["pages"]["end"]+1)}
-                            self.assertTrue(set(citation["pages"]).issubset(expected_pages))
+                            if citation["source_type"] == "NCERT_FALLBACK":
+                                self.assertTrue(set(citation["source_pages"]).issubset(expected_pages))
+                            self.assertTrue(set(citation["subtopic_ids"]).issubset({s["id"] for s in unit["ncert_subtopics"]}))
                     else:
                         self.assertTrue(set(result["source_pages"]).issubset(allowed_pages))
                     self.assertGreater(result["paragraphs_found"], 0)

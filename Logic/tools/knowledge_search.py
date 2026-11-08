@@ -465,13 +465,10 @@ def search_knowledge_base(
     """
     section_id = re.sub(r"[^a-z0-9]+", "_", (section_id or "").strip().lower()).strip("_")
     catalog_source = str((scope or {}).get("catalog_source") or "").strip().lower()
-    from services.teacher_notes_service import resolve_teacher_unit, uses_teacher_notes
-    if uses_teacher_notes(scope or {}):
-        chapter_ref = (scope or {}).get("chapter_slug") or (scope or {}).get("chapter")
-        if resolve_teacher_unit(chapter_ref, section_id):
-            from services.teacher_notes_service import retrieve_teacher_context
-            return retrieve_teacher_context(chapter_ref, section_id, question=question, subtopic_ids=(scope or {}).get("subtopic_ids"), page_number=(scope or {}).get("notes_page_number"),
-                proficiency=(scope or {}).get("notes_proficiency") or "new_to_it", style=(scope or {}).get("notes_explanation_style") or "balanced")
+    from services.adaptive_notes_service import context_for_scope
+    adaptive = context_for_scope(scope or {},section_id,question)
+    if adaptive:
+        return adaptive
     if catalog_source == "planning_manifest":
         return _search_registered_planning_pdf(
             section_id=section_id,

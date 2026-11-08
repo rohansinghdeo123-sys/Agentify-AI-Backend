@@ -71,15 +71,15 @@ def test_content_dependent_structure_and_worked_examples(db):
     assert "Why this example works" in concept[0]["text"]
     assert "copper" in concept[0]["text"]
 
-def test_real_coach_and_tool_share_latest_ncert_teaching_pipeline(db):
+def test_real_coach_and_tool_share_master_first_teaching_pipeline(db):
     from Logic.coach.retriever import GroundedRetriever
     from Logic.tools.knowledge_search import search_knowledge_base
     # Real persistent DB retrieval through both public entry points.
     with patch("database.SessionLocal",return_value=db),patch("services.master_notes_service.ncert_gap",side_effect=AssertionError("NCERT queried")):
         result=GroundedRetriever().retrieve("Explain molecular mass",{"chapter":CHAPTER,"topic":unit(3),"catalog_source":"planning_manifest"})
-        assert result.source=="ncert_teacher_notes" and "NCERT" in result.context
+        assert result.source=="adaptive_source_notes" and "MASTER_NOTES" in result.context
         result=search_knowledge_base(unit(3),"molecular mass",scope={"chapter":CHAPTER,"catalog_source":"planning_manifest"})
-        assert result["source"]=="ncert_teacher_notes"
+        assert result["source"]=="adaptive_source_notes"
 
 
 def test_every_indexed_section_matches_the_actual_pdf():
@@ -117,7 +117,7 @@ def test_legacy_screenshot_url_uses_amit_measuring_matter(db):
     legacy="unit_ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry_9a85991e10"
     result=mapped_notes("ncert_class_11_chemistry_chapter_1_some_basic_concepts_of_chemistry",legacy,db,"reader")
     assert result["topic_id"]==unit(1)
-    assert all(p["source"].startswith("NCERT") for p in result["pages"])
+    assert all(p["source_types"] == ["MASTER_NOTES"] for p in result["pages"])
     text=" ".join(p["text"] for p in result["pages"])
     assert "10^3" in text or "10³" in text
     assert "National standards are maintained" not in text
@@ -133,6 +133,6 @@ def test_every_archived_concept_link_resolves_to_verified_lessons_or_scoped_choi
             assert len(result['topic_options']) >= 2 and not result['pages']
             for option in result['topic_options']:
                 assert option['id'].startswith('chem11_u01_')
-                assert len(mapped_notes(CHAPTER,option['id'],db,'reader')['pages']) == 10
+                assert mapped_notes(CHAPTER,option['id'],db,'reader')['pages']
         else:
             assert result["pages"] and result["topic_id"].startswith("chem11_u01_")

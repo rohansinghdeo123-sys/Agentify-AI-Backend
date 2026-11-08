@@ -34,7 +34,7 @@ def _now():
 def _get_state(db, user_id, *, lock=False):
     query = db.query(StudyRouteState).filter(StudyRouteState.user_id == user_id)
     if lock:
-        query = query.with_for_update()
+        query = query.populate_existing().with_for_update()
     return query.order_by(StudyRouteState.route_date.desc(), StudyRouteState.id.desc()).first()
 
 
@@ -64,8 +64,9 @@ def _unit(chapter, unit_id):
 
 def _curriculum(db, state):
     args = dict(chapter_ref=state.active_chapter_slug, subject=state.subject, class_level=state.class_level)
-    return (resolve_planning_curriculum(**args)
-            or resolve_published_planning_curriculum(db, **args))
+    from services.notes_config_service import apply_topic_durations
+    result = resolve_planning_curriculum(**args) or resolve_published_planning_curriculum(db, **args)
+    return apply_topic_durations(db,result) if result else None
 
 
 def learning_notes(db, state, unit):
@@ -118,6 +119,9 @@ def start_route(db: Session, *, user_id: str, class_level: str, subject: str,
         return read_current_route(db, user_id=user_id)
     previous_notes = dict((state.runtime_json or {}).get('notes_positions', {})) if state else {}
     previous_notes_versions = dict((state.runtime_json or {}).get('notes_positions_by_version', {})) if state else {}
+    from copy import deepcopy
+    previous_reading = deepcopy((state.runtime_json or {}).get('notes_reading_by_version',{})) if state else {}
+    previous_anchors = deepcopy((state.runtime_json or {}).get('notes_anchor_by_unit',{})) if state else {}
     previous_effective = dict(state.effective_proficiency_json or {}) if state else {}
     previous_review = list(state.needs_review_concept_ids_json or []) if state else []
     if state is None or state.route_date != _today():
@@ -135,7 +139,9 @@ def start_route(db: Session, *, user_id: str, class_level: str, subject: str,
     state.current_step_index = 0
     state.current_step_role = 'main_focus'
     state.runtime_json = {'today_route': portfolio['today_route'], 'unit_ids': _itinerary(portfolio),
-                          'completed_unit_ids': [], 'receipts': {}, 'notes_positions': previous_notes, 'notes_positions_by_version': previous_notes_versions, 'notes_session_start_positions': previous_notes_versions, 'notes_session_date': _today().isoformat()}
+                          'completed_unit_ids': [], 'receipts': {}, 'notes_positions': previous_notes, 'notes_positions_by_version': previous_notes_versions,
+                          'notes_reading_by_version':previous_reading,'notes_anchor_by_unit':previous_anchors,
+                          'notes_session_start_positions':deepcopy(previous_notes_versions), 'notes_session_date': _today().isoformat()}
     state.last_position_json = {}
     state.override_reason = state.override_until_unit_id = ''
     state.effective_proficiency_json = previous_effective
@@ -471,7 +477,7 @@ def record_heartbeat(db, *, user_id, last_position=None, compact=False):
         return {'saved': True} if compact else read_current_route(db, user_id=user_id)
     if 'notes_page' in position:
         page = position['notes_page']
-        if isinstance(page, bool) or not isinstance(page, int) or page < 0 or page > 500:
+        if isinstance(page, bool) or not isinstance(page, int) or page < 0:
             raise StudyRouteError('Invalid notes page')
         runtime = dict(state.runtime_json or {})
         topic = str(position.get('notes_topic') or state.current_unit_id)
@@ -489,7 +495,14 @@ def record_heartbeat(db, *, user_id, last_position=None, compact=False):
             if curriculum is None:
                 raise StudyRouteError('Notes topic is outside the saved plan chapters')
         version = position.get('notes_version')
-        if version:
+        if str(version or '').startswith('adaptive_notes_v2_'):
+            from services.adaptive_notes_service import record_reading_position
+            try:
+                record_reading_position(db,state,position,curriculum,topic)
+            except ValueError as exc:
+                raise StudyRouteError(str(exc)) from exc
+            runtime = dict(state.runtime_json or {})
+        elif version:
             from services.teacher_notes_service import VERSION
             if version != VERSION or page > 9:
                 raise StudyRouteError('Invalid teaching-notes edition or page')
@@ -500,6 +513,8 @@ def record_heartbeat(db, *, user_id, last_position=None, compact=False):
             versions[version] = {**versions.get(version, {}), topic: page}
             runtime['notes_positions_by_version'] = versions
         else:
+            if page > 500:
+                raise StudyRouteError('Invalid legacy notes page')
             runtime['notes_positions'] = {**runtime.get('notes_positions', {}), topic: page}
         state.runtime_json = runtime
     if state.status == 'completed':

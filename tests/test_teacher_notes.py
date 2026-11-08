@@ -76,10 +76,11 @@ def test_versioned_page_resume_persists_without_mastery_or_legacy_reset(db,curri
     start_route(db,user_id="learner",class_level="Class 11",subject="Chemistry",selections=[{"chapter_ref":CHAPTER,"chapter_proficiency":"new_to_it"}],study_time_today="15")
     record_heartbeat(db,user_id="learner",last_position={"unit_id":unit["id"],"notes_topic":unit["id"],"notes_page":18})
     assert mapped_notes(CHAPTER,unit["id"],db,"learner")["saved_page"] == 0
-    record_heartbeat(db,user_id="learner",last_position={"unit_id":unit["id"],"notes_topic":unit["id"],"notes_page":3,"notes_version":VERSION})
+    edition = mapped_notes(CHAPTER,unit["id"],db,"learner")
+    record_heartbeat(db,user_id="learner",last_position={"unit_id":unit["id"],"notes_topic":unit["id"],"notes_page":3,"notes_version":edition["content_version"],"notes_completed_page_ids":[edition["pages"][2]["id"]]})
     db.expire_all()
     notes = mapped_notes(CHAPTER,unit["id"],db,"learner")
-    assert notes["saved_page"] == 3 and len(notes["pages"]) == 10
+    assert notes["saved_page"] == 3 and notes["pages"]
     assert notes["session_portion"]["start_page"] == 0
     assert notes["proficiency"] == "new_to_it"
     assert notes["estimated_minutes"] == {"min":30,"max":35}
@@ -89,6 +90,7 @@ def test_versioned_page_resume_persists_without_mastery_or_legacy_reset(db,curri
     start_route(db,user_id="learner",class_level="Class 11",subject="Chemistry",selections=[{"chapter_ref":CHAPTER,"chapter_proficiency":"new_to_it"}],study_time_today="30")
     renewed=mapped_notes(CHAPTER,unit["id"],db,"learner")
     assert renewed["saved_page"] == 3
+    assert renewed["completed_page_ids"] == [edition["pages"][2]["id"]]
     assert renewed["session_portion"]["start_page"] == 3
     with pytest.raises(StudyRouteError):record_heartbeat(db,user_id="learner",last_position={"notes_topic":unit["id"],"notes_page":10,"notes_version":VERSION})
     db.rollback()
@@ -109,15 +111,15 @@ def test_validation_rejects_empty_filler_pages_and_scope_leaks(curriculum):
         with pytest.raises(ValueError):validate_lesson(data,unit)
 
 
-def test_ncert_notes_and_tutor_do_not_fall_back_to_older_paragraph_generation(curriculum):
+def test_notes_and_tutor_do_not_fall_back_to_older_paragraph_generation(db,curriculum):
     from Logic.coach.retriever import GroundedRetriever
     from Logic.tools.knowledge_search import search_knowledge_base
     unit = curriculum["units"][3]
     scope={"chapter":CHAPTER,"topic":unit["id"],"catalog_source":"planning_manifest"}
-    with patch("services.master_notes_service.retrieve_notes",side_effect=AssertionError("Old Master excerpt generator used")):
+    with patch("database.SessionLocal",return_value=db), patch("services.master_notes_service.retrieve_notes",side_effect=AssertionError("Old Master excerpt generator used")):
         first=GroundedRetriever().retrieve("molecular mass",scope)
         second=search_knowledge_base(unit["id"],"molecular mass",scope=scope)
-    assert first.source == second["source"] == "ncert_teacher_notes"
+    assert first.source == second["source"] == "adaptive_source_notes"
     assert "NCERT" in first.context and first.supported
 
 
@@ -153,7 +155,8 @@ def test_new_day_keeps_route_and_reading_position_but_starts_a_new_notes_portion
     unit=curriculum["units"][0]
     args=dict(user_id="learner",class_level="Class 11",subject="Chemistry",selections=[{"chapter_ref":CHAPTER,"chapter_proficiency":"new_to_it"}],study_time_today="15")
     start_route(db,**args)
-    record_heartbeat(db,user_id="learner",last_position={"unit_id":unit["id"],"notes_topic":unit["id"],"notes_page":4,"notes_version":VERSION})
+    edition = mapped_notes(CHAPTER,unit["id"],db,"learner")
+    record_heartbeat(db,user_id="learner",last_position={"unit_id":unit["id"],"notes_topic":unit["id"],"notes_page":4,"notes_version":edition["content_version"]})
     previous=_get_state(db,"learner")
     previous_id=previous.id
     with patch("services.study_route_service._today",return_value=previous.route_date+timedelta(days=1)):

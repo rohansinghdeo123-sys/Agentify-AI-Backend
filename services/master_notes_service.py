@@ -51,6 +51,9 @@ def install_master_notes(db):
         row.embedding=section.get("embedding")
         row.metadata_json={k:v for k,v in section.items() if k != "embedding"}
     chapter.chunk_count=len(data["sections"])
+    from services.notes_documents_service import install_legacy_master_metadata
+    curriculum = resolve_planning_curriculum(chapter_ref='some_basic_concepts_of_chemistry',subject=chapter.subject,class_level=chapter.class_level)
+    install_legacy_master_metadata(db,chapter,data,curriculum)
     db.commit()
     return chapter
 

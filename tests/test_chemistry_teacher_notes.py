@@ -21,6 +21,7 @@ from services.teacher_notes_service import (
     _load_lesson, compile_lesson, retrieve_teacher_context, session_portion,
 )
 from services.topic_notes_service import mapped_notes
+from services.adaptive_notes_service import retrieve_context
 
 
 @lru_cache(maxsize=1)
@@ -99,17 +100,17 @@ def test_notes_endpoint_adapter_aliases_and_exact_page_grounding(db,chapter):
     assert resolve_teacher_curriculum(alias)["curriculum_key"] == c["curriculum_key"]
     notes = mapped_notes(alias,u["id"],db,"reader")
     assert notes["chapter"]["chapter_number"] == chapter
-    assert len(notes["pages"]) == 10
+    assert notes["pages"] and all(p["blocks"] for p in notes["pages"])
     assert notes["topic_id"] == u["id"]
     assert notes["estimated_minutes"] == u["estimated_minutes"]
     assert notes["can_save_position"] is False
     page = notes["pages"][1]
-    result = retrieve_teacher_context(alias,u["id"],question="Explain this page",page_number=2,subtopic_ids=page["source_section_ids"])
+    result = retrieve_context(db,alias,u["id"],question="Explain this page",page_number=2,subtopic_ids=page["source_section_ids"],content_version=notes["content_version"])
     assert result["matched_sections"] == [page["id"]]
     assert result["source_pages"] == page["source_pages"]
-    assert len(result["provenance"]) == 1
+    assert result["provenance"] and all(set(r["subtopic_ids"]) <= set(page["source_section_ids"]) for r in result["provenance"])
     with pytest.raises(ValueError):
-        retrieve_teacher_context(alias,u["id"],subtopic_ids=["another-chapter"])
+        retrieve_context(db,alias,u["id"],subtopic_ids=["another-chapter"])
     with pytest.raises(HTTPException):
         mapped_notes(alias,teacher_curricula()[0]["units"][0]["id"],db,"reader")
 
@@ -153,10 +154,12 @@ def test_multi_chapter_positions_persist_without_changing_active_route_or_awardi
     active, key = state.current_unit_id, state.active_curriculum_key
     for c in chapters:
         u = c["units"][0]
-        record_heartbeat(db,user_id="portfolio-reader",last_position={"unit_id":active,"notes_topic":u["id"],"notes_page":4,"notes_version":VERSION})
+        notes = mapped_notes(c["chapter_slug"],u["id"],db,"portfolio-reader")
+        index = min(4,len(notes["pages"])-1)
+        record_heartbeat(db,user_id="portfolio-reader",last_position={"unit_id":active,"notes_topic":u["id"],"notes_page":index,"notes_version":notes["content_version"],"notes_page_id":notes["pages"][index]["id"]})
         db.expire_all()
         notes = mapped_notes(c["chapter_slug"],u["id"],db,"portfolio-reader")
-        assert notes["saved_page"] == 4 and notes["can_save_position"]
+        assert notes["saved_page"] == index and notes["can_save_position"]
         assert notes["proficiency"] == "mostly_confident"
     state = _get_state(db,"portfolio-reader")
     assert (state.current_unit_id,state.active_curriculum_key) == (active,key)
@@ -187,8 +190,9 @@ def test_revision_bookmarks_save_after_route_completion_without_reopening_it(db)
     state.status = "completed"
     state.last_position_json = {"conversation_id":"retained-conversation","check_answers":{"Q0":"B"}}
     db.commit()
+    notes = mapped_notes(c["chapter_slug"],c["units"][0]["id"],db,"finished-reader")
     record_heartbeat(db,user_id="finished-reader",compact=True,last_position={"unit_id":state.current_unit_id,
-        "notes_topic":c["units"][0]["id"],"notes_page":5,"notes_version":VERSION})
+        "notes_topic":c["units"][0]["id"],"notes_page":5,"notes_version":notes["content_version"]})
     db.expire_all()
     state = _get_state(db,"finished-reader")
     assert state.status == "completed"
@@ -207,7 +211,7 @@ def test_existing_chapter_two_catalog_links_use_teaching_units_or_explicit_scope
     for index, topic in enumerate(chapter["topics"]):
         notes = get_chapter_notes(chapter["slug"],topic_id=topic["id"],db=db,current_user={"uid":"archived-reader"})
         if index < 8:
-            assert len(notes["pages"]) == 10
+            assert notes["pages"] and all(p["blocks"] for p in notes["pages"])
             assert notes["topic_id"] == c["units"][[0,1,2,2,3,4,5,6][index]]["id"]
             assert notes["catalog_source"] == "planning_manifest"
         else:
@@ -247,13 +251,13 @@ def test_every_catalog_source_subtopic_concept_and_alias_opens_meaningful_notes(
             assert ids == [u['id'] for u in c['units'] if u['id'] in ids], topic
             for unit_id in set(ids)-checked_options:
                 lesson = mapped_notes(c['chapter_slug'],unit_id,db,'coverage-reader')
-                assert len(lesson['pages']) == 10
-                assert all(p['text'].strip() and len(p['blocks']) >= 2 for p in lesson['pages'])
+                assert lesson['pages']
+                assert all(p['text'].strip() and len(p['blocks']) >= 1 for p in lesson['pages'])
                 checked_options.add(unit_id)
         else:
-            assert notes['topic_id'] in allowed and len(notes['pages']) == 10, topic
-            assert all(p['text'].strip() and len(p['blocks']) >= 2 for p in notes['pages']), topic
-            assert type(notes['saved_page']) is int and 0 <= notes['saved_page'] < 10, topic
+            assert notes['topic_id'] in allowed and bool(notes['pages']), topic
+            assert all(p['text'].strip() and len(p['blocks']) >= 1 for p in notes['pages']), topic
+            assert type(notes['saved_page']) is int and 0 <= notes['saved_page'] < len(notes['pages']), topic
 
 
 def test_screenshot_group_and_final_review_expose_all_related_lessons_without_state_guessing(db):
@@ -278,7 +282,7 @@ def test_original_seed_topic_links_remain_compatible(db):
     for alias, index in CHAPTER_ONE_SEED_GROUPS.items():
         notes = mapped_notes(c['chapter_slug'],alias,db,'seed-reader')
         assert notes['topic_id'] == c['units'][index]['id']
-        assert len(notes['pages']) == 10
+        assert bool(notes['pages'])
 
 
 def test_direct_subtopic_starts_on_its_own_first_page_and_keeps_parent_lesson_scope(db):
@@ -327,5 +331,5 @@ def test_old_malformed_bookmarks_never_make_a_lesson_blank(db,position):
                           'notes_session_start_positions':{VERSION:{u['id']:position}}}
     db.commit()
     notes = mapped_notes(c['chapter_slug'],u['id'],db,'old-bookmark-reader')
-    assert type(notes['saved_page']) is int and 0 <= notes['saved_page'] < 10
+    assert type(notes['saved_page']) is int and 0 <= notes['saved_page'] < len(notes['pages'])
     assert notes['pages'][notes['saved_page']]['blocks']

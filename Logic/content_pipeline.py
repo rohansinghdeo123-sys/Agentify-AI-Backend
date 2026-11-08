@@ -2163,6 +2163,8 @@ def approve_chapter(db: Session, chapter_id: int, *, approved_by: str = "") -> C
     chapter = db.query(ContentChapter).filter(ContentChapter.id == chapter_id).one_or_none()
     if chapter is None:
         raise ValueError(f"Chapter not found: {chapter_id}")
+    if (chapter.validation_report or {}).get('source_type') == 'MASTER_NOTES':
+        raise ValueError('Master Notes are indexed teaching sources, not separate curriculum chapters')
     if not chapter.concept_count:
         raise ValueError("Chapter has no validated concepts. Import or generate concept JSON first.")
     # Re-evaluate against current data and the active coverage threshold (rather

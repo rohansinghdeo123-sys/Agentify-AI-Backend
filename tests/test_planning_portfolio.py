@@ -11,7 +11,7 @@ from Logic.planning.portfolio_engine import (
     build_planning_portfolio,
 )
 from Logic.planning.recommendation_engine import build_planning_roadmap
-from models import ContentChapter, ContentConcept, PlanningLearningEvent
+from models import ContentChapter, ContentConcept, PlanningLearningEvent, TopicDurationOverride
 from schemas import (
     AutonomousStudyRequest,
     PlanningPortfolioRequest,
@@ -42,6 +42,7 @@ class PlanningPortfolioTests(unittest.TestCase):
     def setUp(self):
         self.engine = create_engine("sqlite:///:memory:")
         PlanningLearningEvent.__table__.create(self.engine)
+        TopicDurationOverride.__table__.create(self.engine)
         ContentChapter.__table__.create(self.engine)
         ContentConcept.__table__.create(self.engine)
         self.db = sessionmaker(bind=self.engine)()

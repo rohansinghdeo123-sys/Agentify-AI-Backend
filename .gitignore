@@ -18,3 +18,5 @@ logs/
 tmp/
 # Resumable, source-bound LLM generation checkpoints (runtime-derived content)
 data/processed/content_generation_cache/
+data/notes/uploads/
+.adaptive-*.log

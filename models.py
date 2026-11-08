@@ -605,6 +605,38 @@ class ContentChunk(Base):
     chapter = relationship("ContentChapter", back_populates="chunks")
 
 
+class AdaptiveNoteLesson(Base):
+    """Shared source-bound lesson cache; learner bookmarks remain private route data."""
+    __tablename__ = "adaptive_note_lessons"
+
+    id = Column(Integer, primary_key=True, index=True)
+    content_version = Column(String(96), unique=True, nullable=False, index=True)
+    curriculum_key = Column(String, nullable=False, index=True)
+    chapter_slug = Column(String, nullable=False)
+    unit_id = Column(String, nullable=False, index=True)
+    proficiency = Column(String, nullable=False)
+    explanation_style = Column(String, nullable=False)
+    source_fingerprint = Column(String(64), nullable=False, index=True)
+    minimum_minutes = Column(Integer, nullable=False)
+    maximum_minutes = Column(Integer, nullable=False)
+    payload_json = Column(JSON, nullable=False)
+    created_at = Column(DateTime, default=_utcnow_naive)
+
+
+class TopicDurationOverride(Base):
+    """Administrator-owned ranges, independent of AI output or student session time."""
+    __tablename__ = "topic_duration_overrides"
+    __table_args__ = (UniqueConstraint("curriculum_key", "unit_id", name="uq_topic_duration_scope"),)
+
+    id = Column(Integer, primary_key=True, index=True)
+    curriculum_key = Column(String, nullable=False, index=True)
+    unit_id = Column(String, nullable=False)
+    minimum_minutes = Column(Integer, nullable=False)
+    maximum_minutes = Column(Integer, nullable=False)
+    configured_by = Column(String, nullable=False)
+    updated_at = Column(DateTime, default=_utcnow_naive, onupdate=_utcnow_naive)
+
+
 class ContentIngestionJob(Base):
     """Auditable ingestion/generation/validation job log."""
     __tablename__ = "content_ingestion_jobs"

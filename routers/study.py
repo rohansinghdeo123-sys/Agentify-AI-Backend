@@ -366,80 +366,25 @@ def artifact_catalog():
 def get_chapter_notes(
     chapter_slug: str,
     topic_id: Optional[str] = Query(None, description="Filter notes by specific topic"),
+    class_level: Optional[str] = Query(None),
+    subject: Optional[str] = Query(None),
+    content_version: Optional[str] = Query(None),
     db: Session = Depends(get_db),
     current_user: Dict[str, Any] = Depends(verify_firebase_user),
 ):
     """Fetch the published master notes for a chapter. If topic_id is provided, filter to that topic."""
     
     from services.topic_notes_service import mapped_notes
-    mapped = mapped_notes(chapter_slug, topic_id, db, str(current_user.get("uid") or ""))
+    mapped = mapped_notes(chapter_slug, topic_id, db, str(current_user.get("uid") or ""),
+                         subject=subject if isinstance(subject,str) else None,
+                         class_level=class_level if isinstance(class_level,str) else None,
+                         content_version=content_version if isinstance(content_version,str) else None)
     if mapped is not None:
+        db.commit()
         return mapped
 
-    chapter = (
-        db.query(ContentChapter)
-        .filter(
-            ContentChapter.slug == chapter_slug,
-            ContentChapter.status.in_(APPROVED_STATUSES)
-        )
-        .first()
-    )
-    
-    if not chapter:
-        chapter = (
-            db.query(ContentChapter)
-            .filter(
-                ContentChapter.slug.endswith(chapter_slug),
-                ContentChapter.status.in_(APPROVED_STATUSES)
-            )
-            .first()
-        )
-
-    if not chapter:
-        chapter_name_search = chapter_slug.replace("_", " ").title()
-        chapter = (
-            db.query(ContentChapter)
-            .filter(
-                ContentChapter.chapter_name.ilike(f"%{chapter_name_search}%"),
-                ContentChapter.status.in_(APPROVED_STATUSES)
-            )
-            .first()
-        )
-
-    if not chapter:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Chapter notes not found or not yet published."
-        )
-
-    query = db.query(ContentConcept).filter(ContentConcept.chapter_id == chapter.id)
-    
-    # STRICT FILTER: Just match the concept_id directly. No complex resolution.
-    if topic_id:
-        query = query.filter(ContentConcept.concept_id == topic_id)
-
-    concepts = query.order_by(ContentConcept.id).all()
-
-    notes = []
-    for concept in concepts:
-        notes.append({
-            "id": concept.concept_id,
-            "title": concept.title,
-            "definition": concept.definition,
-            "explanation": concept.core_explanation,
-            "key_points": concept.key_points or [],
-            "formulas": concept.formulas or [],
-            "examples": concept.examples or [],
-            "common_mistakes": concept.common_mistakes or [],
-        })
-
-    return {
-        "chapter": {
-            "slug": chapter.slug,
-            "name": chapter.chapter_name,
-            "class_level": chapter.class_level,
-            "subject": chapter.subject,
-            "chapter_number": chapter.chapter_number,
-        },
-        "concepts": notes
-    }
+    # All approved/registered scopes resolve through the shared curriculum
+    # adapter above. Fuzzy legacy lookups could cross a class/subject boundary
+    # or select one of several chapters by database insertion order.
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                        detail="Chapter notes not found for the selected class and subject.")

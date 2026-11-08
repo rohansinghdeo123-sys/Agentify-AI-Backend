@@ -79,6 +79,9 @@ def _resolve_selections(
                 "Choose a registered Planning chapter and try again."
             )
 
+        from services.notes_config_service import apply_topic_durations
+        curriculum = apply_topic_durations(db,curriculum)
+
         curriculum_key = str(curriculum["curriculum_key"])
         existing = by_curriculum_key.get(curriculum_key)
         if existing is not None:

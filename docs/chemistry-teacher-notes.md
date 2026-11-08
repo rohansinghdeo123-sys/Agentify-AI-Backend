@@ -1,3 +1,7 @@
+# Current behavior
+
+The [November 8 adaptive notes contract](adaptive-notes.md) supersedes the fixed-page reader described below. These reviewed assets remain available as verified, missing-only NCERT fallback sources.
+
 # NCERT teaching notes across Class XI Chemistry
 
 The Chapter 1 teacher-notes contract now applies to all nine published Class XI Chemistry chapters: 72 existing Planning units and 720 teaching pages. Chapter 1's six lessons are retained; chapters 2–9 add 66 lessons in `data/notes/teacher_chemistry/chapter_02` through `chapter_09`. Every unit has ten separate learning steps, a connected explanation, essential scientific content, worked applications where relevant, and five to ten answered understanding questions on its final page.

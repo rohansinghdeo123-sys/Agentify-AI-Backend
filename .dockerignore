@@ -23,4 +23,7 @@ data/raw/ncert/**/*.pdf
 desktop.ini
 Dockerfile
 .dockerignore
+tmp/
+.adaptive-*.log
+data/notes/uploads/
 README.md

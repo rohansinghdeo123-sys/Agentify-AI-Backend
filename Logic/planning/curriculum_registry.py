@@ -52,7 +52,8 @@ def _normalized(value: Any) -> str:
 
 def _normalized_class_level(value: Any) -> str:
     normalized = _normalized(value).removeprefix("class_").removeprefix("grade_")
-    return {"xi": "11", "11th": "11"}.get(normalized, normalized)
+    roman = dict(zip(['i','ii','iii','iv','v','vi','vii','viii','ix','x','xi','xii'],map(str,range(1,13))))
+    return {**roman,"11th":"11"}.get(normalized, normalized)
 
 
 def _require_string(payload: Dict[str, Any], key: str, *, location: str) -> str:

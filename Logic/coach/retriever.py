@@ -74,13 +74,9 @@ class GroundedRetriever:
         return candidates
 
     def _retrieve_section(self, section_id: str, question: str, scope: Dict[str, Any]) -> RetrievalResult:
-        from services.teacher_notes_service import resolve_teacher_unit, uses_teacher_notes
-        resolved = resolve_teacher_unit(scope.get("chapter_slug") or scope.get("chapter"), section_id) if uses_teacher_notes(scope) else None
-        if resolved:
-            from services.teacher_notes_service import retrieve_teacher_context
-            notes = retrieve_teacher_context(scope.get("chapter_slug") or scope.get("chapter"), section_id,
-                question=question, subtopic_ids=scope.get("subtopic_ids"), page_number=scope.get("notes_page_number"),
-                proficiency=scope.get("notes_proficiency") or "new_to_it", style=scope.get("notes_explanation_style") or "balanced")
+        from services.adaptive_notes_service import context_for_scope
+        notes = context_for_scope(scope,section_id,question)
+        if notes:
             return RetrievalResult(context=notes["context"], section_id=notes["section_id"], source=notes["source"],
                 paragraphs_found=notes["paragraphs_found"], keywords_used=notes["keywords_used"], scope=dict(scope),
                 supported=bool(notes["context"]), retrieval_mode=notes["retrieval_mode"], matched_sections=notes["matched_sections"])

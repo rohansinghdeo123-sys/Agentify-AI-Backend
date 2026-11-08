@@ -232,6 +232,8 @@ def _selected_material_scope(request, adaptive_context: Optional[Dict[str, Any]]
         "unspecified",
     }:
         class_level = ""
+    notes_version = str(learning_context.get("notes_content_version") or "")
+    notes_bound = notes_version == "ncert_teacher_v1" or notes_version.startswith("adaptive_notes_v2_")
     return {
         "subject": str(
             getattr(request, "subject", "")
@@ -275,8 +277,9 @@ def _selected_material_scope(request, adaptive_context: Optional[Dict[str, Any]]
         "notes_content_version": str(learning_context.get("notes_content_version") or ""),
         "notes_proficiency": str(learning_context.get("notes_proficiency") or ""),
         "notes_explanation_style": str(learning_context.get("notes_explanation_style") or ""),
-        "subtopic_ids": learning_context.get("notes_subtopic_ids") if learning_context.get("notes_content_version") == "ncert_teacher_v1" else None,
-        "notes_page_number": learning_context.get("notes_page_number") if learning_context.get("notes_content_version") == "ncert_teacher_v1" else None,
+        "subtopic_ids": learning_context.get("notes_subtopic_ids") if notes_bound else None,
+        "notes_page_number": learning_context.get("notes_page_number") if notes_bound else None,
+        "notes_page_id": learning_context.get("notes_page_id"),
     }
 
 

@@ -1,4 +1,4 @@
-> Historical implementation: the current November 4 NCERT teaching-page contract is documented in [ncert-teacher-notes.md](ncert-teacher-notes.md).
+> Current universal implementation: [November 8 adaptive notes](adaptive-notes.md). The implementation history below predates dynamic pagination and generic uploaded master documents.
 
 # Chapter 1: Amit-first Notes and tutoring
 
