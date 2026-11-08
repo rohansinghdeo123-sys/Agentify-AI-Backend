@@ -923,7 +923,44 @@ def build_coverage_report(
     if pages:
         extraction_quality = sum(float(page["extraction_quality"] if isinstance(page, dict) else page.extraction_quality or 0.0) for page in pages) / len(pages)
     coverage_score = (len(covered_pages) / len(extracted_pages)) if extracted_pages and concepts else 0.0
-    blocking_issues = [issue for issue in issues if issue.get("severity") == "error"]
+    # Page coverage alone can be 100% even when a referenced concept contains
+    # only a title. Check the actual fields the notes reader can teach from on
+    # every approval, including edits made after the original ingestion report.
+    from services.notes_formula_values import formula_blocks
+    current_issues = [issue for issue in issues if issue.get("check") not in {"notes_teaching_coverage","notes_topic_identity","notes_formula_structure"}]
+    missing_teaching = []
+    seen_topic_ids, invalid_topic_ids, invalid_formula_ids = set(), [], []
+    for index, concept in enumerate(concepts):
+        def value(field):
+            return concept.get(field) if isinstance(concept, dict) else getattr(concept, field, None)
+        topic_id=normalize_key(value("concept_id"))
+        if not topic_id or topic_id in seen_topic_ids:
+            invalid_topic_ids.append(str(value("concept_id") or f"concept_{index+1}"))
+            current_issues.append({"severity":"error", "check":"notes_topic_identity",
+                "concept_id":value("concept_id"), "message":"Notes topics require distinct nonempty source IDs."})
+        seen_topic_ids.add(topic_id)
+        texts = [value("definition"), value("core_explanation")]
+        for field in ["key_points", "examples", "properties", "applications"]:
+            supplied = value(field)
+            if isinstance(supplied, list):
+                texts.extend(item for item in supplied if isinstance(item, str))
+        for supplied in value("formulas") or []:
+            parts=formula_blocks(supplied)
+            texts.extend(part['text'] for part in parts)
+            if not parts and supplied:
+                invalid_formula_ids.append(str(value("concept_id")))
+                current_issues.append({"severity":"error", "check":"notes_formula_structure", "concept_id":value("concept_id"),
+                    "message":"A source formula cannot be displayed. Supply its formula/expression/equation/latex text before publication."})
+        mistakes = value("common_mistakes")
+        for item in mistakes if isinstance(mistakes, list) else []:
+            texts.extend(item.values() if isinstance(item, dict) else [item])
+        if not any(isinstance(text, str) and text.strip() for text in texts):
+            concept_id = str(value("concept_id") or f"concept_{index+1}")
+            missing_teaching.append(concept_id)
+            current_issues.append({"severity":"error", "check":"notes_teaching_coverage",
+                "concept_id":concept_id, "issues":["missing_teaching_content"],
+                "message":"This topic has no readable teaching content for Study Lab Notes."})
+    blocking_issues = [issue for issue in current_issues if issue.get("severity") == "error"]
     missing_pages = sorted(extracted_pages - concept_pages) if concepts else sorted(extracted_pages)
 
     return {
@@ -935,7 +972,11 @@ def build_coverage_report(
         "missing_source_pages": missing_pages,
         "coverage_score": round(coverage_score, 3),
         "extraction_quality": round(extraction_quality, 3),
-        "issues": list(issues),
+        "issues": current_issues,
+        "notes_ready": bool(concepts and not missing_teaching and not invalid_topic_ids and not invalid_formula_ids),
+        "missing_teaching_concept_ids": missing_teaching,
+        "invalid_notes_topic_ids": invalid_topic_ids,
+        "invalid_notes_formula_ids": sorted(set(invalid_formula_ids)),
         "blocking_issue_count": len(blocking_issues),
         "ready_for_approval": bool(concepts and not blocking_issues and coverage_score >= _min_coverage_score()),
     }

@@ -6,6 +6,7 @@ import re
 from pathlib import Path
 from models import ContentConcept
 from services.notes_scope_service import identity, published_chapter
+from services.notes_formula_values import formula_blocks
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -20,6 +21,18 @@ def _sentences(text):
 
 def _normalized(text):
     return re.sub(r'\s+',' ',text.translate(str.maketrans('₀₁₂₃₄₅₆₇₈₉','0123456789')).replace('−','-')).strip().lower()
+
+
+def _is_worked_solution(text):
+    """Recognize source steps, without inventing a solution for a question."""
+    if not isinstance(text,str) or not re.search(r'=|\\(?:d?frac)\b',text):
+        return False
+    if not re.search(r'\b(?:given|solution|solve|calculate|substitut\w*|use)\b',text,re.I):
+        return False
+    chains=re.findall(r'=([^=,.;\n]{1,160})=',text)
+    has_chain=any(not re.search(r'\b(?:and|where|with|given|find)\b',part,re.I) for part in chains)
+    return bool(has_chain or
+                re.search(r'\b(?:giving|therefore|hence|answer|result|roots? (?:are|is))\b',text,re.I))
 
 
 def _reviewed_sections(db, curriculum, unit, missing):
@@ -106,6 +119,8 @@ def ncert_sections(db, curriculum, unit, missing):
         def add(kind,text,level='essential'):
             if not isinstance(text,str) or not text.strip() or _normalized(text) in seen:
                 return
+            if kind in {'example','explanation'} and _is_worked_solution(text):
+                kind='worked_example'
             seen.add(_normalized(text)); blocks.append({'kind':kind,'text':text.strip(),'level':level})
         add('definition',concept.definition)
         for text in (concept.core_explanation or '').split('\n\n'):
@@ -113,14 +128,16 @@ def ncert_sections(db, curriculum, unit, missing):
         for text in concept.key_points or []: add('explanation',text)
         for text in concept.properties or []: add('classification',text)
         for text in concept.applications or []: add('example',text)
-        for text in concept.formulas or []: add('formula',text)
+        for supplied in concept.formulas or []:
+            for part in formula_blocks(supplied): add(part['kind'],part['text'])
         for text in concept.examples or []: add('example',text)
         for text in concept.common_mistakes or []:
             add('misconception',text if isinstance(text,str) else ' '.join(str(v) for v in text.values() if isinstance(v,str)))
         if blocks:
             sections.append({'id':'ncert-concept:'+concept.concept_id,'title':concept.title,'text':'\n\n'.join(b['text'] for b in blocks),
                 'blocks':blocks,'source_type':'NCERT_FALLBACK','subtopic_ids':[gap],
-                'source_pages':concept.source_pages or [],'teaching_format':'concept',
+                'source_pages':concept.source_pages or [],
+                'teaching_format':'numerical' if any(b['kind']=='worked_example' for b in blocks) else 'concept',
                 'source_document':{'id':row.id,'title':row.chapter_name,'sha256':row.published_source_hash or row.source_hash,'role':'NCERT_FALLBACK'},
                 'derivation':'approved_section_index'})
     return sections

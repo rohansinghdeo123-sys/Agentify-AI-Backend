@@ -1,5 +1,7 @@
 # Adaptive, source-bound notes (November 8)
 
+See the [chapter-by-chapter recheck and future-subject verification](notes-coverage-verification.md) for the expanded endpoint audit and publication safeguards.
+
 This is the current reader contract. It supersedes the historical fixed ten-page, NCERT-primary presentation. Existing reviewed lessons remain a verified NCERT source adapter, rather than a second active reader or a new topic hierarchy.
 
 ## Retrieval and scope

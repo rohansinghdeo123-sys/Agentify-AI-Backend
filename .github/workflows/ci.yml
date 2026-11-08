@@ -20,11 +20,19 @@ jobs:
           python-version: "3.10"
           cache: pip
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements-dev.txt
       - name: Compile check
         run: python -m compileall -q main.py app routers services Logic prompts
+      - name: Initialize isolated test source database
+        run: |
+          python scripts/migrate.py
+          python -c "from database import SessionLocal; from services.master_notes_service import install_master_notes; db=SessionLocal(); install_master_notes(db); db.close()"
       - name: Run test suite
-        run: python -m unittest discover -s tests -p "test_*.py" -v
+        run: python -m pytest -q
+      - name: Verify every Chemistry notes variant
+        run: python scripts/validate_adaptive_notes.py
+      - name: Audit Chemistry notes links and progress endpoints
+        run: python scripts/audit_notes_endpoints.py
 
   security-audit:
     name: Dependency audit (advisory)

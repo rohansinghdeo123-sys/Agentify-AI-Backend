@@ -626,6 +626,8 @@ class ContentPipelineTests(unittest.TestCase):
             pages,
             [
                 {
+                    "concept_id": "photosynthesis",
+                    "definition": "Photosynthesis produces glucose and oxygen using light energy.",
                     "source_pages": [1, 2],
                 }
             ],
