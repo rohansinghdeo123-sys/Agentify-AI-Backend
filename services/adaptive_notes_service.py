@@ -174,11 +174,12 @@ def notes_response(db, chapter_ref, topic_id, user_id, *, subject=None,class_lev
     proficiency,style,allocation = learner_settings(db,user_id,state,curriculum,unit)
     payload, material = compiled_lesson(db,curriculum,unit,proficiency=proficiency,style=style,requested_version=content_version)
     progress = reading_progress(state,unit,payload)
-    if not content_version and progress['saved_page'] == 0 and topic_id:
-        chosen = [s['id'] for s in unit['ncert_subtopics'] if identity(topic_id) == identity(s['id']) and topic_id != unit['id']]
-        if chosen:
-            entry = next((i for i,p in enumerate(payload['pages']) if set(chosen).intersection(p['source_section_ids'])),0)
-            if payload['pages']:
+    if topic_id and identity(topic_id) != identity(unit['id']) and payload['pages']:
+        chosen = {s['id'] for s in unit['ncert_subtopics'] if identity(topic_id) == identity(s['id'])}
+        current = payload['pages'][progress['saved_page']]
+        if chosen and chosen.isdisjoint(current['source_section_ids']):
+            entry = next((i for i,p in enumerate(payload['pages']) if chosen.intersection(p['source_section_ids'])),None)
+            if entry is not None:
                 progress.update(saved_page=entry,saved_page_id=payload['pages'][entry]['id'])
     selected = bool(state and same_scope(curriculum,state.subject,state.class_level) and any((resolve_notes_curriculum(db,s.get('chapter_ref'),subject=state.subject,class_level=state.class_level) or {}).get('curriculum_key') == curriculum['curriculum_key'] for s in state.selections_json or []))
     runtime = state.runtime_json or {} if state else {}
@@ -207,64 +208,78 @@ def retrieve_context(db, chapter_ref, topic_id, *, subject=None,class_level=None
     if len(units) != 1: return None
     unit = units[0]
     allowed = {s['id'] for s in unit['ncert_subtopics']}
+    if subtopic_ids is not None and (not isinstance(subtopic_ids,(list,tuple,set))
+            or any(not isinstance(subtopic,str) for subtopic in subtopic_ids)):
+        raise ValueError('Invalid notes subtopics')
     requested = set(subtopic_ids or allowed)
     if not requested <= allowed: raise ValueError('Subtopics outside selected Planning topic')
-    material = retrieve_material(db,curriculum,unit,requested if not (page_id or page_number) else None)
+    page_bound = bool(page_id) or page_number is not None
+    if page_number is not None and (type(page_number) is not int or page_number < 1):
+        raise ValueError('Invalid notes page')
+    material = retrieve_material(db,curriculum,unit,None if page_bound else requested)
     payload,_ = compiled_lesson(db,curriculum,unit,proficiency=proficiency,style=style,material=material,requested_version=content_version)
     pages = payload['pages']
+    if content_version and page_bound and content_version != payload['content_version']:
+        pages = []
     if page_id:
         pages = [p for p in pages if p['id'] == page_id]
-    elif page_number is not None:
-        if type(page_number) is not int or page_number < 1: raise ValueError('Invalid notes page')
+    if page_number is not None:
         pages = [p for p in pages if p['page_number'] == page_number]
     pages = [p for p in pages if set(p['source_section_ids']) <= requested]
-    if not (page_id or page_number) and question:
+    if not page_bound and question:
         terms = set(re.findall(r'[a-z]{3,}',question.lower()))
         pages = sorted(pages,key=lambda p:-len(terms.intersection(re.findall(r'[a-z]{3,}',p['text'].lower()))))[:4]
         pages.sort(key=lambda p:p['page_number'])
     context = '\n\n'.join('['+p['source']+'; '+p['title']+']\n'+'\n\n'.join(
         '['+b['source_type']+'] '+(b.get('expanded_text') or b['text']) for b in p['blocks']) for p in pages)
+    source_types = list(dict.fromkeys(ref['source_type'] for page in pages for ref in page['source_refs']))
     return {'context':context,'source':'adaptive_source_notes','retrieval_mode':'master_first_scoped_notes',
         'unit_id':unit['id'],'section_id':unit['primary_topic_id'],'paragraphs_found':len(pages),
         'keywords_used':sorted(set(re.findall(r'[a-z]{3,}',question.lower()))),'matched_sections':[p['id'] for p in pages],
         'source_pages':sorted({n for p in pages for n in p['source_pages']}),'content_order_locked':True,
-        'provenance':[r for p in pages for r in p['source_refs']],'source_types':payload.get('source_types',[]),
+        'provenance':[r for p in pages for r in p['source_refs']],'source_types':source_types,
         'conflicts':material['conflicts'],'missing_subtopics':material['missing_subtopics']}
 
 
 def context_for_scope(scope, topic_id, question):
     """Shared tutor/tool entry point; uses an independent read/cache transaction."""
+    version = str(scope.get('notes_content_version') or '')
+    page_bound = version.startswith(EDITION+'_')
+    unavailable = {'context':'','source':'adaptive_source_notes','retrieval_mode':'master_first_scoped_notes',
+                   'section_id':topic_id,'paragraphs_found':0,'keywords_used':[],'matched_sections':[],
+                   'error':'notes_page_unavailable'}
     if scope.get('catalog_source') not in {'planning_manifest','published'}:
-        return None
+        return unavailable if page_bound else None
     chapter_ref = scope.get('chapter_slug') or scope.get('chapter')
     if not chapter_ref:
-        return None
-    version = str(scope.get('notes_content_version') or '')
+        return unavailable if page_bound else None
     if version == 'ncert_teacher_v1':
         from services.teacher_notes_service import retrieve_teacher_context
         return retrieve_teacher_context(chapter_ref,topic_id,question=question,
             subtopic_ids=scope.get('subtopic_ids'),page_number=scope.get('notes_page_number'),
             proficiency=scope.get('notes_proficiency') or 'new_to_it',style=scope.get('notes_explanation_style') or 'balanced')
-    if scope.get('catalog_source') == 'published' and not version.startswith(EDITION):
+    if scope.get('catalog_source') == 'published' and not page_bound:
         # Revision/Exam keep their existing approved hybrid retrieval. Only a
         # notes-bound tutor request adopts its exact source-bound page context.
         return None
+    if page_bound and not (scope.get('notes_page_id') or scope.get('notes_page_number') is not None):
+        return unavailable
     from database import SessionLocal
     db = SessionLocal()
     try:
-        curriculum = resolve_notes_curriculum(db,chapter_ref,subject=scope.get('subject'),class_level=scope.get('class_level'))
-        if not curriculum:
-            return None
-        units = resolve_notes_topics(db,curriculum,topic_id)
-        if len(units) != 1:
-            return None
-        result = retrieve_context(db,chapter_ref,units[0]['id'],subject=scope.get('subject'),class_level=scope.get('class_level'),
+        result = retrieve_context(db,chapter_ref,topic_id,subject=scope.get('subject'),class_level=scope.get('class_level'),
             question=question,subtopic_ids=scope.get('subtopic_ids'),
-            page_number=scope.get('notes_page_number') if version.startswith(EDITION) else None,
-            page_id=scope.get('notes_page_id') if version.startswith(EDITION) else None,
-            content_version=version if version.startswith(EDITION) else None,
+            page_number=scope.get('notes_page_number') if page_bound else None,
+            page_id=scope.get('notes_page_id') if page_bound else None,
+            content_version=version if page_bound else None,
             proficiency=scope.get('notes_proficiency') or 'new_to_it',style=scope.get('notes_explanation_style') or 'balanced')
         db.commit()
+        if page_bound and not (result and result['context']):
+            return unavailable
         return result
+    except ValueError:
+        if page_bound:
+            return unavailable
+        raise
     finally:
         db.close()

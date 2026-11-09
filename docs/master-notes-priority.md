@@ -2,7 +2,7 @@
 
 # Chapter 1: Amit-first Notes and tutoring
 
-The supplied seven-page PDF (SHA-256 recorded in the artifact) is retained unchanged in data/notes/amit_chapter1.pdf. It supersedes the abbreviated seed_chapter_1.py teaching summaries and placeholder pages for this reader; the destructive legacy seed is not executed.
+The supplied seven-page PDF (SHA-256 recorded in the artifact) is retained unchanged in `data/notes/amit_chapter1.pdf`. It supersedes the original seed's abbreviated summaries and placeholder pages. `python scripts/seed_chapter_1.py` now invokes the verified PDF installer and preserves the published NCERT chapters.
 
 64 heading-level sections retain exact source wording, page numbers, text hashes, explicit NCERT-subtopic mappings and content-specific teaching formats. The quick formula summary is indexed but excluded from topic pages to prevent unrelated material entering a route. Embeddings were generated with the configured real provider; model, endpoint and dimensions accompany each vector. No keys are bundled.
 

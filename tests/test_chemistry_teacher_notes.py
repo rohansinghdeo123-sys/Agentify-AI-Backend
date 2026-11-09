@@ -135,6 +135,38 @@ def test_published_notes_ask_ai_uses_exact_page_but_revision_keeps_published_ret
     assert resolve_teacher_unit(c["chapter_slug"],teacher_curricula()[7]["units"][0]["id"]) is None
 
 
+def test_adaptive_notes_tutor_rejects_a_stale_or_mismatched_page_without_fallback(db):
+    from Logic.coach.retriever import GroundedRetriever
+    from Logic.tools.knowledge_search import search_knowledge_base
+
+    curriculum = teacher_curricula()[8]
+    unit = curriculum["units"][0]
+    notes = mapped_notes(curriculum["chapter_slug"], unit["id"], db, "reader")
+    db.commit()
+    page = notes["pages"][0]
+    scope = {
+        "chapter_slug": curriculum["chapter_slug"], "topic": unit["id"], "catalog_source": "published",
+        "subject": "Chemistry", "class_level": "11", "notes_content_version": notes["content_version"],
+        "notes_page_number": page["page_number"], "notes_page_id": page["id"], "subtopic_ids": page["source_section_ids"],
+    }
+    with patch("database.SessionLocal", return_value=db), \
+         patch("Logic.coach.retriever.search_approved_content", side_effect=AssertionError("Tutor fallback ran")), \
+         patch("Logic.tools.knowledge_search.search_approved_content", side_effect=AssertionError("Tool fallback ran")):
+        valid = GroundedRetriever().retrieve("Explain this", scope)
+        assert valid.supported and valid.matched_sections == [page["id"]]
+        invalid_scopes = [
+            {**scope, "notes_content_version": "adaptive_notes_v2_stale", "notes_page_id": None},
+            {**scope, "notes_page_number": page["page_number"] + 1},
+            {**scope, "topic": curriculum["units"][1]["id"]},
+            {**scope, "class_level": "12"},
+        ]
+        for invalid in invalid_scopes:
+            result = GroundedRetriever().retrieve("Explain this", invalid)
+            assert not result.supported and result.error == "notes_page_unavailable"
+            tool = search_knowledge_base(invalid["topic"], "Explain this", scope=invalid)
+            assert not tool["context"] and tool["error"] == "notes_page_unavailable"
+
+
 def test_tutor_retrieves_the_same_adapted_blocks_the_learner_reads():
     c = teacher_curricula()[1]
     u = c["units"][5]

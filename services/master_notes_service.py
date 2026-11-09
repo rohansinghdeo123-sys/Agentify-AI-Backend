@@ -40,7 +40,9 @@ def install_master_notes(db):
         if hashlib.sha256(section["text"].encode()).hexdigest() != section["sha256"]:
             raise ValueError("Master section digest mismatch")
         row = existing.get(section["id"])
-        if row and row.text == section["text"] and row.metadata_json == {k:v for k,v in section.items() if k != "embedding"}:
+        metadata = {k:v for k,v in section.items() if k != "embedding"}
+        embedding = section.get("embedding")
+        if row and row.text == section["text"] and row.metadata_json == metadata and row.embedding == embedding:
             continue
         if not row:
             row = ContentChunk(chapter_id=chapter.id, chunk_id=section["id"]); db.add(row)
@@ -48,8 +50,8 @@ def install_master_notes(db):
         row.page_start=min(section["source_pages"]); row.page_end=max(section["source_pages"])
         row.lexical_terms=sorted(set(re.findall(r"[a-z]+", row.text.lower())))
         row.token_estimate=len(row.text)//4
-        row.embedding=section.get("embedding")
-        row.metadata_json={k:v for k,v in section.items() if k != "embedding"}
+        row.embedding=embedding
+        row.metadata_json=metadata
     chapter.chunk_count=len(data["sections"])
     from services.notes_documents_service import install_legacy_master_metadata
     curriculum = resolve_planning_curriculum(chapter_ref='some_basic_concepts_of_chemistry',subject=chapter.subject,class_level=chapter.class_level)

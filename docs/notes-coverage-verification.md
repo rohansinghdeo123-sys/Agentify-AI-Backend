@@ -1,6 +1,6 @@
 # Chemistry notes coverage and future-subject verification
 
-Verified on November 8, 2026 against the actual bundled Class XI Chemistry sources, indexed Amit notes, authenticated notes endpoints and private progress endpoints. All database/model work used isolated test data; no hosted-account access or live model wording is claimed.
+Rechecked on November 9, 2026 against the bundled Class XI Chemistry release, indexed Amit notes, authenticated notes endpoints and private progress endpoints. The audit compares the restored release, curriculum registry and student catalog before opening lessons. Database and browser checks used isolated test data.
 
 ## Every shipped Chemistry chapter
 
@@ -20,6 +20,8 @@ All 72 topics, 129 mapped subtopics, 844 canonical/archived/catalog links, 864 p
 
 The independent 288-variant source-content audit also passed: Master Notes first, missing-only NCERT fallback, no missing core coverage, no identical scientific teaching bodies across the four balanced levels, and no depth inversions.
 
+All 129 direct subtopic links were reopened with a saved topic bookmark. Fifty-seven links had to move to a different page to reach the requested subtopic. The saved bookmark and completed pages remained intact. Ask AI retrieved the exact teaching text and provenance for all 129 entry pages. A fresh database bootstrap restored all nine released chapters and verified installation of Amit's 64 embedded sections.
+
 ## Future Physics and Mathematics
 
 Integration tests create realistic approved Physics and Mathematics chapters through the existing catalog and source services: 8 topics and 16 subtopics across 96 proficiency/style views. Tests cover actual PDF upload and section indexing, Master-first retrieval, missing-only NCERT fallback, worked-example preservation, durations, cache isolation/invalidation, reading progress, page-scoped Ask AI and return links. These fixtures demonstrate engine readiness; future textbooks still require their actual reviewed source content to be uploaded/indexed and approved.
@@ -33,4 +35,4 @@ Production-build desktop/mobile checks cover Physics with 4 pages and Mathematic
 - CI runs the full pytest suite (including the formerly skipped pytest-based notes checks), the scientific-content audit and the authenticated endpoint/progress audit on every main push/PR.
 - Reproduce with `python scripts/validate_adaptive_notes.py`, `python scripts/audit_notes_endpoints.py`, and `python -m pytest -q` after installing `requirements-dev.txt`. The detailed per-link/per-chapter reports are generated under ignored `tmp/`.
 
-The final backend suite passed 587 tests and 71 subtests both against the normal test setup and after migrating a fresh isolated source database. Frontend typecheck, ESLint and all 229 unit tests passed. Browser source/model transport is mocked; indexing, retrieval, topic mapping, dynamic compilation, publication validation and progress persistence use real application services in the backend tests.
+The November 9 backend suite passed 589 tests and 71 subtests. The production frontend build passed 18 focused desktop/mobile checks covering dynamic notes and the future-subject fixtures. Browser API transport is mocked. Backend checks use the real indexing, retrieval, topic mapping, compilation and progress services.

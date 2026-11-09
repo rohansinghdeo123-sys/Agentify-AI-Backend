@@ -30,8 +30,9 @@ from models import AICoachProfile, AdaptiveNoteLesson, StudyRouteState, TestHist
 from routers.planning import router as planning_router
 from routers.study import router as study_router
 from scripts.validate_adaptive_notes import _restore_sources
+from services.adaptive_notes_service import retrieve_context
 from services.catalog_service import build_catalog
-from services.notes_scope_service import identity, resolve_notes_curriculum
+from services.notes_scope_service import identity, resolve_notes_curriculum, same_scope
 from services.study_route_service import _get_state, start_route
 from services.teacher_notes_service import _topic_aliases, teacher_curricula
 
@@ -100,6 +101,8 @@ def audit(*, chapter_numbers=None, proficiencies=PROFICIENCIES, styles=STYLES, a
         with gzip.open(ROOT/'data/releases/ncert_class_11_chemistry_v1.json.gz','rt',encoding='utf-8') as handle:
             release=json.load(handle)
         concepts={c['chapter']['chapter_number']:c['concepts'] for c in release['chapters']}
+        curricula = teacher_curricula()
+        assert {c['chapter_number'] for c in curricula} == set(concepts), 'The curriculum omits a released chapter'
         app=FastAPI();app.include_router(study_router);app.include_router(planning_router)
         app.dependency_overrides[get_db]=lambda:db
         app.dependency_overrides[verify_firebase_user]=lambda:dict(token)
@@ -108,15 +111,19 @@ def audit(*, chapter_numbers=None, proficiencies=PROFICIENCIES, styles=STYLES, a
              patch('Logic.embeddings.embed_query',side_effect=AssertionError('Unexpected model call')), \
              patch('Logic.embeddings.embed_texts',side_effect=AssertionError('Unexpected model call')):
             catalog=build_catalog(db)
-            for original in teacher_curricula():
+            catalog_chapters = {ch['chapter_number']:ch for group in catalog['subjects']
+                                if same_scope(group,'Chemistry','Class XI') for ch in group['chapters']}
+            assert set(catalog_chapters) == set(concepts), 'The Chemistry catalog differs from the release'
+            for original in curricula:
                 if chapter_numbers and original['chapter_number'] not in chapter_numbers:
                     continue
                 curriculum=resolve_notes_curriculum(db,original['chapter_slug'],subject=original['subject'],class_level=original['class_level'])
                 assert curriculum is not None,'Released curriculum missing'
-                catalog_chapter=next(ch for s in catalog['subjects'] for ch in s['chapters'] if ch['chapter_number']==curriculum['chapter_number'])
+                catalog_chapter=catalog_chapters[curriculum['chapter_number']]
                 item={'chapter_number':curriculum['chapter_number'],'title':curriculum['chapter_title'],
                       'units':len(curriculum['units']),'subtopics':sum(len(u['ncert_subtopics']) for u in curriculum['units']),
-                      'link_requests':0,'choices':0,'choice_options_opened':0,'variants':0,'progress_roundtrips':0,'page_counts':Counter()}
+                      'link_requests':0,'choices':0,'choice_options_opened':0,'variants':0,'progress_roundtrips':0,
+                      'subtopic_bookmark_checks':0,'subtopic_reanchors':0,'subtopic_tutor_checks':0,'page_counts':Counter()}
                 report['chapters'].append(item)
                 if aliases:
                     token['uid']='alias-audit-reader'
@@ -167,6 +174,30 @@ def audit(*, chapter_numbers=None, proficiencies=PROFICIENCIES, styles=STYLES, a
                                     assert reopened['completed_page_ids']==[notes['pages'][last]['id']],'Completion lost'
                                     assert _get_state(db,user_id).current_unit_id==active,'Reading changed active route'
                                     item['progress_roundtrips']+=1
+                                    if proficiency==proficiencies[0] and style==styles[0]:
+                                        for subtopic in unit['ncert_subtopics']:
+                                            sid=subtopic['id']
+                                            entry=_read(client,curriculum,sid)
+                                            _assert_lesson(entry,curriculum,unit['id'])
+                                            page=entry['pages'][entry['saved_page']]
+                                            assert sid in page['source_section_ids'],f'{sid} opened at an unrelated saved page'
+                                            assert entry['completed_page_ids']==reopened['completed_page_ids'],'Subtopic link changed completion'
+                                            item['subtopic_bookmark_checks']+=1
+                                            if sid not in notes['pages'][last]['source_section_ids']:
+                                                item['subtopic_reanchors']+=1
+                                            else:
+                                                assert page['id']==notes['pages'][last]['id'],'Matching bookmark was discarded'
+                                            context=retrieve_context(db,curriculum['chapter_slug'],unit['id'],
+                                                subject=curriculum['subject'],class_level=curriculum['class_level'],
+                                                content_version=entry['content_version'],page_id=page['id'],page_number=page['page_number'],
+                                                subtopic_ids=page['source_section_ids'],proficiency=proficiency,style=style)
+                                            assert context['matched_sections']==[page['id']],'Ask AI opened a different page'
+                                            assert context['provenance']==page['source_refs'],'Ask AI returned unrelated provenance'
+                                            assert context['source_types']==page['source_types'],'Ask AI reported an unused source'
+                                            assert all((b.get('expanded_text') or b['text']) in context['context'] for b in page['blocks'])
+                                            item['subtopic_tutor_checks']+=1
+                                        canonical=_read(client,curriculum,unit['id'])
+                                        assert canonical['saved_page_id']==reopened['saved_page_id'],'Deep link overwrote the saved bookmark'
                             except Exception as exc:
                                 db.rollback();report['errors'].append({'chapter_number':curriculum['chapter_number'],'topic':unit['id'],
                                     'proficiency':proficiency,'style':style,'phase':'variant','reason':str(exc)})
@@ -179,6 +210,9 @@ def audit(*, chapter_numbers=None, proficiencies=PROFICIENCIES, styles=STYLES, a
                 'verified_choice_options':sum(c['choice_options_opened'] for c in report['chapters']),
                 'variants':sum(c['variants'] for c in report['chapters']),
                 'progress_roundtrips':sum(c['progress_roundtrips'] for c in report['chapters']),
+                'subtopic_bookmark_checks':sum(c['subtopic_bookmark_checks'] for c in report['chapters']),
+                'subtopic_reanchors':sum(c['subtopic_reanchors'] for c in report['chapters']),
+                'subtopic_tutor_checks':sum(c['subtopic_tutor_checks'] for c in report['chapters']),
                 'persisted_variants':db.query(AdaptiveNoteLesson).count(),
                 'errors':len(report['errors']),'elapsed_seconds':round(time.perf_counter()-started,2)}
     engine.dispose()

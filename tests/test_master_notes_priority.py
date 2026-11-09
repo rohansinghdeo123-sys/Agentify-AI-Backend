@@ -30,6 +30,17 @@ def test_persisted_embedded_idempotent(db):
     install_master_notes(db)
     assert db.query(ContentChunk).count()==64
 
+def test_reinstall_repairs_a_missing_embedding_without_creating_duplicate_sections(db):
+    row = db.query(ContentChunk).first()
+    vector = row.embedding
+    row.embedding = None
+    db.commit()
+
+    install_master_notes(db)
+
+    assert row.embedding == vector
+    assert db.query(ContentChunk).count() == 64
+
 def test_sufficient_master_stops_ncert(db):
     with patch("services.master_notes_service.ncert_gap",side_effect=AssertionError("NCERT must not run")):
         for i in range(1,6):

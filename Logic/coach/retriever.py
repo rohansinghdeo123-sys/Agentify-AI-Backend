@@ -79,7 +79,8 @@ class GroundedRetriever:
         if notes:
             return RetrievalResult(context=notes["context"], section_id=notes["section_id"], source=notes["source"],
                 paragraphs_found=notes["paragraphs_found"], keywords_used=notes["keywords_used"], scope=dict(scope),
-                supported=bool(notes["context"]), retrieval_mode=notes["retrieval_mode"], matched_sections=notes["matched_sections"])
+                supported=bool(notes["context"]), error=notes.get("error", ""),
+                retrieval_mode=notes["retrieval_mode"], matched_sections=notes["matched_sections"])
         planning_scope = _scope_value(scope, "catalog_source").lower() == "planning_manifest"
         if not planning_scope:
             try:

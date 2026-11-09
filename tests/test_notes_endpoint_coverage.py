@@ -9,6 +9,9 @@ def test_every_released_chemistry_unit_opens_and_resumes_through_actual_endpoint
     assert report['summary']['units']==72
     assert report['summary']['variants']==72
     assert report['summary']['progress_roundtrips']==72
+    assert report['summary']['subtopic_bookmark_checks']==report['summary']['subtopics']==129
+    assert report['summary']['subtopic_reanchors']>0
+    assert report['summary']['subtopic_tutor_checks']==129
     page_counts={count for chapter in report['chapters'] for count in chapter['page_counts']}
     assert len(page_counts)>1 and max(page_counts)>10,'Pages were forced into a fixed ten-page layout'
     assert all(chapter['subtopics']>0 and chapter['variants']==chapter['units'] for chapter in report['chapters'])
