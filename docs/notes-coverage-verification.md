@@ -1,5 +1,7 @@
 # Chemistry notes coverage and future-subject verification
 
+See the [current NCERT-only reader and timed session contract](adaptive-notes.md). The counts below document the November 9 release.
+
 Rechecked on November 9, 2026 against the bundled Class XI Chemistry release, indexed Amit notes, authenticated notes endpoints and private progress endpoints. The audit compares the restored release, curriculum registry and student catalog before opening lessons. Database and browser checks used isolated test data.
 
 ## Every shipped Chemistry chapter

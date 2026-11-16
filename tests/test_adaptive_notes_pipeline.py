@@ -15,7 +15,6 @@ from database import Base, get_db
 from models import AdaptiveNoteLesson, AdminAuditLog, AICoachProfile, ContentChapter, ContentConcept, StudyRouteState, TopicDurationOverride
 from services.adaptive_notes_service import compiled_lesson, notes_response, reading_progress, session_portion
 from services.notes_config_service import apply_topic_durations, set_topic_duration
-from services.notes_documents_service import register_master_document
 from services.notes_material_service import retrieve_material
 from services.notes_scope_service import resolve_notes_curriculum, resolve_notes_topics
 
@@ -49,19 +48,24 @@ def source_section(subtopic='quadratic_definition',**changes):
 
 
 def install(db,curriculum,sections):
-    result = register_master_document(db,curriculum=curriculum,title='Reviewed Master Notes',
-        document_key='pipeline-master',sections=sections,actor_uid='admin')
+    chapter, _ = published(db)
+    for section in sections:
+        concept_id = section['subtopic_ids'][0]
+        concept = db.query(ContentConcept).filter_by(chapter_id=chapter.id, concept_id=concept_id).first()
+        if not concept:
+            concept = ContentConcept(chapter_id=chapter.id, concept_id=concept_id, title=section['title'], source_pages=[1])
+            db.add(concept)
+        if section.get('teaching_format') == 'numerical':
+            concept.examples = [*(concept.examples or []), section['text']]
+        else:
+            concept.definition = section['text']
     db.commit()
-    return result
-
-
-def supplement(subtopic,**changes):
-    return {'id':'supplement:'+subtopic,'title':'Supplementary section','text':'The discriminant determines the nature of the roots.',
-        'subtopic_ids':[subtopic],'source_pages':[2],'source_type':'NCERT_FALLBACK',
-        'source_document':{'title':'NCERT Mathematics','sha256':'ncert-v1'},'teaching_format':'concept',**changes}
 
 
 def published(db,*,class_level='10',subject='Mathematics',slug='published_reviewed_quadratics',teaching=True):
+    existing = db.query(ContentChapter).filter_by(slug=slug).first()
+    if existing:
+        return existing, db.query(ContentConcept).filter_by(chapter_id=existing.id).first()
     chapter = ContentChapter(slug=slug,board='NCERT',status='published',class_level=class_level,subject=subject,
         chapter_number=4,chapter_name='Reviewed Quadratic Equations',source_hash='approved-v1',
         published_source_hash='approved-v1',page_count=2,extracted_page_count=2)
@@ -75,64 +79,8 @@ def published(db,*,class_level='10',subject='Mathematics',slug='published_review
     return chapter,concept
 
 
-def test_complete_master_is_queried_first_and_stops_ncert_retrieval(db,curriculum):
-    install(db,curriculum,[source_section(),source_section('quadratic_formula',text='The roots are found by completing the square.')])
-    from services.notes_documents_service import find_master_sections
-    events=[]
-    def primary(*args,**kwargs):
-        events.append('MASTER_NOTES')
-        return find_master_sections(*args,**kwargs)
-    with patch('services.notes_documents_service.find_master_sections',side_effect=primary), \
-         patch('services.notes_material_service.ncert_sections',side_effect=AssertionError('Sufficient master must stop retrieval')), \
-         patch('Logic.embeddings.embed_query',side_effect=AssertionError('No network on notes opening')):
-        material = retrieve_material(db,curriculum,curriculum['units'][0])
-        payload,_ = compiled_lesson(db,curriculum,curriculum['units'][0],material=material)
-    assert events == ['MASTER_NOTES']
-    assert material['missing_subtopics'] == [] and len(material['master_covered_subtopics']) == 2
-    assert payload['source_types'] == ['MASTER_NOTES'] and payload['pages']
-    assert all(ref['source_type']=='MASTER_NOTES' for page in payload['pages'] for ref in page['source_refs'])
 
 
-def test_partial_master_queries_only_the_missing_section_and_preserves_provenance(db,curriculum):
-    install(db,curriculum,[source_section()])
-    events=[]
-    from services.notes_documents_service import find_master_sections
-    def primary(*args,**kwargs):
-        events.append('master')
-        return find_master_sections(*args,**kwargs)
-    def fallback(db_arg,c,u,missing):
-        events.append(('ncert',set(missing)))
-        assert c['curriculum_key']==curriculum['curriculum_key'] and u['id']=='quadratic_unit'
-        return [supplement('quadratic_formula')]
-    with patch('services.notes_documents_service.find_master_sections',side_effect=primary), \
-         patch('services.notes_material_service.ncert_sections',side_effect=fallback):
-        material=retrieve_material(db,curriculum,curriculum['units'][0])
-    assert events == ['master',('ncert',{'quadratic_formula'})]
-    assert [s['source_type'] for s in material['sections']]==['MASTER_NOTES','NCERT_FALLBACK']
-    assert material['missing_subtopics']==[]
-    payload,_=compiled_lesson(db,curriculum,curriculum['units'][0],material=material)
-    assert any('Supplementary NCERT' in page['source'] for page in payload['pages'])
-
-
-def test_gap_fallback_rejects_a_neighboring_subtopic_and_removes_duplicate_sentences(db,curriculum):
-    install(db,curriculum,[source_section()])
-    with patch('services.notes_material_service.ncert_sections',return_value=[supplement('quadratic_definition')]):
-        with pytest.raises(ValueError,match='crossed its requested gap'):
-            retrieve_material(db,curriculum,curriculum['units'][0])
-    repeated=source_section()['text']+' The discriminant is b² − 4ac.'
-    with patch('services.notes_material_service.ncert_sections',return_value=[supplement('quadratic_formula',text=repeated)]):
-        result=retrieve_material(db,curriculum,curriculum['units'][0])
-    assert result['sections'][1]['text']=='The discriminant is b² − 4ac.'
-    assert sum(s['text'].count('A quadratic equation has degree two.') for s in result['sections'])==1
-
-
-def test_conflicting_supplement_is_withheld_and_flagged(db,curriculum):
-    install(db,curriculum,[source_section(text='Density = mass / volume.')])
-    with patch('services.notes_material_service.ncert_sections',return_value=[supplement('quadratic_formula',text='Density = volume / mass.')]):
-        result=retrieve_material(db,curriculum,curriculum['units'][0])
-    assert [s['source_type'] for s in result['sections']]==['MASTER_NOTES']
-    assert result['missing_subtopics']==['quadratic_formula']
-    assert any('Conflicting formula' in c['reason'] for c in result['conflicts'])
 
 
 @pytest.mark.parametrize('class_level,subject',[('10','Mathematics'),('9','Biology'),('12','Physics')])
@@ -147,7 +95,7 @@ def test_generic_published_scopes_use_existing_catalog_ids_and_teaching(db,class
     assert resolve_notes_curriculum(db,chapter.slug,subject='Wrong subject',class_level=class_level) is None
     assert resolve_notes_curriculum(db,chapter.slug,subject=subject,class_level='Class 8') is None
     material=retrieve_material(db,curriculum,unit)
-    assert material['missing_subtopics']==[] and material['sections'][0]['source_type']=='NCERT_FALLBACK'
+    assert material['missing_subtopics']==[] and material['sections'][0]['source_type']=='NCERT'
     payload,_=compiled_lesson(db,curriculum,unit,material=material)
     assert payload['pages'] and concept.definition in '\n'.join(p['text'] for p in payload['pages'])
     assert db.query(ContentConcept).count()==1
@@ -201,14 +149,14 @@ def test_proficiency_and_style_are_distinct_persisted_variants(db,curriculum):
     install(db,curriculum,[source_section(text='A quadratic equation has degree two. Its leading coefficient must be nonzero.\n\nFor example, x² − 4 = 0 has degree two because its highest power is two.'),
         source_section('quadratic_formula',text='The discriminant is b² − 4ac.')])
     payloads=[compiled_lesson(db,curriculum,curriculum['units'][0],proficiency=p)[0] for p in
-              ['new_to_it','know_a_little','know_the_basics','mostly_confident']]
+              ['new_to_it','know_the_basics','mostly_confident']]
     concise=compiled_lesson(db,curriculum,curriculum['units'][0],style='concise')[0]
     db.commit()
-    assert len({p['content_version'] for p in [*payloads,concise]})==5
-    assert [p['adaptation']['level'] for p in payloads]==[1,2,3,4]
+    assert len({p['content_version'] for p in [*payloads,concise]})==4
+    assert [p['adaptation']['level'] for p in payloads]==[1,2,3]
     assert all('b² − 4ac' in '\n'.join(page['text'] for page in p['pages']) for p in payloads)
     assert all(p['estimated_minutes']=={'min':30,'max':40} for p in payloads)
-    assert db.query(AdaptiveNoteLesson).count()==5
+    assert db.query(AdaptiveNoteLesson).count()==4
 
 
 def test_requested_version_cannot_pin_obsolete_proficiency_style_or_compiler(db,curriculum):
@@ -232,7 +180,7 @@ def test_dynamic_pages_persist_exact_position_completion_and_ignore_stale_naviga
     unit=curriculum['units'][0]
     install(db,curriculum,[source_section(id='worked-'+str(i),title='Worked example '+str(i),unit_id=unit['id'],
         subtopic_ids=[concept.concept_id],teaching_format='numerical',
-        text=f'Worked example {i}: Solve x² = {i*i}. Taking square roots gives x = ±{i}. Substitution checks each root.') for i in range(1,15)])
+        text=f'Worked example {i}: Solve x² = {i*i}. Taking square roots therefore gives x = ±{i}. Substitution checks each root.') for i in range(1,15)])
     payload,_=compiled_lesson(db,curriculum,unit);db.commit()
     assert len(payload['pages'])>10
     state=StudyRouteState(user_id='learner',route_date=date.today(),class_level=chapter.class_level,subject=chapter.subject,
@@ -270,7 +218,7 @@ def test_daily_session_portion_is_frozen_from_first_open_after_advance_and_reloa
     curriculum=resolve_notes_curriculum(db,chapter.slug,subject=chapter.subject,class_level=chapter.class_level)
     unit=curriculum['units'][0]
     install(db,curriculum,[source_section(id='worked-'+str(i),unit_id=unit['id'],subtopic_ids=[concept.concept_id],
-        teaching_format='numerical',text=f'Worked example {i}: x² = {i*i}, so x = ±{i}. Squaring either root gives {i*i}.') for i in range(1,15)])
+        teaching_format='numerical',text=f'Worked example {i}: Solve x² = {i*i}. Therefore x = ±{i}. Squaring either root gives {i*i}.') for i in range(1,15)])
     start_route(db,user_id='learner',class_level='Class 10',subject=chapter.subject,
         selections=[{'chapter_ref':chapter.slug,'chapter_proficiency':'mostly_confident'}],study_time_today='15')
     db.add(AICoachProfile(user_id='learner',coach_id='generic-notes',study_preferences={'preferred_style':'detailed'}));db.commit()
@@ -312,10 +260,8 @@ def test_source_changed_progress_rebases_without_claiming_new_page_completion(db
 
 def test_legacy_v1_bookmark_rebases_to_its_mapped_subtopic_without_false_completion(db):
     from Logic.planning.curriculum_registry import load_planning_curriculum
-    from services.master_notes_service import install_master_notes
     from services.teacher_notes_service import _load_lesson
     curriculum=load_planning_curriculum();unit=curriculum['units'][1]
-    install_master_notes(db)
     legacy=_load_lesson(unit['id']);old_index=8
     old_subtopics=set(legacy['pages'][old_index]['source_section_ids'])
     current,_=compiled_lesson(db,curriculum,unit)
@@ -414,15 +360,6 @@ def test_notes_migration_creates_usable_unique_cache_and_duration_tables_idempot
         assert inspect(connection).get_table_names()==[]
     engine.dispose()
 
-
-def test_partial_master_without_valid_gap_material_keeps_review_visible(db,curriculum):
-    install(db,curriculum,[source_section(complete=False)])
-    with patch('services.notes_material_service.ncert_sections',return_value=[]):
-        material=retrieve_material(db,curriculum,curriculum['units'][0])
-    assert material['sections'] and material['master_covered_subtopics']==[]
-    assert set(material['missing_subtopics'])=={'quadratic_definition','quadratic_formula'}
-    payload,_=compiled_lesson(db,curriculum,curriculum['units'][0],material=material)
-    assert payload['pages'] and payload['review_required']
 
 
 def test_locked_route_refresh_preserves_other_session_bookmark_changes(db):

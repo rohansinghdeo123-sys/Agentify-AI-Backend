@@ -369,16 +369,19 @@ def get_chapter_notes(
     class_level: Optional[str] = Query(None),
     subject: Optional[str] = Query(None),
     content_version: Optional[str] = Query(None),
+    planned: bool = Query(False),
+    start_session: bool = Query(False),
     db: Session = Depends(get_db),
     current_user: Dict[str, Any] = Depends(verify_firebase_user),
 ):
-    """Fetch the published master notes for a chapter. If topic_id is provided, filter to that topic."""
+    """Fetch NCERT notes for the selected chapter and topic."""
     
     from services.topic_notes_service import mapped_notes
     mapped = mapped_notes(chapter_slug, topic_id, db, str(current_user.get("uid") or ""),
                          subject=subject if isinstance(subject,str) else None,
                          class_level=class_level if isinstance(class_level,str) else None,
-                         content_version=content_version if isinstance(content_version,str) else None)
+                         content_version=content_version if isinstance(content_version,str) else None,
+                         planned=planned is True, start_session=start_session is True)
     if mapped is not None:
         db.commit()
         return mapped

@@ -33,7 +33,6 @@ from services.planning_progress_service import (
 
 PROFICIENCIES = (
     "new_to_it",
-    "know_a_little",
     "know_the_basics",
     "mostly_confident",
 )
@@ -211,8 +210,8 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
             ("120+", "120_plus"),
             ("2 hours", "120_plus"),
             ("2+ hours", "120_plus"),
-            ("no_limit", "no_limit"),
-            ("unlimited", "no_limit"),
+            ("no_limit", "30"),
+            ("unlimited", "30"),
         ):
             with self.subTest(time=raw):
                 self.assertEqual(
@@ -283,7 +282,7 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
                 self.assertLessEqual(ambient["daily_route"]["total_minutes"], duration)
 
     def test_every_student_time_choice_is_a_ceiling_and_choice_wins_over_session_state(self):
-        budgets = {"15": 15, "30": 30, "60": 60, "120_plus": 120, "no_limit": None}
+        budgets = {"15": 15, "30": 30, "60": 60, "120_plus": 120}
         ordered_ids = [unit["id"] for unit in self.curriculum["units"]]
         for preference, budget in budgets.items():
             with self.subTest(preference=preference):
@@ -354,11 +353,11 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
         self.assertEqual(route["items"][0]["scope"], "partial")
         self.assertEqual(route["items"][1]["role"], "quick_check")
 
-    def test_no_limit_remains_one_content_sized_unit_and_completed_recall_stays_short(self):
+    def test_legacy_unlimited_is_capped_and_completed_recall_stays_short(self):
         unlimited = build_planning_roadmap(self.curriculum, study_time_today="no_limit")
         route = unlimited["daily_route"]
         first = self.curriculum["units"][0]
-        self.assertIsNone(route["budget_minutes"])
+        self.assertEqual(route["budget_minutes"], 30)
         self.assertEqual(route["source"], "student_choice")
         self.assertEqual({item["unit_id"] for item in route["items"]}, {first["id"]})
         self.assertGreaterEqual(route["total_minutes"], first["estimated_minutes"]["min"])
@@ -389,8 +388,8 @@ class PlanningRoadmapV2Tests(unittest.TestCase):
             )
             activities[proficiency] = roadmap["daily_route"]["items"][0]["activity"]
             approaches[proficiency] = tuple(roadmap["next_step"]["approach"])
-        self.assertEqual(len(set(activities.values())), 4)
-        self.assertEqual(len(set(approaches.values())), 4)
+        self.assertEqual(len(set(activities.values())), 3)
+        self.assertEqual(len(set(approaches.values())), 3)
         self.assertIn("guided", activities["new_to_it"].lower())
         self.assertIn("diagnose", activities["mostly_confident"].lower())
 

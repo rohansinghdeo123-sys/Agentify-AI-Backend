@@ -330,15 +330,14 @@ class AutonomousStudyRequest(BaseModel):
     class_level: str = Field(min_length=1, max_length=64)
     chapter_proficiency: Literal[
         "new_to_it",
-        "know_a_little",
         "know_the_basics",
         "mostly_confident",
-    ] = "know_a_little"
+    ] = "new_to_it"
     # A student's choice is distinct from duration supplied by an existing
     # study session.  When both are absent, Planning chooses a focused route of
-    # at most 30 minutes; ``no_limit`` still remains content-sized.
+    # at most 30 minutes.
     study_time_today: Optional[
-        Literal["15", "30", "60", "120_plus", "no_limit"]
+        Literal["15", "30", "60", "120_plus"]
     ] = None
     session_duration_minutes: Optional[int] = Field(default=None, ge=15, le=120)
 
@@ -378,10 +377,11 @@ class AutonomousStudyRequest(BaseModel):
             else:
                 payload["chapter_proficiency"] = {
                     "new": "new_to_it",
-                    "weak_basics": "know_a_little",
-                    "some_idea": "know_a_little",
+                    "know_a_little": "new_to_it",
+                    "weak_basics": "new_to_it",
+                    "some_idea": "new_to_it",
                     "know_basics": "know_the_basics",
-                }.get(legacy_knowledge, "know_a_little")
+                }.get(legacy_knowledge, "new_to_it")
         return payload
 
     @field_validator("study_time_today", mode="before")
@@ -411,7 +411,8 @@ class AutonomousStudyRequest(BaseModel):
                 "2+_hours": "120_plus",
                 "2_plus_hours": "120_plus",
                 "2_hours+": "120_plus",
-                "unlimited": "no_limit",
+                "unlimited": "30",
+                "no_limit": "30",
             }.get(normalized, normalized)
         return value
 
@@ -423,7 +424,8 @@ class AutonomousStudyRequest(BaseModel):
         normalized = value.strip().lower().replace(" ", "_").replace("-", "_")
         return {
             "new": "new_to_it",
-            "some_idea": "know_a_little",
+            "know_a_little": "new_to_it",
+            "some_idea": "new_to_it",
             "know_basics": "know_the_basics",
             "fast_track": "mostly_confident",
             "quick_revision": "mostly_confident",
@@ -586,10 +588,9 @@ class PlanningPortfolioChapterSelection(BaseModel):
     chapter_ref: str = Field(min_length=1, max_length=240)
     chapter_proficiency: Literal[
         "new_to_it",
-        "know_a_little",
         "know_the_basics",
         "mostly_confident",
-    ] = "know_a_little"
+    ] = "new_to_it"
 
     model_config = {"extra": "forbid"}
 
@@ -609,7 +610,8 @@ class PlanningPortfolioChapterSelection(BaseModel):
         normalized = value.strip().lower().replace(" ", "_").replace("-", "_")
         return {
             "new": "new_to_it",
-            "some_idea": "know_a_little",
+            "know_a_little": "new_to_it",
+            "some_idea": "new_to_it",
             "know_basics": "know_the_basics",
             "fast_track": "mostly_confident",
             "quick_revision": "mostly_confident",
@@ -624,7 +626,7 @@ class PlanningPortfolioRequest(BaseModel):
         max_length=6,
     )
     study_time_today: Optional[
-        Literal["15", "30", "60", "120_plus", "no_limit"]
+        Literal["15", "30", "60", "120_plus"]
     ] = None
     session_duration_minutes: Optional[int] = Field(default=None, ge=15, le=120)
 
@@ -670,7 +672,8 @@ class PlanningPortfolioRequest(BaseModel):
                 "2+_hours": "120_plus",
                 "2_plus_hours": "120_plus",
                 "2_hours+": "120_plus",
-                "unlimited": "no_limit",
+                "unlimited": "30",
+                "no_limit": "30",
             }.get(normalized, normalized)
         return value
 
@@ -697,7 +700,6 @@ class PlanningPortfolioChapterRoadmap(BaseModel):
     chapter: str = Field(min_length=1, max_length=240)
     chapter_proficiency: Literal[
         "new_to_it",
-        "know_a_little",
         "know_the_basics",
         "mostly_confident",
     ]
@@ -722,7 +724,6 @@ class PlanningPortfolioGlobalNextStep(PlanningNextStep):
     chapter: str = Field(min_length=1, max_length=240)
     chapter_proficiency: Literal[
         "new_to_it",
-        "know_a_little",
         "know_the_basics",
         "mostly_confident",
     ]
@@ -761,7 +762,7 @@ class PlanningPortfolioResponse(BaseModel):
     chapter_count: int = Field(ge=1, le=6)
     deduplicated_chapter_count: int = Field(ge=0, le=5)
     study_time_today: Optional[
-        Literal["15", "30", "60", "120_plus", "no_limit"]
+        Literal["15", "30", "60", "120_plus"]
     ] = None
     session_duration_minutes: Optional[int] = Field(default=None, ge=15, le=120)
     chapters: List[PlanningPortfolioChapterRoadmap] = Field(min_length=1, max_length=6)
@@ -789,12 +790,11 @@ class AutonomousStudyResponse(BaseModel):
     roadmap_version: Optional[Literal["planning_roadmap_v2"]] = None
     chapter_proficiency: Literal[
         "new_to_it",
-        "know_a_little",
         "know_the_basics",
         "mostly_confident",
-    ] = "know_a_little"
+    ] = "new_to_it"
     study_time_today: Optional[
-        Literal["15", "30", "60", "120_plus", "no_limit"]
+        Literal["15", "30", "60", "120_plus"]
     ] = None
     session_duration_minutes: Optional[int] = Field(default=None, ge=15, le=120)
     class_level: str = ""
@@ -876,10 +876,9 @@ class StudyRouteChapterSelection(BaseModel):
     chapter_ref: str = Field(min_length=1, max_length=240)
     chapter_proficiency: Literal[
         "new_to_it",
-        "know_a_little",
         "know_the_basics",
         "mostly_confident",
-    ] = "know_a_little"
+    ] = "new_to_it"
 
     model_config = {"extra": "forbid"}
 
@@ -899,7 +898,8 @@ class StudyRouteChapterSelection(BaseModel):
         normalized = value.strip().lower().replace(" ", "_").replace("-", "_")
         return {
             "new": "new_to_it",
-            "some_idea": "know_a_little",
+            "know_a_little": "new_to_it",
+            "some_idea": "new_to_it",
             "know_basics": "know_the_basics",
             "fast_track": "mostly_confident",
             "quick_revision": "mostly_confident",
@@ -911,7 +911,7 @@ class StudyRouteStartRequest(BaseModel):
     subject: str = Field(min_length=1, max_length=120)
     chapters: List[StudyRouteChapterSelection] = Field(min_length=1, max_length=6)
     study_time_today: Optional[
-        Literal["15", "30", "60", "120_plus", "no_limit"]
+        Literal["15", "30", "60", "120_plus"]
     ] = None
     session_duration_minutes: Optional[int] = Field(default=None, ge=15, le=120)
 
@@ -957,7 +957,8 @@ class StudyRouteStartRequest(BaseModel):
                 "2+_hours": "120_plus",
                 "2_plus_hours": "120_plus",
                 "2_hours+": "120_plus",
-                "unlimited": "no_limit",
+                "unlimited": "30",
+                "no_limit": "30",
             }.get(normalized, normalized)
         return value
 
@@ -999,6 +1000,8 @@ class StudyRouteBranchRequest(BaseModel):
 
 class StudyRouteHeartbeatAck(BaseModel):
     saved: bool
+    notes_outcome: Optional[Literal["continue", "time_up", "sequence_read"]] = None
+    next_notes: Optional[Dict[str, str]] = None
 
 
 class StudyRouteHeartbeatRequest(BaseModel):
@@ -1051,6 +1054,8 @@ class StudyRouteEffectiveProficiency(BaseModel):
 
 
 class StudyRouteStateResponse(BaseModel):
+    study_session: Optional[Dict[str, Any]] = None
+    read_unit_ids: List[str] = Field(default_factory=list)
     """Canonical response for every route read/write endpoint.
 
     Composes the existing portfolio blocks so Planning and Study Lab never
@@ -1064,7 +1069,7 @@ class StudyRouteStateResponse(BaseModel):
     subject: str
     status: Literal["not_started", "in_progress", "paused", "completed"]
     study_time_today: Optional[
-        Literal["15", "30", "60", "120_plus", "no_limit"]
+        Literal["15", "30", "60", "120_plus"]
     ] = None
     session_duration_minutes: Optional[int] = None
     goal: Dict[str, Any] = Field(default_factory=dict)

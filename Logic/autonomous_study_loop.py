@@ -56,7 +56,6 @@ def _normalize_mission_profile(
     proficiency = _normalize_key(chapter_proficiency)
     if proficiency not in {
         "new_to_it",
-        "know_a_little",
         "know_the_basics",
         "mostly_confident",
     }:
@@ -67,10 +66,11 @@ def _normalize_mission_profile(
         else:
             proficiency = {
                 "new": "new_to_it",
-                "weak_basics": "know_a_little",
-                "some_idea": "know_a_little",
+                "know_a_little": "new_to_it",
+                "weak_basics": "new_to_it",
+                "some_idea": "new_to_it",
                 "know_basics": "know_the_basics",
-            }.get(legacy_knowledge, "know_a_little")
+            }.get(legacy_knowledge, "new_to_it")
 
     return {
         "chapter_proficiency": proficiency,
@@ -1003,7 +1003,7 @@ def run_autonomous_study_loop(
     user_id: str,
     current_chapter: str,
     subject: str = "Chemistry",
-    chapter_proficiency: str = "know_a_little",
+    chapter_proficiency: str = "new_to_it",
     class_level: str = "",
     study_time_today: str | None = None,
     session_duration_minutes: int | None = None,

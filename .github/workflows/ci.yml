@@ -26,7 +26,6 @@ jobs:
       - name: Initialize isolated test source database
         run: |
           python scripts/migrate.py
-          python -c "from database import SessionLocal; from services.master_notes_service import install_master_notes; db=SessionLocal(); install_master_notes(db); db.close()"
       - name: Run test suite
         run: python -m pytest -q
       - name: Verify every Chemistry notes variant

@@ -23,7 +23,9 @@ def same_scope(curriculum, subject=None, class_level=None):
 
 
 def _approved_query(db, subject=None, class_level=None):
-    query = db.query(ContentChapter).options(defer(ContentChapter.validation_report)).filter(ContentChapter.status.in_(APPROVED_STATUSES))
+    query = db.query(ContentChapter).options(defer(ContentChapter.validation_report)).filter(
+        ContentChapter.status.in_(APPROVED_STATUSES), func.lower(ContentChapter.board) == 'ncert',
+    )
     if subject:
         query = query.filter(func.lower(ContentChapter.subject) == str(subject).strip().lower())
     if class_level:

@@ -1,6 +1,6 @@
 # NCERT teacher notes: Chapter 1 (historical)
 
-> Superseded by [the November 8 adaptive Master Notes-first contract](adaptive-notes.md). Fixed counts and NCERT-primary behavior below describe the retained source assets, not the current reader.
+> Superseded by [the current adaptive NCERT reader](adaptive-notes.md). Fixed counts and NCERT-primary behavior below describe the retained source assets, not the current reader.
 
 The same contract now covers all nine published Class XI Chemistry chapters; see [the Chemistry-wide implementation](chemistry-teacher-notes.md). This document records the original Chapter 1 behavior and source corrections.
 

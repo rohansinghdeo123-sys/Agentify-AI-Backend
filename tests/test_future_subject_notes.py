@@ -5,9 +5,6 @@ not a claim that those future textbooks have already been uploaded/published.
 No model, embedding provider, Chemistry assets or live student data is used.
 """
 from copy import deepcopy
-import hashlib
-import json
-from unittest.mock import patch
 
 import pytest
 from fastapi import FastAPI
@@ -23,8 +20,7 @@ from routers.study import router as study_router
 from services.adaptive_content_compiler import PROFICIENCIES
 from services.adaptive_notes_service import compiled_lesson, retrieve_context
 from services.notes_config_service import set_topic_duration
-from services.notes_documents_service import register_master_document
-from services.notes_material_service import retrieve_material, ncert_sections
+from services.notes_material_service import retrieve_material
 from services.notes_scope_service import resolve_notes_curriculum
 from services.study_route_service import start_route, record_heartbeat, _get_state
 
@@ -124,18 +120,6 @@ def future(request):
     engine.dispose()
 
 
-def _section(unit,concept,**changes):
-    return {'id':concept.concept_id,'title':concept.title,'unit_id':unit['id'],
-        'subtopic_ids':[concept.concept_id],'source_pages':concept.source_pages,
-        'text':'\n\n'.join([concept.definition,concept.core_explanation,*concept.formulas,*concept.examples]),
-        'teaching_format':'concept','reviewed':True,'complete':True,**changes}
-
-
-def _master(db,curriculum,sections):
-    doc=register_master_document(db,curriculum=curriculum,title='Reviewed future-subject master',
-        document_key='future-master',sections=sections,actor_uid='admin')
-    db.commit()
-    return doc
 
 
 def _get(client,chapter,unit,**params):
@@ -145,7 +129,7 @@ def _get(client,chapter,unit,**params):
     return response.json()
 
 
-def test_future_subject_every_topic_subtopic_and_all_twelve_views_are_scoped(future):
+def test_future_subject_every_topic_subtopic_and_all_nine_views_are_scoped(future):
     db,client,chapter,curriculum,concepts=future
     for unit in curriculum['units']:
         allowed={s['id'] for s in unit['ncert_subtopics']}
@@ -160,7 +144,7 @@ def test_future_subject_every_topic_subtopic_and_all_twelve_views_are_scoped(fut
                 assert payload['proficiency']==proficiency and payload['explanation_style']==style
         notes=_get(client,chapter,unit)
         assert notes['resolution']=='lesson' and notes['chapter']['subject']==chapter.subject
-        assert notes['source_types']==['NCERT_FALLBACK']
+        assert notes['source_types']==['NCERT']
         assert not notes['review_required']
         assert all('Chemistry' not in p['text'] for p in notes['pages'])
         for subtopic in unit['ncert_subtopics']:
@@ -168,26 +152,8 @@ def test_future_subject_every_topic_subtopic_and_all_twelve_views_are_scoped(fut
             assert result['topic_id']==unit['id']
             assert subtopic['id'] in result['pages'][result['saved_page']]['source_section_ids']
     db.commit()
-    assert db.query(AdaptiveNoteLesson).count()==12*len(curriculum['units'])
+    assert db.query(AdaptiveNoteLesson).count()==9*len(curriculum['units'])
 
-
-def test_future_master_first_then_exact_missing_subtopic_fallback(future):
-    db,client,chapter,curriculum,concepts=future
-    unit=next(u for u in curriculum['units'] if len(u['ncert_subtopics'])>=2)
-    sections=[_section(unit,concepts[s['id']]) for s in unit['ncert_subtopics']]
-    _master(db,curriculum,sections)
-    with patch('services.notes_material_service.ncert_sections',side_effect=AssertionError('NCERT queried despite complete master')):
-        complete=_get(client,chapter,unit)
-    assert complete['source_types']==['MASTER_NOTES']
-    _master(db,curriculum,sections[:1])
-    with patch('services.notes_material_service.ncert_sections',wraps=ncert_sections) as fallback:
-        partial=_get(client,chapter,unit,content_version=complete['content_version'])
-    missing={s['id'] for s in unit['ncert_subtopics'][1:]}
-    assert len(fallback.call_args_list)==1 and fallback.call_args.args[3]==missing
-    assert partial['source_types']==['MASTER_NOTES','NCERT_FALLBACK']
-    assert not partial['review_required']
-    assert complete['content_version']!=partial['content_version']
-    assert {s for p in partial['pages'] for s in p['source_section_ids']}=={s['id'] for s in unit['ncert_subtopics']}
 
 
 def test_future_planning_notes_progress_exact_ask_ai_and_manual_durations(future):
@@ -201,7 +167,7 @@ def test_future_planning_notes_progress_exact_ask_ai_and_manual_durations(future
     db.add(AICoachProfile(user_id='future-student',coach_id='future-subject',study_preferences={'preferred_style':'detailed'}));db.commit()
     notes=_get(client,chapter,first)
     assert notes['active_unit_id']==first['id'] and notes['can_save_position']
-    assert notes['proficiency']=='know_a_little' and notes['explanation_style']=='detailed'
+    assert notes['proficiency']=='new_to_it' and notes['explanation_style']=='detailed'
     assert notes['estimated_minutes']=={'min':45,'max':55}
     assert notes['allocated_session_minutes']<=15
     last=notes['pages'][-1];index=len(notes['pages'])-1
@@ -226,18 +192,6 @@ def test_future_planning_notes_progress_exact_ask_ai_and_manual_durations(future
             subtopic_ids=[curriculum['units'][1]['ncert_subtopics'][0]['id']])
 
 
-def test_later_added_master_invalidates_ncert_cache_without_mutating_neighbor_topics(future):
-    db,client,chapter,curriculum,concepts=future
-    first,neighbor=curriculum['units'][:2]
-    previous=_get(client,chapter,first)
-    unaffected=_get(client,chapter,neighbor)
-    _master(db,curriculum,[_section(first,concepts[s['id']]) for s in first['ncert_subtopics']])
-    updated=_get(client,chapter,first,content_version=previous['content_version'])
-    neighbor_again=_get(client,chapter,neighbor)
-    assert updated['source_types']==['MASTER_NOTES'] and updated['content_version']!=previous['content_version']
-    assert neighbor_again['content_version']==unaffected['content_version']
-    assert neighbor_again['pages']==unaffected['pages']
-
 
 @pytest.mark.parametrize('source_field',['examples','core_explanation'])
 def test_future_calculations_keep_source_worked_example_semantics_and_atomic_solutions(future,source_field):
@@ -259,45 +213,3 @@ def test_future_calculations_keep_source_worked_example_semantics_and_atomic_sol
         blocks=[b for p in lesson['pages'] for b in p['blocks']]
         assert any(original in (b.get('expanded_text') or b['text']) for b in blocks)
         assert any(b['kind']=='worked_example' and b.get('presentation')!='source_preview' for b in blocks)
-
-
-def test_future_uploaded_pdf_indexes_only_its_mapped_section_and_replaces_cached_fallback(future,tmp_path,monkeypatch):
-    import pymupdf
-    from routers.notes_admin import router as admin_router
-    from app.security import require_admin
-    from services import notes_documents_service as documents
-    db,client,chapter,curriculum,concepts=future
-    suffix='_second_law' if chapter.subject=='Physics' else '_formula'
-    concept=next(c for key,c in concepts.items() if key.endswith(suffix))
-    unit=next(u for u in curriculum['units'] if concept.concept_id in {s['id'] for s in u['ncert_subtopics']})
-    previous=_get(client,chapter,unit)
-    assert previous['source_types']==['NCERT_FALLBACK']
-    source=('For constant mass, net force equals mass times acceleration. F = ma. '
-            'F is force in N, m is mass in kg, and a is acceleration in m s^-2.'
-            if chapter.subject=='Physics' else
-            'For ax^2 + bx + c = 0 with a != 0, x = (-b +/- sqrt(b^2 - 4ac))/(2a). '
-            'The coefficients are taken from the standard form of the equation.')
-    pdf=pymupdf.open()
-    pdf.new_page().insert_textbox(pymupdf.Rect(40,40,550,730),source,fontsize=12)
-    pdf.new_page().insert_text((40,50),'UNMAPPED APPENDIX MUST NEVER BE TAUGHT HERE',fontsize=12)
-    data=pdf.tobytes();pdf.close()
-    monkeypatch.setattr(documents,'ROOT',tmp_path)
-    monkeypatch.setattr(documents,'UPLOAD_ROOT',tmp_path/'uploads')
-    client.app.include_router(admin_router)
-    client.app.dependency_overrides[require_admin]=lambda:{'uid':'future-admin','admin':True}
-    fields={'title':'Reviewed '+chapter.subject+' master PDF','document_key':'future-upload',
-        'chapter_ref':chapter.slug,'class_level':chapter.class_level,'subject':chapter.subject,
-        'sections_json':json.dumps([_section(unit,concept,text=None,source_pages=[1])]),'embed':'false'}
-    uploaded=client.post('/admin/notes/master-documents/upload',data=fields,
-        files={'file':('future-master.pdf',data,'application/pdf')})
-    assert uploaded.status_code==200,uploaded.text
-    assert uploaded.json()['document']['source_sha256']==hashlib.sha256(data).hexdigest()
-    current=_get(client,chapter,unit,content_version=previous['content_version'])
-    assert current['content_version']!=previous['content_version']
-    assert 'MASTER_NOTES' in current['source_types']
-    assert not current['review_required']
-    text=' '.join(b.get('expanded_text') or b['text'] for p in current['pages'] for b in p['blocks'])
-    assert 'UNMAPPED APPENDIX' not in text
-    primary=[r for r in current['source_provenance'] if r['source_type']=='MASTER_NOTES']
-    assert len(primary)==1 and primary[0]['subtopic_ids']==[concept.concept_id]
-    assert primary[0]['source_pages']==[1]

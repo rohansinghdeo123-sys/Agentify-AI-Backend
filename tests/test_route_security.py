@@ -205,7 +205,7 @@ class RouteSecurityTests(unittest.TestCase):
         self.assertEqual(len(chapters), 2)
         self.assertEqual(
             [chapter["chapter_proficiency"] for chapter in chapters],
-            ["know_a_little", "mostly_confident"],
+            ["new_to_it", "mostly_confident"],
         )
         selected = [chapter for chapter in chapters if chapter["selected_for_today"]]
         self.assertEqual(len(selected), 1)

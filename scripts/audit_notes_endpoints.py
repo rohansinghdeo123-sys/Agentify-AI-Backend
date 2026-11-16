@@ -1,6 +1,6 @@
 """Exercise the actual authenticated notes/heartbeat transport for every released link.
 
-Uses an isolated database and the real Chemistry source release/Master index.
+Uses an isolated database and the real NCERT Chemistry source release.
 No provider, production database or student account is used. Run:
     python scripts/audit_notes_endpoints.py
 """
@@ -36,7 +36,7 @@ from services.notes_scope_service import identity, resolve_notes_curriculum, sam
 from services.study_route_service import _get_state, start_route
 from services.teacher_notes_service import _topic_aliases, teacher_curricula
 
-PROFICIENCIES=('new_to_it','know_a_little','know_the_basics','mostly_confident')
+from services.adaptive_content_compiler import PROFICIENCIES
 STYLES=('balanced','concise','detailed')
 
 
@@ -86,7 +86,7 @@ def _assert_lesson(notes, curriculum, expected_unit=None):
         assert page['blocks'] and page['text'].strip(),'Blank page'
         assert all(block['text'].strip() for block in page['blocks']),'Blank teaching block'
         assert set(page['source_section_ids'])<=allowed,'Cross-topic page'
-        assert all(ref['source_type'] in {'MASTER_NOTES','NCERT_FALLBACK'} for ref in page['source_refs']),'Untracked source'
+        assert all(ref['source_type'] in {'NCERT'} for ref in page['source_refs']),'Untracked source'
     return unit
 
 

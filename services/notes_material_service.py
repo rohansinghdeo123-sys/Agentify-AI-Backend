@@ -1,4 +1,4 @@
-"""Actual section retrieval: verified Master Notes first, only genuine NCERT gaps second."""
+"""Retrieve mapped NCERT sections for adaptive Study Lab notes."""
 from __future__ import annotations
 import hashlib
 import json
@@ -58,8 +58,8 @@ def _reviewed_sections(db, curriculum, unit, missing):
         sections.append({'id':'reviewed-ncert:'+page['id'],'title':page['title'],
             'text':'\n\n'.join(b['text'] for b in page['blocks']), 'blocks':page['blocks'],
             'questions':lesson['questions'] if page['page_number'] == len(lesson['pages']) else [],
-            'subtopic_ids':ids,'source_pages':_source_pages(old_unit,ids),'source_type':'NCERT_FALLBACK',
-            'teaching_format':'guided_lesson','source_document':{'title':curriculum['chapter_title'],'sha256':expected,'role':'NCERT_FALLBACK'},
+            'subtopic_ids':ids,'source_pages':_source_pages(old_unit,ids),'source_type':'NCERT',
+            'teaching_format':'guided_lesson','source_document':{'title':curriculum['chapter_title'],'sha256':expected,'role':'NCERT'},
             'derivation':'reviewed_teacher_explanation'})
     return sections
 
@@ -89,8 +89,8 @@ def _pdf_section(curriculum, unit, subtopic):
     if not text:
         return []
     return [{'id':'ncert-section:'+subtopic,'title':mapped['title'],'text':text,'subtopic_ids':[subtopic],
-             'source_pages':sorted(allowed),'source_type':'NCERT_FALLBACK','teaching_format':'concept',
-             'source_document':{'title':curriculum['chapter_title'],'sha256':source['sha256'],'role':'NCERT_FALLBACK'}}]
+             'source_pages':sorted(allowed),'source_type':'NCERT','teaching_format':'concept',
+             'source_document':{'title':curriculum['chapter_title'],'sha256':source['sha256'],'role':'NCERT'}}]
 
 
 def ncert_sections(db, curriculum, unit, missing):
@@ -135,65 +135,23 @@ def ncert_sections(db, curriculum, unit, missing):
             add('misconception',text if isinstance(text,str) else ' '.join(str(v) for v in text.values() if isinstance(v,str)))
         if blocks:
             sections.append({'id':'ncert-concept:'+concept.concept_id,'title':concept.title,'text':'\n\n'.join(b['text'] for b in blocks),
-                'blocks':blocks,'source_type':'NCERT_FALLBACK','subtopic_ids':[gap],
+                'blocks':blocks,'source_type':'NCERT','subtopic_ids':[gap],
                 'source_pages':concept.source_pages or [],
                 'teaching_format':'numerical' if any(b['kind']=='worked_example' for b in blocks) else 'concept',
-                'source_document':{'id':row.id,'title':row.chapter_name,'sha256':row.published_source_hash or row.source_hash,'role':'NCERT_FALLBACK'},
+                'source_document':{'id':row.id,'title':row.chapter_name,'sha256':row.published_source_hash or row.source_hash,'role':'NCERT'},
                 'derivation':'approved_section_index'})
     return sections
 
 
 def retrieve_material(db, curriculum, unit, requested_subtopic_ids=None):
-    from services.notes_documents_service import find_master_sections, _formula_conflict
     allowed = {s['id'] for s in unit['ncert_subtopics']}
     requested = allowed if requested_subtopic_ids is None else set(requested_subtopic_ids)
     if not requested or not requested <= allowed:
         raise ValueError('Requested material is outside the selected mapped subtopics')
-    master = find_master_sections(db,curriculum,unit,requested)
-    sections = list(master['sections'])
-    conflicts = list(master.get('conflicts') or [])
-    covered = set(master['covered_subtopic_ids']) & requested
-    blocked = {sid for c in conflicts if 'Conflicting master-note' in c.get('reason','') for sid in c.get('subtopic_ids',[])}
-    missing = requested-covered-blocked
-    # This branch is the source-priority guarantee: a sufficient Master Notes
-    # response never invokes the NCERT adapter, even to warm a cache.
-    supplementary = ncert_sections(db,curriculum,unit,missing) if missing else []
-    known = {_normalized(sentence) for s in sections for sentence in _sentences(s['text'])}
-    for section in supplementary:
-        ids = set(section['subtopic_ids'])
-        if not ids <= missing:
-            raise ValueError('NCERT supplement crossed its requested gap')
-        if any(_formula_conflict(s['text'],section['text']) for s in sections if s['source_type'] == 'MASTER_NOTES'):
-            conflicts.append({'subtopic_ids':section['subtopic_ids'],'section_ids':[section['id']],
-                              'reason':'Conflicting formula statements require source review; the supplement was withheld.'})
-            continue
-        if section.get('blocks'):
-            blocks = []
-            for block in section['blocks']:
-                parts = _sentences(block['text'])
-                if parts and all(_normalized(p) in known for p in parts):
-                    continue
-                if block['kind'] not in {'worked_example','derivation','formula'}:
-                    block = {**block,'text':' '.join(p for p in parts if _normalized(p) not in known)}
-                if block['text'].strip():
-                    blocks.append(block)
-            section = {**section,'blocks':blocks,'text':'\n\n'.join(b['text'] for b in blocks)}
-        else:
-            section = {**section,'text':' '.join(s for s in _sentences(section['text']) if _normalized(s) not in known)}
-        if not section['text'].strip():
-            continue
-        sections.append(section)
-        known.update(_normalized(s) for s in _sentences(section['text']))
-    # A partial Master section is useful evidence, but its mere presence must
-    # not hide an unresolved learning gap when no valid supplement was found.
-    actual = covered | {sid for s in sections if s['source_type'] == 'NCERT_FALLBACK' for sid in s['subtopic_ids']}
-    ordered = {s['id']:i for i,s in enumerate(unit['ncert_subtopics'])}
-    # Preserve each document's organization and keep supplementary content after
-    # its primary source. Never interleave the same definition across sources.
-    sections.sort(key=lambda s:(s['source_type'] != 'MASTER_NOTES',min(ordered[i] for i in s['subtopic_ids'])))
-    fingerprint = digest({'master':master['source_fingerprint'],'requested':sorted(requested),'sections':[
-        (s['id'],s['source_type'],s.get('source_document'),s['text'],s.get('blocks'),s.get('questions')) for s in sections],
-        'conflicts':conflicts,'unit':unit['id']})
-    return {'curriculum':curriculum,'unit':unit,'sections':sections,'conflicts':conflicts,
-            'missing_subtopics':sorted(requested-actual),'master_covered_subtopics':sorted(covered),
-            'source_fingerprint':fingerprint}
+    sections = ncert_sections(db, curriculum, unit, requested)
+    covered = {sid for section in sections for sid in section['subtopic_ids']}
+    if not covered <= requested:
+        raise ValueError('NCERT material crossed the requested subtopics')
+    fingerprint = digest({'requested': sorted(requested), 'sections': sections, 'unit': unit['id']})
+    return {'curriculum': curriculum, 'unit': unit, 'sections': sections, 'conflicts': [],
+            'missing_subtopics': sorted(requested - covered), 'source_fingerprint': fingerprint}

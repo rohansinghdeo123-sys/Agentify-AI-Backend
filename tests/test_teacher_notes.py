@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 
 from database import Base
 from models import AICoachProfile, TestHistory as History
-from services.master_notes_service import resolve_unit
+from Logic.planning.curriculum_registry import resolve_planning_curriculum
 from services.teacher_notes_service import VERSION, _load_lesson, compile_lesson, session_portion, validate_lesson
 from services.topic_notes_service import mapped_notes
 from services.study_route_service import start_route, record_heartbeat, _get_state, StudyRouteError
@@ -17,7 +17,7 @@ CHAPTER = "some_basic_concepts_of_chemistry"
 
 @pytest.fixture
 def curriculum():
-    return resolve_unit(CHAPTER, None)[0]
+    return resolve_planning_curriculum(chapter_ref=CHAPTER, subject="Chemistry", class_level="Class 11")
 
 @pytest.fixture
 def db():
@@ -116,7 +116,7 @@ def test_notes_and_tutor_do_not_fall_back_to_older_paragraph_generation(db,curri
     from Logic.tools.knowledge_search import search_knowledge_base
     unit = curriculum["units"][3]
     scope={"chapter":CHAPTER,"topic":unit["id"],"catalog_source":"planning_manifest"}
-    with patch("database.SessionLocal",return_value=db), patch("services.master_notes_service.retrieve_notes",side_effect=AssertionError("Old Master excerpt generator used")):
+    with patch("database.SessionLocal",return_value=db):
         first=GroundedRetriever().retrieve("molecular mass",scope)
         second=search_knowledge_base(unit["id"],"molecular mass",scope=scope)
     assert first.source == second["source"] == "adaptive_source_notes"

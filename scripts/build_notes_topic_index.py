@@ -23,7 +23,14 @@ sys.path.insert(0, str(ROOT))
 from Logic.planning.curriculum_registry import load_planning_curriculum
 from services.catalog_service import _learning_units_for_chapter
 from services.content_release_bundle import _verified_payload
-from services.master_notes_service import CHAPTER_ONE_SEED_GROUPS
+CHAPTER_ONE_SEED_GROUPS = {
+    "atoms_and_molecules":0,"nature_and_classification_of_matter":0,
+    "properties_of_matter_and_measurement":1,"si_units_and_prefixes":1,"mass_weight_volume_density":1,
+    "uncertainty_and_scientific_notation":1,"significant_figures":1,"dimensional_analysis":1,
+    "laws_of_chemical_combinations":2,"daltons_atomic_theory":2,"atomic_molecular_formula_masses":3,
+    "mole_concept_and_molar_mass":4,"percentage_composition":4,"empirical_and_molecular_formulae":4,
+    "stoichiometry_and_limiting_reagent":5,"concentration_of_solutions":5,
+}
 
 BUNDLE = ROOT / "data/releases/ncert_class_11_chemistry_v1.json.gz"
 OUTPUT = ROOT / "data/notes/teacher_chemistry/topic_aliases.json"

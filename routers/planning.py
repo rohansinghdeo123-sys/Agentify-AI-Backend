@@ -240,6 +240,7 @@ def planning_route_complete_today(
 @router.post(
     "/route/heartbeat/{user_id}",
     response_model=Union[StudyRouteStateResponse, StudyRouteHeartbeatAck],
+    response_model_exclude_unset=True,
 )
 def planning_route_heartbeat(
     user_id: str,
@@ -248,12 +249,7 @@ def planning_route_heartbeat(
     db: Session = Depends(get_db),
     current_user: Dict[str, Any] = Depends(verify_firebase_user),
 ):
-    """Persist a lightweight mid-step position for Continue Learning.
-
-    Called on page navigation / refresh / background save.  It updates only
-    ``last_position`` and ``last_active_at``; it never advances the step or
-    changes the status.
-    """
+    """Save progress or finish all pages of the active timed notes topic."""
     _require_integration_enabled()
     require_same_user_or_admin(user_id, current_user)
     try:

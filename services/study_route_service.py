@@ -5,7 +5,7 @@ Mastery remains derived from TestHistory, TopicPerformance and study exposure.
 """
 from __future__ import annotations
 
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from typing import Any, Mapping, Optional, Sequence
 from uuid import uuid4
 
@@ -14,6 +14,7 @@ from sqlalchemy.orm import Session
 from Logic.analytics_engine import update_topic_performance
 from Logic.planning.portfolio_engine import PlanningPortfolioError, build_planning_portfolio
 from Logic.planning.curriculum_registry import resolve_planning_curriculum
+from Logic.planning.recommendation_engine import _route_budget
 from models import AICoachProfile, ContentChapter, ContentConcept, StudyRouteState, TestHistory
 from services.catalog_service import resolve_published_planning_curriculum, resolve_catalog_topic
 from services.planning_progress_service import record_study_answer_event
@@ -93,6 +94,50 @@ def _itinerary(portfolio):
     return list(dict.fromkeys(i['unit_id'] for i in portfolio['today_route']['items']))
 
 
+def timed_session(state, *, start=False, restart=False):
+    runtime = dict(state.runtime_json or {})
+    deadline = runtime.get('study_deadline')
+    now = _now()
+    if start and (not deadline or (restart and datetime.fromisoformat(deadline) <= now)):
+        minutes, _, _ = _route_budget(state.study_time_today, state.session_duration_minutes)
+        deadline = (now + timedelta(minutes=minutes)).isoformat()
+        runtime['study_deadline'] = deadline
+        state.runtime_json = runtime
+        state.status = 'in_progress'
+        state.completed_at = None
+        state.started_at = state.started_at or now
+    if deadline:
+        return {'ends_at': deadline + 'Z', 'remaining_seconds': max(0, (datetime.fromisoformat(deadline) - now).total_seconds())}
+    return None
+
+
+def _next_timed_unit(portfolio, state, runtime):
+    active = _chapter(portfolio, state)
+    current_order = _unit(active, state.current_unit_id)['order']
+    later = [u for u in active['learning_units'] if u['order'] > current_order]
+    candidates = [(active, u) for u in later]
+    candidates += [(c, u) for c in portfolio['chapters'] if c is not active for u in c['learning_units']]
+    planned = runtime.get('unit_ids', [])
+    candidates.sort(key=lambda pair: planned.index(pair[1]['id']) if pair[1]['id'] in planned else len(planned))
+    completed = set(runtime.get('read_unit_ids', [])) | set(runtime.get('completed_unit_ids', []))
+    return next(((c, u) for c, u in candidates if u['status'] != 'mastered' and u['id'] not in completed), None)
+
+
+def _move_to_unit(state, runtime, chapter, unit):
+    state.active_curriculum_key = chapter['curriculum_key']
+    state.active_chapter_slug = chapter['chapter_slug']
+    state.current_unit_id = unit['id']
+    state.last_position_json = {}
+    runtime.pop('check', None)
+    runtime.pop('branch', None)
+    state.override_reason = state.override_until_unit_id = ''
+    itinerary = list(runtime.get('unit_ids') or [])
+    if unit['id'] not in itinerary:
+        itinerary.append(unit['id'])
+    runtime['unit_ids'] = itinerary
+    state.current_step_index = itinerary.index(unit['id'])
+
+
 def start_route(db: Session, *, user_id: str, class_level: str, subject: str,
                 selections: Sequence[Mapping[str, Any]], study_time_today=None,
                 session_duration_minutes=None):
@@ -117,6 +162,7 @@ def start_route(db: Session, *, user_id: str, class_level: str, subject: str,
     if same and state.status != 'completed':
         refresh_notes_session_anchor(db, state)
         return read_current_route(db, user_id=user_id)
+    previous_read_units = list((state.runtime_json or {}).get('read_unit_ids', [])) if state else []
     previous_notes = dict((state.runtime_json or {}).get('notes_positions', {})) if state else {}
     previous_notes_versions = dict((state.runtime_json or {}).get('notes_positions_by_version', {})) if state else {}
     from copy import deepcopy
@@ -139,7 +185,7 @@ def start_route(db: Session, *, user_id: str, class_level: str, subject: str,
     state.current_step_index = 0
     state.current_step_role = 'main_focus'
     state.runtime_json = {'today_route': portfolio['today_route'], 'unit_ids': _itinerary(portfolio),
-                          'completed_unit_ids': [], 'receipts': {}, 'notes_positions': previous_notes, 'notes_positions_by_version': previous_notes_versions,
+                          'completed_unit_ids': [], 'read_unit_ids': previous_read_units, 'receipts': {}, 'notes_positions': previous_notes, 'notes_positions_by_version': previous_notes_versions,
                           'notes_reading_by_version':previous_reading,'notes_anchor_by_unit':previous_anchors,
                           'notes_session_start_positions':deepcopy(previous_notes_versions), 'notes_session_date': _today().isoformat()}
     state.last_position_json = {}
@@ -178,8 +224,11 @@ def read_current_route(db, *, user_id, portfolio=None):
     chapter = _chapter(portfolio, state)
     unit = _unit(chapter, state.current_unit_id)
     runtime = dict(state.runtime_json or {})
-    if not runtime.get('today_route'):
-        runtime.update(today_route=portfolio['today_route'], unit_ids=_itinerary(portfolio), completed_unit_ids=[], receipts={})
+    if not runtime.get('today_route') or runtime['today_route'].get('budget_minutes') is None:
+        runtime['today_route'] = portfolio['today_route']
+        runtime.setdefault('unit_ids', _itinerary(portfolio))
+        runtime.setdefault('completed_unit_ids', [])
+        runtime.setdefault('receipts', {})
         state.runtime_json = runtime
         db.commit()
     # Reconcile persisted allocations after a manual-duration correction without
@@ -225,7 +274,8 @@ def read_current_route(db, *, user_id, portfolio=None):
         item.get('reason') or (next_step['reason'] if next_step['unit_id'] == unit['id'] else unit['why_it_matters']))
     return {'user_id': user_id, 'route_date': state.route_date.isoformat(),
         'class_level': state.class_level, 'subject': state.subject, 'status': state.status,
-        'study_time_today': state.study_time_today, 'session_duration_minutes': state.session_duration_minutes,
+        'study_time_today': portfolio['study_time_today'], 'session_duration_minutes': state.session_duration_minutes,
+        'study_session': timed_session(state), 'read_unit_ids': runtime.get('read_unit_ids', []),
         'goal': state.goal_json or {}, 'portfolio': portfolio,
         'completed_unit_ids': list(dict.fromkeys([*runtime.get('completed_unit_ids', []),
             *(u['id'] for c in portfolio['chapters'] for u in c['learning_units'] if u['status'] == 'mastered')])),
@@ -274,6 +324,9 @@ def prepare_check(db, *, user_id):
     state = _get_state(db, user_id, lock=True)
     if not state:
         raise StudyRouteError('No saved learning route')
+    session = timed_session(state, start=state.status != 'completed')
+    if session and session['remaining_seconds'] <= 0:
+        raise StudyRouteError('Study time is up. Start another session from Planning.')
     runtime = dict(state.runtime_json or {})
     check = runtime.get('check') or {}
     if check.get('unit_id') != state.current_unit_id:
@@ -299,7 +352,7 @@ def prepare_check(db, *, user_id):
         check = {'id': str(uuid4()), 'unit_id': unit['id'], 'questions': questions, 'started_at': _now().isoformat()}
         runtime['check'] = check
         state.runtime_json = runtime
-        db.commit()
+    db.commit()
     return {'id': check['id'], 'unit_id': check['unit_id'], 'questions': [
         {k: q[k] for k in ('id', 'question', 'options')} for q in check['questions']]}
 
@@ -312,7 +365,7 @@ def _response(db, state, completion):
         'title': unit['title'], 'reason': route['current_step']['why_now'],
         'estimated_minutes': unit['estimated_minutes'], 'approach': unit['learning_route'],
         'outcome': unit['mastery_criteria'][0] if unit['mastery_criteria'] else '',
-        'done_for_today': state.status == 'completed'}}
+        'done_for_today': state.status == 'completed' or bool(route['study_session'] and route['study_session']['remaining_seconds'] <= 0)}}
 
 
 def advance_route(db, *, user_id, completed_unit_id, interaction_id, answers=None,
@@ -375,6 +428,8 @@ def advance_route(db, *, user_id, completed_unit_id, interaction_id, answers=Non
     runtime['receipts'] = {**runtime.get('receipts', {}), interaction_id: completion}
     runtime.pop('check', None)
     branch = runtime.get('branch')
+    session = timed_session(state)
+    next_unit = None
     if mastered:
         completed = list(runtime.get('completed_unit_ids', []))
         if unit['id'] not in completed:
@@ -386,6 +441,10 @@ def advance_route(db, *, user_id, completed_unit_id, interaction_id, answers=Non
             state.last_position_json = branch['position']
             runtime.pop('branch', None)
             state.override_reason = state.override_until_unit_id = ''
+        elif session:
+            next_unit = _next_timed_unit(fresh, state, runtime)
+            if next_unit:
+                _move_to_unit(state, runtime, *next_unit)
         else:
             step = fresh['global_next_step']
             state.active_curriculum_key, state.active_chapter_slug = step['curriculum_key'], step['chapter_slug']
@@ -403,10 +462,12 @@ def advance_route(db, *, user_id, completed_unit_id, interaction_id, answers=Non
         _set_branch(state, chapter, 'prerequisite_gap', unit['prerequisite_unit_ids'][0],
                     'Your last check showed a gap. Review this prerequisite, then return to ' + unit['title'] + '.')
     if mastered and not branch:
-        remaining = set(runtime.get('unit_ids', [])) - set(runtime.get('completed_unit_ids', []))
-        if not remaining:
+        remaining = next_unit if session else set(runtime.get('unit_ids', [])) - set(runtime.get('completed_unit_ids', []))
+        if not remaining and (not session or session['remaining_seconds'] > 0):
             state.status = 'completed'
             state.completed_at = now
+    if session and session['remaining_seconds'] <= 0 and state.status != 'completed':
+        state.status = 'paused'
     db.commit()
     return _response(db, state, completion)
 
@@ -461,6 +522,10 @@ def complete_today(db, *, user_id):
     # Stopping for the day never claims that unfinished units are mastered.
     if state.status != 'completed':
         state.status = 'paused'
+    runtime = dict(state.runtime_json or {})
+    if runtime.get('study_deadline'):
+        runtime['study_deadline'] = _now().isoformat()
+        state.runtime_json = runtime
     state.last_active_at = _now()
     db.commit()
     return read_current_route(db, user_id=user_id)
@@ -471,6 +536,13 @@ def record_heartbeat(db, *, user_id, last_position=None, compact=False):
     if not state:
         raise StudyRouteError('No saved learning route')
     position = dict(last_position or {})
+    finish_notes = position.pop('finish_notes', False) is True
+    topic = str(position.get('notes_topic') or state.current_unit_id)
+    if finish_notes and topic != state.current_unit_id:
+        if topic in (state.runtime_json or {}).get('read_unit_ids', []):
+            session = timed_session(state)
+            return _notes_handoff(state, 'continue' if session and session['remaining_seconds'] > 0 else 'time_up')
+        raise StudyRouteError('Only the active topic can advance the study session')
     if position.get('unit_id') and position['unit_id'] != state.current_unit_id:
         raise StudyRouteError('Position belongs to a different unit')
     if state.status == 'completed' and 'notes_page' not in position:
@@ -517,6 +589,8 @@ def record_heartbeat(db, *, user_id, last_position=None, compact=False):
                 raise StudyRouteError('Invalid legacy notes page')
             runtime['notes_positions'] = {**runtime.get('notes_positions', {}), topic: page}
         state.runtime_json = runtime
+    if finish_notes:
+        return _finish_notes_topic(db, state, topic, position)
     if state.status == 'completed':
         # Revision bookmarks remain writable after a route is finished. Do
         # not reopen the route or overwrite its conversation/check position.
@@ -529,3 +603,47 @@ def record_heartbeat(db, *, user_id, last_position=None, compact=False):
     state.last_active_at = _now()
     db.commit()
     return {'saved': True} if compact else read_current_route(db, user_id=user_id)
+
+
+def _notes_handoff(state, outcome):
+    result = {'saved': True, 'notes_outcome': outcome}
+    if outcome == 'continue':
+        result['next_notes'] = {'chapter_slug': state.active_chapter_slug, 'topic_id': state.current_unit_id}
+    return result
+
+
+def _finish_notes_topic(db, state, topic, position):
+    session = timed_session(state)
+    if not session:
+        raise StudyRouteError('Start the timed route before advancing notes')
+    runtime = dict(state.runtime_json or {})
+    version = position.get('notes_version', '')
+    from models import AdaptiveNoteLesson
+    from services.adaptive_content_compiler import COMPILER_VERSION
+    lesson = db.query(AdaptiveNoteLesson).filter_by(content_version=version, unit_id=topic).first()
+    reading = runtime.get('notes_reading_by_version', {}).get(version, {}).get(topic, {})
+    if (not lesson or lesson.curriculum_key != state.active_curriculum_key
+            or lesson.payload_json.get('compiler_version') != COMPILER_VERSION
+            or not lesson.payload_json['pages']
+            or {p['id'] for p in lesson.payload_json['pages']} != set(reading.get('completed_page_ids', []))):
+        raise StudyRouteError('Read the remaining pages before finishing this topic')
+    runtime['read_unit_ids'] = list(dict.fromkeys([*runtime.get('read_unit_ids', []), topic]))
+    portfolio = _build_portfolio_from_state(db, state)
+    branch = runtime.get('branch')
+    if branch:
+        chapter = _chapter(portfolio, state)
+        next_unit = (chapter, _unit(chapter, branch['unit_id']))
+    else:
+        next_unit = _next_timed_unit(portfolio, state, runtime)
+    if next_unit:
+        _move_to_unit(state, runtime, *next_unit)
+        if branch:
+            state.last_position_json = branch['position']
+        outcome = 'continue' if timed_session(state)['remaining_seconds'] > 0 else 'time_up'
+        state.status = 'in_progress' if outcome == 'continue' else 'paused'
+    else:
+        outcome = 'sequence_read'
+    state.runtime_json = runtime
+    state.last_active_at = _now()
+    db.commit()
+    return _notes_handoff(state, outcome)

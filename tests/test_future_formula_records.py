@@ -27,7 +27,7 @@ def test_publish_and_render_structured_formula_without_losing_terms_conditions(s
         curriculum=resolve_notes_curriculum(db,chapter.slug,subject=subject,class_level='Class 11')
         unit=curriculum['units'][0];material=retrieve_material(db,curriculum,unit)
         assert not material['missing_subtopics']
-        for level in ['new_to_it','know_a_little','know_the_basics','mostly_confident']:
+        for level in ['new_to_it','know_the_basics','mostly_confident']:
             lesson,_=compiled_lesson(db,curriculum,unit,proficiency=level,material=material)
             text='\n'.join(b['text'] for p in lesson['pages'] for b in p['blocks'])
             assert expression in text and record['conditions'] in text

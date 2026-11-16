@@ -17,11 +17,9 @@ STUDY_TIME_BUDGETS: Dict[str, Optional[int]] = {
     "30": 30,
     "60": 60,
     "120_plus": 120,
-    "no_limit": None,
 }
 PROFICIENCY_VALUES = {
     "new_to_it",
-    "know_a_little",
     "know_the_basics",
     "mostly_confident",
 }
@@ -29,6 +27,8 @@ PROFICIENCY_VALUES = {
 
 def _proficiency(profile: Mapping[str, Any]) -> str:
     value = _normalized(profile.get("effective_chapter_proficiency") or profile.get("chapter_proficiency"))
+    if value == "know_a_little":
+        return "new_to_it"
     if value in PROFICIENCY_VALUES:
         return value
     # Compatibility for server-side callers that still pass the retired
@@ -38,10 +38,10 @@ def _proficiency(profile: Mapping[str, Any]) -> str:
         return "mostly_confident"
     return {
         "new": "new_to_it",
-        "some_idea": "know_a_little",
+        "some_idea": "new_to_it",
         "know_basics": "know_the_basics",
-        "weak_basics": "know_a_little",
-    }.get(_normalized(profile.get("current_knowledge")), "know_a_little")
+        "weak_basics": "new_to_it",
+    }.get(_normalized(profile.get("current_knowledge")), "new_to_it")
 
 
 def _route_budget(
@@ -51,11 +51,12 @@ def _route_budget(
     """Resolve a ceiling without turning available time into a target.
 
     An explicit student choice takes precedence over ambient session state.
-    Absence is a calm automatic route capped at 30 minutes; ``no_limit`` has no
-    ceiling but still schedules only the current content-sized learning unit.
+    The default is a 30-minute route.
     """
 
     preference = _normalized(study_time_today)
+    if preference in {"no_limit", "unlimited"}:
+        preference = "30"
     if preference in STUDY_TIME_BUDGETS:
         return STUDY_TIME_BUDGETS[preference], "student_choice", preference
     if session_duration_minutes is not None:
@@ -350,8 +351,6 @@ def _recommended_minutes(unit: Mapping[str, Any], profile: Mapping[str, Any]) ->
     proficiency = _proficiency(profile)
     if proficiency == "new_to_it":
         extra += 4
-    elif proficiency == "know_a_little":
-        extra = round(extra * 0.82)
     elif proficiency == "know_the_basics":
         extra = round(extra * 0.55)
     else:
@@ -441,10 +440,6 @@ def _next_reason(
             "This is the first unfinished NCERT unit. Starting here builds the foundation "
             "before guided examples and practice."
         ),
-        "know_a_little": (
-            "This is the earliest unfinished NCERT unit. A short reinforcement pass here "
-            "will make the later applications more reliable."
-        ),
         "know_the_basics": (
             "This is the earliest unverified NCERT unit. Confirm it quickly, then use an "
             "application to expose any gap before moving forward."
@@ -474,7 +469,6 @@ def _activity(
         return f"Continue {title} and complete one understanding check"
     return {
         "new_to_it": f"Understand {title} with a guided example, then explain the main idea once",
-        "know_a_little": f"Reinforce {title} with one example and a moderate practice check",
         "know_the_basics": f"Scan {title}, apply it once, and use the result to find any gap",
         "mostly_confident": f"Diagnose {title} quickly, then revise or practise only the weak part",
     }[_proficiency(profile)]
@@ -493,7 +487,6 @@ def _approach(
         return ["Continue", "Example", "Practice", "Quick check"]
     return {
         "new_to_it": ["Understand", "Guided example", "Practice", "Quick check"],
-        "know_a_little": ["Recall", "Reinforce", "Practice", "Quick check"],
         "know_the_basics": ["Concept scan", "Application", "Gap check", "Practice"],
         "mostly_confident": ["Quick scan", "Diagnostic", "Weak-area practice", "Revision"],
     }[_proficiency(profile)]
@@ -552,8 +545,6 @@ def _build_daily_route(
     # duration is a ceiling, never a target to pad.  When a student genuinely
     # has enough time after the current unit, continue in NCERT order instead
     # of hard-stopping every route at the former one-unit/60-minute cap.
-    # ``no_limit`` deliberately remains one content-sized unit so it cannot
-    # turn into an unbounded whole-chapter demand.
     remaining = budget
     items: List[Dict[str, Any]] = []
     total = 0
@@ -715,7 +706,7 @@ def _completion_criteria(units: Sequence[Mapping[str, Any]]) -> List[str]:
 def build_planning_roadmap(
     curriculum: Mapping[str, Any],
     *,
-    chapter_proficiency: str = "know_a_little",
+    chapter_proficiency: str = "new_to_it",
     study_time_today: Optional[str] = None,
     session_duration_minutes: Optional[int] = None,
     analytics: Optional[Mapping[str, Any]] = None,
@@ -726,7 +717,7 @@ def build_planning_roadmap(
     analytics = analytics or {}
     normalized_proficiency = _normalized(chapter_proficiency)
     if normalized_proficiency not in PROFICIENCY_VALUES:
-        normalized_proficiency = "know_a_little"
+        normalized_proficiency = "new_to_it"
     profile = dict(profile or {})
     profile["chapter_proficiency"] = _proficiency(
         {**profile, "chapter_proficiency": normalized_proficiency}
@@ -786,11 +777,7 @@ def build_planning_roadmap(
     return {
         "roadmap_version": "planning_roadmap_v2",
         "chapter_proficiency": profile["chapter_proficiency"],
-        "study_time_today": (
-            _normalized(study_time_today)
-            if _normalized(study_time_today) in STUDY_TIME_BUDGETS
-            else None
-        ),
+        "study_time_today": _route_budget(study_time_today, session_duration_minutes)[2],
         "session_duration_minutes": session_duration_minutes,
         "class_level": curriculum["class_level"],
         "chapter_slug": curriculum["chapter_slug"],

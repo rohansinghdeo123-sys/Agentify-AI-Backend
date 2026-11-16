@@ -152,11 +152,11 @@ def session_portion(pages, unit, *, start_page=0, session_minutes=None):
             'additional_practice_needed':end<len(pages)-1 or remaining < -1e-9}
 
 
-def notes_response(db, chapter_ref, topic_id, user_id, *, subject=None,class_level=None,content_version=None):
+def notes_response(db, chapter_ref, topic_id, user_id, *, subject=None,class_level=None,content_version=None,planned=False,start_session=False):
     curriculum = resolve_notes_curriculum(db,chapter_ref,subject=subject,class_level=class_level)
     if not curriculum:
         return None
-    from services.study_route_service import _get_state, _today, refresh_notes_session_anchor
+    from services.study_route_service import _get_state, _today, refresh_notes_session_anchor, timed_session
     state = _get_state(db,user_id)
     if state and (state.runtime_json or {}).get('notes_session_date') != _today().isoformat():
         state = _get_state(db,user_id,lock=True); refresh_notes_session_anchor(db,state)
@@ -182,6 +182,14 @@ def notes_response(db, chapter_ref, topic_id, user_id, *, subject=None,class_lev
             if entry is not None:
                 progress.update(saved_page=entry,saved_page_id=payload['pages'][entry]['id'])
     selected = bool(state and same_scope(curriculum,state.subject,state.class_level) and any((resolve_notes_curriculum(db,s.get('chapter_ref'),subject=state.subject,class_level=state.class_level) or {}).get('curriculum_key') == curriculum['curriculum_key'] for s in state.selections_json or []))
+    session = None
+    if planned and selected and state.current_unit_id == unit['id'] and payload['pages']:
+        state = _get_state(db,user_id,lock=True)
+        if state.current_unit_id == unit['id'] and state.active_curriculum_key == curriculum['curriculum_key']:
+            session = timed_session(state,start=state.status != 'completed',restart=start_session)
+            if session:
+                remaining_minutes = session['remaining_seconds'] / 60
+                allocation = min(allocation, remaining_minutes) if allocation is not None else remaining_minutes
     runtime = state.runtime_json or {} if state else {}
     starts = runtime.get('notes_session_start_positions',{}).get(payload['content_version'],{})
     if selected and unit['id'] not in starts:
@@ -194,6 +202,7 @@ def notes_response(db, chapter_ref, topic_id, user_id, *, subject=None,class_lev
         state.runtime_json = runtime
     start = starts.get(unit['id'],progress['saved_page'])
     return {**payload,**progress,'chapter':chapter,'topic_id':unit['id'],'topic_title':unit['title'],'requested_topic_id':topic_id,
+        'study_session':session,'topic_read':bool(state and unit['id'] in (state.runtime_json or {}).get('read_unit_ids',[])),
         'estimated_minutes':dict(unit['estimated_minutes']),'subtopics':unit['ncert_subtopics'],
         'catalog_source':'published' if curriculum['source']['authority']=='approved_content_pipeline' else 'planning_manifest',
         'active_unit_id':state.current_unit_id if state else None,'can_save_position':selected,'allocated_session_minutes':allocation,
@@ -233,7 +242,7 @@ def retrieve_context(db, chapter_ref, topic_id, *, subject=None,class_level=None
     context = '\n\n'.join('['+p['source']+'; '+p['title']+']\n'+'\n\n'.join(
         '['+b['source_type']+'] '+(b.get('expanded_text') or b['text']) for b in p['blocks']) for p in pages)
     source_types = list(dict.fromkeys(ref['source_type'] for page in pages for ref in page['source_refs']))
-    return {'context':context,'source':'adaptive_source_notes','retrieval_mode':'master_first_scoped_notes',
+    return {'context':context,'source':'adaptive_source_notes','retrieval_mode':'ncert_scoped_notes',
         'unit_id':unit['id'],'section_id':unit['primary_topic_id'],'paragraphs_found':len(pages),
         'keywords_used':sorted(set(re.findall(r'[a-z]{3,}',question.lower()))),'matched_sections':[p['id'] for p in pages],
         'source_pages':sorted({n for p in pages for n in p['source_pages']}),'content_order_locked':True,
@@ -245,7 +254,7 @@ def context_for_scope(scope, topic_id, question):
     """Shared tutor/tool entry point; uses an independent read/cache transaction."""
     version = str(scope.get('notes_content_version') or '')
     page_bound = version.startswith(EDITION+'_')
-    unavailable = {'context':'','source':'adaptive_source_notes','retrieval_mode':'master_first_scoped_notes',
+    unavailable = {'context':'','source':'adaptive_source_notes','retrieval_mode':'ncert_scoped_notes',
                    'section_id':topic_id,'paragraphs_found':0,'keywords_used':[],'matched_sections':[],
                    'error':'notes_page_unavailable'}
     if scope.get('catalog_source') not in {'planning_manifest','published'}:

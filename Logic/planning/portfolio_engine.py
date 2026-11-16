@@ -59,8 +59,10 @@ def _resolve_selections(
     for selection_index, selection in enumerate(selections):
         chapter_ref = str(_selection_value(selection, "chapter_ref") or "").strip()
         proficiency = _normalized(
-            _selection_value(selection, "chapter_proficiency", "know_a_little")
+            _selection_value(selection, "chapter_proficiency", "new_to_it")
         )
+        if proficiency == "know_a_little":
+            proficiency = "new_to_it"
         curriculum = resolve_planning_curriculum(
             chapter_ref=chapter_ref,
             subject=subject,
@@ -258,7 +260,7 @@ def build_planning_portfolio(
         if attempts:
             accuracy = sum(float(r.get('accuracy', r.get('value', 0))) * int(r['attempts']) for r in evidence) / attempts
             effective = ('mostly_confident' if accuracy >= 85 else 'know_the_basics' if accuracy >= 70
-                         else 'know_a_little' if accuracy >= 40 else 'new_to_it')
+                         else 'new_to_it')
         roadmap = build_planning_roadmap(
             curriculum,
             chapter_proficiency=item["chapter_proficiency"],

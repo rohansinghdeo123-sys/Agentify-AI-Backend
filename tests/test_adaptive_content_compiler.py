@@ -19,8 +19,8 @@ def physics():
                 "ncert_subtopics":[{"id":"force","title":"Force and acceleration"},{"id":"balance","title":"Balanced forces"}]},
         "source_fingerprint":"physics-source-1",
         "sections":[
-            {"id":"master-force","title":"Why pushes change motion","source_type":"MASTER_NOTES","subtopic_ids":["force"],
-             "source_document":{"id":"teacher-notes","title":"Mechanics Master Notes"},"source_pages":[1],"teaching_format":"concept",
+            {"id":"master-force","title":"Why pushes change motion","source_type":"NCERT","subtopic_ids":["force"],
+             "source_document":{"id":"teacher-notes","title":"NCERT Mechanics"},"source_pages":[1],"teaching_format":"concept",
              "blocks":[
                  block("example","Push an empty trolley and then a loaded trolley. The trolleys respond differently to a similar push. This observation motivates a relationship between force, mass and change in motion."),
                  block("explanation","A change in velocity is acceleration. The relationship connects the net force acting on an object with its acceleration. The mass describes how strongly the object resists this change."),
@@ -38,14 +38,14 @@ def physics():
                  {"question":"Calculate the acceleration when a net force of 6 N acts on a mass of 2 kg.","answer":"a = F/m = 6/2 = 3 m s⁻².","difficulty":3,"source_section_ids":["force"]},
                  {"question":"Which assumption would invalidate using this constant-mass expression without further analysis?","answer":"A changing mass needs further analysis; the stated form assumes constant mass.","difficulty":4,"source_section_ids":["force"]},
              ]},
-            {"id":"master-force-application","title":"Keep the physical meanings separate","source_type":"MASTER_NOTES","subtopic_ids":["force"],
+            {"id":"master-force-application","title":"Keep the physical meanings separate","source_type":"NCERT","subtopic_ids":["force"],
              "source_pages":[2],"teaching_format":"concept",
              "blocks":[
                  block("example","A trolley can keep moving after your push ends. Motion alone does not identify the net force. The important observation is whether its velocity changes."),
                  block("explanation","Check which quantity the question asks for before choosing a calculation. Distinguish a force from a change in motion. The relationship connects them through mass."),
                  block("connection","The same relationship can be read in different directions: known mass and force determine acceleration, while known mass and acceleration determine net force.","foundation"),
              ]},
-            {"id":"ncert-balance","title":"Balanced and unbalanced forces","source_type":"NCERT_FALLBACK","subtopic_ids":["balance"],
+            {"id":"ncert-balance","title":"Balanced and unbalanced forces","source_type":"NCERT","subtopic_ids":["balance"],
              "source_document":{"title":"NCERT Physics"},"source_pages":[7],"teaching_format":"classification",
              "blocks":[
                  block("definition","Balanced forces have a zero vector sum. They produce no acceleration."),
@@ -65,9 +65,9 @@ def all_blocks(lesson):
     return [b for p in lesson["pages"] for b in p["blocks"]]
 
 
-def test_four_views_are_different_and_decrease_depth_without_losing_core_science(physics):
+def test_three_views_are_different_and_decrease_depth_without_losing_core_science(physics):
     views = [compile_adaptive_lesson(physics,proficiency=p) for p in PROFICIENCIES]
-    assert len({tuple(page["text"] for page in lesson["pages"]) for lesson in views}) == 4
+    assert len({tuple(page["text"] for page in lesson["pages"]) for lesson in views}) == 3
     assert [visible_words(v) for v in views] == sorted([visible_words(v) for v in views],reverse=True)
     assert [len(v["pages"]) for v in views] == sorted([len(v["pages"]) for v in views],reverse=True)
     assert len({len(v["pages"]) for v in views}) >= 3
@@ -115,13 +115,13 @@ def test_preference_and_configured_workload_control_support_not_source_outcomes(
 def test_history_uses_the_same_engine_without_science_specific_or_fixed_page_logic():
     material = {"unit":{"id":"civics-democracy","title":"Democratic government","estimated_minutes":{"min":15,"max":20},
                         "ncert_subtopics":[{"id":"participation","title":"Participation"}]},
-                "sections":[{"id":"history-master","title":"Who participates?","source_type":"MASTER_NOTES","subtopic_ids":["participation"],
+                "sections":[{"id":"history-master","title":"Who participates?","source_type":"NCERT","subtopic_ids":["participation"],
                              "text":"Democracy is a form of government in which the rulers are elected by the people.\n\nPolitical equality gives each adult citizen an equal voting right. This principle concerns participation in choosing representatives.","source_pages":[3]}]}
     for proficiency in PROFICIENCIES:
         lesson = compile_adaptive_lesson(material,proficiency=proficiency)
         assert 0 < len(lesson["pages"]) < 10
-        assert lesson["source_types"] == ["MASTER_NOTES"]
-        assert all(p["source"] == "Master Notes" for p in lesson["pages"])
+        assert lesson["source_types"] == ["NCERT"]
+        assert all(p["source"] == "NCERT" for p in lesson["pages"])
         text = " ".join(p["text"] for p in lesson["pages"])
         assert "elected by the people" in text
         assert "Chemistry" not in text and "NCERT" not in text
@@ -131,7 +131,7 @@ def test_numerical_solution_is_an_atomic_visible_step_with_exact_values_and_unit
     solution = "Given m = 2.00 kg and F = 6.00 N, find a.\nUse a = F/m.\na = 6.00/2.00 = 3.00 m s⁻².\nThe acceleration is directed along the net force."
     material = {"unit":{"id":"numerical","title":"A constant-mass calculation","estimated_minutes":{"min":20,"max":25},
                         "ncert_subtopics":[{"id":"calculation","title":"Calculation"}]},
-                "sections":[{"id":"worked-source","title":"Calculate the acceleration","source_type":"MASTER_NOTES", "subtopic_ids":["calculation"],
+                "sections":[{"id":"worked-source","title":"Calculate the acceleration","source_type":"NCERT", "subtopic_ids":["calculation"],
                              "text":solution,"source_pages":[4],"teaching_format":"numerical"}]}
     assert Decimal("6.00")/Decimal("2.00") == Decimal("3.00")
     for proficiency in PROFICIENCIES:
@@ -144,15 +144,15 @@ def test_numerical_solution_is_an_atomic_visible_step_with_exact_values_and_unit
 def test_chemical_formulas_charges_brackets_and_reaction_coefficients_are_unchanged():
     formulas = "Ca(OH)₂ + H₂SO₄ → CaSO₄ + 2H₂O. Fe³⁺ and SO₄²⁻ retain their stated ionic charges. C₆H₁₂O₆ contains the stated atom counts."
     material = {"unit":{"id":"chemistry","title":"Chemical notation","estimated_minutes":{"min":15,"max":20},"ncert_subtopics":[{"id":"notation"}]},
-                "sections":[{"id":"formula-source","title":"Balance and identify charges","source_type":"MASTER_NOTES", "subtopic_ids":["notation"],
+                "sections":[{"id":"formula-source","title":"Balance and identify charges","source_type":"NCERT", "subtopic_ids":["notation"],
                              "source_pages":[2],"blocks":[block("formula",formulas)]}]}
     for proficiency in PROFICIENCIES:
         assert compile_adaptive_lesson(material,proficiency=proficiency)["pages"][0]["blocks"][0]["text"] == formulas
 
 
-def test_provenance_distinguishes_retrieved_master_and_fallback_without_relabeling(physics):
+def test_provenance_preserves_mapped_ncert_sources(physics):
     lesson = compile_adaptive_lesson(physics)
-    assert lesson["source_types"] == ["MASTER_NOTES","NCERT_FALLBACK"]
+    assert lesson["source_types"] == ["NCERT"]
     sections = {s["id"]:s for s in physics["sections"]}
     for page in lesson["pages"]:
         assert page["source_refs"] and page["source_pages"]
@@ -160,7 +160,7 @@ def test_provenance_distinguishes_retrieved_master_and_fallback_without_relabeli
             assert all(sections[ref["id"]]["source_type"] == b["source_type"] for ref in b["source_refs"])
             assert set(b["subtopic_ids"]) <= set(sections[b["source_section_ids"][0]]["subtopic_ids"])
             assert all(ref["id"] in sections for ref in b["source_refs"])
-    assert any(p["source"] == "Supplementary NCERT" for p in lesson["pages"])
+    assert any(p["source"] == "NCERT" for p in lesson["pages"])
 
 
 def test_pattern_interrupts_are_source_scoped_answered_and_adapted(physics):
@@ -173,7 +173,7 @@ def test_pattern_interrupts_are_source_scoped_answered_and_adapted(physics):
         assert all(set(i["source_section_ids"]) <= {"force","balance"} for i in interrupts)
         assert all(set(i["source_refs"]) <= {s["id"] for s in physics["sections"]} for i in interrupts)
         signatures.add(tuple((i["type"],i["question"]) for i in interrupts))
-    assert len(signatures) == 4
+    assert len(signatures) == 3
 
 
 def test_page_ids_are_stable_but_source_or_view_changes_cannot_fake_completion(physics):
@@ -196,7 +196,7 @@ def test_page_ids_are_stable_but_source_or_view_changes_cannot_fake_completion(p
 @pytest.mark.parametrize("mutation",[
     lambda m:m["sections"][0].update(subtopic_ids=["unrelated"]),
     lambda m:m["sections"][0].update(source_type="guessed_source"),
-    lambda m:m["sections"][0]["blocks"][0].update(source_type="NCERT_FALLBACK"),
+    lambda m:m["sections"][0]["blocks"][0].update(source_type="guessed_source"),
     lambda m:m["sections"][0]["questions"][0].update(source_section_ids=["another-topic"]),
 ])
 def test_unrelated_or_misattributed_content_is_rejected(physics,mutation):
@@ -207,7 +207,7 @@ def test_unrelated_or_misattributed_content_is_rejected(physics,mutation):
 
 def test_optional_generation_can_only_add_anchored_support_and_never_remove_core():
     material = {"unit":{"id":"density","title":"Density","estimated_minutes":{"min":20,"max":25},"ncert_subtopics":[{"id":"density"}]},
-                "sections":[{"id":"density-master","title":"Density","source_type":"MASTER_NOTES", "subtopic_ids":["density"],
+                "sections":[{"id":"density-master","title":"Density","source_type":"NCERT", "subtopic_ids":["density"],
                              "text":"Density = mass / volume. Density connects mass to the volume occupied.","source_pages":[1]}]}
     def generated(*args,**kwargs):
         return {"support_blocks":[{"kind":"explanation","level":"foundation","text":"Mass and occupied volume both matter when discussing density.",
@@ -248,7 +248,7 @@ def test_missing_material_is_not_replaced_with_invented_content(physics):
 def test_advanced_example_selection_keeps_core_and_a_full_solution_with_atomic_reveals():
     text="Density = mass / volume. Units are g cm⁻³. Example: mass is 60 g and volume is 20 cm³. Density = 60/20 = 3 g cm⁻³. Example: mass is 80 g and volume is 20 cm³. Density = 80/20 = 4 g cm⁻³."
     material={"unit":{"id":"density","title":"Density","estimated_minutes":{"min":30,"max":35},"ncert_subtopics":[{"id":"density"}]},
-        "sections":[{"id":"master-density","title":"Density","source_type":"MASTER_NOTES","subtopic_ids":["density"],
+        "sections":[{"id":"master-density","title":"Density","source_type":"NCERT","subtopic_ids":["density"],
             "source_pages":[1],"teaching_format":"numerical","text":text}]}
     for proficiency in PROFICIENCIES:
         blocks=all_blocks(compile_adaptive_lesson(material,proficiency=proficiency))
@@ -266,7 +266,7 @@ def test_advanced_example_selection_keeps_core_and_a_full_solution_with_atomic_r
 
 def test_molecular_mass_calculations_are_separate_atomic_examples_not_a_generic_formula():
     material={"unit":{"id":"molecular-mass","title":"Molecular mass","estimated_minutes":{"min":20,"max":25},"ncert_subtopics":[{"id":"masses"}]},
-        "sections":[{"id":"masses-master","title":"Molecular mass","source_type":"MASTER_NOTES","subtopic_ids":["masses"],
+        "sections":[{"id":"masses-master","title":"Molecular mass","source_type":"NCERT","subtopic_ids":["masses"],
             "source_pages":[2],"teaching_format":"numerical","text":"Add the atomic masses of all atoms in one molecule. H₂O = 2 x 1 + 16 = 18 u. CO₂ = 12 + 2 x 16 = 44 u."}]}
     first=compile_adaptive_lesson(material)
     worked=[b for b in all_blocks(first) if b['kind']=='worked_example']
@@ -279,7 +279,7 @@ def test_molecular_mass_calculations_are_separate_atomic_examples_not_a_generic_
 def test_default_body_adaptation_is_not_earned_by_interrupts_or_labels(physics):
     views=[compile_adaptive_lesson(physics,proficiency=p) for p in PROFICIENCIES]
     body=lambda lesson:' '.join(b['text'] for page in lesson['pages'] for b in page['blocks'])
-    assert len({body(lesson) for lesson in views})==4
+    assert len({body(lesson) for lesson in views})==3
     for lesson in views:
         for page in lesson['pages']:
             for activity in page['interrupts']:

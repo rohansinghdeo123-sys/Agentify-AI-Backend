@@ -29,8 +29,6 @@ from database import Base
 from models import AdaptiveNoteLesson,ContentChapter,ContentConcept,StudyRouteState
 from services.adaptive_content_compiler import PROFICIENCIES,PROTECTED_KINDS,_source_blocks
 from services.adaptive_notes_service import compiled_lesson,reading_progress,record_reading_position
-from services.master_notes_service import install_master_notes
-from services.notes_documents_service import find_master_sections
 from services.notes_material_service import ncert_sections,retrieve_material
 from services.notes_scope_service import resolve_notes_curriculum,resolve_notes_topics
 from services.teacher_notes_service import teacher_curricula
@@ -60,9 +58,6 @@ def _restore_sources(db):
             db.add(ContentConcept(chapter_id=row.id,**{k:v for k,v in concept.items() if k in ContentConcept.__table__.columns}))
             concept_count+=1
     db.commit()
-    # The existing reviewed artifact supplies its original stored vectors;
-    # unrelated NCERT pages/chunks/vectors are intentionally not restored.
-    install_master_notes(db)
     return len(release['chapters']),concept_count
 
 
@@ -82,7 +77,7 @@ def _quality(material,payloads):
     word_counts=[_words(body) for body in bodies]
     inversions=[{'from':PROFICIENCIES[i],'to':PROFICIENCIES[i+1],
                  'words_before':word_counts[i],'words_after':word_counts[i+1]}
-                for i in range(3) if word_counts[i+1]>word_counts[i]]
+                for i in range(len(PROFICIENCIES)-1) if word_counts[i+1]>word_counts[i]]
     flexible=[b for section in material['sections'] for b in _source_blocks(section)
               if b['kind'] not in PROTECTED_KINDS]
     explanation=' '.join(b['text'] for b in flexible)
@@ -136,15 +131,11 @@ def validate():
     report={'chapters':[],'units':[],'errors':[],'quality_findings':[]}
     with Session(engine) as db:
         chapter_count,concept_count=_restore_sources(db)
-        ncert_calls=[];master_calls=[]
-        def master(*args,**kwargs):
-            master_calls.append((args[1]['curriculum_key'],args[2]['id']))
-            return find_master_sections(*args,**kwargs)
+        ncert_calls=[]
         def ncert(db_arg,curriculum,unit,missing):
             ncert_calls.append({'unit_id':unit['id'],'subtopic_ids':sorted(missing)})
             return ncert_sections(db_arg,curriculum,unit,missing)
-        with patch('services.notes_documents_service.find_master_sections',side_effect=master), \
-             patch('services.notes_material_service.ncert_sections',side_effect=ncert), \
+        with patch('services.notes_material_service.ncert_sections',side_effect=ncert), \
              patch('Logic.embeddings.embed_query',side_effect=AssertionError('Unexpected embedding call')), \
              patch('Logic.embeddings.embed_texts',side_effect=AssertionError('Unexpected embedding call')):
             for expected in teacher_curricula():
@@ -162,15 +153,10 @@ def validate():
                             assert unit in resolve_notes_topics(db,curriculum,subtopic['id']),'Existing subtopic lost binding'
                         calls_before=len(ncert_calls)
                         material=retrieve_material(db,curriculum,unit)
-                        assert master_calls[-1]==(curriculum['curriculum_key'],unit['id']),'Master retrieval did not run first'
                         assert not material['missing_subtopics'],'Uncovered mapped source sections: '+str(material['missing_subtopics'])
                         assert not material['conflicts'],'Source conflict/review required: '+str(material['conflicts'])
                         allowed={s['id'] for s in unit['ncert_subtopics']}
-                        covered=set(material['master_covered_subtopics'])
-                        if covered==allowed:
-                            assert len(ncert_calls)==calls_before,'NCERT queried despite sufficient Master Notes'
-                        else:
-                            assert ncert_calls[-1]['subtopic_ids']==sorted(allowed-covered),'NCERT queried outside gaps'
+                        assert len(ncert_calls)==calls_before+1 and ncert_calls[-1]['subtopic_ids']==sorted(allowed)
                         assert all(set(s['subtopic_ids'])<=allowed for s in material['sections']),'Retrieved neighboring section'
                         payloads=[]
                         for proficiency in PROFICIENCIES:
@@ -195,7 +181,7 @@ def validate():
                         assert progress['saved_page']==last and progress['completed_page_ids']==[payload['pages'][last]['id']]
                         assert state.runtime_json['mastery_unchanged'] is True
                         item.update(source_types=Counter(s['source_type'] for s in material['sections']),
-                            subtopics=len(allowed),master_covered_subtopics=len(covered),
+                            subtopics=len(allowed),
                             pages=dict(zip(PROFICIENCIES,[len(p['pages']) for p in payloads])),cache_reused=True,bookmark_verified=True,
                             **_quality(material,payloads))
                         if item['depth_inversions'] or (item['sufficient_explanatory_content'] and item['identical_science_levels']):
@@ -207,8 +193,7 @@ def validate():
                         report['errors'].append({'unit_id':unit['id'],'reason':str(exc)})
             report['summary']={'restored_chapters':chapter_count,'restored_concepts':concept_count,
                 'units':len(report['units']),'persisted_variants':db.query(AdaptiveNoteLesson).count(),
-                'master_queries':len(master_calls),'ncert_queries':len(ncert_calls),
-                'master_only_units':sum(u.get('source_types')=={'MASTER_NOTES':sum(u.get('source_types',{}).values())} for u in report['units']),
+                'ncert_queries':len(ncert_calls),
                 'identical_science_body_units':sum(bool(u.get('identical_science_levels')) for u in report['units']),
                 'depth_inversion_units':sum(bool(u.get('depth_inversions')) for u in report['units']),
                 'quality_findings':len(report['quality_findings']),'errors':len(report['errors']),

@@ -309,7 +309,7 @@ def test_screenshot_group_and_final_review_expose_all_related_lessons_without_st
 
 
 def test_original_seed_topic_links_remain_compatible(db):
-    from services.master_notes_service import CHAPTER_ONE_SEED_GROUPS
+    from scripts.build_notes_topic_index import CHAPTER_ONE_SEED_GROUPS
     c = teacher_curricula()[0]
     for alias, index in CHAPTER_ONE_SEED_GROUPS.items():
         notes = mapped_notes(c['chapter_slug'],alias,db,'seed-reader')
