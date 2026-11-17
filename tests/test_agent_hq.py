@@ -316,6 +316,38 @@ def test_optional_model_timeout_preserves_operational_finding(hq, monkeypatch):
     assert "private provider diagnostic" not in str(reply)
 
 
+def test_direct_chat_greets_then_answers_with_previous_turn_and_supports_reports(hq, monkeypatch):
+    calls = []
+
+    def answer(system, data):
+        calls.append((system, data))
+        return "An analogy can help a student connect a new idea to something familiar."
+
+    monkeypatch.setattr(agent_hq, "_chat_completion", answer)
+    hello_id = hq.post_run(topic="Hi!").json()["id"]
+    hq.process_next()
+    hello = hq.detail(hello_id)
+    assert hello["messages"][-1]["kind"] == "reply"
+    assert hello["messages"][-1]["text"].startswith("Hello!")
+    assert calls == []
+
+    followup = hq.post_run(parent_run_id=hello_id, topic="When would you use analogies in a lesson?")
+    hq.process_next()
+    reply = hq.detail(followup.json()["id"])
+    assert reply["messages"][-1]["text"].startswith("An analogy")
+    assert [message["kind"] for message in reply["messages"]] == ["request", "reply", "request", "reply"]
+    assert calls[0][1]["previous_turns"] == [{"question": "Hi!", "answer": hello["result"]["summary"]}]
+    assert calls[0][1]["name"] == hello["result"]["summary"].split("I'm ")[1].split(",")[0]
+
+    evidence = hq.post_run(topic="Give me your activity report for the past seven days.")
+    hq.process_next()
+    report = hq.detail(evidence.json()["id"])
+    assert report["days"] == 7
+    assert report["messages"][-1]["kind"] == "finding"
+    assert report["result"]["findings"][0]["metrics"]["recorded"] == 0
+    assert len(calls) == 1
+
+
 def test_sse_reconnect_gets_the_latest_persisted_version(hq, monkeypatch):
     clock = count(step=30)
     monkeypatch.setattr(routes, "time", SimpleNamespace(monotonic=lambda: next(clock)))

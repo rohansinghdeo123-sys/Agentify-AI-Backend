@@ -23,7 +23,7 @@ from database import SessionLocal, get_db
 from models import AgentHQRecommendationDecision, AgentHQRun, AgentHQSchedule
 from services.admin_service import record_admin_audit
 from services.agent_hq import (
-    ACTIVE_STATUSES, MAX_PARTICIPANTS, add_run, event_version, iso, job_queue,
+    ACTIVE_STATUSES, MAX_PARTICIPANTS, add_run, conversation_days, event_version, iso, job_queue,
     load_snapshot, next_schedule_run, run_detail, serialize_run, utcnow,
 )
 from services.agent_hq_access import list_agent_hq_executives, require_agent_hq_executive
@@ -152,6 +152,7 @@ def create_run(payload: RunRequest, request: Request, db: Session = Depends(get_
     if not participants:
         participants = ids[:MAX_PARTICIPANTS]
     topic = payload.topic or {"standup": "Daily standup", "report": "Executive report"}[payload.kind]
+    days = conversation_days(topic, payload.days) if payload.kind == "direct" else payload.days
     uid = executive["uid"]
     request_id = str(payload.request_id)
     _lock_updates(db)
@@ -159,7 +160,7 @@ def create_run(payload: RunRequest, request: Request, db: Session = Depends(get_
     if existing:
         if (existing.kind, existing.topic, existing.participant_ids, existing.days, existing.parent_run_id,
             existing.ending_on) != (
-            payload.kind, topic, participants, payload.days, parent_id, payload.ending_on
+            payload.kind, topic, participants, days, parent_id, payload.ending_on
         ):
             raise HTTPException(409, "Request ID already belongs to a different operation")
         return run_detail(db, existing)
@@ -169,7 +170,7 @@ def create_run(payload: RunRequest, request: Request, db: Session = Depends(get_
         raise HTTPException(429, "Agent HQ request capacity reached. Wait for current work or try later.")
     try:
         run = add_run(db, actor_uid=uid, request_id=request_id, kind=payload.kind, topic=topic,
-                      participant_ids=participants, days=payload.days, parent_run_id=parent_id,
+                      participant_ids=participants, days=days, parent_run_id=parent_id,
                       ending_on=payload.ending_on)
         record_admin_audit(db, current_admin=executive, action="agent_hq_run", target_type="agent_hq_run",
                            target_id=run.id, metadata={"kind": run.kind, "participant_ids": participants}, request=request)
