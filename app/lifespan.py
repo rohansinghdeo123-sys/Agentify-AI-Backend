@@ -174,7 +174,9 @@ async def lifespan(app):
     init_telemetry()
 
     from services.job_queue import job_queue
+    from services.agent_hq import register_agent_hq
 
+    register_agent_hq()
     job_queue.start()
 
     yield

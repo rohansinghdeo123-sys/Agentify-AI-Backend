@@ -23,6 +23,7 @@ from app.rate_limit import client_rate_key, minute_limit_for_path, rate_limiter
 from routers import (
     admin,
     agent,
+    agent_hq,
     coach,
     exam_papers,
     health,
@@ -135,6 +136,7 @@ app.include_router(coach.router)
 app.include_router(health.router)
 app.include_router(admin.router)
 app.include_router(notes_admin.router)
+app.include_router(agent_hq.router)
 app.include_router(progress.router)
 app.include_router(planning.router)
 app.include_router(profile.router)

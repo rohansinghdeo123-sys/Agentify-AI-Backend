@@ -107,15 +107,20 @@ BACKEND_ADMIN_PHONES = parse_csv_env("BACKEND_ADMIN_PHONES")
 # Product-owner identities are deliberately explicit rather than inferred from
 # a client-side/Vercel variable. Environment entries remain additive, so
 # deployments can grant further founder-console access without changing code.
-BUILTIN_FOUNDER_ADMIN_EMAILS = {
-    "amit.kumarmunda4@gmail.com",
-    "rohan.singhdeo123@gmail.com",
+BUILTIN_FOUNDER_IDENTITIES = {
+    "amit": "amit.kumarmunda4@gmail.com",
+    "rohan": "rohan.singhdeo123@gmail.com",
 }
+BUILTIN_FOUNDER_ADMIN_EMAILS = set(BUILTIN_FOUNDER_IDENTITIES.values())
 BACKEND_FOUNDER_ADMIN_EMAILS = (
     BUILTIN_FOUNDER_ADMIN_EMAILS
     | BACKEND_ADMIN_EMAILS
     | parse_csv_env("BACKEND_FOUNDER_ADMIN_EMAILS")
 )
+AGENT_HQ_EXECUTIVE_UIDS = {
+    "rohan": os.getenv("AGENT_HQ_ROHAN_UID", "").strip(),
+    "amit": os.getenv("AGENT_HQ_AMIT_UID", "").strip(),
+}
 
 # ================= PLANNING <-> STUDY LAB INTEGRATION =================
 # Shared Planning and Study Lab routes; deployments may explicitly opt out.

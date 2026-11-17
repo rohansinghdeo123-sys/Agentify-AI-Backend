@@ -410,11 +410,12 @@ def execute_agentic_request(request, db: Optional[Any] = None) -> dict:
         result = _agent_executor(route)(request, db)
         agent_latency_ms = round((time.time() - started_at) * 1000)
 
+        status = _execution_status(result)
         event_bus.emit(
             route.primary_agent,
             "task_complete",
             {
-                "status": "success",
+                "status": status,
                 "message": f"{AGENT_REGISTRY[route.primary_agent].display_name} completed.",
                 "run_id": route.run_id,
                 "latency_ms": agent_latency_ms,
@@ -439,6 +440,7 @@ def execute_agentic_request(request, db: Optional[Any] = None) -> dict:
             "answer": "The agentic system hit an internal error while processing this request.",
             "metadata": {"agent": route.primary_agent, "error": str(exc)},
         }
+        status = "failed"
 
     latency_ms = round((time.time() - started_at) * 1000)
     response = _attach_run_metadata(result, route, latency_ms)
@@ -458,18 +460,26 @@ def execute_agentic_request(request, db: Optional[Any] = None) -> dict:
             agent=route.primary_agent,
             turn_id=route.run_id,
             session_id=session_id,
-            status="success" if result_meta.get("quality_passed", True) else "needs_review",
+            status=status,
             latency_ms=latency_ms,
             quality=quality,
             model_calls=model_gateway.records(),
             metadata={"mode": route.mode, "intent": route.intent},
+            record_dispatch=True,
         )
-
+    else:
+        persist_agent_trace(
+            agent="orchestrator",
+            turn_id=route.run_id,
+            status=status,
+            latency_ms=latency_ms,
+            trace_type="dispatch",
+        )
     event_bus.emit(
         "orchestrator",
         "task_complete",
         {
-            "status": "success",
+            "status": status,
             "message": f"Delivered by {route.primary_agent}. Total latency: {latency_ms}ms",
             "run_id": route.run_id,
             "target_agent": route.primary_agent,
@@ -479,3 +489,13 @@ def execute_agentic_request(request, db: Optional[Any] = None) -> dict:
     )
 
     return response
+
+
+def _execution_status(result: Any) -> str:
+    """Classify recorded outcomes without changing the student response."""
+    if not isinstance(result, dict) or result.get("type") == "error" or result.get("error"):
+        return "failed"
+    metadata = result.get("metadata")
+    if isinstance(metadata, dict) and metadata.get("quality_passed") is False:
+        return "needs_review"
+    return "success"

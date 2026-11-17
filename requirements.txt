@@ -20,6 +20,7 @@ idna==3.11
 cryptography==48.0.0
 six==1.17.0
 python-dateutil==2.9.0.post0
+tzdata==2026.1
 pg8000
 pypdf>=5.0,<7.0
 pdfplumber>=0.11,<0.12

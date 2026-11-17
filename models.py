@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from sqlalchemy import Boolean, Column, Date, DateTime, Float, ForeignKey, Index, Integer, JSON, String, Text, UniqueConstraint
+from sqlalchemy import Boolean, CheckConstraint, Column, Date, DateTime, Float, ForeignKey, Index, Integer, JSON, String, Text, UniqueConstraint
 from sqlalchemy.orm import relationship
 
 from database import Base
@@ -675,6 +675,85 @@ class AdminAuditLog(Base):
 # =========================================================
 # AGENT RUNTIME
 # =========================================================
+class AgentHQRun(Base):
+    """A bounded executive request and its durable result."""
+
+    __tablename__ = "agent_hq_runs"
+    __table_args__ = (
+        UniqueConstraint("actor_uid", "request_id", name="uq_agent_hq_run_request"),
+        Index("ix_agent_hq_runs_created", "created_at", "id"),
+        Index("ix_agent_hq_runs_status_created", "status", "created_at"),
+        Index("ix_agent_hq_runs_updated", "updated_at"),
+        Index("ix_agent_hq_runs_parent", "parent_run_id"),
+        CheckConstraint("kind IN ('direct','meeting','standup','report')", name="ck_agent_hq_run_kind"),
+        CheckConstraint("status IN ('queued','running','completed','failed')", name="ck_agent_hq_run_status"),
+        CheckConstraint("days BETWEEN 1 AND 90", name="ck_agent_hq_run_days"),
+    )
+
+    id = Column(String(36), primary_key=True)
+    parent_run_id = Column(String(36), ForeignKey("agent_hq_runs.id", ondelete="SET NULL"))
+    actor_uid = Column(String(128), nullable=False)
+    request_id = Column(String(128), nullable=False)
+    kind = Column(String(16), nullable=False)
+    topic = Column(Text, nullable=False)
+    participant_ids = Column(JSON, nullable=False, default=list)
+    days = Column(Integer, nullable=False, default=1)
+    ending_on = Column(Date)
+    status = Column(String(16), nullable=False, default="queued")
+    created_at = Column(DateTime, nullable=False, default=_utcnow_naive)
+    updated_at = Column(DateTime, nullable=False, default=_utcnow_naive, onupdate=_utcnow_naive)
+    started_at = Column(DateTime)
+    finished_at = Column(DateTime)
+    result = Column(JSON, nullable=False, default=dict)
+
+
+class AgentHQMessage(Base):
+    """An ordered contribution or handoff within an executive run."""
+
+    __tablename__ = "agent_hq_messages"
+    __table_args__ = (Index("ix_agent_hq_messages_run_order", "run_id", "id"),)
+
+    id = Column(Integer, primary_key=True)
+    run_id = Column(String(36), ForeignKey("agent_hq_runs.id", ondelete="CASCADE"), nullable=False)
+    agent_id = Column(String(128))
+    kind = Column(String(32), nullable=False)
+    text = Column(Text, nullable=False)
+    evidence = Column(JSON, nullable=False, default=list)
+    created_at = Column(DateTime, nullable=False, default=_utcnow_naive)
+
+
+class AgentHQRecommendationDecision(Base):
+    """A CEO's disposition of an evidence-backed recommendation."""
+
+    __tablename__ = "agent_hq_recommendation_decisions"
+
+    recommendation_id = Column(String(128), primary_key=True)
+    status = Column(String(16), nullable=False)
+    actor_uid = Column(String(128), nullable=False)
+    note = Column(Text, nullable=False, default="")
+    updated_at = Column(DateTime, nullable=False, default=_utcnow_naive, onupdate=_utcnow_naive)
+
+
+class AgentHQSchedule(Base):
+    """Organization-wide standup schedule stored in UTC and local wall time."""
+
+    __tablename__ = "agent_hq_schedules"
+    __table_args__ = (
+        CheckConstraint("id = 1", name="ck_agent_hq_schedule_singleton"),
+        CheckConstraint("hour BETWEEN 0 AND 23", name="ck_agent_hq_schedule_hour"),
+        CheckConstraint("minute BETWEEN 0 AND 59", name="ck_agent_hq_schedule_minute"),
+    )
+
+    id = Column(Integer, primary_key=True, default=1, autoincrement=False)
+    enabled = Column(Boolean, nullable=False, default=False)
+    timezone = Column(String(64), nullable=False, default="Asia/Kolkata")
+    hour = Column(Integer, nullable=False, default=9)
+    minute = Column(Integer, nullable=False, default=0)
+    next_run_at = Column(DateTime, nullable=True)
+    actor_uid = Column(String(128), nullable=False, default="")
+    updated_at = Column(DateTime, nullable=False, default=_utcnow_naive, onupdate=_utcnow_naive)
+
+
 class AgentRuntimeRun(Base):
     """
     Durable execution envelope for one controlled agent workflow.

@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import logging
 import threading
+import time
 import uuid
 from datetime import datetime
 from typing import Any, Callable, Dict, Optional
@@ -33,12 +34,22 @@ class DbJobQueue:
         self._session_factory = session_factory
         self._poll_seconds = poll_seconds
         self._handlers: Dict[str, JobHandler] = {}
+        self._leased_job_types: set[str] = set()
+        self._maintenance: dict[str, tuple[float, Callable[[Session], None]]] = {}
         self._wake = threading.Event()
         self._stop = threading.Event()
         self._thread: Optional[threading.Thread] = None
 
-    def register(self, job_type: str, handler: JobHandler) -> None:
+    def register(self, job_type: str, handler: JobHandler, *, leased: bool = False) -> None:
         self._handlers[job_type] = handler
+        if leased:
+            self._leased_job_types.add(job_type)
+
+    def register_maintenance(self, name: str, interval: float, handler: Callable[[Session], None]) -> None:
+        self._maintenance[name] = (interval, handler)
+
+    def wake(self) -> None:
+        self._wake.set()
 
     def submit(
         self,
@@ -91,7 +102,7 @@ class DbJobQueue:
                 db.query(ContentIngestionJob)
                 .filter(
                     ContentIngestionJob.status == "running",
-                    ContentIngestionJob.job_type.in_(list(self._handlers)),
+                    ContentIngestionJob.job_type.in_(set(self._handlers) - self._leased_job_types),
                 )
                 .all()
             )
@@ -110,7 +121,17 @@ class DbJobQueue:
 
     # ── worker ───────────────────────────────────────────────────────────
     def _loop(self) -> None:
+        due: dict[str, float] = {}
         while not self._stop.is_set():
+            for name, (interval, handler) in self._maintenance.items():
+                now = time.monotonic()
+                if due.get(name, 0) <= now:
+                    due[name] = now + interval
+                    try:
+                        with self._session_factory() as db:
+                            handler(db)
+                    except Exception:
+                        logger.exception("Queue maintenance failed for %s", name)
             job_id = self._claim_next()
             if job_id is None:
                 self._wake.wait(timeout=self._poll_seconds)
@@ -132,10 +153,14 @@ class DbJobQueue:
             )
             if job is None:
                 return None
-            job.status = "running"
-            job.updated_at = datetime.utcnow()
+            changed = (
+                db.query(ContentIngestionJob)
+                .filter_by(id=job.id, status="queued")
+                .update({"status": "running", "updated_at": datetime.utcnow()}, synchronize_session=False)
+            )
+            job_id = job.job_id
             db.commit()
-            return job.job_id
+            return job_id if changed else None
         except Exception as exc:
             db.rollback()
             logger.warning("Job claim failed: %s", exc)
@@ -159,7 +184,7 @@ class DbJobQueue:
             try:
                 result = handler(db, job)
                 db.refresh(job)
-                if result:
+                if result and job.status != "failed":
                     job.summary = {**(job.summary or {}), "result": result}
                 if job.status == "running":
                     job.status = "completed"

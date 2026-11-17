@@ -16,6 +16,14 @@ import models  # noqa: F401 - register the complete legacy schema
 from database import Base
 
 
+HQ_TABLES = (
+    "agent_hq_messages",
+    "agent_hq_recommendation_decisions",
+    "agent_hq_schedules",
+    "agent_hq_runs",
+)
+
+
 MIGRATION_PATH = (
     Path(__file__).parents[1]
     / "migrations"
@@ -107,12 +115,13 @@ def test_migration_entrypoint_bootstraps_and_reopens_a_clean_database(tmp_path: 
         inspector = sa.inspect(connection)
         tables = set(inspector.get_table_names())
         assert {"user_progress", "content_chapters", "planning_learning_events"} <= tables
+        assert set(HQ_TABLES) <= tables
         columns = {
             item["name"] for item in inspector.get_columns("content_chapters")
         }
         assert "published_source_hash" in columns
         version = connection.execute(sa.text("SELECT version_num FROM alembic_version")).scalar_one()
-        assert version == "20261116_0019"
+        assert version == "20261117_0020"
 
 
 def test_deployment_commands_run_schema_entrypoint_before_server() -> None:
@@ -141,7 +150,7 @@ def test_migration_entrypoint_accepts_empty_local_database_url(tmp_path: Path) -
     engine = sa.create_engine(f"sqlite:///{(tmp_path / 'ai_educator.db').as_posix()}")
     with engine.connect() as connection:
         version = connection.execute(sa.text("SELECT version_num FROM alembic_version")).scalar_one()
-        assert version == "20261116_0019"
+        assert version == "20261117_0020"
 
 
 def test_migration_entrypoint_upgrades_an_unversioned_legacy_database(tmp_path: Path) -> None:
@@ -151,6 +160,8 @@ def test_migration_entrypoint_upgrades_an_unversioned_legacy_database(tmp_path: 
     legacy_engine = sa.create_engine(database_url)
     Base.metadata.create_all(bind=legacy_engine)
     with legacy_engine.begin() as connection:
+        for table_name in HQ_TABLES:
+            Base.metadata.tables[table_name].drop(connection)
         connection.execute(
             sa.text("ALTER TABLE content_chapters DROP COLUMN published_source_hash")
         )
@@ -171,9 +182,15 @@ def test_migration_entrypoint_upgrades_an_unversioned_legacy_database(tmp_path: 
 
     with legacy_engine.connect() as connection:
         inspector = sa.inspect(connection)
+        assert set(HQ_TABLES) <= set(inspector.get_table_names())
+        assert any(
+            item["name"] == "uq_agent_hq_run_request"
+            and item["column_names"] == ["actor_uid", "request_id"]
+            for item in inspector.get_unique_constraints("agent_hq_runs")
+        )
         columns = {
             item["name"] for item in inspector.get_columns("content_chapters")
         }
         assert "published_source_hash" in columns
         version = connection.execute(sa.text("SELECT version_num FROM alembic_version")).scalar_one()
-        assert version == "20261116_0019"
+        assert version == "20261117_0020"

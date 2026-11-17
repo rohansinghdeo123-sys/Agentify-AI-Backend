@@ -478,7 +478,11 @@ def build_admin_traces(
                 "status": next((row.status for row in group if row.trace_type == "turn"), group[0].status if group else "unknown"),
                 "user_id": next((row.user_id for row in group if row.user_id), ""),
                 "session_id": next((row.session_id for row in group if row.session_id), ""),
-                "total_latency_ms": sum(_admin_int(row.latency_ms) for row in group if row.trace_type != "route"),
+                "total_latency_ms": sum(
+                    _admin_int(row.latency_ms) for row in group
+                    if row.trace_type != "route"
+                    and not (row.trace_type == "dispatch" and any(item.trace_type == "turn" for item in group))
+                ),
                 "estimated_cost_usd": round(sum(_admin_float(row.estimated_cost_usd) for row in group), 8),
                 "models": sorted({row.model for row in group if row.model}),
                 "timeline": _timeline_for_trace_group(group),

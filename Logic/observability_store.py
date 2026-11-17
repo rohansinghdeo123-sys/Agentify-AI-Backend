@@ -249,6 +249,8 @@ def persist_agent_trace(
     quality: Optional[Dict[str, Any]] = None,
     model_calls: Optional[Iterable[Dict[str, Any]]] = None,
     metadata: Optional[Dict[str, Any]] = None,
+    trace_type: str = "turn",
+    record_dispatch: bool = False,
 ) -> Dict[str, Any]:
     """Durably trace one legacy-agent run (revision / exam / tutor / planner).
 
@@ -273,8 +275,8 @@ def persist_agent_trace(
                 user_id=user_id or None,
                 session_id=session_id or None,
                 turn_id=turn_id,
-                trace_type="turn",
-                name=f"{agent}_turn",
+                trace_type=trace_type,
+                name=f"{agent}_{trace_type}",
                 status=status,
                 latency_ms=_as_int(latency_ms),
                 estimated_input_tokens=total_input,
@@ -283,6 +285,16 @@ def persist_agent_trace(
                 metadata_json=turn_meta,
             )
         )
+        if record_dispatch:
+            db.add(
+                ModelToolTrace(
+                    turn_id=turn_id,
+                    trace_type="dispatch",
+                    name="orchestrator_dispatch",
+                    status=status,
+                    latency_ms=_as_int(latency_ms),
+                )
+            )
         for call in calls:
             call_status = str(call.get("status") or "success")
             db.add(
