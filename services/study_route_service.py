@@ -623,7 +623,8 @@ def _finish_notes_topic(db, state, topic, position):
     lesson = db.query(AdaptiveNoteLesson).filter_by(content_version=version, unit_id=topic).first()
     reading = runtime.get('notes_reading_by_version', {}).get(version, {}).get(topic, {})
     if (not lesson or lesson.curriculum_key != state.active_curriculum_key
-            or lesson.payload_json.get('compiler_version') != COMPILER_VERSION
+            or lesson.payload_json.get('compiler_version') not in {COMPILER_VERSION, 'adaptive_content_v4'}
+            or lesson.payload_json.get('source_types') != ['NCERT']
             or not lesson.payload_json['pages']
             or {p['id'] for p in lesson.payload_json['pages']} != set(reading.get('completed_page_ids', []))):
         raise StudyRouteError('Read the remaining pages before finishing this topic')

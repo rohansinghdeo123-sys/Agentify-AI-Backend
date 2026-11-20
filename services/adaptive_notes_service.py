@@ -47,18 +47,25 @@ def record_reading_position(db, state, position, curriculum, topic):
     state.runtime_json = runtime
 
 
-def learner_settings(db, user_id, state, curriculum, unit):
-    proficiency, style, allocated = 'new_to_it','balanced',None
+def _selected_chapter(db, state, curriculum):
     if state and same_scope(curriculum,state.subject,state.class_level):
-        selected = next((s for s in state.selections_json or [] if (resolve_notes_curriculum(db,s.get('chapter_ref'),subject=state.subject,class_level=state.class_level) or {}).get('curriculum_key') == curriculum['curriculum_key']),None)
-        if selected:
-            proficiency = selected.get('chapter_proficiency') or proficiency
-            from services.study_route_service import _build_portfolio_from_state
-            portfolio = _build_portfolio_from_state(db,state)
-            chapter = next((c for c in portfolio['chapters'] if c['curriculum_key'] == curriculum['curriculum_key']),{})
-            proficiency = chapter.get('effective_proficiency',{}).get('effective',proficiency)
-            allocated = sum(i['minutes'] for i in (state.runtime_json or {}).get('today_route',{}).get('items',[])
-                            if i.get('unit_id') == unit['id'] and i.get('role') == 'main_focus') or None
+        for selection in state.selections_json or []:
+            selected = resolve_notes_curriculum(db,selection.get('chapter_ref'),subject=state.subject,class_level=state.class_level)
+            if selected and selected['curriculum_key'] == curriculum['curriculum_key']:
+                return selection
+    return None
+
+
+def learner_settings(db, user_id, state, selection, unit):
+    from services.adaptive_content_compiler import PROFICIENCIES
+
+    proficiency, style, allocated = 'new_to_it','balanced',None
+    if selection:
+        chosen = selection.get('chapter_proficiency')
+        if chosen in PROFICIENCIES:
+            proficiency = chosen
+        allocated = sum(i['minutes'] for i in (state.runtime_json or {}).get('today_route',{}).get('items',[])
+                        if i.get('unit_id') == unit['id'] and i.get('role') == 'main_focus') or None
     profile = db.query(AICoachProfile).filter_by(user_id=user_id).first()
     prefs = profile.study_preferences or {} if profile else {}
     preference = str(prefs.get('preferred_style') or prefs.get('answer_style') or prefs.get('feedback_depth') or '').lower()
@@ -171,7 +178,8 @@ def notes_response(db, chapter_ref, topic_id, user_id, *, subject=None,class_lev
                 'pages':[],'concepts':[],'can_save_position':False,'topic_options':[{'id':u['id'],'title':u['title'],
                 'estimated_minutes':dict(u['estimated_minutes'])} for u in units]}
     unit = units[0]
-    proficiency,style,allocation = learner_settings(db,user_id,state,curriculum,unit)
+    selection = _selected_chapter(db,state,curriculum)
+    proficiency,style,allocation = learner_settings(db,user_id,state,selection,unit)
     payload, material = compiled_lesson(db,curriculum,unit,proficiency=proficiency,style=style,requested_version=content_version)
     progress = reading_progress(state,unit,payload)
     if topic_id and identity(topic_id) != identity(unit['id']) and payload['pages']:
@@ -181,31 +189,32 @@ def notes_response(db, chapter_ref, topic_id, user_id, *, subject=None,class_lev
             entry = next((i for i,p in enumerate(payload['pages']) if chosen.intersection(p['source_section_ids'])),None)
             if entry is not None:
                 progress.update(saved_page=entry,saved_page_id=payload['pages'][entry]['id'])
-    selected = bool(state and same_scope(curriculum,state.subject,state.class_level) and any((resolve_notes_curriculum(db,s.get('chapter_ref'),subject=state.subject,class_level=state.class_level) or {}).get('curriculum_key') == curriculum['curriculum_key'] for s in state.selections_json or []))
-    session = None
-    if planned and selected and state.current_unit_id == unit['id'] and payload['pages']:
-        state = _get_state(db,user_id,lock=True)
-        if state.current_unit_id == unit['id'] and state.active_curriculum_key == curriculum['curriculum_key']:
-            session = timed_session(state,start=state.status != 'completed',restart=start_session)
-            if session:
-                remaining_minutes = session['remaining_seconds'] / 60
-                allocation = min(allocation, remaining_minutes) if allocation is not None else remaining_minutes
+    version = payload['content_version']
     runtime = state.runtime_json or {} if state else {}
-    starts = runtime.get('notes_session_start_positions',{}).get(payload['content_version'],{})
-    if selected and unit['id'] not in starts:
-        # Freeze the day's first reading anchor. Advancing a page must not
-        # silently advance the whole recommended session window on reload.
+    starts = runtime.get('notes_session_start_positions',{}).get(version,{})
+    session = None
+    if selection and (unit['id'] not in starts or (planned and payload['pages'] and state.current_unit_id == unit['id'])):
         state = _get_state(db,user_id,lock=True)
-        runtime = deepcopy(state.runtime_json or {})
-        starts = runtime.setdefault('notes_session_start_positions',{}).setdefault(payload['content_version'],{})
-        starts.setdefault(unit['id'],progress['saved_page'])
-        state.runtime_json = runtime
+        selection = _selected_chapter(db,state,curriculum)
+        if selection:
+            if planned and payload['pages'] and state.current_unit_id == unit['id'] and state.active_curriculum_key == curriculum['curriculum_key']:
+                session = timed_session(state,start=state.status != 'completed',restart=start_session)
+                if session:
+                    remaining_minutes = session['remaining_seconds'] / 60
+                    allocation = min(allocation, remaining_minutes) if allocation is not None else remaining_minutes
+            # Save the timer and the day's reading anchor under the same lock.
+            # Reloading the row between updates can discard the unflushed timer.
+            runtime = deepcopy(state.runtime_json or {})
+            starts = runtime.setdefault('notes_session_start_positions',{}).setdefault(version,{})
+            if unit['id'] not in starts:
+                starts[unit['id']] = progress['saved_page']
+                state.runtime_json = runtime
     start = starts.get(unit['id'],progress['saved_page'])
     return {**payload,**progress,'chapter':chapter,'topic_id':unit['id'],'topic_title':unit['title'],'requested_topic_id':topic_id,
         'study_session':session,'topic_read':bool(state and unit['id'] in (state.runtime_json or {}).get('read_unit_ids',[])),
         'estimated_minutes':dict(unit['estimated_minutes']),'subtopics':unit['ncert_subtopics'],
         'catalog_source':'published' if curriculum['source']['authority']=='approved_content_pipeline' else 'planning_manifest',
-        'active_unit_id':state.current_unit_id if state else None,'can_save_position':selected,'allocated_session_minutes':allocation,
+        'active_unit_id':state.current_unit_id if state else None,'can_save_position':bool(selection),'allocated_session_minutes':allocation,
         'session_portion':session_portion(payload['pages'],unit,start_page=start,session_minutes=allocation),
         'source_types':list(dict.fromkeys(s['source_type'] for s in material['sections'])),'concepts':[]}
 

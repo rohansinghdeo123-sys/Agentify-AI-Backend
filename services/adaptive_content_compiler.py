@@ -13,7 +13,7 @@ import re
 from copy import deepcopy
 from typing import Any
 
-COMPILER_VERSION = "adaptive_content_v4"
+COMPILER_VERSION = "adaptive_content_v5"
 PROFICIENCIES = ("new_to_it", "know_the_basics", "mostly_confident")
 SOURCE_LABELS = {"NCERT": "NCERT"}
 PROFICIENCY_LABELS = {
@@ -234,7 +234,6 @@ def _include_block(block, proficiency, style, duration):
         if proficiency == "new_to_it":
             return style != "concise" or kind not in {"connection", "example"}
         return style == "detailed" or bool(block.get("necessary_prerequisite"))
-        return style == "detailed"
     if level == "extension":
         return (style == "detailed" or duration["max"] >= 60) and style != "concise" and proficiency == "new_to_it"
     return False
@@ -244,15 +243,18 @@ def _present_block(block, section, ordinal, proficiency, style):
     result = deepcopy(block)
     text = result["text"]
     protected = result["kind"] in PROTECTED_KINDS
-    if proficiency != "new_to_it" and style != "detailed" and not protected:
+    if proficiency != "new_to_it" and not protected:
         sentences = _sentences(text)
         critical=[sentence for sentence in sentences if _critical_sentence(sentence)]
         # An authored teaching step keeps its explicit main claim beside its
         # qualifications. A compact extracted paragraph instead prioritises
         # the precise conditions for a basics-level recap; its complete source
         # explanation remains available on the same block.
+        leading_sentences = int(style == "detailed")
+        if proficiency == "know_the_basics" and (not critical or section.get("_native_blocks")):
+            leading_sentences += 1
         selected = [sentence for index, sentence in enumerate(sentences)
-                    if (index == 0 and proficiency=="know_the_basics" and (not critical or section.get("_native_blocks"))) or _critical_sentence(sentence)]
+                    if index < leading_sentences or _critical_sentence(sentence)]
         if not selected:
             selected=sentences[:1]
         capsule = " ".join(selected)
@@ -291,7 +293,7 @@ def _worked_preview(text, proficiency):
 
 
 def _adaptation_plan(sections, proficiency, style):
-    if proficiency=="new_to_it" or style=="detailed":
+    if proficiency=="new_to_it":
         return set(),set()
     collapsed,previews=set(),set()
     seen_examples=set()
@@ -317,9 +319,13 @@ def _adaptation_plan(sections, proficiency, style):
         previews={key for key,_ in worked if key not in retained}
     if proficiency=="mostly_confident":
         for section in sections:
+            has_support = False
             for ordinal,block in enumerate(section["blocks"]):
                 if block["kind"] in {"explanation","clarification","connection","takeaway"} and not any(_critical_sentence(s) for s in _sentences(block["text"])):
-                    collapsed.add((section["id"],ordinal))
+                    if style == "detailed" and not has_support:
+                        has_support = True
+                    else:
+                        collapsed.add((section["id"],ordinal))
     return collapsed,previews
 
 
@@ -652,7 +658,7 @@ def compile_adaptive_lesson(material, *, proficiency="new_to_it", style="balance
         "essential_block_ids":_ordered(essential_ids),
         "adaptation":{"level":PROFICIENCIES.index(proficiency)+1,
                       "depth":"extended" if duration["max"] >= 60 else "developed" if duration["max"] >= 40 else "focused",
-                      "full_explanations":proficiency == "new_to_it" or style=="detailed",
+                      "full_explanations":proficiency == "new_to_it",
                       "enrichment_status":enrichment_status},
         "conflicts":deepcopy(material.get("conflicts") or []),
         "missing_subtopics":deepcopy(material.get("missing_subtopics") or []),

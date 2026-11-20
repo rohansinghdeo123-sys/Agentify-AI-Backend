@@ -276,8 +276,9 @@ def test_molecular_mass_calculations_are_separate_atomic_examples_not_a_generic_
     assert any(b['kind']=='worked_example' and not b.get('presentation') for b in all_blocks(confident))
 
 
-def test_default_body_adaptation_is_not_earned_by_interrupts_or_labels(physics):
-    views=[compile_adaptive_lesson(physics,proficiency=p) for p in PROFICIENCIES]
+@pytest.mark.parametrize("style", ["balanced", "concise", "detailed"])
+def test_body_adaptation_is_not_earned_by_interrupts_or_labels(physics, style):
+    views=[compile_adaptive_lesson(physics,proficiency=p,style=style) for p in PROFICIENCIES]
     body=lambda lesson:' '.join(b['text'] for page in lesson['pages'] for b in page['blocks'])
     assert len({body(lesson) for lesson in views})==3
     for lesson in views:

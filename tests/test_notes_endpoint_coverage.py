@@ -1,5 +1,4 @@
 """Every released Chemistry unit must survive real HTTP serialization and resume."""
-from scripts.audit_notes_endpoints import audit
 from datetime import datetime, timedelta
 from unittest.mock import patch
 
@@ -14,6 +13,8 @@ from database import Base, get_db
 from models import TestHistory as History
 from routers.planning import router as planning_router
 from routers.study import router as study_router
+from scripts.audit_notes_endpoints import audit
+from services.adaptive_content_compiler import PROFICIENCIES
 from services.study_route_service import start_route
 from services.teacher_notes_service import teacher_curricula
 
@@ -42,7 +43,7 @@ def test_timed_notes_continue_past_first_topic_and_save_next_topic_at_expiry():
     app.include_router(study_router)
     app.include_router(planning_router)
     clock = datetime(2026, 11, 16, 10)
-    with Session(engine) as db, TestClient(app) as client, patch('app.config.STUDY_LAB_PLANNING_INTEGRATION', True), \
+    with Session(engine, autoflush=False) as db, TestClient(app) as client, patch('app.config.STUDY_LAB_PLANNING_INTEGRATION', True), \
          patch('services.study_route_service._now', side_effect=lambda: clock):
         app.dependency_overrides[get_db] = lambda: db
         app.dependency_overrides[verify_firebase_user] = lambda: {'uid': 'timed-reader'}
@@ -81,4 +82,33 @@ def test_timed_notes_continue_past_first_topic_and_save_next_topic_at_expiry():
         assert open_topic(third)['study_session']['remaining_seconds'] == 0
         assert open_topic(third, restart=True)['study_session']['remaining_seconds'] == 900
         assert db.query(History).count() == 0
+    engine.dispose()
+
+
+def test_switching_notes_mode_honors_selection_even_with_high_assessment_scores():
+    engine = create_engine('sqlite://', poolclass=StaticPool, connect_args={'check_same_thread': False})
+    Base.metadata.create_all(engine)
+    curriculum = teacher_curricula()[0]
+    unit = curriculum['units'][0]
+    app = FastAPI()
+    app.include_router(study_router)
+    learner = 'changing-mode'
+    evidence = {'topic_heatmap': [{'topic': unit['primary_topic_id'], 'attempts': 4, 'accuracy': 100}]}
+    with Session(engine, autoflush=False) as db, TestClient(app) as client, \
+         patch('Logic.planning.portfolio_engine.get_user_analytics', return_value=evidence):
+        app.dependency_overrides[get_db] = lambda: db
+        app.dependency_overrides[verify_firebase_user] = lambda: {'uid': learner}
+        versions, teaching_views = set(), set()
+        for mode in reversed(PROFICIENCIES):
+            route = start_route(db, user_id=learner, class_level='Class 11', subject='Chemistry',
+                                selections=[{'chapter_ref': curriculum['chapter_slug'], 'chapter_proficiency': mode}])
+            assert route['chapters'][0]['effective_proficiency']['effective'] == 'mostly_confident'
+            response = client.get('/notes/' + curriculum['chapter_slug'], params={'topic_id': unit['id']})
+            assert response.status_code == 200, response.text[:300]
+            notes = response.json()
+            assert notes['proficiency'] == mode
+            assert notes['pages'] and notes['source_types'] == ['NCERT']
+            versions.add(notes['content_version'])
+            teaching_views.add(tuple(block['text'] for page in notes['pages'] for block in page['blocks']))
+        assert len(versions) == len(teaching_views) == 3
     engine.dispose()
